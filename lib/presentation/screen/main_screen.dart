@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/resources/color_res.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'base/base_screen_state.dart';
@@ -11,9 +12,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends BaseScreenState<MainScreen> {
+  int updatedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        bottomNavigationBar: _buildBottomNavigationBar(),
         body: Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height,
@@ -23,7 +27,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                     end: Alignment.bottomCenter,
                     colors: [ColorRes.startGradient, ColorRes.endGradient])),
             child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              /*Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Padding(
                     padding: const EdgeInsets.only(top: 80),
                     child: Center(
@@ -195,7 +199,72 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                             ],
                           )))
                 ]),
-              ]),
+              ]),*/
             ])));
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+        ),
+        child: Container(
+            height: 100,
+            color: ColorRes.endGradient,
+            width: MediaQuery.of(context).size.width,
+            child: Column(children: [
+              Align(
+                  alignment: _getAlignment(updatedIndex),
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                    height: 1,
+                    width: MediaQuery.of(context).size.width / 3.7,
+                    color: ColorRes.green,
+                  )),
+              Container(
+                  margin: const EdgeInsets.only(left: 5, right: 5),
+                  child: BottomNavigationBar(
+                      currentIndex: updatedIndex,
+                      onTap: (index) {
+                        setState(() {
+                          updatedIndex = index;
+                        });
+                        String? label = _buildItems()[index].label;
+                        print("pressed: $label");
+                      },
+                      elevation: 0.0,
+                      backgroundColor: Colors.transparent,
+                      unselectedIconTheme: IconThemeData(color: ColorRes.green, size: 40),
+                      unselectedLabelStyle:
+                          const TextStyle(fontFamily: 'Roboto Thin', fontSize: 16),
+                      unselectedItemColor: Colors.white,
+                      selectedItemColor: ColorRes.green,
+                      selectedIconTheme: IconThemeData(color: ColorRes.green, size: 40),
+                      selectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 16),
+                      items: _buildItems()))
+            ])));
+  }
+
+  Alignment _getAlignment(int index) {
+    Alignment alignment = Alignment.center;
+    switch (index) {
+      case 0:
+        alignment = Alignment.centerLeft;
+        break;
+      case 2:
+        alignment = Alignment.centerRight;
+        break;
+    }
+    return alignment;
+  }
+
+  List<BottomNavigationBarItem> _buildItems() {
+    return const [
+      BottomNavigationBarItem(icon: Icon(Icons.search), label: 'check', tooltip: ""),
+      BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'database', tooltip: ""),
+      BottomNavigationBarItem(icon: Icon(Icons.info), label: 'about', tooltip: ""),
+    ];
   }
 }
