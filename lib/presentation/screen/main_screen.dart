@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/resources/color.dart';
+import 'package:check_my_bike_flutter/resources/color_res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -113,8 +113,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Icon(Icons.account_tree_outlined,
-                                  color: ColorRes.green, size: 48.0),
+                              Icon(Icons.account_tree_outlined, color: ColorRes.green, size: 48.0),
                               const Padding(padding: EdgeInsets.only(top: 15)),
                               const Text("custom",
                                   style: TextStyle(
@@ -146,67 +145,74 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                 ],
               ),
               const Spacer(),
-              Container(
-                height: 1,
-                margin: const EdgeInsets.fromLTRB(250, 0, 25, 0),
-                width: MediaQuery.of(context).size.width,
-                color: ColorRes.green,
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    SizedBox(
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(Icons.search, color: ColorRes.green, size: 40.0),
-                                const Text("check",
-                                    style: TextStyle(
-                                        fontFamily: 'Roboto Thin',
-                                        color: Colors.white,
-                                        fontSize: 16))
-                              ],
-                            ))),
-                    const Spacer(),
-                    SizedBox(
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(Icons.summarize, color: ColorRes.green, size: 40.0),
-                                const Text("database",
-                                    style: TextStyle(
-                                        fontFamily: 'Roboto Thin',
-                                        color: Colors.white,
-                                        fontSize: 16))
-                              ],
-                            ))),
-                    const Spacer(),
-                    SizedBox(
-                        child: TextButton(
-                            onPressed: () {},
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(Icons.info, color: ColorRes.green, size: 40.0),
-                                const Text("about",
-                                    style: TextStyle(
-                                        fontFamily: 'Roboto Thin',
-                                        color: Colors.white,
-                                        fontSize: 16))
-                              ],
-                            ))),
-                    const Spacer(),
-                  ]),
-              const Padding(padding: EdgeInsets.only(bottom: 10))
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                Column(children: [
+                  Container(
+                    height: 1,
+                    width: 80,
+                    color: ColorRes.green,
+                  ),
+                  SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.search, color: ColorRes.green, size: 40.0),
+                              const Text("check",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 16))
+                            ],
+                          )))
+                ]),
+                Column(children: [
+                  Container(
+                    height: 1,
+                    width: 80,
+                    color: ColorRes.divider,
+                  ),
+                  SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.summarize, color: ColorRes.green, size: 40.0),
+                              const Text("database",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 16))
+                            ],
+                          )))
+                ]),
+                Column(children: [
+                  Container(
+                    height: 1,
+                    width: 80,
+                    color: ColorRes.divider,
+                  ),
+                  SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.info, color: ColorRes.green, size: 40.0),
+                              const Text("about",
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 16))
+                            ],
+                          )))
+                ]),
+              ]),
             ])));
   }
 }
