@@ -3,9 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class ColorRes {
-  static var yellow = hexToColor("#FDD835");
-  static var shadow = hexToColor("#A8A9AD");
-  static var blue = hexToColor("#26355A");
+  static var startGradient = hexToColor("#0C0E10");
+  static var endGradient = hexToColor("#384048");
+
+  static Color green = hexToColor("#96E3BF");
+  static Color divider = hexToColor("#353C44");
 
   static Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
     return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));

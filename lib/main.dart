@@ -1,13 +1,13 @@
 import 'package:check_my_bike_flutter/presentation/navigation/navigation_service.dart';
 import 'package:check_my_bike_flutter/presentation/navigation/router.dart' as router;
+import 'package:check_my_bike_flutter/resources/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
-    runApp(App());
-  });
+  runApp(const App());
+  SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(statusBarColor: ColorRes.startGradient));
 }
 
 class App extends StatelessWidget {

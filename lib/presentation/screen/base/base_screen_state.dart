@@ -6,7 +6,7 @@ abstract class BaseScreenState<T extends StatefulWidget> extends State<T> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    // SystemChrome.setEnabledSystemUIOverlays([]);
 
     super.initState();
 
