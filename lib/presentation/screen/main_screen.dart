@@ -211,14 +211,14 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
           hoverColor: Colors.transparent,
         ),
         child: Container(
-            height: 100,
+            height: 80,
             color: ColorRes.endGradient,
             width: MediaQuery.of(context).size.width,
             child: Column(children: [
               Align(
                   alignment: _getAlignment(updatedIndex),
                   child: Container(
-                    margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
+                    margin: const EdgeInsets.only(left: 15, right: 15),
                     height: 1,
                     width: MediaQuery.of(context).size.width / 3.7,
                     color: ColorRes.green,
@@ -236,13 +236,13 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                       },
                       elevation: 0.0,
                       backgroundColor: Colors.transparent,
-                      unselectedIconTheme: IconThemeData(color: ColorRes.green, size: 40),
+                      unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
                       unselectedLabelStyle:
-                          const TextStyle(fontFamily: 'Roboto Thin', fontSize: 16),
+                          const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
                       unselectedItemColor: Colors.white,
                       selectedItemColor: ColorRes.green,
-                      selectedIconTheme: IconThemeData(color: ColorRes.green, size: 40),
-                      selectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 16),
+                      selectedIconTheme: IconThemeData(color: ColorRes.green, size: 30),
+                      selectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
                       items: _buildItems()))
             ])));
   }
