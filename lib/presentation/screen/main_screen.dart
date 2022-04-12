@@ -1,5 +1,4 @@
 import 'package:check_my_bike_flutter/resources/color_res.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'base/base_screen_state.dart';
@@ -24,23 +23,17 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                     end: Alignment.bottomCenter,
                     colors: [ColorRes.startGradient, ColorRes.endGradient])),
             child: Column(children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 80),
-                        child: Center(
-                            child: Text("Check my bike",
-                                style: TextStyle(
-                                    fontFamily: 'Roboto Thin',
-                                    color: ColorRes.green,
-                                    fontSize: 40)))),
-                  ]),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Padding(
+                    padding: const EdgeInsets.only(top: 80),
+                    child: Center(
+                        child: Text("Check my bike",
+                            style: TextStyle(
+                                fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 40)))),
+              ]),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                       height: 150,
@@ -49,7 +42,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                           onPressed: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.subject, color: ColorRes.green, size: 48.0),
                               const Padding(padding: EdgeInsets.only(top: 15)),
@@ -71,7 +63,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                           onPressed: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.settings, color: ColorRes.green, size: 48.0),
                               const Padding(padding: EdgeInsets.only(top: 15)),
@@ -84,7 +75,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
                     height: 2,
@@ -102,7 +92,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                       height: 150,
@@ -111,7 +100,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                           onPressed: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.account_tree_outlined, color: ColorRes.green, size: 48.0),
                               const Padding(padding: EdgeInsets.only(top: 15)),
@@ -133,7 +121,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                           onPressed: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.place_outlined, color: ColorRes.green, size: 48.0),
                               const Padding(padding: EdgeInsets.only(top: 15)),
@@ -158,8 +145,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                       child: TextButton(
                           onPressed: () {},
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.search, color: ColorRes.green, size: 40.0),
                               const Text("check",
@@ -180,8 +165,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                       child: TextButton(
                           onPressed: () {},
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.summarize, color: ColorRes.green, size: 40.0),
                               const Text("database",
