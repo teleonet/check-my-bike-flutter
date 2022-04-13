@@ -16,15 +16,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends BaseScreenState<MainScreen> {
   int _updatedIndex = 0;
 
-  List<Widget> _pages = <Widget>[
-    CheckScreen(),
-    DatabaseScreen(),
-    SettingsScreen()
-    /* OffersView(),
-    HelpView(),
-    ProfileView(),*/
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,182 +30,8 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                   colors: [ColorRes.startGradient, ColorRes.endGradient])),
           child: IndexedStack(
             index: _updatedIndex,
-            children: _pages,
+            children: _buildScreens(),
           ),
-          /*Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 80),
-                    child: Center(
-                        child: Text("Check my bike",
-                            style: TextStyle(
-                                fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 40)))),
-              ]),
-              const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.subject, color: ColorRes.green, size: 48.0),
-                              const Padding(padding: EdgeInsets.only(top: 15)),
-                              const Text("serial",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                            ],
-                          ))),
-                  Container(
-                    height: 100,
-                    width: 2,
-                    margin: const EdgeInsets.only(top: 10),
-                    color: ColorRes.divider,
-                  ),
-                  SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.settings, color: ColorRes.green, size: 48.0),
-                              const Padding(padding: EdgeInsets.only(top: 15)),
-                              const Text("manufacturer",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                            ],
-                          )))
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 2,
-                    width: 100,
-                    margin: const EdgeInsets.only(right: 10),
-                    color: ColorRes.divider,
-                  ),
-                  Container(
-                    height: 2,
-                    margin: const EdgeInsets.only(left: 10),
-                    width: 100,
-                    color: ColorRes.divider,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.account_tree_outlined, color: ColorRes.green, size: 48.0),
-                              const Padding(padding: EdgeInsets.only(top: 15)),
-                              const Text("custom",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                            ],
-                          ))),
-                  Container(
-                    height: 100,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    width: 2,
-                    color: ColorRes.divider,
-                  ),
-                  SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.place_outlined, color: ColorRes.green, size: 48.0),
-                              const Padding(padding: EdgeInsets.only(top: 15)),
-                              const Text("location",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                            ],
-                          )))
-                ],
-              ),
-              const Spacer(),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                Column(children: [
-                  Container(
-                    height: 1,
-                    width: 80,
-                    color: ColorRes.green,
-                  ),
-                  SizedBox(
-                      width: 80,
-                      height: 80,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            children: [
-                              Icon(Icons.search, color: ColorRes.green, size: 40.0),
-                              const Text("check",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 16))
-                            ],
-                          )))
-                ]),
-                Column(children: [
-                  Container(
-                    height: 1,
-                    width: 80,
-                    color: ColorRes.divider,
-                  ),
-                  SizedBox(
-                      width: 80,
-                      height: 80,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            children: [
-                              Icon(Icons.summarize, color: ColorRes.green, size: 40.0),
-                              const Text("database",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 16))
-                            ],
-                          )))
-                ]),
-                Column(children: [
-                  Container(
-                    height: 1,
-                    width: 80,
-                    color: ColorRes.divider,
-                  ),
-                  SizedBox(
-                      width: 80,
-                      height: 80,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(Icons.info, color: ColorRes.green, size: 40.0),
-                              const Text("about",
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 16))
-                            ],
-                          )))
-                ]),
-              ]),*/
         ));
   }
 
@@ -231,7 +48,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
             width: MediaQuery.of(context).size.width,
             child: Column(children: [
               Align(
-                  alignment: _getAlignment(_updatedIndex),
+                  alignment: _getBottomNavigationLIneAlignment(_updatedIndex),
                   child: Container(
                     margin: const EdgeInsets.only(left: 15, right: 15),
                     height: 1,
@@ -246,8 +63,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                         setState(() {
                           _updatedIndex = index;
                         });
-                        String? label = _buildItems()[index].label;
-                        print("pressed: $label");
                       },
                       elevation: 0.0,
                       backgroundColor: Colors.transparent,
@@ -258,11 +73,11 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                       selectedItemColor: ColorRes.green,
                       selectedIconTheme: IconThemeData(color: ColorRes.green, size: 30),
                       selectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
-                      items: _buildItems()))
+                      items: _buildBottomNavigationBarItems()))
             ])));
   }
 
-  Alignment _getAlignment(int index) {
+  Alignment _getBottomNavigationLIneAlignment(int index) {
     Alignment alignment = Alignment.center;
     switch (index) {
       case 0:
@@ -275,11 +90,15 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
     return alignment;
   }
 
-  List<BottomNavigationBarItem> _buildItems() {
+  List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
     return const [
       BottomNavigationBarItem(icon: Icon(Icons.search), label: 'check', tooltip: ""),
       BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'database', tooltip: ""),
       BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'settings', tooltip: ""),
     ];
+  }
+
+  List<Widget> _buildScreens() {
+    return <Widget>[const CheckScreen(), const DatabaseScreen(), const SettingsScreen()];
   }
 }
