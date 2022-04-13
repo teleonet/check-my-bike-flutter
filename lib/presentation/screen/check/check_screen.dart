@@ -1,7 +1,6 @@
 import 'package:check_my_bike_flutter/presentation/screen/check/button_item.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/horizontal_custom_divider.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/vertical_custom_divider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/color_res.dart';
@@ -29,9 +28,9 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
                           fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 40)))),
           const Spacer(),
           Row(children: [
-            Spacer(),
+            const Spacer(),
             ButtonItem("serial", Icons.subject, () {}),
-            VerticaCustomDivider(2, 100),
+            const VerticaCustomDivider(2, 100),
             ButtonItem("manufacturer", Icons.settings, () {}),
             Spacer()
           ]),
@@ -43,11 +42,11 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
             Spacer(),
           ]),
           Row(children: [
-            Spacer(),
+            const Spacer(),
             ButtonItem("custom", Icons.account_tree_outlined, () {}),
-            VerticaCustomDivider(2, 100),
+            const VerticaCustomDivider(2, 100),
             ButtonItem("location", Icons.place_outlined, () {}),
-            Spacer()
+            const Spacer()
           ]),
           const Spacer()
         ]));
