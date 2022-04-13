@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screen/main_screen.dart';
+import '../screen/main/main_screen.dart';
 
 const String SplashScreenRoute = '/';
 const String MainScreenRoute = '/main';

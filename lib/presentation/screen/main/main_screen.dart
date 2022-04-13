@@ -1,8 +1,10 @@
+import 'package:check_my_bike_flutter/presentation/screen/database/database_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/settings/settings_screen.dart';
 import 'package:check_my_bike_flutter/resources/color_res.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'base/base_screen_state.dart';
+import '../base/base_screen_state.dart';
+import '../check/check_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,22 +14,35 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends BaseScreenState<MainScreen> {
-  int updatedIndex = 0;
+  int _updatedIndex = 0;
+
+  List<Widget> _pages = <Widget>[
+    CheckScreen(),
+    DatabaseScreen(),
+    SettingsScreen()
+    /* OffersView(),
+    HelpView(),
+    ProfileView(),*/
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: _buildBottomNavigationBar(),
         body: Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [ColorRes.startGradient, ColorRes.endGradient])),
-            child: Column(children: [
-              /*Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [ColorRes.startGradient, ColorRes.endGradient])),
+          child: IndexedStack(
+            index: _updatedIndex,
+            children: _pages,
+          ),
+          /*Column(children: [
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Padding(
                     padding: const EdgeInsets.only(top: 80),
                     child: Center(
@@ -200,7 +215,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                           )))
                 ]),
               ]),*/
-            ])));
+        ));
   }
 
   Widget _buildBottomNavigationBar() {
@@ -216,7 +231,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
             width: MediaQuery.of(context).size.width,
             child: Column(children: [
               Align(
-                  alignment: _getAlignment(updatedIndex),
+                  alignment: _getAlignment(_updatedIndex),
                   child: Container(
                     margin: const EdgeInsets.only(left: 15, right: 15),
                     height: 1,
@@ -226,10 +241,10 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
               Container(
                   margin: const EdgeInsets.only(left: 5, right: 5),
                   child: BottomNavigationBar(
-                      currentIndex: updatedIndex,
+                      currentIndex: _updatedIndex,
                       onTap: (index) {
                         setState(() {
-                          updatedIndex = index;
+                          _updatedIndex = index;
                         });
                         String? label = _buildItems()[index].label;
                         print("pressed: $label");
@@ -264,7 +279,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
     return const [
       BottomNavigationBarItem(icon: Icon(Icons.search), label: 'check', tooltip: ""),
       BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'database', tooltip: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.info), label: 'about', tooltip: ""),
+      BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'settings', tooltip: ""),
     ];
   }
 }
