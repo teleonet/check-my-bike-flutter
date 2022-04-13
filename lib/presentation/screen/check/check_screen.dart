@@ -1,3 +1,6 @@
+import 'package:check_my_bike_flutter/presentation/screen/check/button_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/widgets/horizontal_custom_divider.dart';
+import 'package:check_my_bike_flutter/presentation/screen/widgets/vertical_custom_divider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +17,7 @@ class CheckScreen extends StatefulWidget {
 class _CheckScreenState extends BaseScreenState<CheckScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: Column(children: [
@@ -26,99 +29,25 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
                           fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 40)))),
           const Spacer(),
           Row(children: [
-            const Spacer(),
-            SizedBox(
-                height: 150,
-                width: 150,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.subject, color: ColorRes.green, size: 48.0),
-                        const Padding(padding: EdgeInsets.only(top: 15)),
-                        const Text("serial",
-                            style: TextStyle(
-                                fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                      ],
-                    ))),
-            Container(
-              height: 100,
-              width: 2,
-              margin: const EdgeInsets.only(top: 10),
-              color: ColorRes.divider,
-            ),
-            SizedBox(
-                height: 150,
-                width: 150,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.settings, color: ColorRes.green, size: 48.0),
-                        const Padding(padding: EdgeInsets.only(top: 15)),
-                        const Text("manufacturer",
-                            style: TextStyle(
-                                fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                      ],
-                    ))),
-            const Spacer()
+            Spacer(),
+            ButtonItem("serial", Icons.subject, () {}),
+            VerticaCustomDivider(2, 100),
+            ButtonItem("manufacturer", Icons.settings, () {}),
+            Spacer()
+          ]),
+          Row(children: const [
+            Spacer(),
+            HorizontalCustomDivider(2, 100),
+            Spacer(),
+            HorizontalCustomDivider(2, 100),
+            Spacer(),
           ]),
           Row(children: [
-            const Spacer(),
-            Container(
-              height: 2,
-              width: 100,
-              color: ColorRes.divider,
-            ),
-            const Spacer(),
-            Container(
-              height: 2,
-              width: 100,
-              color: ColorRes.divider,
-            ),
-            const Spacer(),
-          ]),
-          Row(children: [
-            const Spacer(),
-            SizedBox(
-                height: 150,
-                width: 150,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.account_tree_outlined, color: ColorRes.green, size: 48.0),
-                        const Padding(padding: EdgeInsets.only(top: 15)),
-                        const Text("custom",
-                            style: TextStyle(
-                                fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                      ],
-                    ))),
-            Container(
-              height: 100,
-              width: 2,
-              margin: const EdgeInsets.only(top: 10),
-              color: ColorRes.divider,
-            ),
-            SizedBox(
-                height: 150,
-                width: 150,
-                child: TextButton(
-                    onPressed: () {},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.place_outlined, color: ColorRes.green, size: 48.0),
-                        const Padding(padding: EdgeInsets.only(top: 15)),
-                        const Text("location",
-                            style: TextStyle(
-                                fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20))
-                      ],
-                    ))),
-            const Spacer()
+            Spacer(),
+            ButtonItem("custom", Icons.account_tree_outlined, () {}),
+            VerticaCustomDivider(2, 100),
+            ButtonItem("location", Icons.place_outlined, () {}),
+            Spacer()
           ]),
           const Spacer()
         ]));
