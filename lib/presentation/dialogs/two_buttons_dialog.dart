@@ -9,8 +9,8 @@ class TwoButtonsDialog {
       {Function? onLeftPressed,
       Function? onRightPressed,
       bool autoDismiss = false,
-      bool leftPressedClose = true,
-      bool rightPressedClose = true}) {
+      bool leftPressedDismiss = true,
+      bool rightPressedDismiss = true}) {
     showDialog(
         barrierDismissible: autoDismiss,
         context: context,
@@ -18,20 +18,20 @@ class TwoButtonsDialog {
           return AlertDialog(
             title: _buildTitle(title),
             titlePadding: const EdgeInsets.only(top: 30),
-            shape: _buildBorder(),
+            shape: _buildShapeBorder(),
             backgroundColor: ColorRes.endGradient,
             actionsAlignment: MainAxisAlignment.center,
             actionsPadding: const EdgeInsets.only(top: 20, bottom: 30),
             actions: <Widget>[
               _buildButton("yes", onPressed: () {
-                if (leftPressedClose) {
+                if (leftPressedDismiss) {
                   Navigator.pop(context);
                 }
                 onLeftPressed?.call();
               }),
               const SizedBox(width: 20),
               _buildButton("no", onPressed: () {
-                if (rightPressedClose) {
+                if (rightPressedDismiss) {
                   Navigator.pop(context);
                 }
                 onRightPressed?.call();
@@ -64,7 +64,7 @@ class TwoButtonsDialog {
             fontWeight: FontWeight.bold));
   }
 
-  static ShapeBorder _buildBorder() {
+  static ShapeBorder _buildShapeBorder() {
     return RoundedRectangleBorder(
         side: BorderSide(width: 0.3, color: ColorRes.green),
         borderRadius: const BorderRadius.all(Radius.circular(10)));
