@@ -43,16 +43,16 @@ class ButtonsDialog {
 
   static showOneButton(BuildContext context, String title, String buttonTitle,
       {Function? onPressed, bool autoDismiss = false, bool pressedDismiss = true}) {
-    List<Widget> actionSidgets = [];
+    List<Widget> actionWidgets = [];
 
-    actionSidgets.add(_buildButton(buttonTitle, onPressed: () {
+    actionWidgets.add(_buildButton(buttonTitle, onPressed: () {
       if (pressedDismiss) {
         Navigator.pop(context);
       }
       onPressed?.call();
     }));
 
-    show(context, title, actionSidgets);
+    show(context, title, actionWidgets);
   }
 
   static Widget _buildButton(String title, {Function? onPressed}) {
