@@ -17,6 +17,8 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
+  bool _active = false;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -43,9 +45,19 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
           SettingsItem(
               Icons.volume_up,
               "sounds",
-              Text("off",
-                  style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
-              () {}),
+              CupertinoSwitch(
+                  onChanged: (active) {
+                    setState(() {
+                      _active = !_active;
+                    });
+                  },
+                  thumbColor: ColorRes.divider,
+                  trackColor: ColorRes.darkGreen,
+                  activeColor: ColorRes.green,
+                  value: _active),
+              () => setState(() {
+                    _active = !_active;
+                  })),
           const Spacer(),
           Center(
               child: Text("build 1.0.0",

@@ -6,6 +6,7 @@ class ColorRes {
   static var startGradient = hexToColor("#0C0E10");
   static var endGradient = hexToColor("#384048");
 
+  static var darkGreen = hexToColor("#5a8872");
   static Color green = hexToColor("#96E3BF");
   static Color divider = hexToColor("#353C44");
 
