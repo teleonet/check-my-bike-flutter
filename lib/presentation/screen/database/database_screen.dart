@@ -1,6 +1,6 @@
+import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../resources/color_res.dart';
 import '../base/base_screen_state.dart';
 
 class DatabaseScreen extends StatefulWidget {
@@ -13,11 +13,9 @@ class DatabaseScreen extends StatefulWidget {
 class _DatabaseScreenState extends BaseScreenState<DatabaseScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      child: Text("Database screen",
-          style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 40)),
-    );
+    return SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        child: Column(children: const [Header("Database"), Spacer()]));
   }
 }
