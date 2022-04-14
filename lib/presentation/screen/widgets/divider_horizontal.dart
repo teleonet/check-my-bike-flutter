@@ -3,17 +3,17 @@ import 'package:flutter/cupertino.dart';
 import '../../../resources/color_res.dart';
 import '../base/base_screen_state.dart';
 
-class HorizontalCustomDivider extends StatefulWidget {
-  const HorizontalCustomDivider(this._thickness, this._width, {Key? key}) : super(key: key);
+class DividerHorizontal extends StatefulWidget {
+  const DividerHorizontal(this._thickness, this._width, {Key? key}) : super(key: key);
 
   final double _thickness;
   final double _width;
 
   @override
-  _HorizontalCustomDividerState createState() => _HorizontalCustomDividerState();
+  _DividerHorizontalState createState() => _DividerHorizontalState();
 }
 
-class _HorizontalCustomDividerState extends BaseScreenState<HorizontalCustomDivider> {
+class _DividerHorizontalState extends BaseScreenState<DividerHorizontal> {
   @override
   Widget build(BuildContext context) {
     return Container(

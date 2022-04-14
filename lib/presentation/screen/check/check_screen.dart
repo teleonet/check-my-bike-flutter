@@ -1,6 +1,6 @@
 import 'package:check_my_bike_flutter/presentation/screen/check/button_item.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/horizontal_custom_divider.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/vertical_custom_divider.dart';
+import 'package:check_my_bike_flutter/presentation/screen/widgets/divider_horizontal.dart';
+import 'package:check_my_bike_flutter/presentation/screen/widgets/divider_vertical.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/color_res.dart';
@@ -29,23 +29,31 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           const Spacer(),
           Row(children: [
             const Spacer(),
-            ButtonItem("serial", Icons.subject, () {}),
-            const VerticaCustomDivider(2, 100),
-            ButtonItem("manufacturer", Icons.settings, () {}),
-            Spacer()
+            ButtonItem("serial", Icons.subject, () {
+              //todo
+            }),
+            const DividerVertical(2, 100),
+            ButtonItem("manufacturer", Icons.settings, () {
+              //todo
+            }),
+            const Spacer()
           ]),
           Row(children: const [
             Spacer(),
-            HorizontalCustomDivider(2, 100),
+            DividerHorizontal(2, 100),
             Spacer(),
-            HorizontalCustomDivider(2, 100),
+            DividerHorizontal(2, 100),
             Spacer(),
           ]),
           Row(children: [
             const Spacer(),
-            ButtonItem("custom", Icons.account_tree_outlined, () {}),
-            const VerticaCustomDivider(2, 100),
-            ButtonItem("location", Icons.place_outlined, () {}),
+            ButtonItem("custom", Icons.account_tree_outlined, () {
+              //todo
+            }),
+            const DividerVertical(2, 100),
+            ButtonItem("location", Icons.place_outlined, () {
+              //todo
+            }),
             const Spacer()
           ]),
           const Spacer()
