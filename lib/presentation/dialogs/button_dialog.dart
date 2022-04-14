@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../resources/color_res.dart';
 
-class ButtonsDialog {
-  ButtonsDialog._();
+class ButtonDialog {
+  //todo: need to refactor in pattern "template method"
+
+  ButtonDialog._();
 
   static showYesNo(BuildContext context, String title, Function onYesPressed) {
     showTwoButtons(context, title, "yes", "no", onLeftPressed: onYesPressed);
