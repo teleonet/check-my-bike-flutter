@@ -32,7 +32,9 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               "language",
               Text("eng",
                   style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
-              () {}),
+              () => ButtonDialog.showLanguages(context, "Language", (language) {
+                    print("pressed: language ${language?.name}");
+                  })),
           const Padding(padding: EdgeInsets.only(top: 30)),
           SettingsItem(
               Icons.star,

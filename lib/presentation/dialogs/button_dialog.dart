@@ -1,14 +1,40 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/color_res.dart';
+import '../screen/settings/language_sliding.dart';
 
 class ButtonDialog {
   //todo: need to refactor in pattern "template method"
 
   ButtonDialog._();
 
+  static showLanguages(BuildContext context, String title, Function(Language? language) onPressed) {
+    Language? selectedLanguage;
+
+    List<Widget> widgets = [];
+
+    widgets.add(Center(child: LanguageSliding((language) {
+      selectedLanguage = language;
+    })));
+
+    widgets.add(const Padding(padding: EdgeInsets.only(top: 30)));
+
+    widgets.add(Center(
+        child: _buildButton("Apply", onPressed: () {
+      onPressed.call(selectedLanguage);
+      Navigator.pop(context);
+    })));
+
+    show(context, title, widgets);
+  }
+
   static showYesNo(BuildContext context, String title, Function onYesPressed) {
     showTwoButtons(context, title, "yes", "no", onLeftPressed: onYesPressed);
+  }
+
+  static showOk(BuildContext context, String title) {
+    showOneButton(context, title, "ok");
   }
 
   static showTwoButtons(
@@ -37,10 +63,6 @@ class ButtonDialog {
     }));
 
     show(context, title, actionWidgets, autoDismiss: autoDismiss);
-  }
-
-  static showOk(BuildContext context, String title) {
-    showOneButton(context, title, "ok");
   }
 
   static showOneButton(BuildContext context, String title, String buttonTitle,
