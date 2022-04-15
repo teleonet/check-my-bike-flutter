@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/language_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,17 +33,16 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               "language",
               Text("eng",
                   style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
-              () => ButtonDialog.showLanguages(context, "Language", (language) {
-                    print("pressed: language ${language?.name}");
-                  })),
+              () => LanguageDialog((language) => print("pressed: language ${language.name}"))
+                  .show(context, "Language")),
           const Padding(padding: EdgeInsets.only(top: 30)),
           SettingsItem(
               Icons.star,
               "clear favorites",
               Text("18",
                   style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
-              () => ButtonDialog.showYesNo(
-                  context, "Do you want to clear?", () => print("pressed: Clear favorites"))),
+              () => YesNoDialog(() => print("pressed: Clear favorites"))
+                  .show(context, "Do you want to clear?")),
           const Padding(padding: EdgeInsets.only(top: 30)),
           SettingsItem(
               Icons.volume_up,
