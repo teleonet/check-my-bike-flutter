@@ -5,13 +5,13 @@ import '../../resources/color_res.dart';
 abstract class BaseDialog {
   List<Widget> getWidgetsTemplateMethod(BuildContext context);
 
-  void show(BuildContext context, String title, {bool autoDismiss = false}) {
+  void show(BuildContext context, String title, {bool dismissTouchOutside = false}) {
     List<Widget> widgets = getWidgetsTemplateMethod(context);
 
     Widget dialog = _build(widgets, title);
 
     showDialog(
-        barrierDismissible: autoDismiss,
+        barrierDismissible: dismissTouchOutside,
         context: context,
         builder: (_) {
           return dialog;

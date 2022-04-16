@@ -4,13 +4,13 @@ import '../../../resources/color_res.dart';
 import '../base/base_screen_state.dart';
 
 class SettingsItem extends StatefulWidget {
-  const SettingsItem(this._icon, this._title, this._innerWidget, this._callback, {Key? key})
-      : super(key: key);
-
   final IconData _icon;
   final String _title;
   final Widget _innerWidget;
-  final Function? _callback;
+  final Function? _onPressed;
+
+  const SettingsItem(this._icon, this._title, this._innerWidget, this._onPressed, {Key? key})
+      : super(key: key);
 
   @override
   _SettingsItemState createState() => _SettingsItemState();
@@ -31,7 +31,7 @@ class _SettingsItemState extends BaseScreenState<SettingsItem> {
             style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(
                     const EdgeInsets.only(left: 20, right: 20))),
-            onPressed: () => widget._callback?.call(),
+            onPressed: () => widget._onPressed?.call(),
             child: Row(children: [
               Icon(widget._icon, color: ColorRes.green, size: 25.0),
               const Spacer(),

@@ -1,20 +1,22 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../extensions/base_extensions.dart';
+import '../models/language.dart';
 import '../screen/settings/language_sliding.dart';
 
 class LanguageDialog extends ButtonDialog {
-  Language? _selectedLanguage;
   final Function(Language) _callback;
+  final List<Language> _languages;
+  Language _selectedLanguage;
 
-  LanguageDialog(this._callback);
+  LanguageDialog(this._languages, this._selectedLanguage, this._callback);
 
   @override
   List<Widget> getWidgetsTemplateMethod(BuildContext context) {
     List<Widget> widgets = [];
 
-    widgets.add(Center(child: LanguageSliding((language) {
+    widgets.add(Center(
+        child: LanguageSliding(_languages, _selectedLanguage, (language) {
       _selectedLanguage = language;
     })));
 
@@ -23,7 +25,7 @@ class LanguageDialog extends ButtonDialog {
     widgets.add(Center(
         child: buildButton("Apply", onPressed: () {
       Navigator.pop(context);
-      _selectedLanguage.isNotNull<Language>((value) => _callback.call(value));
+      _callback.call(_selectedLanguage);
     })));
 
     return widgets;

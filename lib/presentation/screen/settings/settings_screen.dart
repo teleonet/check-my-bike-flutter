@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:check_my_bike_flutter/presentation/dialogs/language_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/models/language.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,17 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
   bool _active = false;
 
+  //todo: need move, only for development
+  List<Language> _buildLanguages() {
+    List<Language> languages = [];
+
+    languages.add(const Language("ENG", 'assets/icons/ic_flag_eng.png'));
+    languages.add(const Language("UA", 'assets/icons/ic_flag_ua.png'));
+    languages.add(const Language("PL", 'assets/icons/ic_flag_pl.png'));
+
+    return languages;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,8 +43,9 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               "language",
               Text("eng",
                   style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
-              () => LanguageDialog((language) => print("pressed: language ${language.name}"))
-                  .show(context, "Language")),
+              () => LanguageDialog(_buildLanguages(), _buildLanguages()[1],
+                      (language) => print("pressed: language ${language.name}"))
+                  .show(context, "Language", dismissTouchOutside: true)),
           const Padding(padding: EdgeInsets.only(top: 30)),
           SettingsItem(
               Icons.star,
@@ -60,12 +71,14 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               () => setState(() {
                     _active = !_active;
                   })),
+          const Padding(padding: EdgeInsets.only(top: 30)),
+          SettingsItem(
+              Icons.info,
+              "info",
+              Text("1.0.0",
+                  style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
+              () {}),
           const Spacer(),
-          Center(
-              child: Text("build 1.0.0",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Roboto Thin', color: ColorRes.startGradient, fontSize: 10))),
         ]));
   }
 }
