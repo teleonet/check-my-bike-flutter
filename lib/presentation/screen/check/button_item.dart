@@ -4,11 +4,11 @@ import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
 class ButtonItem extends StatefulWidget {
-  const ButtonItem(this._text, this._icon, this._callback, {Key? key}) : super(key: key);
-
   final String _text;
   final IconData _icon;
   final Function _callback;
+
+  const ButtonItem(this._text, this._icon, this._callback, {Key? key}) : super(key: key);
 
   @override
   _ButtonItemState createState() => _ButtonItemState();

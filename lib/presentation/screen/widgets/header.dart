@@ -4,9 +4,9 @@ import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
 class Header extends StatefulWidget {
-  const Header(this._text, {Key? key}) : super(key: key);
-
   final String _text;
+
+  const Header(this._text, {Key? key}) : super(key: key);
 
   @override
   _HeaderState createState() => _HeaderState();

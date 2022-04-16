@@ -26,7 +26,7 @@ class _LanguageSlidingState extends BaseScreenState<LanguageSliding> {
         backgroundColor: ColorsRes.dartGrey,
         thumbColor: ColorsRes.endGradient,
         groupValue: widget._currentLanguageIndex,
-        children: _buildWidgetMap(),
+        children: _buildWidgetsMap(),
         onValueChanged: (currentLanguageIndex) {
           setState(() => widget._currentLanguageIndex = currentLanguageIndex as int);
 
@@ -35,18 +35,18 @@ class _LanguageSlidingState extends BaseScreenState<LanguageSliding> {
         });
   }
 
-  Map<int, Widget> _buildWidgetMap() {
+  Map<int, Widget> _buildWidgetsMap() {
     Map<int, Widget> children = {};
 
     for (int index = 0; index < widget._languages.length; index++) {
       Language languageItem = widget._languages[index];
-      children[index] = _buildLanguageWidget(index, languageItem);
+      children[index] = _buildWidget(index, languageItem);
     }
 
     return children;
   }
 
-  Widget _buildLanguageWidget(int index, Language languageItem) {
+  Widget _buildWidget(int index, Language languageItem) {
     return Image.asset(
       languageItem.iconPath,
       height: 60,
