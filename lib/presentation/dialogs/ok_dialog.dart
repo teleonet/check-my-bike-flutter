@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/material.dart';
 
-import '../../resources/color_res.dart';
+import '../../resources/colors_res.dart';
 
 class OKDialog extends ButtonDialog {
   final String _text;
@@ -17,7 +17,7 @@ class OKDialog extends ButtonDialog {
 
     widgets.add(Center(
         child: Text(_text,
-            style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20))));
+            style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20))));
 
     widgets.add(const Padding(padding: EdgeInsets.only(top: 30)));
 

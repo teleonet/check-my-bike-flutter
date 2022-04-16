@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../resources/color_res.dart';
+import '../../resources/colors_res.dart';
 
 abstract class BaseDialog {
   List<Widget> getWidgetsTemplateMethod(BuildContext context);
@@ -23,7 +23,7 @@ abstract class BaseDialog {
       title: _buildTitle(title),
       titlePadding: const EdgeInsets.only(top: 30),
       shape: _buildShapeBorder(),
-      backgroundColor: ColorRes.endGradient,
+      backgroundColor: ColorsRes.endGradient,
       actionsAlignment: MainAxisAlignment.center,
       actionsPadding: const EdgeInsets.only(top: 20, bottom: 30),
       actions: widgets,
@@ -35,14 +35,14 @@ abstract class BaseDialog {
         textAlign: TextAlign.center,
         style: TextStyle(
             fontFamily: 'Roboto Thin',
-            color: ColorRes.green,
+            color: ColorsRes.green,
             fontSize: 20,
             fontWeight: FontWeight.bold));
   }
 
   ShapeBorder _buildShapeBorder() {
     return RoundedRectangleBorder(
-        side: BorderSide(width: 0.3, color: ColorRes.green),
+        side: BorderSide(width: 0.3, color: ColorsRes.green),
         borderRadius: const BorderRadius.all(Radius.circular(10)));
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../resources/color_res.dart';
+import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
 class DividerVertical extends StatefulWidget {
@@ -19,7 +19,7 @@ class _DividerVerticalState extends BaseScreenState<DividerVertical> {
     return Container(
       height: widget._height,
       width: widget._thickness,
-      color: ColorRes.divider,
+      color: ColorsRes.divider,
     );
   }
 }

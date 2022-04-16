@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class ColorRes {
+class ColorsRes {
   static var startGradient = hexToColor("#0C0E10");
   static var endGradient = hexToColor("#384048");
 

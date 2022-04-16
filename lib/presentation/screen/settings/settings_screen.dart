@@ -5,7 +5,7 @@ import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../resources/color_res.dart';
+import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 import '../widgets/header.dart';
 
@@ -42,7 +42,8 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               Icons.language,
               "language",
               Text("eng",
-                  style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
+                  style:
+                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
               () => LanguageDialog(_buildLanguages(), _buildLanguages()[1],
                       (language) => print("pressed: language ${language.name}"))
                   .show(context, "Language", dismissTouchOutside: true)),
@@ -51,7 +52,8 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               Icons.star,
               "clear favorites",
               Text("18",
-                  style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
+                  style:
+                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
               () => YesNoDialog(() => print("pressed: Clear favorites"))
                   .show(context, "Do you want to clear?")),
           const Padding(padding: EdgeInsets.only(top: 30)),
@@ -64,9 +66,9 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
                       _active = !_active;
                     });
                   },
-                  thumbColor: ColorRes.divider,
-                  trackColor: ColorRes.darkGreen,
-                  activeColor: ColorRes.green,
+                  thumbColor: ColorsRes.divider,
+                  trackColor: ColorsRes.darkGreen,
+                  activeColor: ColorsRes.green,
                   value: _active),
               () => setState(() {
                     _active = !_active;
@@ -76,7 +78,8 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
               Icons.info,
               "info",
               Text("1.0.0",
-                  style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
+                  style:
+                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
               () {}),
           const Spacer(),
         ]));

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../resources/color_res.dart';
+import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
 class ButtonItem extends StatefulWidget {
@@ -27,7 +27,7 @@ class _ButtonItemState extends BaseScreenState<ButtonItem> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(widget._icon, color: ColorRes.green, size: 48.0),
+                Icon(widget._icon, color: ColorsRes.green, size: 48.0),
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 Text(widget._text,
                     style: const TextStyle(

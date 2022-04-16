@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../resources/color_res.dart';
+import '../../../resources/colors_res.dart';
 import '../../models/language.dart';
 import '../base/base_screen_state.dart';
 
@@ -23,8 +23,8 @@ class _LanguageSlidingState extends BaseScreenState<LanguageSliding> {
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl(
-        backgroundColor: ColorRes.dartGrey,
-        thumbColor: ColorRes.endGradient,
+        backgroundColor: ColorsRes.dartGrey,
+        thumbColor: ColorsRes.endGradient,
         groupValue: widget._currentLanguageIndex,
         children: _buildWidgetMap(),
         onValueChanged: (currentLanguageIndex) {

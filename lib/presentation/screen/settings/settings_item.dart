@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../resources/color_res.dart';
+import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
 class SettingsItem extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SettingsItemState extends BaseScreenState<SettingsItem> {
         margin: const EdgeInsets.only(left: 20, right: 20),
         decoration: BoxDecoration(
             color: Colors.transparent,
-            border: Border.all(color: ColorRes.green),
+            border: Border.all(color: ColorsRes.green),
             borderRadius: const BorderRadius.all(Radius.elliptical(10, 10))),
         height: 50,
         width: MediaQuery.of(context).size.width,
@@ -33,10 +33,11 @@ class _SettingsItemState extends BaseScreenState<SettingsItem> {
                     const EdgeInsets.only(left: 20, right: 20))),
             onPressed: () => widget._onPressed?.call(),
             child: Row(children: [
-              Icon(widget._icon, color: ColorRes.green, size: 25.0),
+              Icon(widget._icon, color: ColorsRes.green, size: 25.0),
               const Spacer(),
               Text(widget._title,
-                  style: TextStyle(fontFamily: 'Roboto Thin', color: ColorRes.green, fontSize: 20)),
+                  style:
+                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
               const Spacer(),
               widget._innerWidget
             ])));

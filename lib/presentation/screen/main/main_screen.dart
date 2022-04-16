@@ -1,6 +1,6 @@
 import 'package:check_my_bike_flutter/presentation/screen/database/database_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_screen.dart';
-import 'package:check_my_bike_flutter/resources/color_res.dart';
+import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 
 import '../base/base_screen_state.dart';
@@ -27,7 +27,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [ColorRes.startGradient, ColorRes.endGradient])),
+                  colors: [ColorsRes.startGradient, ColorsRes.endGradient])),
           child: IndexedStack(
             index: _updatedIndex,
             children: _buildScreens(),
@@ -44,7 +44,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
         ),
         child: Container(
             height: 80,
-            color: ColorRes.endGradient,
+            color: ColorsRes.endGradient,
             width: MediaQuery.of(context).size.width,
             child: Column(children: [
               Align(
@@ -53,7 +53,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                     margin: const EdgeInsets.only(left: 15, right: 15),
                     height: 1,
                     width: MediaQuery.of(context).size.width / 3.7,
-                    color: ColorRes.green,
+                    color: ColorsRes.green,
                   )),
               Container(
                   margin: const EdgeInsets.only(left: 5, right: 5),
@@ -70,8 +70,8 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
                       unselectedLabelStyle:
                           const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
                       unselectedItemColor: Colors.white,
-                      selectedItemColor: ColorRes.green,
-                      selectedIconTheme: IconThemeData(color: ColorRes.green, size: 30),
+                      selectedItemColor: ColorsRes.green,
+                      selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
                       selectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
                       items: _buildBottomNavigationBarItems()))
             ])));
