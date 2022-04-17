@@ -1,3 +1,4 @@
+import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 
 import '../../base/base_screen_state.dart';
@@ -14,15 +15,24 @@ class _DatabaseByNameScreenState extends BaseScreenState<DatabaseByNameScreen> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Container(
-          margin: const EdgeInsets.only(left: 30, right: 30, top: 10),
+          margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
           child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                borderSide: BorderSide(color: Colors.white),
-              ),
-            ),
-          ))
+              maxLines: 1,
+              cursorColor: ColorsRes.green,
+              autofocus: false,
+              style: TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin'),
+              decoration: InputDecoration(
+                labelStyle: TextStyle(color: ColorsRes.green),
+                labelText: "Manufacturer's name",
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: ColorsRes.green, width: 0.5),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  borderSide: BorderSide(color: ColorsRes.darkGreen, width: 0.5),
+                ),
+              )))
     ]);
   }
 }
