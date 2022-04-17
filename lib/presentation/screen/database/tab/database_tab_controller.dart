@@ -1,5 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/screen/database/all/database_all.dart';
-import 'package:check_my_bike_flutter/presentation/screen/database/by_name/database_by_name.dart';
 import 'package:check_my_bike_flutter/presentation/screen/database/tab/database_tab_item.dart';
 import 'package:flutter/material.dart';
 
@@ -7,23 +5,27 @@ import '../../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
 
 class DatabaseTabController extends StatefulWidget {
-  const DatabaseTabController({Key? key}) : super(key: key);
+  final List<Widget> _screens;
+
+  const DatabaseTabController(this._screens, {Key? key}) : super(key: key);
 
   @override
   _DatabaseTabControllerState createState() => _DatabaseTabControllerState();
 }
 
 class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController> {
-  final List<Widget> _widgets = [const DatabaseAll(), const DatabaseByName()];
+  Widget? _currentScreen;
 
-  //todo: need refactor to get current widget from list instead of init one more widget
-  Widget _currentWidget = const DatabaseAll();
+  _DatabaseTabControllerState() {
+    _currentScreen = widget._screens[0];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       DefaultTabController(
-          length: _widgets.length,
+          initialIndex: 0,
+          length: widget._screens.length,
           child: TabBar(
             indicatorWeight: 0.5,
             indicatorSize: TabBarIndicatorSize.label,
@@ -34,7 +36,7 @@ class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController>
             unselectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 18),
             onTap: (index) {
               setState(() {
-                _currentWidget = _widgets[index];
+                _currentScreen = widget._screens[index];
               });
             },
             tabs: const <Widget>[
@@ -42,7 +44,8 @@ class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController>
               DatabaseTabItem("By name"),
             ],
           )),
-      Container(child: _currentWidget)
+      //todo: added animation
+      Container(child: _currentScreen)
     ]);
   }
 }
