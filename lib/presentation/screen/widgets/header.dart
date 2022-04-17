@@ -16,7 +16,7 @@ class _HeaderState extends BaseScreenState<Header> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 60),
+        padding: const EdgeInsets.only(top: 40),
         child: Center(
             child: Text(widget._text,
                 style:
