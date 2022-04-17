@@ -16,10 +16,6 @@ class DatabaseTabController extends StatefulWidget {
 class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController> {
   Widget? _currentScreen;
 
-  _DatabaseTabControllerState() {
-    _currentScreen = widget._screens[0];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -44,8 +40,8 @@ class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController>
               DatabaseTabItem("By name"),
             ],
           )),
-      //todo: added animation
-      Container(child: _currentScreen)
+      //todo: add animation
+      Container(child: _currentScreen ?? widget._screens[0])
     ]);
   }
 }
