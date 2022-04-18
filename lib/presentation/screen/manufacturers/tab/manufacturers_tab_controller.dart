@@ -1,19 +1,19 @@
-import 'package:check_my_bike_flutter/presentation/screen/database/tab/database_tab_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
+import 'manufacturers_tab_item.dart';
 
-class DatabaseTabController extends StatefulWidget {
+class ManufacturersTabController extends StatefulWidget {
   final List<Widget> _screens;
 
-  const DatabaseTabController(this._screens, {Key? key}) : super(key: key);
+  const ManufacturersTabController(this._screens, {Key? key}) : super(key: key);
 
   @override
-  _DatabaseTabControllerState createState() => _DatabaseTabControllerState();
+  _ManufacturersTabControllerState createState() => _ManufacturersTabControllerState();
 }
 
-class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController> {
+class _ManufacturersTabControllerState extends BaseScreenState<ManufacturersTabController> {
   Widget? _currentScreen;
 
   @override
@@ -36,8 +36,9 @@ class _DatabaseTabControllerState extends BaseScreenState<DatabaseTabController>
               });
             },
             tabs: const <Widget>[
-              DatabaseTabItem("All"),
-              DatabaseTabItem("By name"),
+              ManufacturersTabItem("All"),
+              ManufacturersTabItem("Search"),
+              ManufacturersTabItem("Favorites"),
             ],
           )),
       //todo: add animation

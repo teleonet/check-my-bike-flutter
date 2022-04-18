@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/screen/database/database_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
@@ -93,12 +93,12 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
   List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
     return const [
       BottomNavigationBarItem(icon: Icon(Icons.search), label: 'check', tooltip: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'database', tooltip: ""),
+      BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'manufacturers', tooltip: ""),
       BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'settings', tooltip: ""),
     ];
   }
 
   List<Widget> _buildScreens() {
-    return <Widget>[const CheckScreen(), const DatabaseScreen(), const SettingsScreen()];
+    return <Widget>[const CheckScreen(), const ManufacturersScreen(), const SettingsScreen()];
   }
 }

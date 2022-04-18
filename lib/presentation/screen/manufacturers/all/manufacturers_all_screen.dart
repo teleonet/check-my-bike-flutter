@@ -6,17 +6,17 @@ import '../../../models/manufacturer.dart';
 import '../../base/base_screen_state.dart';
 import '../manufacturer_item.dart';
 
-class DatabaseAllScreen extends StatefulWidget {
-  const DatabaseAllScreen({Key? key}) : super(key: key);
+class ManufacturersAllScreen extends StatefulWidget {
+  const ManufacturersAllScreen({Key? key}) : super(key: key);
 
   @override
-  _DatabaseAllScreenState createState() => _DatabaseAllScreenState();
+  _ManufacturersAllScreenState createState() => _ManufacturersAllScreenState();
 }
 
-class _DatabaseAllScreenState extends BaseScreenState<DatabaseAllScreen> {
+class _ManufacturersAllScreenState extends BaseScreenState<ManufacturersAllScreen> {
   List<Manufacturer>? _items;
 
-  _DatabaseAllScreenState() {
+  _ManufacturersAllScreenState() {
     _items = _buildItems();
   }
 

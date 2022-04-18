@@ -8,14 +8,14 @@ import '../../../validator/validator.dart';
 import '../../base/base_screen_state.dart';
 import '../manufacturer_item.dart';
 
-class DatabaseByNameScreen extends StatefulWidget {
-  const DatabaseByNameScreen({Key? key}) : super(key: key);
+class ManufacturersSearchScreen extends StatefulWidget {
+  const ManufacturersSearchScreen({Key? key}) : super(key: key);
 
   @override
-  _DatabaseByNameScreenState createState() => _DatabaseByNameScreenState();
+  _ManufacturersSearchScreenState createState() => _ManufacturersSearchScreenState();
 }
 
-class _DatabaseByNameScreenState extends BaseScreenState<DatabaseByNameScreen> {
+class _ManufacturersSearchScreenState extends BaseScreenState<ManufacturersSearchScreen> {
   List<Manufacturer> _items = [];
 
   //todo: mock items, only for development

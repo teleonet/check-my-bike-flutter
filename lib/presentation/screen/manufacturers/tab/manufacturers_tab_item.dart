@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../base/base_screen_state.dart';
 
-class DatabaseTabItem extends StatefulWidget {
+class ManufacturersTabItem extends StatefulWidget {
   final String _title;
 
-  const DatabaseTabItem(this._title, {Key? key}) : super(key: key);
+  const ManufacturersTabItem(this._title, {Key? key}) : super(key: key);
 
   @override
-  _DatabaseTabItemState createState() => _DatabaseTabItemState();
+  _ManufacturersTabItemState createState() => _ManufacturersTabItemState();
 }
 
-class _DatabaseTabItemState extends BaseScreenState<DatabaseTabItem> {
+class _ManufacturersTabItemState extends BaseScreenState<ManufacturersTabItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
