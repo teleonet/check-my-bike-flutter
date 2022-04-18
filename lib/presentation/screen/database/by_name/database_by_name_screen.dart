@@ -1,6 +1,8 @@
 import 'package:check_my_bike_flutter/presentation/models/manufacturer.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/input_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../validator/validator.dart';
 import '../../base/base_screen_state.dart';
@@ -77,11 +79,19 @@ class _DatabaseByNameScreenState extends BaseScreenState<DatabaseByNameScreen> {
                         _items![index],
                         (manufacturer) => print(
                             "pressed: ${manufacturer.name}, favorite: ${manufacturer.favorite}"),
-                        (manufacturer) => print(
-                            "pressed: ${manufacturer.name}, url: ${manufacturer.companyUrl}"))),
+                        (manufacturer) => _openURL(manufacturer.companyUrl))),
               );
             },
           ))
     ]);
+  }
+
+  void _openURL(String url) async {
+    try {
+      //todo: need add parameters for Android and IOS => https://pub.dev/packages/url_launcher
+      await launch(url);
+    } on MissingPluginException catch (e) {
+      print("ERROR: $e");
+    }
   }
 }
