@@ -16,11 +16,7 @@ class DatabaseByNameScreen extends StatefulWidget {
 }
 
 class _DatabaseByNameScreenState extends BaseScreenState<DatabaseByNameScreen> {
-  List<Manufacturer>? _items;
-
-  _DatabaseByNameScreenState() {
-    _items = _buildItems();
-  }
+  List<Manufacturer> _items = [];
 
   //todo: mock items, only for development
   List<Manufacturer> _buildItems() {
@@ -60,8 +56,16 @@ class _DatabaseByNameScreenState extends BaseScreenState<DatabaseByNameScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      InputForm("Manufacturer's name", (text) => print("pressed find by name: $text"), (text) {
-        return Validator.moreThenOneSymbol(text);
+      InputForm("Manufacturer's name", (text) {
+        _items = _buildItems();
+        setState(() => {});
+      }, (text) {
+        bool valid = Validator.moreThenOneSymbol(text);
+        if (!valid) {
+          _items = [];
+        }
+        setState(() => {});
+        return valid;
       }, "Please enter more then 1 symbols"),
       Container(
           margin: const EdgeInsets.only(top: 15),
@@ -70,13 +74,13 @@ class _DatabaseByNameScreenState extends BaseScreenState<DatabaseByNameScreen> {
             padding: EdgeInsets.zero,
             physics: const ScrollPhysics(),
             scrollDirection: Axis.vertical,
-            itemCount: _items?.length,
+            itemCount: _items.length,
             itemBuilder: (context, index) {
               return Container(
                 color: Colors.transparent,
                 child: Center(
                     child: ManufacturerItem(
-                        _items![index],
+                        _items[index],
                         (manufacturer) => print(
                             "pressed: ${manufacturer.name}, favorite: ${manufacturer.favorite}"),
                         (manufacturer) => _openURL(manufacturer.companyUrl))),

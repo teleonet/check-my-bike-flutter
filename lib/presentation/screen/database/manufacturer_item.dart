@@ -22,11 +22,12 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 10),
+        margin: const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 5),
         decoration: BoxDecoration(
+            boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.02))],
             gradient: LinearGradient(
                 stops: const [0.01, 0.01], colors: [ColorsRes.green, Colors.transparent]),
-            border: Border.all(width: 0.5, color: ColorsRes.green.withOpacity(0.1)),
+            border: Border.all(width: 0.5, color: ColorsRes.green.withOpacity(0.2)),
             borderRadius: const BorderRadius.all(Radius.circular(10))),
         child: TextButton(
             style: TextButton.styleFrom(

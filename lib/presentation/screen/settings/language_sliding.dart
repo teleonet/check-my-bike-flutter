@@ -23,7 +23,7 @@ class _LanguageSlidingState extends BaseScreenState<LanguageSliding> {
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl(
-        backgroundColor: ColorsRes.dartGrey,
+        backgroundColor: ColorsRes.darkGrey,
         thumbColor: ColorsRes.endGradient,
         groupValue: widget._currentLanguageIndex,
         children: _buildWidgetsMap(),
