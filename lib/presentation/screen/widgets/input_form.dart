@@ -26,6 +26,7 @@ class _InputFormState extends BaseScreenState<InputForm> {
     return Container(
         margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
         child: TextFormField(
+            focusNode: FocusNode(canRequestFocus: false),
             key: _formKey,
             onEditingComplete: () => _pressedSearch(),
             validator: (text) {

@@ -13,9 +13,9 @@ class Manufacturer {
 
   bool _favorite;
 
-  get favorite => _favorite;
+  get isFavorite => _favorite;
 
-  set favorite(favorite) => _favorite = favorite;
+  set isFavorite(favorite) => _favorite = favorite;
 
   Manufacturer(this._name, this._companyUrl, this._favorite, {String imageUrl = ""})
       : _imageUrl = imageUrl;

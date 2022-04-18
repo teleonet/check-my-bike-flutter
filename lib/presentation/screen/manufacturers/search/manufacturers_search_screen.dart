@@ -82,7 +82,7 @@ class _ManufacturersSearchScreenState extends BaseScreenState<ManufacturersSearc
                     child: ManufacturerItem(
                         _items[index],
                         (manufacturer) => print(
-                            "pressed: ${manufacturer.name}, favorite: ${manufacturer.favorite}"),
+                            "Favorite pressed: ${manufacturer.name} status: ${manufacturer.isFavorite}"),
                         (manufacturer) => _openURL(manufacturer.companyUrl))),
               );
             },

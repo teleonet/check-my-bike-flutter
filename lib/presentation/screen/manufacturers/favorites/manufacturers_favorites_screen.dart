@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,7 +14,7 @@ class ManufacturersFavoritesScreen extends StatefulWidget {
 }
 
 class _ManufacturersFavoritesScreenState extends BaseScreenState<ManufacturersFavoritesScreen> {
-  List<Manufacturer>? _items;
+  List<Manufacturer> _items = [];
 
   _ManufacturersFavoritesScreenState() {
     _items = _buildItems();
@@ -44,18 +43,16 @@ class _ManufacturersFavoritesScreenState extends BaseScreenState<ManufacturersFa
           padding: EdgeInsets.zero,
           physics: const ScrollPhysics(),
           scrollDirection: Axis.vertical,
-          itemCount: _items?.length,
+          itemCount: _items.length,
           itemBuilder: (context, index) {
             return Container(
               color: Colors.transparent,
               child: Center(
-                  child: ManufacturerItem(_items![index], (manufacturer) {
-                if (!manufacturer.favorite) {
-                  YesNoDialog(() => print("Deleted from favorites: ${manufacturer.name}")).show(
-                      context,
-                      "Are you approve to delete \n\"${manufacturer.name}\"\n from favorites ?");
-                }
-              }, (manufacturer) => _openURL(manufacturer.companyUrl))),
+                  child: ManufacturerItem(
+                      _items[index],
+                      (manufacturer) => print(
+                          "Favorite pressed: ${manufacturer.name} status: ${manufacturer.isFavorite}"),
+                      (manufacturer) => _openURL(manufacturer.companyUrl))),
             );
           },
         ));
