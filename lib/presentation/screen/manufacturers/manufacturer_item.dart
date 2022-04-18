@@ -47,12 +47,12 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
               TextButton(
                   onPressed: () {
                     if (widget._manufacturer.isFavorite) {
-                      _showDeleteDialog(() => _updateFavoriteAndInvokeCallback(false));
+                      _showDeleteFavoriteDialog(() => _updateFavoriteAndInvokeCallback(false));
                     } else {
                       _updateFavoriteAndInvokeCallback(true);
                     }
                   },
-                  child: Icon(_buildFavoriteIcon(), size: 30, color: ColorsRes.green))
+                  child: _buildFavoriteIcon())
             ])));
   }
 
@@ -66,11 +66,13 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
         : const SizedBox.shrink();
   }
 
-  IconData _buildFavoriteIcon() {
-    return widget._manufacturer.isFavorite ? Icons.star : Icons.star_outline;
+  Icon _buildFavoriteIcon() {
+    return widget._manufacturer.isFavorite
+        ? Icon(Icons.star, size: 30, color: ColorsRes.green)
+        : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
 
-  void _showDeleteDialog(Function deletePressed) {
+  void _showDeleteFavoriteDialog(Function deletePressed) {
     YesNoDialog(() {
       deletePressed.call();
     }).show(

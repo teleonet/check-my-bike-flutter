@@ -34,7 +34,7 @@ class _InputFormState extends BaseScreenState<InputForm> {
                 _isClearValidation = false;
                 return null;
               }
-              return _isValidValueByValidator() ? null : widget._errorValidatorMessage;
+              return _isValidInputtedText() ? null : widget._errorValidatorMessage;
             },
             onChanged: (text) {
               _clearValidation();
@@ -68,16 +68,17 @@ class _InputFormState extends BaseScreenState<InputForm> {
     _formKey.currentState?.validate();
   }
 
-  bool _isValidValueByValidator() {
-    return widget._validator.call(_formKey.currentState?.value);
-  }
-
   void _pressedSearch() {
     _formKey.currentState?.validate();
 
-    if (_isValidValueByValidator()) {
+    if (_isValidInputtedText()) {
+      FocusManager.instance.primaryFocus?.unfocus();
       String text = _formKey.currentState!.value!;
       widget._callback.call(text);
     }
+  }
+
+  bool _isValidInputtedText() {
+    return widget._validator.call(_formKey.currentState?.value);
   }
 }
