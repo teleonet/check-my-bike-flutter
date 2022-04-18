@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/screen/check/button_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/check_button_item.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_horizontal.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_vertical.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
@@ -24,11 +24,11 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           const Spacer(),
           Row(children: [
             const Spacer(),
-            ButtonItem("serial", Icons.subject, () {
+            CheckButtonItem("serial", Icons.subject, () {
               //todo
             }),
             DividerVertical(2, 100),
-            ButtonItem("manufacturer", Icons.settings, () {
+            CheckButtonItem("manufacturer", Icons.settings, () {
               //todo
             }),
             const Spacer()
@@ -42,11 +42,11 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           ]),
           Row(children: [
             const Spacer(),
-            ButtonItem("custom", Icons.account_tree_outlined, () {
+            CheckButtonItem("custom", Icons.account_tree_outlined, () {
               //todo
             }),
             DividerVertical(2, 100),
-            ButtonItem("location", Icons.place_outlined, () {
+            CheckButtonItem("location", Icons.place_outlined, () {
               //todo
             }),
             const Spacer()

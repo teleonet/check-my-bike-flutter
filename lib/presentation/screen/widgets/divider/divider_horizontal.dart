@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 class DividerHorizontal extends BaseDivider {
   final int _width;
 
-  const DividerHorizontal(thickness, this._width, {Key? key}) : super(thickness, key: key);
+  const DividerHorizontal(thickness, this._width, {Color? color, Key? key})
+      : super(thickness, color: color, key: key);
 
   @override
   int getHeightTemplateMethod() {

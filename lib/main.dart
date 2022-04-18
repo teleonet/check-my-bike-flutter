@@ -33,6 +33,10 @@ class App extends StatelessWidget {
     );*/
 
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(primary: ColorsRes.green, secondary: ColorsRes.green),
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Check My Bike',
       navigatorKey: NavigationService().navigatorKey,

@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
-class ButtonItem extends StatefulWidget {
+class CheckButtonItem extends StatefulWidget {
   final String _text;
   final IconData _icon;
   final Function _callback;
 
-  const ButtonItem(this._text, this._icon, this._callback, {Key? key}) : super(key: key);
+  const CheckButtonItem(this._text, this._icon, this._callback, {Key? key}) : super(key: key);
 
   @override
-  _ButtonItemState createState() => _ButtonItemState();
+  _CheckButtonItemState createState() => _CheckButtonItemState();
 }
 
-class _ButtonItemState extends BaseScreenState<ButtonItem> {
+class _CheckButtonItemState extends BaseScreenState<CheckButtonItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
