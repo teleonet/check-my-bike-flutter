@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../dialogs/yes_no_dialog.dart';
 import '../../../models/manufacturer.dart';
 import '../../base/base_screen_state.dart';
 import '../manufacturer_item.dart';
@@ -69,11 +70,13 @@ class _ManufacturersAllScreenState extends BaseScreenState<ManufacturersAllScree
             return Container(
               color: Colors.transparent,
               child: Center(
-                  child: ManufacturerItem(
-                      _items![index],
-                      (manufacturer) => print(
-                          "pressed: ${manufacturer.name}, favorite: ${manufacturer.favorite}"),
-                      (manufacturer) => _openURL(manufacturer.companyUrl))),
+                  child: ManufacturerItem(_items![index], (manufacturer) {
+                if (!manufacturer.favorite) {
+                  YesNoDialog(() => print("Deleted from favorites: ${manufacturer.name}")).show(
+                      context,
+                      "Are you approve to delete \n\"${manufacturer.name}\"\n from favorites ?");
+                }
+              }, (manufacturer) => _openURL(manufacturer.companyUrl))),
             );
           },
         ));

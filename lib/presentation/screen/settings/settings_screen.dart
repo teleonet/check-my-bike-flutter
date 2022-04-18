@@ -55,7 +55,7 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
                   style:
                       TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
               () => YesNoDialog(() => print("pressed: Clear favorites"))
-                  .show(context, "Do you want to clear?")),
+                  .show(context, "Do you want to clear all favorites ?")),
           const Padding(padding: EdgeInsets.only(top: 30)),
           SettingsItem(
               Icons.volume_up,

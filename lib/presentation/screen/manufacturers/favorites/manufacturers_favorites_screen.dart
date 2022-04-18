@@ -1,3 +1,4 @@
+import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -48,11 +49,13 @@ class _ManufacturersFavoritesScreenState extends BaseScreenState<ManufacturersFa
             return Container(
               color: Colors.transparent,
               child: Center(
-                  child: ManufacturerItem(
-                      _items![index],
-                      (manufacturer) => print(
-                          "pressed: ${manufacturer.name}, favorite: ${manufacturer.favorite}"),
-                      (manufacturer) => _openURL(manufacturer.companyUrl))),
+                  child: ManufacturerItem(_items![index], (manufacturer) {
+                if (!manufacturer.favorite) {
+                  YesNoDialog(() => print("Deleted from favorites: ${manufacturer.name}")).show(
+                      context,
+                      "Are you approve to delete \n\"${manufacturer.name}\"\n from favorites ?");
+                }
+              }, (manufacturer) => _openURL(manufacturer.companyUrl))),
             );
           },
         ));

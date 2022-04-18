@@ -31,13 +31,16 @@ abstract class BaseDialog {
   }
 
   Widget _buildTitle(String title) {
-    return Text(title,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontFamily: 'Roboto Thin',
-            color: ColorsRes.green,
-            fontSize: 20,
-            fontWeight: FontWeight.bold));
+    return Container(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Text(title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                height: 1.4,
+                fontFamily: 'Roboto Thin',
+                color: ColorsRes.green,
+                fontSize: 20,
+                fontWeight: FontWeight.bold)));
   }
 
   ShapeBorder _buildShapeBorder() {
