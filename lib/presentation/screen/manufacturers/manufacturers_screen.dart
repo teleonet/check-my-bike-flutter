@@ -18,7 +18,7 @@ class ManufacturersScreen extends StatefulWidget {
 class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Wrap(children: [
       const Header("Manufacturers"),
       const Padding(padding: EdgeInsets.only(top: 5)),
       ManufacturersTabController(_buildScreens())

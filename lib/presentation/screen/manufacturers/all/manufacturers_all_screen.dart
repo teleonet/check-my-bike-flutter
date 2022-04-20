@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../models/manufacturer.dart';
-import '../../base/base_screen_state.dart';
-import '../manufacturer_item.dart';
+import '../manufacturers_base_state.dart';
 
 class ManufacturersAllScreen extends StatefulWidget {
   const ManufacturersAllScreen({Key? key}) : super(key: key);
@@ -13,15 +10,9 @@ class ManufacturersAllScreen extends StatefulWidget {
   _ManufacturersAllScreenState createState() => _ManufacturersAllScreenState();
 }
 
-class _ManufacturersAllScreenState extends BaseScreenState<ManufacturersAllScreen> {
-  List<Manufacturer> _items = [];
-
-  _ManufacturersAllScreenState() {
-    _items = _buildItems();
-  }
-
+class _ManufacturersAllScreenState extends ManufacturersBaseState<ManufacturersAllScreen> {
   //todo: mock items, only for development
-  List<Manufacturer> _buildItems() {
+  List<Manufacturer> _buildManufacturers() {
     return [
       Manufacturer("Scott", "scott.com", false),
       Manufacturer("Comanche", "comanche.com", true,
@@ -56,34 +47,12 @@ class _ManufacturersAllScreenState extends BaseScreenState<ManufacturersAllScree
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(top: 15),
-        height: MediaQuery.of(context).size.height - 250,
-        child: ListView.builder(
-          padding: EdgeInsets.zero,
-          physics: const ScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return Container(
-              color: Colors.transparent,
-              child: ManufacturerItem(
-                  _items[index],
-                  (manufacturer) => print(
-                      "Favorite pressed: ${manufacturer.name} status: ${manufacturer.isFavorite}"),
-                  (manufacturer) => _openURL(manufacturer.companyUrl)),
-            );
-          },
-        ));
+  List<Manufacturer> getManufacturers() {
+    return _buildManufacturers();
   }
 
-  void _openURL(String url) async {
-    try {
-      //todo: need add parameters for Android and IOS => https://pub.dev/packages/url_launcher
-      await launch(url);
-    } on MissingPluginException catch (e) {
-      print("ERROR: $e");
-    }
+  @override
+  List<Widget> getTopWidgets() {
+    return [];
   }
 }

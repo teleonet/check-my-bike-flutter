@@ -1,10 +1,7 @@
+import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_base_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../models/manufacturer.dart';
-import '../../base/base_screen_state.dart';
-import '../manufacturer_item.dart';
 
 class ManufacturersFavoritesScreen extends StatefulWidget {
   const ManufacturersFavoritesScreen({Key? key}) : super(key: key);
@@ -13,15 +10,10 @@ class ManufacturersFavoritesScreen extends StatefulWidget {
   _ManufacturersFavoritesScreenState createState() => _ManufacturersFavoritesScreenState();
 }
 
-class _ManufacturersFavoritesScreenState extends BaseScreenState<ManufacturersFavoritesScreen> {
-  List<Manufacturer> _items = [];
-
-  _ManufacturersFavoritesScreenState() {
-    _items = _buildItems();
-  }
-
+class _ManufacturersFavoritesScreenState
+    extends ManufacturersBaseState<ManufacturersFavoritesScreen> {
   //todo: mock items, only for development
-  List<Manufacturer> _buildItems() {
+  List<Manufacturer> _buildManufacturers() {
     return [
       Manufacturer("Scott", "scott.com", false),
       Manufacturer("Comanche", "comanche.com", true,
@@ -35,35 +27,12 @@ class _ManufacturersFavoritesScreenState extends BaseScreenState<ManufacturersFa
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(top: 15),
-        height: MediaQuery.of(context).size.height - 250,
-        child: ListView.builder(
-          padding: EdgeInsets.zero,
-          physics: const ScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return Container(
-              color: Colors.transparent,
-              child: Center(
-                  child: ManufacturerItem(
-                      _items[index],
-                      (manufacturer) => print(
-                          "Favorite pressed: ${manufacturer.name} status: ${manufacturer.isFavorite}"),
-                      (manufacturer) => _openURL(manufacturer.companyUrl))),
-            );
-          },
-        ));
+  List<Manufacturer> getManufacturers() {
+    return _buildManufacturers();
   }
 
-  void _openURL(String url) async {
-    try {
-      //todo: need add parameters for Android and IOS => https://pub.dev/packages/url_launcher
-      await launch(url);
-    } on MissingPluginException catch (e) {
-      print("ERROR: $e");
-    }
+  @override
+  List<Widget> getTopWidgets() {
+    return [];
   }
 }

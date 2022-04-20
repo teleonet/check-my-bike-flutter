@@ -24,26 +24,30 @@ class _ManufacturersTabControllerState extends BaseScreenState<ManufacturersTabC
           initialIndex: 0,
           length: widget._screens.length,
           child: TabBar(
-            indicatorWeight: 0.5,
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorColor: ColorsRes.green,
-            labelColor: ColorsRes.green,
-            labelStyle: const TextStyle(
-                fontFamily: 'Roboto Thin', fontSize: 18, fontWeight: FontWeight.bold),
-            unselectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 18),
-            onTap: (index) {
-              setState(() {
-                _currentScreen = widget._screens[index];
-              });
-            },
-            tabs: const <Widget>[
-              ManufacturersTabItem("All"),
-              ManufacturersTabItem("Search"),
-              ManufacturersTabItem("Favorites"),
-            ],
-          )),
+              indicatorWeight: 0.5,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorColor: ColorsRes.green,
+              labelColor: ColorsRes.green,
+              labelStyle: _buildTextStyle(FontWeight.bold),
+              unselectedLabelStyle: _buildTextStyle(FontWeight.normal),
+              onTap: (index) {
+                setState(() => _currentScreen = widget._screens[index]);
+              },
+              tabs: _buildTabs())),
       //todo: add animation
       Container(child: _currentScreen ?? widget._screens[0])
     ]);
+  }
+
+  TextStyle _buildTextStyle(FontWeight fontWeight) {
+    return TextStyle(fontFamily: 'Roboto Thin', fontSize: 18, fontWeight: fontWeight);
+  }
+
+  List<Widget> _buildTabs() {
+    return [
+      const ManufacturersTabItem("All"),
+      const ManufacturersTabItem("Search"),
+      const ManufacturersTabItem("Favorites"),
+    ];
   }
 }

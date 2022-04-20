@@ -1,12 +1,9 @@
 import 'package:check_my_bike_flutter/presentation/models/manufacturer.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/input_form.dart';
+import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_base_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../validator/validator.dart';
-import '../../base/base_screen_state.dart';
-import '../manufacturer_item.dart';
+import '../../widgets/input_form.dart';
 
 class ManufacturersSearchScreen extends StatefulWidget {
   const ManufacturersSearchScreen({Key? key}) : super(key: key);
@@ -15,11 +12,9 @@ class ManufacturersSearchScreen extends StatefulWidget {
   _ManufacturersSearchScreenState createState() => _ManufacturersSearchScreenState();
 }
 
-class _ManufacturersSearchScreenState extends BaseScreenState<ManufacturersSearchScreen> {
-  List<Manufacturer> _items = [];
-
+class _ManufacturersSearchScreenState extends ManufacturersBaseState<ManufacturersSearchScreen> {
   //todo: mock items, only for development
-  List<Manufacturer> _buildItems() {
+  List<Manufacturer> _buildManufacturers() {
     return [
       Manufacturer("Scott", "scott.com", false),
       Manufacturer("Comanche", "comanche.com", true,
@@ -54,48 +49,20 @@ class _ManufacturersSearchScreenState extends BaseScreenState<ManufacturersSearc
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      InputForm("Manufacturer's name", (text) {
-        _items = _buildItems();
-        setState(() => {});
-      }, (text) {
-        bool valid = Validator.moreThenOneSymbol(text);
-        if (!valid) {
-          _items = [];
-        }
-        setState(() => {});
-        return valid;
-      }, "Please enter more then 1 symbols"),
-      Container(
-          margin: const EdgeInsets.only(top: 15),
-          height: MediaQuery.of(context).size.height - 320,
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            physics: const ScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: _items.length,
-            itemBuilder: (context, index) {
-              return Container(
-                color: Colors.transparent,
-                child: Center(
-                    child: ManufacturerItem(
-                        _items[index],
-                        (manufacturer) => print(
-                            "Favorite pressed: ${manufacturer.name} status: ${manufacturer.isFavorite}"),
-                        (manufacturer) => _openURL(manufacturer.companyUrl))),
-              );
-            },
-          ))
-    ]);
+  List<Manufacturer> getManufacturers() {
+    return _buildManufacturers();
   }
 
-  void _openURL(String url) async {
-    try {
-      //todo: need add parameters for Android and IOS => https://pub.dev/packages/url_launcher
-      await launch(url);
-    } on MissingPluginException catch (e) {
-      print("ERROR: $e");
-    }
+  @override
+  List<Widget> getTopWidgets() {
+    return [_buildInputForm()];
+  }
+
+  Widget _buildInputForm() {
+    return InputForm("Manufacturer's name", (textToSearch) {
+      //todo: request to search
+    }, (textForValidator) {
+      return Validator.moreThenOneSymbol(textForValidator);
+    }, "Please enter more then 1 symbols");
   }
 }
