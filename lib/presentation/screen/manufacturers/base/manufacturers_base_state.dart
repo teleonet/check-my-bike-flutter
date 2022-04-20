@@ -30,8 +30,8 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Column(children: getTopWidgets()),
-      NotificationListener(
-          onNotification: _handleScrollNotification,
+      NotificationListener<UserScrollNotification>(
+          onNotification: (notification) => _handleScrollAndCallHandler(notification),
           child: Container(
               margin: const EdgeInsets.only(top: 15),
               height: MediaQuery.of(context).size.height * 0.75,
@@ -46,19 +46,12 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
     ]);
   }
 
-  bool _handleScrollNotification(ScrollNotification notification) {
-    if (notification.depth == 0 && notification is UserScrollNotification) {
-      final UserScrollNotification userScroll = notification;
-      switch (userScroll.direction) {
-        case ScrollDirection.forward:
-          getTopScrollHandler()?.call();
-          break;
-        case ScrollDirection.reverse:
-          getBottomScrollHandler()?.call();
-          break;
-        case ScrollDirection.idle:
-          break;
-      }
+  bool _handleScrollAndCallHandler(UserScrollNotification scroll) {
+    if (scroll.direction == ScrollDirection.forward) {
+      getTopScrollHandler()?.call();
+    }
+    if (scroll.direction == ScrollDirection.reverse) {
+      getBottomScrollHandler()?.call();
     }
     return false;
   }
