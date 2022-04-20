@@ -27,25 +27,25 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
             CheckButtonItem("serial", Icons.subject, () {
               //todo
             }),
-            DividerVertical(2, 100),
+            const DividerVertical(2, 100),
             CheckButtonItem("manufacturer", Icons.settings, () {
               //todo
             }),
             const Spacer()
           ]),
-          Row(children: [
-            const Spacer(),
+          Row(children: const [
+            Spacer(),
             DividerHorizontal(2, 100),
-            const Spacer(),
+            Spacer(),
             DividerHorizontal(2, 100),
-            const Spacer(),
+            Spacer(),
           ]),
           Row(children: [
             const Spacer(),
             CheckButtonItem("custom", Icons.account_tree_outlined, () {
               //todo
             }),
-            DividerVertical(2, 100),
+            const DividerVertical(2, 100),
             CheckButtonItem("location", Icons.place_outlined, () {
               //todo
             }),

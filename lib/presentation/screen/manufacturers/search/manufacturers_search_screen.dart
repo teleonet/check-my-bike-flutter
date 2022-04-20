@@ -1,12 +1,19 @@
 import 'package:check_my_bike_flutter/presentation/models/manufacturer.dart';
-import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_base_state.dart';
+import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/manufacturers_base_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../../validator/validator.dart';
 import '../../widgets/input_form.dart';
 
 class ManufacturersSearchScreen extends StatefulWidget {
-  const ManufacturersSearchScreen({Key? key}) : super(key: key);
+  Function? _onTopScroll;
+  Function? _onBottomScroll;
+
+  ManufacturersSearchScreen({Function? onTopScroll, Function? onBottomScroll, Key? key})
+      : super(key: key) {
+    _onTopScroll = onTopScroll;
+    _onBottomScroll = onBottomScroll;
+  }
 
   @override
   _ManufacturersSearchScreenState createState() => _ManufacturersSearchScreenState();
@@ -60,9 +67,19 @@ class _ManufacturersSearchScreenState extends ManufacturersBaseState<Manufacture
 
   Widget _buildInputForm() {
     return InputForm("Manufacturer's name", (textToSearch) {
-      //todo: request to search
+      //todo: request to search to bloc
     }, (textForValidator) {
       return Validator.moreThenOneSymbol(textForValidator);
     }, "Please enter more then 1 symbols");
+  }
+
+  @override
+  Function? getTopScrollHandler() {
+    return widget._onTopScroll;
+  }
+
+  @override
+  Function? getBottomScrollHandler() {
+    return widget._onBottomScroll;
   }
 }

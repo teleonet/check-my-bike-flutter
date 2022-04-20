@@ -9,7 +9,17 @@ import 'all/manufacturers_all_screen.dart';
 import 'favorites/manufacturers_favorites_screen.dart';
 
 class ManufacturersScreen extends StatefulWidget {
-  const ManufacturersScreen({Key? key}) : super(key: key);
+  Function? _onTabClicked;
+  Function? _onTopScroll;
+  Function? _onBottomScroll;
+
+  ManufacturersScreen(
+      {Function? onTopScroll, Function? onBottomScroll, Function? onTabClicked, Key? key})
+      : super(key: key) {
+    _onTopScroll = onTopScroll;
+    _onBottomScroll = onBottomScroll;
+    _onTabClicked = onTabClicked;
+  }
 
   @override
   _ManufacturersScreenState createState() => _ManufacturersScreenState();
@@ -21,15 +31,18 @@ class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
     return Wrap(children: [
       const Header("Manufacturers"),
       const Padding(padding: EdgeInsets.only(top: 5)),
-      ManufacturersTabController(_buildScreens())
+      ManufacturersTabController(_buildScreens(), onTabClicked: () => widget._onTabClicked?.call())
     ]);
   }
 
   List<Widget> _buildScreens() {
     return [
-      const ManufacturersAllScreen(),
-      const ManufacturersSearchScreen(),
-      const ManufacturersFavoritesScreen()
+      ManufacturersAllScreen(
+          onTopScroll: widget._onTopScroll, onBottomScroll: widget._onBottomScroll),
+      ManufacturersSearchScreen(
+          onTopScroll: widget._onTopScroll, onBottomScroll: widget._onBottomScroll),
+      ManufacturersFavoritesScreen(
+          onTopScroll: widget._onTopScroll, onBottomScroll: widget._onBottomScroll)
     ];
   }
 }

@@ -1,3 +1,4 @@
+import 'package:check_my_bike_flutter/presentation/screen/main/bottom_navigation_bar/navigation_bottom_bar.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
@@ -14,91 +15,43 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends BaseScreenState<MainScreen> {
-  int _updatedIndex = 0;
+  final _navigationBottomBarKey = GlobalKey<NavigationBottomBarState>();
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: _buildBottomNavigationBar(),
-        body: Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [ColorsRes.startGradient, ColorsRes.endGradient])),
-          child: IndexedStack(
-            index: _updatedIndex,
-            children: _buildScreens(),
-          ),
-        ));
-  }
-
-  Widget _buildBottomNavigationBar() {
-    return Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: _buildContainerDecoration(),
+        child: IndexedStack(
+          index: _currentIndex,
+          children: _buildScreens(),
         ),
-        child: Container(
-            height: 80,
-            color: ColorsRes.endGradient,
-            width: MediaQuery.of(context).size.width,
-            child: Column(children: [
-              Align(
-                  alignment: _getBottomNavigationLIneAlignment(_updatedIndex),
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 15, right: 15),
-                    height: 1,
-                    width: MediaQuery.of(context).size.width / 3.7,
-                    color: ColorsRes.green,
-                  )),
-              Container(
-                  margin: const EdgeInsets.only(left: 5, right: 5),
-                  child: BottomNavigationBar(
-                      currentIndex: _updatedIndex,
-                      onTap: (index) {
-                        setState(() {
-                          _updatedIndex = index;
-                        });
-                      },
-                      elevation: 0.0,
-                      backgroundColor: Colors.transparent,
-                      unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
-                      unselectedLabelStyle:
-                          const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
-                      unselectedItemColor: Colors.white,
-                      selectedItemColor: ColorsRes.green,
-                      selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-                      selectedLabelStyle: const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14),
-                      items: _buildBottomNavigationBarItems()))
-            ])));
+      ),
+      bottomNavigationBar: NavigationBottomBar((indexOfSelectedTab) {
+        setState(() => _currentIndex = indexOfSelectedTab);
+      }, key: _navigationBottomBarKey),
+    );
   }
 
-  Alignment _getBottomNavigationLIneAlignment(int index) {
-    Alignment alignment = Alignment.center;
-    switch (index) {
-      case 0:
-        alignment = Alignment.centerLeft;
-        break;
-      case 2:
-        alignment = Alignment.centerRight;
-        break;
-    }
-    return alignment;
-  }
-
-  List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
-    return const [
-      BottomNavigationBarItem(icon: Icon(Icons.search), label: 'check', tooltip: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'manufacturers', tooltip: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'settings', tooltip: ""),
-    ];
+  BoxDecoration _buildContainerDecoration() {
+    return BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [ColorsRes.startGradient, ColorsRes.endGradient]));
   }
 
   List<Widget> _buildScreens() {
-    return <Widget>[const CheckScreen(), const ManufacturersScreen(), const SettingsScreen()];
+    return <Widget>[
+      const CheckScreen(),
+      ManufacturersScreen(
+          onTopScroll: () => _navigationBottomBarKey.currentState?.show(),
+          onBottomScroll: () => _navigationBottomBarKey.currentState?.hide(),
+          onTabClicked: () => _navigationBottomBarKey.currentState?.show()),
+      const SettingsScreen()
+    ];
   }
 }
