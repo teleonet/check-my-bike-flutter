@@ -25,8 +25,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
         margin: const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 5),
         decoration: _buildLeftLineDecoration(),
         child: TextButton(
-            style: TextButton.styleFrom(
-                padding: EdgeInsets.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+            style: _buildButtonStyle(),
             onPressed: () => widget._onItemPressed.call(widget._manufacturer),
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
@@ -58,6 +57,11 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
         boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.02))],
         gradient: LinearGradient(
             stops: const [0.01, 0.01], colors: [ColorsRes.green, Colors.transparent]));
+  }
+
+  ButtonStyle _buildButtonStyle() {
+    return TextButton.styleFrom(
+        padding: EdgeInsets.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap);
   }
 
   TextStyle _buildTextStyle(Color color, double fontSize) {
