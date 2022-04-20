@@ -23,12 +23,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 5),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                stops: const [0.01, 0.01], colors: [ColorsRes.green, Colors.transparent]),
-            boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.02))],
-            border: Border.all(width: 0.5, color: ColorsRes.green.withOpacity(0.2)),
-            borderRadius: const BorderRadius.all(Radius.circular(10))),
+        decoration: _buildLeftLineDecoration(),
         child: TextButton(
             style: TextButton.styleFrom(
                 padding: EdgeInsets.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
@@ -47,13 +42,22 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
               TextButton(
                   onPressed: () {
                     if (widget._manufacturer.isFavorite) {
-                      _showDeleteFavoriteDialog(() => _updateFavoriteAndInvokeCallback(false));
+                      _showDeleteFavoriteDialog(() => _changeIsFavoriteAndInvokeCallback(false));
                     } else {
-                      _updateFavoriteAndInvokeCallback(true);
+                      _changeIsFavoriteAndInvokeCallback(true);
                     }
                   },
                   child: _buildFavoriteIcon())
             ])));
+  }
+
+  Decoration _buildLeftLineDecoration() {
+    return BoxDecoration(
+        border: Border.all(width: 0.5, color: ColorsRes.green.withOpacity(0.2)),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        boxShadow: [BoxShadow(color: Colors.white.withOpacity(0.02))],
+        gradient: LinearGradient(
+            stops: const [0.01, 0.01], colors: [ColorsRes.green, Colors.transparent]));
   }
 
   TextStyle _buildTextStyle(Color color, double fontSize) {
@@ -79,7 +83,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
         context, "Are you approve to delete \n\"${widget._manufacturer.name}\"\n from favorites ?");
   }
 
-  void _updateFavoriteAndInvokeCallback(bool isFavorite) {
+  void _changeIsFavoriteAndInvokeCallback(bool isFavorite) {
     widget._manufacturer.isFavorite = isFavorite;
     widget._onFavoritePressed.call(widget._manufacturer);
     setState(() => {});
