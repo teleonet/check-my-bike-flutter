@@ -35,7 +35,7 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
       NotificationListener<UserScrollNotification>(
           onNotification: (notification) => _handleScrollAndCallHandler(notification),
           child: Container(
-              margin: const EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(top: 10),
               height: MediaQuery.of(context).size.height * _getHeightFactor(),
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
