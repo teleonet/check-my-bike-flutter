@@ -9,7 +9,8 @@ class InputForm extends StatefulWidget {
   final String _errorValidatorMessage;
   final String _title;
 
-  const InputForm(this._title, this._onSearchPressed, this._onValidatorActivated, this._errorValidatorMessage,
+  const InputForm(
+      this._title, this._onSearchPressed, this._onValidatorActivated, this._errorValidatorMessage,
       {Key? key})
       : super(key: key);
 

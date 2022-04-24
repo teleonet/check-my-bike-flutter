@@ -16,7 +16,12 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends BaseScreenState<MainScreen> {
   final _navigationBottomBarKey = GlobalKey<NavigationBottomBarState>();
+  List<Widget> _screens = [];
   int _currentIndex = 0;
+
+  _MainScreenState() {
+    _screens = _buildScreens();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
         decoration: _buildContainerDecoration(),
         child: IndexedStack(
           index: _currentIndex,
-          children: _buildScreens(),
+          children: _screens,
         ),
       ),
       bottomNavigationBar: NavigationBottomBar((indexOfSelectedTab) {

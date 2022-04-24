@@ -9,9 +9,11 @@ import '../manufacturer_item.dart';
 
 abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScreenState<T> {
   List<Manufacturer> _manufacturers = [];
+  List<Widget> _topWidgets = [];
 
   ManufacturersBaseState() {
     _manufacturers = getManufacturers();
+    _topWidgets = getTopWidgets();
   }
 
   @protected
@@ -34,9 +36,9 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
           onNotification: (notification) => _handleScrollAndCallHandler(notification),
           child: Container(
               margin: const EdgeInsets.only(top: 15),
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.of(context).size.height * _getHeightFactor(),
               child: ListView.builder(
-                physics: const ScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 itemCount: _manufacturers.length,
                 itemBuilder: (context, index) {
@@ -54,6 +56,11 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
       getBottomScrollHandler()?.call();
     }
     return false;
+  }
+
+  double _getHeightFactor() {
+    //todo: need to find a correct solution to calculate normal height of full visible screen
+    return _topWidgets.isNotEmpty ? 0.65 : 0.75;
   }
 
   Widget _buildItem(int index) {
