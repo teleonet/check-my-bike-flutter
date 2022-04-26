@@ -20,7 +20,7 @@ class _SerialScreenState extends BaseScreenState<SerialScreen> {
   //todo: only for development
   final Bike _bike = Bike(
       410882, true, "Scott", "SWBD312L0482P", "stolen", "2018 Fuji ABOSLUTE 1.1", 2021, true,
-      largeImg: "https://bikeindex.org/bikes/410882");
+      largeImg: "https://bikeindex.org/bikes/410882", stolenLocation: "Tallahassee, FL 32303, US");
 
   @override
   Widget build(BuildContext context) {

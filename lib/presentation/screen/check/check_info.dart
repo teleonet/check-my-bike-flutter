@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import '../../../resources/colors_res.dart';
 import '../../models/bike.dart';
 import '../base/base_screen_state.dart';
+import '../widgets/autoscroll_text.dart';
 
 class CheckInfo extends StatefulWidget {
   final Bike _bike;
@@ -25,10 +26,11 @@ class _CheckInfoState extends BaseScreenState<CheckInfo> {
         padding: const EdgeInsets.only(bottom: 15, left: 20),
         child: Column(children: [
           _buildBikeImage(),
-          _buildRowContainer("id", "${widget._bike.id}"),
+          _buildRowContainer("Serial", "${widget._bike.serial}"),
           _buildRowContainer("Manufacturer", "${widget._bike.manufacturerName}"),
           _buildRowContainer("Status", "${widget._bike.status}"),
-          _buildRowContainer("Year", "${widget._bike.year}")
+          _buildRowContainer("Year", "${widget._bike.year}"),
+          _buildRowContainer("Location", "${widget._bike.stolenLocation}")
         ]));
   }
 
@@ -47,7 +49,7 @@ class _CheckInfoState extends BaseScreenState<CheckInfo> {
 
   Container _buildRowContainer(String title, String value) {
     return Container(
-        padding: const EdgeInsets.only(top: 5, bottom: 5),
+        padding: const EdgeInsets.only(top: 10),
         child: Row(children: [_buildTitleText(title), _buildValueText(value)]));
   }
 
@@ -55,8 +57,12 @@ class _CheckInfoState extends BaseScreenState<CheckInfo> {
     return Text("$title: ", style: _buildTextStyle(ColorsRes.green));
   }
 
-  Text _buildValueText(String value) {
-    return Text(value, style: _buildTextStyle(Colors.white));
+  Widget _buildValueText(String value) {
+    Widget widget = Text(value, style: _buildTextStyle(Colors.white));
+    if (value.length > 20) {
+      widget = AutoScrollText(value, MediaQuery.of(context).size.width * 0.5);
+    }
+    return widget;
   }
 
   TextStyle _buildTextStyle(Color color) {
