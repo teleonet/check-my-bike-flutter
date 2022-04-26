@@ -6,9 +6,9 @@ import '../base/base_screen_state.dart';
 class CheckButtonItem extends StatefulWidget {
   final String _text;
   final IconData _icon;
-  final Function _callback;
+  final Function _onPressed;
 
-  const CheckButtonItem(this._text, this._icon, this._callback, {Key? key}) : super(key: key);
+  const CheckButtonItem(this._text, this._icon, this._onPressed, {Key? key}) : super(key: key);
 
   @override
   _CheckButtonItemState createState() => _CheckButtonItemState();
@@ -21,9 +21,7 @@ class _CheckButtonItemState extends BaseScreenState<CheckButtonItem> {
         height: 150,
         width: 150,
         child: TextButton(
-            onPressed: () {
-              widget._callback;
-            },
+            onPressed: () => widget._onPressed.call(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

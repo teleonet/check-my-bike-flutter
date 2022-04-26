@@ -1,9 +1,11 @@
+import 'package:check_my_bike_flutter/presentation/navigation/navigation.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/check_button_item.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_horizontal.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_vertical.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
 import 'package:flutter/material.dart';
 
+import '../../navigation/router.dart';
 import '../base/base_screen_state.dart';
 
 class CheckScreen extends StatefulWidget {
@@ -24,13 +26,10 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           const Spacer(),
           Row(children: [
             const Spacer(),
-            CheckButtonItem("serial", Icons.subject, () {
-              //todo
-            }),
+            CheckButtonItem("serial", Icons.subject, () => Navigation().push(SerialScreenRoute)),
             const DividerVertical(2, 100),
-            CheckButtonItem("manufacturer", Icons.settings, () {
-              //todo
-            }),
+            CheckButtonItem(
+                "manufacturer", Icons.settings, () => Navigation().push(SerialScreenRoute)),
             const Spacer()
           ]),
           Row(children: const [
@@ -42,13 +41,11 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           ]),
           Row(children: [
             const Spacer(),
-            CheckButtonItem("custom", Icons.account_tree_outlined, () {
-              //todo
-            }),
+            CheckButtonItem(
+                "custom", Icons.account_tree_outlined, () => Navigation().push(SerialScreenRoute)),
             const DividerVertical(2, 100),
-            CheckButtonItem("location", Icons.place_outlined, () {
-              //todo
-            }),
+            CheckButtonItem(
+                "location", Icons.place_outlined, () => Navigation().push(SerialScreenRoute)),
             const Spacer()
           ]),
           const Spacer()

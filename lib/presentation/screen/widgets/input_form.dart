@@ -4,7 +4,7 @@ import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
 class InputForm extends StatefulWidget {
-  final Function(String) _onSearchPressed;
+  final Function(String?) _onSearchPressed;
   final Function(String?) _onValidatorActivated;
   final String _errorValidatorMessage;
   final String _title;
@@ -24,40 +24,42 @@ class _InputFormState extends BaseScreenState<InputForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
-        child: TextFormField(
-            focusNode: FocusNode(canRequestFocus: false),
-            key: _formKey,
-            onEditingComplete: () => _pressedSearch(),
-            validator: (text) {
-              if (_isClearValidation) {
-                _isClearValidation = false;
-                return null;
-              }
-              return _isValidInputtedText() ? null : widget._errorValidatorMessage;
-            },
-            onChanged: (text) {
-              _clearValidation();
-            },
-            maxLines: 1,
-            cursorColor: ColorsRes.green,
-            autofocus: false,
-            style: TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin'),
-            decoration: InputDecoration(
-                suffixIcon: IconButton(
-                    icon: const Icon(Icons.search),
-                    color: ColorsRes.green,
-                    onPressed: () => _pressedSearch()),
-                labelStyle: TextStyle(color: ColorsRes.green),
-                labelText: widget._title,
-                focusedBorder: _buildInputBorder(ColorsRes.green),
-                enabledBorder: _buildInputBorder(ColorsRes.darkGreen),
-                errorBorder: _buildInputBorder(Colors.red),
-                focusedErrorBorder: _buildInputBorder(Colors.red))));
+    return Material(
+        color: Colors.transparent,
+        child: Container(
+            margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
+            child: TextFormField(
+                focusNode: FocusNode(canRequestFocus: false),
+                key: _formKey,
+                onEditingComplete: () => _pressedSearch(),
+                validator: (text) {
+                  if (_isClearValidation) {
+                    _isClearValidation = false;
+                    return null;
+                  }
+                  return _isValidInputtedText() ? null : widget._errorValidatorMessage;
+                },
+                onChanged: (text) {
+                  _clearValidation();
+                },
+                maxLines: 1,
+                cursorColor: ColorsRes.green,
+                autofocus: false,
+                style: TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin'),
+                decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        color: ColorsRes.green,
+                        onPressed: () => _pressedSearch()),
+                    labelStyle: TextStyle(color: ColorsRes.green),
+                    labelText: widget._title,
+                    focusedBorder: _buildBorder(ColorsRes.green),
+                    enabledBorder: _buildBorder(ColorsRes.darkGreen),
+                    errorBorder: _buildBorder(Colors.red),
+                    focusedErrorBorder: _buildBorder(Colors.red)))));
   }
 
-  InputBorder _buildInputBorder(Color color) {
+  InputBorder _buildBorder(Color color) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
       borderSide: BorderSide(color: color, width: 0.5),
@@ -74,7 +76,7 @@ class _InputFormState extends BaseScreenState<InputForm> {
 
     if (_isValidInputtedText()) {
       FocusManager.instance.primaryFocus?.unfocus();
-      String text = _formKey.currentState!.value!;
+      String? text = _formKey.currentState?.value;
       widget._onSearchPressed.call(text);
     }
   }

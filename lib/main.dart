@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/navigation/navigation_service.dart';
+import 'package:check_my_bike_flutter/presentation/navigation/navigation.dart';
 import 'package:check_my_bike_flutter/presentation/navigation/router.dart' as router;
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class App extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: 'Check My Bike',
-      navigatorKey: NavigationService().navigatorKey,
+      navigatorKey: Navigation().navigatorKey,
       onGenerateRoute: router.generateRoute,
       initialRoute: router.MainScreenRoute,
     );
