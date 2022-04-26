@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../resources/colors_res.dart';
 import '../../models/bike.dart';
 import '../base/base_screen_state.dart';
 import '../widgets/autoscroll_text.dart';
 
-class CheckInfo extends StatefulWidget {
+class Info extends StatefulWidget {
   final Bike _bike;
 
-  const CheckInfo(this._bike, {Key? key}) : super(key: key);
+  const Info(this._bike, {Key? key}) : super(key: key);
 
   @override
-  _CheckInfoState createState() => _CheckInfoState();
+  _InfoState createState() => _InfoState();
 }
 
-class _CheckInfoState extends BaseScreenState<CheckInfo> {
+class _InfoState extends BaseScreenState<Info> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,7 +41,7 @@ class _CheckInfoState extends BaseScreenState<CheckInfo> {
 
   Widget _buildBikeImage() {
     return widget._bike.largeImg?.isNotEmpty
-        ? Icon(Icons.insert_photo_outlined, color: ColorsRes.green, size: 125.0)
+        ? Icon(Icons.insert_photo_outlined, color: ColorsRes.green, size: 125)
         : const SizedBox.shrink();
   }
 

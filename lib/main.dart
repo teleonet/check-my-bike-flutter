@@ -1,5 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/navigation/navigation.dart';
-import 'package:check_my_bike_flutter/presentation/navigation/router.dart' as router;
+import 'package:check_my_bike_flutter/presentation/screen/main/main_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,26 +21,15 @@ class App extends StatelessWidget {
         Provider<InfoBloc>.value(value: InfoBloc()),
         Provider<StoryBloc>.value(value: StoryBloc()),
         Provider<SettingsBloc>.value(value: SettingsBloc()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SNL',
-        navigatorKey: NavigationService().navigatorKey,
-        onGenerateRoute: router.generateRoute,
-        initialRoute: router.SplashScreenRoute,
-      ),
-    );*/
+      ],*/
 
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSwatch().copyWith(primary: ColorsRes.green, secondary: ColorsRes.green),
-      ),
-      debugShowCheckedModeBanner: false,
-      title: 'Check My Bike',
-      navigatorKey: Navigation().navigatorKey,
-      onGenerateRoute: router.generateRoute,
-      initialRoute: router.MainScreenRoute,
-    );
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch()
+              .copyWith(primary: ColorsRes.green, secondary: ColorsRes.green),
+        ),
+        debugShowCheckedModeBanner: false,
+        title: 'Check My Bike',
+        home: const MainScreen());
   }
 }

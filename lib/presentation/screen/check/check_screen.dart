@@ -1,11 +1,10 @@
-import 'package:check_my_bike_flutter/presentation/navigation/navigation.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/check_button_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/serial/serial_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_horizontal.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_vertical.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
 import 'package:flutter/material.dart';
 
-import '../../navigation/router.dart';
 import '../base/base_screen_state.dart';
 
 class CheckScreen extends StatefulWidget {
@@ -26,10 +25,9 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           const Spacer(),
           Row(children: [
             const Spacer(),
-            CheckButtonItem("serial", Icons.subject, () => Navigation().push(SerialScreenRoute)),
+            CheckButtonItem("serial", Icons.subject, () => SerialScreen.show(context)),
             const DividerVertical(2, 100),
-            CheckButtonItem(
-                "manufacturer", Icons.settings, () => Navigation().push(SerialScreenRoute)),
+            CheckButtonItem("manufacturer", Icons.settings, () => SerialScreen.show(context)),
             const Spacer()
           ]),
           Row(children: const [
@@ -42,10 +40,9 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           Row(children: [
             const Spacer(),
             CheckButtonItem(
-                "custom", Icons.account_tree_outlined, () => Navigation().push(SerialScreenRoute)),
+                "custom", Icons.account_tree_outlined, () => SerialScreen.show(context)),
             const DividerVertical(2, 100),
-            CheckButtonItem(
-                "location", Icons.place_outlined, () => Navigation().push(SerialScreenRoute)),
+            CheckButtonItem("location", Icons.place_outlined, () => SerialScreen.show(context)),
             const Spacer()
           ]),
           const Spacer()

@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
 
-class CheckStatus extends StatefulWidget {
+class Status extends StatefulWidget {
   final bool _stolen;
   Function? _onPressed;
 
-  CheckStatus(this._stolen, {Function? onPressed, Key? key}) : super(key: key) {
+  Status(this._stolen, {Function? onPressed, Key? key}) : super(key: key) {
     _onPressed = onPressed;
   }
 
   @override
-  _CheckStatusState createState() => _CheckStatusState();
+  _StatusState createState() => _StatusState();
 }
 
-class _CheckStatusState extends BaseScreenState<CheckStatus> with SingleTickerProviderStateMixin {
+class _StatusState extends BaseScreenState<Status> with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
 
   @override

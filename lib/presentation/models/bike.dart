@@ -71,6 +71,14 @@ class Bike {
 
   get url => _url;
 
+  String? _description;
+
+  get description => _description;
+
+  List<String>? _colors;
+
+  get colors => _colors;
+
   Bike(this._id, this._isStockImg, this._manufacturerName, this._serial, this._status, this._title,
       this._year, this._stolen,
       {String? frameModel,
@@ -82,7 +90,9 @@ class Bike {
       String? stolenCoordinates,
       String? stolenLocation,
       String? thumb,
-      String? url}) {
+      String? url,
+      String? description,
+      List<String>? colors}) {
     _frameModel = frameModel;
     _largeImg = largeImg;
     _locationFound = locationFound;
@@ -93,5 +103,7 @@ class Bike {
     _stolenLocation = stolenLocation;
     _thumb = thumb;
     _url = url;
+    _description = description;
+    _colors = colors;
   }
 }

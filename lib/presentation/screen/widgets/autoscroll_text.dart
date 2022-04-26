@@ -32,13 +32,13 @@ class _AutoScrollTextState extends BaseScreenState<AutoScrollText> {
   @override
   void dispose() {
     scrollController.dispose();
+    print("scrollController.dispose()");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(right: 0),
         width: widget._width,
         child: SingleChildScrollView(
           child: Text(widget._text, style: _buildTextStyle()),
@@ -72,7 +72,10 @@ class _AutoScrollTextState extends BaseScreenState<AutoScrollText> {
 
   Future<void> _scrollTo(double offset) async {
     await Future.delayed(const Duration(milliseconds: 1500));
-    return scrollController.animateTo(offset,
-        duration: const Duration(milliseconds: 1500), curve: Curves.easeOut);
+
+    if (scrollController.hasClients) {
+      return scrollController.animateTo(offset,
+          duration: const Duration(milliseconds: 1500), curve: Curves.easeOut);
+    }
   }
 }

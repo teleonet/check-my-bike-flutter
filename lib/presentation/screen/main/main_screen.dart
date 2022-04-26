@@ -8,6 +8,10 @@ import '../base/base_screen_state.dart';
 import '../check/check_screen.dart';
 
 class MainScreen extends StatefulWidget {
+  static show(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen()));
+  }
+
   const MainScreen({Key? key}) : super(key: key);
 
   @override
