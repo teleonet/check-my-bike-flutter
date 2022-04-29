@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_horizontal.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
@@ -36,7 +35,13 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
                       margin: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
                       padding: const EdgeInsets.only(bottom: 15, left: 20),
                       child: Column(children: [
-                        _buildBikeImage(),
+                        Stack(alignment: Alignment.topCenter, children: [
+                          Align(
+                              alignment: Alignment.topRight,
+                              child: TextButton(
+                                  onPressed: () => {}, child: _buildFavoriteIcon(false))),
+                          _buildBikeImage()
+                        ]),
                         _buildRowContainer("Serial", "${widget._bike.serial}"),
                         _buildRowContainer("Manufacturer", "${widget._bike.manufacturerName}"),
                         _buildRowContainer("Status", "${widget._bike.status}",
@@ -90,6 +95,12 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
         color: Colors.transparent,
         border: Border.all(color: ColorsRes.green),
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
+  }
+
+  Icon _buildFavoriteIcon(bool isFavorite) {
+    return isFavorite
+        ? Icon(Icons.star, size: 35, color: ColorsRes.green)
+        : const Icon(Icons.star_outline_sharp, size: 35, color: Colors.white);
   }
 
   Widget _buildBikeImage() {

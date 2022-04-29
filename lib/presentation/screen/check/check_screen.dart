@@ -6,6 +6,7 @@ import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 import '../base/base_screen_state.dart';
+import 'manufacturer/manufacturer_screen.dart';
 
 class CheckScreen extends StatefulWidget {
   const CheckScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
             const Spacer(),
             CheckButtonItem("serial", Icons.subject, () => SerialScreen.show(context)),
             const DividerVertical(2, 100),
-            CheckButtonItem("manufacturer", Icons.settings, () => SerialScreen.show(context)),
+            CheckButtonItem("manufacturer", Icons.settings, () => ManufacturerScreen.show(context)),
             const Spacer()
           ]),
           Row(children: const [
@@ -39,10 +40,9 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           ]),
           Row(children: [
             const Spacer(),
-            CheckButtonItem(
-                "custom", Icons.account_tree_outlined, () => SerialScreen.show(context)),
+            CheckButtonItem("custom", Icons.account_tree_outlined, () => {}),
             const DividerVertical(2, 100),
-            CheckButtonItem("location", Icons.place_outlined, () => SerialScreen.show(context)),
+            CheckButtonItem("location", Icons.place_outlined, () => {}),
             const Spacer()
           ]),
           const Spacer()

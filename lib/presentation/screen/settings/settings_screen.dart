@@ -38,50 +38,46 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Header("Settings"),
           const Spacer(),
-          SettingsItem(
-              Icons.language,
-              "language",
-              Text("eng",
-                  style:
-                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
-              () => LanguageDialog(_buildLanguages(), _buildLanguages()[1],
-                      (language) => print("pressed: language ${language.name}"))
-                  .show(context, "Language", dismissTouchOutside: true)),
-          const Padding(padding: EdgeInsets.only(top: 30)),
-          SettingsItem(
-              Icons.star,
-              "clear favorites",
-              Text("18",
-                  style:
-                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
-              () => YesNoDialog(() => print("pressed: Clear favorites"))
-                  .show(context, "Do you want to clear all favorites ?")),
-          const Padding(padding: EdgeInsets.only(top: 30)),
-          SettingsItem(
-              Icons.volume_up,
-              "sounds",
-              CupertinoSwitch(
-                  onChanged: (active) {
-                    setState(() {
-                      _active = !_active;
-                    });
-                  },
-                  thumbColor: ColorsRes.divider,
-                  trackColor: ColorsRes.darkGreen,
-                  activeColor: ColorsRes.green,
-                  value: _active),
-              () => setState(() {
-                    _active = !_active;
-                  })),
-          const Padding(padding: EdgeInsets.only(top: 30)),
-          SettingsItem(
-              Icons.info,
-              "info",
-              Text("1.0.0",
-                  style:
-                      TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)),
-              () {}),
+          SettingsItem(Icons.language, "language", _buildText("eng"),
+              onPressed: () => _showLanguageDialog()),
+          _buildPadding(),
+          SettingsItem(Icons.star, "clear favorites", _buildText("18"),
+              onPressed: () => _showClearFavoritesDialog()),
+          _buildPadding(),
+          SettingsItem(Icons.volume_up, "sounds", _buildSwitch(),
+              onPressed: () => setState(() => _active = !_active)),
+          _buildPadding(),
+          SettingsItem(Icons.info, "info", _buildText("1.0.0"), onPressed: () {}),
           const Spacer(),
         ]));
+  }
+
+  Widget _buildPadding() {
+    return const Padding(padding: EdgeInsets.only(top: 30));
+  }
+
+  Text _buildText(String title) {
+    return Text(title,
+        style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20));
+  }
+
+  CupertinoSwitch _buildSwitch() {
+    return CupertinoSwitch(
+        onChanged: (active) => setState(() => _active = !_active),
+        thumbColor: ColorsRes.divider,
+        trackColor: ColorsRes.darkGreen,
+        activeColor: ColorsRes.green,
+        value: _active);
+  }
+
+  void _showLanguageDialog() {
+    LanguageDialog(_buildLanguages(), _buildLanguages()[1],
+            (language) => print("pressed: language ${language.name}"))
+        .show(context, "Language", dismissTouchOutside: true);
+  }
+
+  void _showClearFavoritesDialog() {
+    YesNoDialog(() => print("pressed: Clear favorites"))
+        .show(context, "Do you want to clear all favorites ?");
   }
 }

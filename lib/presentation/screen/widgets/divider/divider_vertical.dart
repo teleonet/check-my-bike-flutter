@@ -2,18 +2,18 @@ import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/base_d
 import 'package:flutter/cupertino.dart';
 
 class DividerVertical extends BaseDivider {
-  final int _height;
+  final double _height;
 
-  const DividerVertical(thickness, this._height, {Color? color, Key? key})
+  const DividerVertical(double thickness, this._height, {Color? color, Key? key})
       : super(thickness, color: color, key: key);
 
   @override
-  int getHeightTemplateMethod() {
+  double getHeight() {
     return _height;
   }
 
   @override
-  int getWidthTemplateMethod() {
+  double getWidth() {
     return thickness;
   }
 }

@@ -2,18 +2,18 @@ import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/base_d
 import 'package:flutter/cupertino.dart';
 
 class DividerHorizontal extends BaseDivider {
-  final int _width;
+  final double _width;
 
-  const DividerHorizontal(thickness, this._width, {Color? color, Key? key})
+  const DividerHorizontal(double thickness, this._width, {Color? color, Key? key})
       : super(thickness, color: color, key: key);
 
   @override
-  int getHeightTemplateMethod() {
+  double getHeight() {
     return thickness;
   }
 
   @override
-  int getWidthTemplateMethod() {
+  double getWidth() {
     return _width;
   }
 }
