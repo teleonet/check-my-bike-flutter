@@ -1,11 +1,12 @@
 import 'package:check_my_bike_flutter/presentation/screen/check/button_item/check_button_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/location/location_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/serial/serial_screen.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_horizontal.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_vertical.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
 import 'package:flutter/material.dart';
 
-import '../base/base_screen_state.dart';
+import '../../base/base_screen_state.dart';
+import '../../widgets/divider/divider_horizontal.dart';
+import '../../widgets/divider/divider_vertical.dart';
+import '../../widgets/header.dart';
 import 'manufacturer/manufacturer_screen.dart';
 
 class CheckScreen extends StatefulWidget {
@@ -42,7 +43,7 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
             const Spacer(),
             CheckButtonItem("custom", Icons.account_tree_outlined, () => {}),
             const DividerVertical(2, 100),
-            CheckButtonItem("location", Icons.place_outlined, () => {}),
+            CheckButtonItem("location", Icons.place_outlined, () => LocationScreen.show(context)),
             const Spacer()
           ]),
           const Spacer()

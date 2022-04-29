@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
+import '../../base/base_screen_state.dart';
 import '../../dialogs/yes_no_dialog.dart';
 import '../../models/manufacturer.dart';
-import '../base/base_screen_state.dart';
 
 class ManufacturerItem extends StatefulWidget {
   final Manufacturer _manufacturer;

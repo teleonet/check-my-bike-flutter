@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
+import '../../../base/base_screen_state.dart';
 import 'manufacturers_tab_item.dart';
 
 //todo: need to add swipe effect for change tabs logic

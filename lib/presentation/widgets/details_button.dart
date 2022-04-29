@@ -1,7 +1,7 @@
+import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../base/base_screen_state.dart';
 
 class DetailsButton extends StatefulWidget {
   Function? _onPressed;

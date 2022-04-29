@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../base/base_screen_state.dart';
-import '../widgets/header.dart';
+import '../../base/base_screen_state.dart';
+import '../../widgets/header.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);

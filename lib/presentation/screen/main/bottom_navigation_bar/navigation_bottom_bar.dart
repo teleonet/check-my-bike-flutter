@@ -2,7 +2,7 @@ import 'package:check_my_bike_flutter/presentation/screen/main/bottom_navigation
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
+import '../../../base/base_screen_state.dart';
 
 class NavigationBottomBar extends StatefulWidget {
   final Function(int) _onTabChanged;

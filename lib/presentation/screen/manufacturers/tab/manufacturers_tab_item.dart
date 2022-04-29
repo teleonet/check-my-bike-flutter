@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../base/base_screen_state.dart';
+import '../../../base/base_screen_state.dart';
 
 class ManufacturersTabItem extends StatefulWidget {
   final String _title;

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../resources/colors_res.dart';
+import '../../base/base_screen_state.dart';
 import '../../models/language.dart';
-import '../base/base_screen_state.dart';
 
 class LanguageSliding extends StatefulWidget {
   final List<Language> _languages;

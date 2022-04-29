@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
+import '../../../base/base_screen_state.dart';
 
 class CheckButtonItem extends StatefulWidget {
   final String _text;

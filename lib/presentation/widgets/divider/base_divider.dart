@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../../../../resources/colors_res.dart';
+import '../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
 
 abstract class BaseDivider extends StatefulWidget {

@@ -1,13 +1,12 @@
 import 'package:check_my_bike_flutter/presentation/models/bike.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/flashing_text.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/input_form.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 
 import '../../../validator/validator.dart';
-import '../../widgets/flashing_text.dart';
+import '../../../widgets/flashing_text.dart';
+import '../../../widgets/input_form.dart';
 import '../base/base_check_state.dart';
 
 class SerialScreen extends StatefulWidget {

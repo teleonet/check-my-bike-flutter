@@ -4,7 +4,7 @@ import 'package:check_my_bike_flutter/presentation/screen/settings/settings_scre
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 
-import '../base/base_screen_state.dart';
+import '../../base/base_screen_state.dart';
 import '../check/check_screen.dart';
 
 class MainScreen extends StatefulWidget {

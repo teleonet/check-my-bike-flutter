@@ -1,5 +1,6 @@
-import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/base_divider.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'base_divider.dart';
 
 class DividerVertical extends BaseDivider {
   final double _height;

@@ -1,10 +1,10 @@
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/search/manufacturers_search_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/tab/manufacturers_tab_controller.dart';
-import 'package:check_my_bike_flutter/presentation/screen/widgets/header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../base/base_screen_state.dart';
+import '../../base/base_screen_state.dart';
+import '../../widgets/header.dart';
 import 'all/manufacturers_all_screen.dart';
 import 'favorites/manufacturers_favorites_screen.dart';
 

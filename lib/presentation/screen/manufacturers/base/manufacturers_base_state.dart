@@ -3,8 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../base/base_screen_state.dart';
 import '../../../models/manufacturer.dart';
-import '../../base/base_screen_state.dart';
 import '../manufacturer_item.dart';
 
 abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScreenState<T> {

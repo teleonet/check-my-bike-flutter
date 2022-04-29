@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 import '../../../validator/validator.dart';
 import '../../../widgets/input_form.dart';
 
-class ManufacturerScreen extends StatefulWidget {
+class LocationScreen extends StatefulWidget {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const ManufacturerScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const LocationScreen()));
   }
 
-  const ManufacturerScreen({Key? key}) : super(key: key);
+  const LocationScreen({Key? key}) : super(key: key);
 
   @override
-  _ManufacturerScreenState createState() => _ManufacturerScreenState();
+  _LocationScreenState createState() => _LocationScreenState();
 }
 
-class _ManufacturerScreenState extends BaseCheckState<ManufacturerScreen> {
+class _LocationScreenState extends BaseCheckState<LocationScreen> {
   List<Bike> _bikes = [];
 
-  _ManufacturerScreenState() : super("manufacturer") {
+  _LocationScreenState() : super("manufacturer") {
     _bikes = _buildBikes();
   }
 
