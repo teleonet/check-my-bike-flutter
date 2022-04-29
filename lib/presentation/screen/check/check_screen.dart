@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/screen/check/check_button_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/button_item/check_button_item.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/serial/serial_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_horizontal.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/divider/divider_vertical.dart';

@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/models/bike.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/details_screen.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/info.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
 import 'package:check_my_bike_flutter/presentation/screen/widgets/input_form.dart';
 import 'package:flutter/material.dart';
 

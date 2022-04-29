@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../resources/colors_res.dart';
-import '../../models/bike.dart';
-import '../base/base_screen_state.dart';
-import '../widgets/autoscroll_text.dart';
+import '../../../../resources/colors_res.dart';
+import '../../../models/bike.dart';
+import '../../base/base_screen_state.dart';
+import '../../widgets/autoscroll_text.dart';
 
 class DetailsScreen extends StatefulWidget {
   static void show(BuildContext context, Bike bike) {
@@ -45,7 +45,7 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
                         _buildRowContainer("Serial", "${widget._bike.serial}"),
                         _buildRowContainer("Manufacturer", "${widget._bike.manufacturerName}"),
                         _buildRowContainer("Status", "${widget._bike.status}",
-                            valueColor: Colors.red),
+                            valueColor: widget._bike.stolen ? Colors.red : Colors.white),
                         _buildRowContainer("Year", "${widget._bike.year}"),
                         _buildRowContainer("Location", "${widget._bike.stolenLocation}"),
                         _buildRowContainer("Title", "${widget._bike.title}"),
