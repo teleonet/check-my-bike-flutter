@@ -3,7 +3,7 @@ import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/man
 import 'package:flutter/material.dart';
 
 import '../../../validator/validator.dart';
-import '../../../widgets/input_form.dart';
+import '../../../widgets/input_form/input_form.dart';
 
 class ManufacturersSearchScreen extends StatefulWidget {
   Function? _onTopScroll;

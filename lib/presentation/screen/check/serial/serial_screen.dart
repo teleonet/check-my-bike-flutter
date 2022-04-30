@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../validator/validator.dart';
 import '../../../widgets/flashing_text.dart';
-import '../../../widgets/input_form.dart';
+import '../../../widgets/input_form/input_form.dart';
 import '../base/base_check_state.dart';
 
 class SerialScreen extends StatefulWidget {

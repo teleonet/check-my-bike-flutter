@@ -1,11 +1,11 @@
 import 'package:check_my_bike_flutter/presentation/models/bike.dart';
+import 'package:check_my_bike_flutter/presentation/models/location.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/location/distance_slider.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
 import 'package:flutter/material.dart';
-
-import '../../../validator/validator.dart';
-import '../../../widgets/input_form.dart';
 
 class LocationScreen extends StatefulWidget {
   static show(BuildContext context) {
@@ -19,9 +19,13 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends BaseCheckState<LocationScreen> {
+  Location? _location;
   List<Bike> _bikes = [];
 
-  _LocationScreenState() : super("manufacturer") {
+  final GlobalKey? _locationButtonKey = GlobalKey<BorderedButtonState>();
+
+  _LocationScreenState() : super("location") {
+    // _location = Location(39.73, -104.98);
     _bikes = _buildBikes();
   }
 
@@ -60,15 +64,30 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
 
   @override
   List<Widget> getWidgets() {
-    return [_buildInputForm(), _buildListView()];
+    return [_buildLocationButton(), _buildSlider(), _buildSearchButton(), _buildListView()];
   }
 
-  Widget _buildInputForm() {
-    return InputForm("manufacturer", (textToSearch) {
-      //todo: bloc
-    }, (textForValidator) {
-      return Validator.moreThenFourSymbols(textForValidator);
-    }, "Please enter more then 4 symbols");
+  Widget _buildLocationButton() {
+    return BorderedButton("choose location",
+        onPressed: () => print("choose location"), key: _locationButtonKey);
+  }
+
+  Widget _buildSlider() {
+    return Container(
+        margin: const EdgeInsets.only(top: 10, bottom: 10),
+        child: DistanceSlider((value) => print("Choose distance: $value")));
+  }
+
+  Widget _buildSearchButton() {
+    return BorderedButton("search", onPressed: () {
+      BorderedButtonState? buttonState = _locationButtonKey?.currentState as BorderedButtonState?;
+      if (_location != null) {
+        buttonState?.setButtonStatus(Status.normal);
+      } else {
+        buttonState?.setButtonStatus(Status.error);
+        //todo: add bloc request location
+      }
+    });
   }
 
   Widget _buildListView() {

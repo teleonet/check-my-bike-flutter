@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/material.dart';
 
-import '../../../resources/colors_res.dart';
+import '../../../../resources/colors_res.dart';
 
 class InputForm extends StatefulWidget {
   final Function(String?) _onSearchPressed;
@@ -15,12 +15,18 @@ class InputForm extends StatefulWidget {
       : super(key: key);
 
   @override
-  _InputFormState createState() => _InputFormState();
+  InputFormState createState() => InputFormState();
 }
 
-class _InputFormState extends BaseScreenState<InputForm> {
+class InputFormState extends BaseScreenState<InputForm> {
   final _formKey = GlobalKey<FormFieldState<String>>();
   bool _isClearValidation = false;
+
+  @protected
+  IconButton? getIconButton() {
+    return IconButton(
+        icon: const Icon(Icons.search), color: ColorsRes.green, onPressed: () => _pressedSearch());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +51,10 @@ class _InputFormState extends BaseScreenState<InputForm> {
                 maxLines: 1,
                 cursorColor: ColorsRes.green,
                 autofocus: false,
-                style: TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin'),
+                style: _buildTextStyle(),
                 decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        color: ColorsRes.green,
-                        onPressed: () => _pressedSearch()),
-                    labelStyle: TextStyle(color: ColorsRes.green),
+                    suffixIcon: getIconButton(),
+                    labelStyle: _buildTextStyle(),
                     labelText: widget._title,
                     focusedBorder: _buildBorder(ColorsRes.green),
                     enabledBorder: _buildBorder(ColorsRes.darkGreen),
@@ -77,11 +80,16 @@ class _InputFormState extends BaseScreenState<InputForm> {
     if (_isValidInputtedText()) {
       FocusManager.instance.primaryFocus?.unfocus();
       String? text = _formKey.currentState?.value;
+      _formKey.currentState?.save();
       widget._onSearchPressed.call(text);
     }
   }
 
   bool _isValidInputtedText() {
     return widget._onValidatorActivated.call(_formKey.currentState?.value);
+  }
+
+  TextStyle _buildTextStyle() {
+    return TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin');
   }
 }

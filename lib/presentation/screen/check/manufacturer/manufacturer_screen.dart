@@ -5,7 +5,7 @@ import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
 import 'package:flutter/material.dart';
 
 import '../../../validator/validator.dart';
-import '../../../widgets/input_form.dart';
+import '../../../widgets/input_form/input_form.dart';
 
 class ManufacturerScreen extends StatefulWidget {
   static show(BuildContext context) {

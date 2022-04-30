@@ -8,4 +8,8 @@ class Validator {
   static bool moreThenFourSymbols(String? text) {
     return text != null && text.isNotEmpty && text.length > 4;
   }
+
+  static bool onlyDigitsOrEmpty(String? text) {
+    return text != null && (text.isEmpty || double.tryParse(text) != null);
+  }
 }
