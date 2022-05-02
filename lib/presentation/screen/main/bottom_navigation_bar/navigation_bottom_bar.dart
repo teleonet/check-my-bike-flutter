@@ -1,23 +1,25 @@
-import 'package:check_my_bike_flutter/presentation/ticker/provider_ticker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 import '../../../base/base_screen_state.dart';
 
 class NavigationBottomBar extends StatefulWidget {
-  final Function(int) _onTabChanged;
+  final Function(int) _onChangedTab;
 
-  const NavigationBottomBar(this._onTabChanged, {Key? key}) : super(key: key);
+  const NavigationBottomBar(this._onChangedTab, {Key? key}) : super(key: key);
 
   @override
   NavigationBottomBarState createState() => NavigationBottomBarState();
 }
 
-class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar> {
+class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
+    with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
   int _currentIndex = 0;
 
-  NavigationBottomBarState() {
+  @override
+  void initState() {
+    super.initState();
     _animationController = _buildAnimationController();
   }
 
@@ -32,32 +34,10 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar> {
                 sizeFactor: _animationController!,
                 axisAlignment: -1.0,
                 child: Stack(children: [
-                  SizedBox(
-                      height: 1,
-                      child: Align(
-                          alignment: _getBottomNavigationLIneAlignment(_currentIndex),
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 15, right: 15),
-                            width: MediaQuery.of(context).size.width / 3.7,
-                            color: ColorsRes.green,
-                          ))),
+                  _buildActiveNavigationBarLine(),
                   Container(
                       margin: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
-                      child: BottomNavigationBar(
-                          currentIndex: _currentIndex,
-                          onTap: (index) => setState(() {
-                                _currentIndex = index;
-                                widget._onTabChanged(index);
-                              }),
-                          elevation: 0.0,
-                          backgroundColor: Colors.transparent,
-                          unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
-                          unselectedLabelStyle: _buildTextStyle(),
-                          unselectedItemColor: Colors.white,
-                          selectedItemColor: ColorsRes.green,
-                          selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-                          selectedLabelStyle: _buildTextStyle(),
-                          items: _buildBottomNavigationBarItems()))
+                      child: _buildBottomNavigationBar())
                 ]))));
   }
 
@@ -68,7 +48,19 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar> {
         hoverColor: Colors.transparent);
   }
 
-  Alignment _getBottomNavigationLIneAlignment(int index) {
+  Widget _buildActiveNavigationBarLine() {
+    return SizedBox(
+        height: 1,
+        child: Align(
+            alignment: _getBottomNavigationLineAlignment(_currentIndex),
+            child: Container(
+              margin: const EdgeInsets.only(left: 15, right: 15),
+              width: MediaQuery.of(context).size.width / 3.7,
+              color: ColorsRes.green,
+            )));
+  }
+
+  Alignment _getBottomNavigationLineAlignment(int index) {
     Alignment alignment = Alignment.center;
     switch (index) {
       case 0:
@@ -81,13 +73,32 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar> {
     return alignment;
   }
 
+  Widget _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      currentIndex: _currentIndex,
+      elevation: 0.0,
+      backgroundColor: Colors.transparent,
+      unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
+      unselectedLabelStyle: _buildTextStyle(),
+      unselectedItemColor: Colors.white,
+      selectedItemColor: ColorsRes.green,
+      selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
+      selectedLabelStyle: _buildTextStyle(),
+      items: _buildBottomNavigationBarItems(),
+      onTap: (index) => setState(() {
+        _currentIndex = index;
+        widget._onChangedTab(index);
+      }),
+    );
+  }
+
   TextStyle _buildTextStyle() {
     return const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14);
   }
 
   AnimationController _buildAnimationController() {
     return AnimationController(
-        value: 100, vsync: ProviderTicker(), duration: const Duration(milliseconds: 300));
+        value: 100, vsync: this, duration: const Duration(milliseconds: 300));
   }
 
   List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {

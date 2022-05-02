@@ -5,11 +5,9 @@ import '../base/base_screen_state.dart';
 class FlashingText extends StatefulWidget {
   final String _text;
   final Color _color;
-  double _fontSize = 70;
+  final double fontSize;
 
-  FlashingText(this._text, this._color, {double? flashing, Key? key}) : super(key: key) {
-    _fontSize = flashing ?? _fontSize;
-  }
+  const FlashingText(this._text, this._color, {this.fontSize = 70, Key? key}) : super(key: key);
 
   @override
   _FlashingTextState createState() => _FlashingTextState();
@@ -20,17 +18,18 @@ class _FlashingTextState extends BaseScreenState<FlashingText> with SingleTicker
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
+    _animationController = _buildAnimationController();
     _animationController?.repeat(reverse: true);
-
     super.initState();
+  }
+
+  AnimationController _buildAnimationController() {
+    return AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
   }
 
   @override
   void dispose() {
     _animationController?.dispose();
-
     super.dispose();
   }
 
@@ -46,6 +45,6 @@ class _FlashingTextState extends BaseScreenState<FlashingText> with SingleTicker
         fontWeight: FontWeight.bold,
         color: widget._color,
         fontFamily: 'Roboto Thin',
-        fontSize: widget._fontSize);
+        fontSize: widget.fontSize);
   }
 }

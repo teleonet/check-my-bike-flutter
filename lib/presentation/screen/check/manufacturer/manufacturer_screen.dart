@@ -79,9 +79,12 @@ class _ManufacturerScreenState extends BaseCheckState<ManufacturerScreen> {
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemCount: _bikes.length,
-          itemBuilder: (context, index) {
-            return Info(_bikes[index], onInfoPressed: (bike) => DetailsScreen.show(context, bike));
-          },
+          itemBuilder: (context, index) => _buildInfoItem(_bikes[index]),
         ));
+  }
+
+  Widget _buildInfoItem(Bike bike) {
+    return InfoItem(bike,
+        onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
   }
 }

@@ -9,17 +9,12 @@ import 'all/manufacturers_all_screen.dart';
 import 'favorites/manufacturers_favorites_screen.dart';
 
 class ManufacturersScreen extends StatefulWidget {
-  Function? _onTabClicked;
-  Function? _onTopScroll;
-  Function? _onBottomScroll;
+  final Function? onClickedTab;
+  final Function? onScrollTop;
+  final Function? onScrollBottom;
 
-  ManufacturersScreen(
-      {Function? onTopScroll, Function? onBottomScroll, Function? onTabClicked, Key? key})
-      : super(key: key) {
-    _onTopScroll = onTopScroll;
-    _onBottomScroll = onBottomScroll;
-    _onTabClicked = onTabClicked;
-  }
+  const ManufacturersScreen({this.onScrollTop, this.onScrollBottom, this.onClickedTab, Key? key})
+      : super(key: key);
 
   @override
   _ManufacturersScreenState createState() => _ManufacturersScreenState();
@@ -31,18 +26,18 @@ class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
     return Wrap(children: [
       const Header("Manufacturers"),
       const Padding(padding: EdgeInsets.only(top: 5)),
-      ManufacturersTabController(_buildScreens(), onTabClicked: () => widget._onTabClicked?.call())
+      ManufacturersTabController(_buildScreens(), onClickedTab: () => widget.onClickedTab?.call())
     ]);
   }
 
   List<Widget> _buildScreens() {
     return [
       ManufacturersAllScreen(
-          onTopScroll: widget._onTopScroll, onBottomScroll: widget._onBottomScroll),
+          onScrollTop: widget.onScrollTop, onScrollBottom: widget.onScrollBottom),
       ManufacturersSearchScreen(
-          onTopScroll: widget._onTopScroll, onBottomScroll: widget._onBottomScroll),
+          onScrollTop: widget.onScrollTop, onScrollBottom: widget.onScrollBottom),
       ManufacturersFavoritesScreen(
-          onTopScroll: widget._onTopScroll, onBottomScroll: widget._onBottomScroll)
+          onScrollTop: widget.onScrollTop, onScrollBottom: widget.onScrollBottom)
     ];
   }
 }

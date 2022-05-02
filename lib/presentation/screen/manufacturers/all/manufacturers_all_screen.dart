@@ -4,14 +4,10 @@ import '../../../models/manufacturer.dart';
 import '../base/manufacturers_base_state.dart';
 
 class ManufacturersAllScreen extends StatefulWidget {
-  Function? _onTopScroll;
-  Function? _onBottomScroll;
+  final Function? onScrollTop;
+  final Function? onScrollBottom;
 
-  ManufacturersAllScreen({Function? onTopScroll, Function? onBottomScroll, Key? key})
-      : super(key: key) {
-    _onTopScroll = onTopScroll;
-    _onBottomScroll = onBottomScroll;
-  }
+  const ManufacturersAllScreen({this.onScrollTop, this.onScrollBottom, Key? key}) : super(key: key);
 
   @override
   _ManufacturersAllScreenState createState() => _ManufacturersAllScreenState();
@@ -65,11 +61,11 @@ class _ManufacturersAllScreenState extends ManufacturersBaseState<ManufacturersA
 
   @override
   Function? getTopScrollHandler() {
-    return widget._onTopScroll;
+    return widget.onScrollTop?.call();
   }
 
   @override
   Function? getBottomScrollHandler() {
-    return widget._onBottomScroll;
+    return widget.onScrollBottom?.call();
   }
 }

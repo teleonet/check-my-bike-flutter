@@ -19,7 +19,7 @@ class InputForm extends StatefulWidget {
 }
 
 class InputFormState extends BaseScreenState<InputForm> {
-  final _formKey = GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _formKey = GlobalKey<FormFieldState<String>>();
   bool _isClearValidation = false;
 
   @protected
@@ -37,32 +37,38 @@ class InputFormState extends BaseScreenState<InputForm> {
             child: TextFormField(
                 focusNode: FocusNode(canRequestFocus: false),
                 key: _formKey,
+                maxLines: 1,
+                cursorColor: ColorsRes.green,
+                autofocus: false,
+                style: _buildTextStyle(),
+                decoration: _buildInputDecoration(),
                 onEditingComplete: () => _pressedSearch(),
+                onChanged: (text) => _clearValidation(),
                 validator: (text) {
                   if (_isClearValidation) {
                     _isClearValidation = false;
                     return null;
                   }
                   return _isValidInputtedText() ? null : widget._errorValidatorMessage;
-                },
-                onChanged: (text) {
-                  _clearValidation();
-                },
-                maxLines: 1,
-                cursorColor: ColorsRes.green,
-                autofocus: false,
-                style: _buildTextStyle(),
-                decoration: InputDecoration(
-                    suffixIcon: getIconButton(),
-                    labelStyle: _buildTextStyle(),
-                    labelText: widget._title,
-                    focusedBorder: _buildBorder(ColorsRes.green),
-                    enabledBorder: _buildBorder(ColorsRes.darkGreen),
-                    errorBorder: _buildBorder(Colors.red),
-                    focusedErrorBorder: _buildBorder(Colors.red)))));
+                })));
   }
 
-  InputBorder _buildBorder(Color color) {
+  TextStyle _buildTextStyle() {
+    return TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin');
+  }
+
+  InputDecoration _buildInputDecoration() {
+    return InputDecoration(
+        suffixIcon: getIconButton(),
+        labelStyle: _buildTextStyle(),
+        labelText: widget._title,
+        focusedBorder: _buildBorder(color: ColorsRes.green),
+        enabledBorder: _buildBorder(color: ColorsRes.darkGreen),
+        errorBorder: _buildBorder(),
+        focusedErrorBorder: _buildBorder());
+  }
+
+  InputBorder _buildBorder({Color color = Colors.red}) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(10.0),
       borderSide: BorderSide(color: color, width: 0.5),
@@ -87,9 +93,5 @@ class InputFormState extends BaseScreenState<InputForm> {
 
   bool _isValidInputtedText() {
     return widget._onValidatorActivated.call(_formKey.currentState?.value);
-  }
-
-  TextStyle _buildTextStyle() {
-    return TextStyle(color: ColorsRes.green, fontFamily: 'Roboto Thin');
   }
 }

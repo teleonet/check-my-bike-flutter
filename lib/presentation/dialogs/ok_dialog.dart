@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 
 class OKDialog extends ButtonDialog {
   final String _text;
-  Function? _callback;
+  final Function? onPressedOk;
 
-  OKDialog(this._text, {Function? callback}) {
-    _callback = callback;
-  }
+  OKDialog(this._text, {this.onPressedOk});
 
   @override
   List<Widget> getWidgets(context) {
@@ -24,7 +22,7 @@ class OKDialog extends ButtonDialog {
     return Center(
         child: buildButton("ok", onPressed: () {
       Navigator.pop(context);
-      _callback?.call();
+      onPressedOk?.call();
     }));
   }
 }

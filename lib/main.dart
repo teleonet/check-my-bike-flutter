@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   runApp(const App());
+
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: ColorsRes.startGradient));
 }
@@ -14,22 +15,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*return MultiProvider(
-      providers: [
-        Provider<SplashBloc>.value(value: SplashBloc()),
-        Provider<MainBloc>.value(value: MainBloc()),
-        Provider<InfoBloc>.value(value: InfoBloc()),
-        Provider<StoryBloc>.value(value: StoryBloc()),
-        Provider<SettingsBloc>.value(value: SettingsBloc()),
-      ],*/
-
     return MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch()
-              .copyWith(primary: ColorsRes.green, secondary: ColorsRes.green),
-        ),
+        theme: _buildTheme(),
         debugShowCheckedModeBanner: false,
         title: 'Check My Bike',
         home: const MainScreen());
+  }
+
+  ThemeData _buildTheme() {
+    return ThemeData(
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(primary: ColorsRes.green, secondary: ColorsRes.green),
+    );
   }
 }

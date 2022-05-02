@@ -7,14 +7,11 @@ import '../base/base_screen_state.dart';
 class AutoScrollText extends StatefulWidget {
   final String _text;
   final double _width;
-  double? _fontSize;
-  Color? _textColor;
+  final double? fontSize;
+  final Color? textColor;
 
-  AutoScrollText(this._text, this._width, {double? fontSize, Color? textColor, Key? key})
-      : super(key: key) {
-    _fontSize = fontSize ?? 20;
-    _textColor = textColor ?? Colors.white;
-  }
+  const AutoScrollText(this._text, this._width, {this.fontSize, this.textColor, Key? key})
+      : super(key: key);
 
   @override
   _AutoScrollTextState createState() => _AutoScrollTextState();
@@ -49,8 +46,8 @@ class _AutoScrollTextState extends BaseScreenState<AutoScrollText> {
   TextStyle _buildTextStyle() {
     return TextStyle(
         fontFamily: 'Roboto Thin',
-        color: widget._textColor,
-        fontSize: widget._fontSize,
+        color: widget.textColor ?? Colors.white,
+        fontSize: widget.fontSize ?? 20,
         decoration: TextDecoration.none);
   }
 

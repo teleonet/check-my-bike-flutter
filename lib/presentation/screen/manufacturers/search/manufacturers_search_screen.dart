@@ -6,14 +6,11 @@ import '../../../validator/validator.dart';
 import '../../../widgets/input_form/input_form.dart';
 
 class ManufacturersSearchScreen extends StatefulWidget {
-  Function? _onTopScroll;
-  Function? _onBottomScroll;
+  final Function? onScrollTop;
+  final Function? onScrollBottom;
 
-  ManufacturersSearchScreen({Function? onTopScroll, Function? onBottomScroll, Key? key})
-      : super(key: key) {
-    _onTopScroll = onTopScroll;
-    _onBottomScroll = onBottomScroll;
-  }
+  const ManufacturersSearchScreen({this.onScrollTop, this.onScrollBottom, Key? key})
+      : super(key: key);
 
   @override
   _ManufacturersSearchScreenState createState() => _ManufacturersSearchScreenState();
@@ -75,11 +72,11 @@ class _ManufacturersSearchScreenState extends ManufacturersBaseState<Manufacture
 
   @override
   Function? getTopScrollHandler() {
-    return widget._onTopScroll;
+    return widget.onScrollTop?.call();
   }
 
   @override
   Function? getBottomScrollHandler() {
-    return widget._onBottomScroll;
+    return widget.onScrollBottom?.call();
   }
 }

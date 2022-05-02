@@ -37,14 +37,7 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
           child: Container(
               margin: const EdgeInsets.only(top: 10),
               height: MediaQuery.of(context).size.height * _getHeightFactor(),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: _manufacturers.length,
-                itemBuilder: (context, index) {
-                  return _buildItem(index);
-                },
-              )))
+              child: _buildListView()))
     ]);
   }
 
@@ -63,7 +56,16 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
     return _topWidgets.isNotEmpty ? 0.65 : 0.75;
   }
 
-  Widget _buildItem(int index) {
+  Widget _buildListView() {
+    return ListView.builder(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      itemCount: _manufacturers.length,
+      itemBuilder: (context, index) => _buildManufacturerItem(index),
+    );
+  }
+
+  Widget _buildManufacturerItem(int index) {
     Manufacturer manufacturer = _manufacturers[index];
     String name = manufacturer.name;
     bool isFavorite = manufacturer.isFavorite;

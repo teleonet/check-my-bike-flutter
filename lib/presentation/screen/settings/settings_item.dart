@@ -7,12 +7,10 @@ class SettingsItem extends StatefulWidget {
   final IconData _icon;
   final String _title;
   final Widget _innerWidget;
-  Function? _onPressed;
+  final Function? onPressed;
 
-  SettingsItem(this._icon, this._title, this._innerWidget, {Function? onPressed, Key? key})
-      : super(key: key) {
-    _onPressed = onPressed;
-  }
+  const SettingsItem(this._icon, this._title, this._innerWidget, {this.onPressed, Key? key})
+      : super(key: key);
 
   @override
   _SettingsItemState createState() => _SettingsItemState();
@@ -28,7 +26,7 @@ class _SettingsItemState extends BaseScreenState<SettingsItem> {
         width: MediaQuery.of(context).size.width,
         child: TextButton(
             style: _buildButtonStyle(),
-            onPressed: () => widget._onPressed?.call(),
+            onPressed: () => widget.onPressed?.call(),
             child: Row(children: [
               Icon(widget._icon, color: ColorsRes.green, size: 25.0),
               const Spacer(),

@@ -52,7 +52,7 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
                         _buildRowContainer("Colors",
                             widget._bike.colors.toString().replaceAll("[", "").replaceAll("]", "")),
                         const Padding(padding: EdgeInsets.only(top: 20)),
-                        _buildTitleText("Description"),
+                        _buildTitle("Description"),
                         const Padding(padding: EdgeInsets.only(top: 15)),
                         Text("${widget._bike.description}", style: _buildTextStyle(Colors.white))
                       ])))),
@@ -77,9 +77,7 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
       titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
-      leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
-          onPressed: () => Navigator.pop(context)),
+      leading: _buildIconButton(),
     );
   }
 
@@ -88,6 +86,12 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
         side: BorderSide(width: 0.15, color: ColorsRes.green),
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+  }
+
+  Widget _buildIconButton() {
+    return IconButton(
+        icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
+        onPressed: () => Navigator.pop(context));
   }
 
   Decoration _buildContainerDecoration() {
@@ -112,18 +116,17 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
   Container _buildRowContainer(String title, String value, {Color? valueColor}) {
     return Container(
         padding: const EdgeInsets.only(top: 10),
-        child:
-            Row(children: [_buildTitleText(title), _buildValueText(value, textColor: valueColor)]));
+        child: Row(children: [_buildTitle(title), _buildValue(value, textColor: valueColor)]));
   }
 
-  Text _buildTitleText(String title) {
+  Text _buildTitle(String title) {
     return Text("$title: ", style: _buildTextStyle(ColorsRes.green));
   }
 
-  Widget _buildValueText(String value, {Color? textColor}) {
+  Widget _buildValue(String value, {Color? textColor}) {
     Widget widget = Text(value, style: _buildTextStyle(textColor ?? Colors.white));
     if (value.length > 20) {
-      widget = AutoScrollText(value, MediaQuery.of(context).size.width * 0.65);
+      widget = _buildAutoScrollText(value, textColor: textColor);
     }
     return widget;
   }
@@ -131,5 +134,9 @@ class _DetailsScreenState extends BaseScreenState<DetailsScreen> {
   TextStyle _buildTextStyle(Color color) {
     return TextStyle(
         fontFamily: 'Roboto Thin', color: color, fontSize: 20, decoration: TextDecoration.none);
+  }
+
+  Widget _buildAutoScrollText(String value, {Color? textColor}) {
+    return AutoScrollText(value, MediaQuery.of(context).size.width * 0.65, textColor: textColor);
   }
 }

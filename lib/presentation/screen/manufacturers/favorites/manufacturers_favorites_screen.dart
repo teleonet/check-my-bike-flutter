@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import '../../../models/manufacturer.dart';
 
 class ManufacturersFavoritesScreen extends StatefulWidget {
-  Function? _onTopScroll;
-  Function? _onBottomScroll;
+  final Function? onScrollTop;
+  final Function? onScrollBottom;
 
-  ManufacturersFavoritesScreen({Function? onTopScroll, Function? onBottomScroll, Key? key})
-      : super(key: key) {
-    _onTopScroll = onTopScroll;
-    _onBottomScroll = onBottomScroll;
-  }
+  const ManufacturersFavoritesScreen({this.onScrollTop, this.onScrollBottom, Key? key})
+      : super(key: key);
 
   @override
   _ManufacturersFavoritesScreenState createState() => _ManufacturersFavoritesScreenState();
@@ -45,11 +42,11 @@ class _ManufacturersFavoritesScreenState
 
   @override
   Function? getBottomScrollHandler() {
-    return widget._onBottomScroll;
+    return widget.onScrollBottom?.call();
   }
 
   @override
   Function? getTopScrollHandler() {
-    return widget._onTopScroll;
+    return widget.onScrollTop?.call();
   }
 }

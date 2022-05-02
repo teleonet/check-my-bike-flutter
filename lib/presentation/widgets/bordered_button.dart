@@ -5,11 +5,9 @@ import '../../../resources/colors_res.dart';
 
 class BorderedButton extends StatefulWidget {
   final String _title;
-  Function? _onPressed;
+  final Function? onPressed;
 
-  BorderedButton(this._title, {Function? onPressed, Key? key}) : super(key: key) {
-    _onPressed = onPressed;
-  }
+  const BorderedButton(this._title, {this.onPressed, Key? key}) : super(key: key);
 
   @override
   BorderedButtonState createState() => BorderedButtonState();
@@ -17,16 +15,6 @@ class BorderedButton extends StatefulWidget {
 
 class BorderedButtonState extends BaseScreenState<BorderedButton> {
   Color _decorationColor = ColorsRes.green;
-
-  void changeToNormalState() {
-    _decorationColor = ColorsRes.green;
-    setState(() => {});
-  }
-
-  void changeToErrorState() {
-    _decorationColor = Colors.red;
-    setState(() => {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +36,26 @@ class BorderedButtonState extends BaseScreenState<BorderedButton> {
     return TextButton(
         onPressed: () {
           changeToNormalState();
-          widget._onPressed?.call();
+          widget.onPressed?.call();
         },
-        child: Text(widget._title,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)));
+        child: _buildText());
+  }
+
+  Text _buildText() {
+    return Text(widget._title, textAlign: TextAlign.center, style: _buildTextStyle());
+  }
+
+  TextStyle _buildTextStyle() {
+    return TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20);
+  }
+
+  void changeToNormalState() {
+    _decorationColor = ColorsRes.green;
+    setState(() => {});
+  }
+
+  void changeToErrorState() {
+    _decorationColor = Colors.red;
+    setState(() => {});
   }
 }

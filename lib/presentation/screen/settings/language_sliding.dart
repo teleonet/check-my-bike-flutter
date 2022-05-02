@@ -7,10 +7,10 @@ import '../../models/language.dart';
 class LanguageSliding extends StatefulWidget {
   final List<Language> _languages;
   final Language _selectedLanguage;
-  final Function(Language) _callback;
+  final Function(Language) _onChangedLanguage;
   int _currentLanguageIndex = 0;
 
-  LanguageSliding(this._languages, this._selectedLanguage, this._callback, {Key? key})
+  LanguageSliding(this._languages, this._selectedLanguage, this._onChangedLanguage, {Key? key})
       : super(key: key) {
     _currentLanguageIndex = _languages.indexWhere((item) => item.name == _selectedLanguage.name);
   }
@@ -31,7 +31,7 @@ class _LanguageSlidingState extends BaseScreenState<LanguageSliding> {
           setState(() => widget._currentLanguageIndex = currentLanguageIndex as int);
 
           Language language = widget._languages[widget._currentLanguageIndex];
-          widget._callback.call(language);
+          widget._onChangedLanguage.call(language);
         });
   }
 

@@ -19,7 +19,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends BaseScreenState<MainScreen> {
-  final _navigationBottomBarKey = GlobalKey<NavigationBottomBarState>();
+  final GlobalKey<NavigationBottomBarState> _navigationBottomBarKey =
+      GlobalKey<NavigationBottomBarState>();
   List<Widget> _screens = [];
   int _currentIndex = 0;
 
@@ -27,9 +28,21 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
     _screens = _buildScreens();
   }
 
+  List<Widget> _buildScreens() {
+    return [
+      const CheckScreen(),
+      ManufacturersScreen(
+          onScrollTop: () => _navigationBottomBarKey.currentState?.show(),
+          onScrollBottom: () => _navigationBottomBarKey.currentState?.hide(),
+          onClickedTab: () => _navigationBottomBarKey.currentState?.show()),
+      const SettingsScreen()
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: _buildNavigationBottomBar(),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -39,9 +52,6 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
           children: _screens,
         ),
       ),
-      bottomNavigationBar: NavigationBottomBar((indexOfSelectedTab) {
-        setState(() => _currentIndex = indexOfSelectedTab);
-      }, key: _navigationBottomBarKey),
     );
   }
 
@@ -53,14 +63,9 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
             colors: [ColorsRes.startGradient, ColorsRes.endGradient]));
   }
 
-  List<Widget> _buildScreens() {
-    return <Widget>[
-      const CheckScreen(),
-      ManufacturersScreen(
-          onTopScroll: () => _navigationBottomBarKey.currentState?.show(),
-          onBottomScroll: () => _navigationBottomBarKey.currentState?.hide(),
-          onTabClicked: () => _navigationBottomBarKey.currentState?.show()),
-      const SettingsScreen()
-    ];
+  NavigationBottomBar _buildNavigationBottomBar() {
+    return NavigationBottomBar((indexOfSelectedTab) {
+      setState(() => _currentIndex = indexOfSelectedTab);
+    }, key: _navigationBottomBarKey);
   }
 }

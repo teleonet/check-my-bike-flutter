@@ -5,22 +5,19 @@ import '../../../base/base_screen_state.dart';
 import '../../../models/bike.dart';
 import '../../../widgets/autoscroll_text.dart';
 
-class Info extends StatefulWidget {
+class InfoItem extends StatefulWidget {
   final Bike _bike;
-  Function(Bike)? _onPressedInfo;
-  Function(Bike)? _onPressedFavorite;
+  final Function(Bike)? onPressedInfo;
+  final Function(Bike)? onPressedFavorite;
 
-  Info(this._bike, {Function(Bike)? onInfoPressed, Function(Bike)? onFavoritePressed, Key? key})
-      : super(key: key) {
-    _onPressedInfo = onInfoPressed;
-    _onPressedFavorite = onFavoritePressed;
-  }
+  const InfoItem(this._bike, {this.onPressedInfo, this.onPressedFavorite, Key? key})
+      : super(key: key);
 
   @override
-  _InfoState createState() => _InfoState();
+  _InfoItemState createState() => _InfoItemState();
 }
 
-class _InfoState extends BaseScreenState<Info> {
+class _InfoItemState extends BaseScreenState<InfoItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,13 +25,13 @@ class _InfoState extends BaseScreenState<Info> {
         margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
         child: TextButton(
             style: _buildButtonStyle(),
-            onPressed: () => widget._onPressedInfo?.call(widget._bike),
+            onPressed: () => widget.onPressedInfo?.call(widget._bike),
             child: Column(children: [
               Stack(alignment: Alignment.topCenter, children: [
                 Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                        onPressed: () => widget._onPressedFavorite?.call(widget._bike),
+                        onPressed: () => widget.onPressedFavorite?.call(widget._bike),
                         child: _buildFavoriteIcon(false))),
                 _buildBikeImage()
               ]),

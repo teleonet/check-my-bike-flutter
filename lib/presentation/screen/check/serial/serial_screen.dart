@@ -23,7 +23,7 @@ class SerialScreen extends StatefulWidget {
 class _SerialScreenState extends BaseCheckState<SerialScreen> {
   //todo: only for development
   final Bike _bike = Bike(
-      410882, true, "Scott", "SWBD312L0482P", "Not stolen", "2018 Fuji ABOSLUTE 1.1", 2021, false,
+      410882, true, "Scott", "SWBD312L0482P", "Stolen", "2018 Fuji ABOSLUTE 1.1", 2021, true,
       largeImg: "https://bikeindex.org/bikes/410882",
       stolenLocation: "Tallahassee, FL 32303, US",
       description:
@@ -36,11 +36,9 @@ class _SerialScreenState extends BaseCheckState<SerialScreen> {
   List<Widget> getWidgets() {
     return [
       _buildInputForm(),
-      Info(_bike, onInfoPressed: (bike) => DetailsScreen.show(context, bike)),
+      _buildInfoItem(_bike),
       const Padding(padding: EdgeInsets.only(top: 20)),
-      _bike.stolen
-          ? FlashingText("Stolen", Colors.red)
-          : Text("Not stolen", style: _buildTextStyle(70))
+      _buildStatusText(_bike)
     ];
   }
 
@@ -50,6 +48,17 @@ class _SerialScreenState extends BaseCheckState<SerialScreen> {
     }, (textForValidator) {
       return Validator.moreThenFourSymbols(textForValidator);
     }, "Please enter more then 4 symbols");
+  }
+
+  Widget _buildInfoItem(Bike bike) {
+    return InfoItem(bike,
+        onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
+  }
+
+  Widget _buildStatusText(Bike bike) {
+    return _bike.stolen
+        ? FlashingText("Stolen", Colors.red)
+        : Text("Not stolen", style: _buildTextStyle(70));
   }
 
   TextStyle _buildTextStyle(double fontSize) {

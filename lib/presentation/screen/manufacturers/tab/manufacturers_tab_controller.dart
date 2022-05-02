@@ -7,11 +7,9 @@ import 'manufacturers_tab_item.dart';
 //todo: need to add swipe effect for change tabs logic
 class ManufacturersTabController extends StatefulWidget {
   final List<Widget> _screens;
-  Function? _onTabClicked;
+  final Function? onClickedTab;
 
-  ManufacturersTabController(this._screens, {Function? onTabClicked, Key? key}) : super(key: key) {
-    _onTabClicked = onTabClicked;
-  }
+  const ManufacturersTabController(this._screens, {this.onClickedTab, Key? key}) : super(key: key);
 
   @override
   _ManufacturersTabControllerState createState() => _ManufacturersTabControllerState();
@@ -33,11 +31,11 @@ class _ManufacturersTabControllerState extends BaseScreenState<ManufacturersTabC
               labelColor: ColorsRes.green,
               labelStyle: _buildTextStyle(FontWeight.bold),
               unselectedLabelStyle: _buildTextStyle(FontWeight.normal),
+              tabs: _buildTabs(),
               onTap: (index) {
-                widget._onTabClicked?.call();
+                widget.onClickedTab?.call();
                 setState(() => _currentScreen = widget._screens[index]);
-              },
-              tabs: _buildTabs())),
+              })),
       //todo: add animation
       Container(child: _currentScreen ?? widget._screens[0])
     ]);

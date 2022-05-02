@@ -8,7 +8,7 @@ import '../../../../resources/colors_res.dart';
 class DistanceSlider extends StatefulWidget {
   final Function(int) _onChanged;
 
-  DistanceSlider(this._onChanged, {Key? key}) : super(key: key);
+  const DistanceSlider(this._onChanged, {Key? key}) : super(key: key);
 
   @override
   _DistanceSliderState createState() => _DistanceSliderState();

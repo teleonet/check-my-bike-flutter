@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
 import '../base/base_screen_state.dart';
-import '../ticker/provider_ticker.dart';
 
 class ShakeButton extends StatefulWidget {
   final String _title;
-  Function? _onPressed;
+  final Function? onPressed;
 
-  ShakeButton(this._title, {Function? onPressed, Key? key}) : super(key: key) {
-    _onPressed = onPressed;
-  }
+  const ShakeButton(this._title, {this.onPressed, Key? key}) : super(key: key);
 
   @override
   ShakeButtonState createState() => ShakeButtonState();
@@ -19,18 +16,21 @@ class ShakeButton extends StatefulWidget {
 
 class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerProviderStateMixin {
   final double _shakeCount = 3;
-  final Duration duration;
+  final Duration duration = const Duration(milliseconds: 500);
   Color _decorationColor = ColorsRes.green;
   AnimationController? _animationController;
   Animation<double>? _animation;
 
-  ShakeButtonState({this.duration = const Duration(milliseconds: 500)}) {
+  @override
+  void initState() {
     _animationController = _buildAnimationController();
     _animation = _buildAnimation();
+    _animationController?.addStatusListener(_animationListener);
+    super.initState();
   }
 
   AnimationController _buildAnimationController() {
-    return AnimationController(vsync: ProviderTicker(), duration: duration);
+    return AnimationController(vsync: this, duration: duration);
   }
 
   Animation<double> _buildAnimation() {
@@ -38,12 +38,6 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
     Curve curve = ShakeCurve(count: _shakeCount);
     CurvedAnimation curvedAnimation = CurvedAnimation(parent: _animationController!, curve: curve);
     return tween.animate(curvedAnimation);
-  }
-
-  @override
-  void initState() {
-    _animationController?.addStatusListener(_animationListener);
-    super.initState();
   }
 
   @override
@@ -88,7 +82,7 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
     return TextButton(
         onPressed: () {
           changeToNormalState();
-          widget._onPressed?.call();
+          widget.onPressed?.call();
         },
         child: Text(widget._title,
             textAlign: TextAlign.center,
