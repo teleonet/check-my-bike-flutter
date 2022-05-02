@@ -1,9 +1,7 @@
-import 'dart:ui';
-
 import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../resources/colors_res.dart';
+import '../../resources/colors_res.dart';
 
 class DistanceSlider extends StatefulWidget {
   final Function(int) _onChanged;
@@ -20,26 +18,15 @@ class _DistanceSliderState extends BaseScreenState<DistanceSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(left: 30, right: 30),
-        padding: const EdgeInsets.only(top: 3, bottom: 3),
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
         decoration: _buildContainerDecoration(),
         child: Material(
             color: Colors.transparent,
             child: Column(children: [
-              Text("Distance around",
-                  style: _buildTextStyle(fontSize: 18), textAlign: TextAlign.center),
-              SizedBox(
-                  height: 30,
-                  child: Slider(
-                      inactiveColor: Colors.white,
-                      activeColor: ColorsRes.green,
-                      thumbColor: ColorsRes.green,
-                      max: 20,
-                      value: _currentValue,
-                      onChangeEnd: (double value) => widget._onChanged.call(value.toInt()),
-                      onChanged: (double value) => setState(() => _currentValue = value))),
+              Text("Around you", style: _buildTextStyle(), textAlign: TextAlign.center),
+              _buildSlider(),
               Text("${_currentValue.toInt()} miles",
-                  textAlign: TextAlign.center, style: _buildTextStyle())
+                  style: _buildTextStyle(), textAlign: TextAlign.center)
             ])));
   }
 
@@ -50,11 +37,22 @@ class _DistanceSliderState extends BaseScreenState<DistanceSlider> {
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
-  TextStyle _buildTextStyle({double? fontSize}) {
+  TextStyle _buildTextStyle() {
     return TextStyle(
         fontFamily: 'Roboto Thin',
         color: ColorsRes.green,
-        fontSize: fontSize ?? 15,
+        fontSize: 18,
         decoration: TextDecoration.none);
+  }
+
+  Widget _buildSlider() {
+    return Slider(
+        inactiveColor: Colors.white,
+        activeColor: ColorsRes.green,
+        thumbColor: ColorsRes.green,
+        max: 20,
+        value: _currentValue,
+        onChangeEnd: (double value) => widget._onChanged.call(value.toInt()),
+        onChanged: (double value) => setState(() => _currentValue = value));
   }
 }
