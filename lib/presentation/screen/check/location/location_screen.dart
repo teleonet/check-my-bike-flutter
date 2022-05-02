@@ -5,6 +5,7 @@ import 'package:check_my_bike_flutter/presentation/screen/check/details/details_
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/location/distance_slider.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
   Location? _location;
   List<Bike> _bikes = [];
 
-  final GlobalKey? _locationButtonKey = GlobalKey<BorderedButtonState>();
+  final GlobalKey? _locationButtonKey = GlobalKey<ShakeButtonState>();
 
   _LocationScreenState() : super("location") {
     // _location = Location(39.73, -104.98);
@@ -68,7 +69,7 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
   }
 
   Widget _buildLocationButton() {
-    return BorderedButton("choose location",
+    return ShakeButton("choose location",
         onPressed: () => print("choose location"), key: _locationButtonKey);
   }
 
@@ -80,11 +81,11 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
 
   Widget _buildSearchButton() {
     return BorderedButton("search", onPressed: () {
-      BorderedButtonState? buttonState = _locationButtonKey?.currentState as BorderedButtonState?;
+      ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
       if (_location != null) {
-        buttonState?.setButtonStatus(Status.normal);
+        buttonState?.changeToNormalState();
       } else {
-        buttonState?.setButtonStatus(Status.error);
+        buttonState?.changeToErrorState();
         //todo: add bloc request location
       }
     });

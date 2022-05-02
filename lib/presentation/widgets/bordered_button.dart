@@ -15,20 +15,16 @@ class BorderedButton extends StatefulWidget {
   BorderedButtonState createState() => BorderedButtonState();
 }
 
-enum Status { normal, error }
-
 class BorderedButtonState extends BaseScreenState<BorderedButton> {
   Color _decorationColor = ColorsRes.green;
 
-  void setButtonStatus(Status status) {
-    switch (status) {
-      case Status.normal:
-        _decorationColor = ColorsRes.green;
-        break;
-      case Status.error:
-        _decorationColor = Colors.red;
-        break;
-    }
+  void changeToNormalState() {
+    _decorationColor = ColorsRes.green;
+    setState(() => {});
+  }
+
+  void changeToErrorState() {
+    _decorationColor = Colors.red;
     setState(() => {});
   }
 
@@ -51,7 +47,7 @@ class BorderedButtonState extends BaseScreenState<BorderedButton> {
   TextButton _buildTextButton() {
     return TextButton(
         onPressed: () {
-          setButtonStatus(Status.normal);
+          changeToNormalState();
           widget._onPressed?.call();
         },
         child: Text(widget._title,
