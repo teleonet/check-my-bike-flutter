@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/screen/main/bottom_navigation_bar/provider_ticker.dart';
+import 'package:check_my_bike_flutter/presentation/ticker/provider_ticker.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';

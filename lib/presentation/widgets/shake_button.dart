@@ -1,8 +1,9 @@
-import 'dart:math';
-
+import 'package:check_my_bike_flutter/presentation/widgets/animation/shake_curve.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
+import '../base/base_screen_state.dart';
+import '../ticker/provider_ticker.dart';
 
 class ShakeButton extends StatefulWidget {
   final String _title;
@@ -16,54 +17,52 @@ class ShakeButton extends StatefulWidget {
   ShakeButtonState createState() => ShakeButtonState();
 }
 
-class ShakeButtonState extends AnimationControllerState {
+class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerProviderStateMixin {
   final double _shakeCount = 3;
-
+  final Duration duration;
   Color _decorationColor = ColorsRes.green;
+  AnimationController? _animationController;
+  Animation<double>? _animation;
 
-  ShakeButtonState() : super(const Duration(milliseconds: 500));
-
-  late final Animation<double> _sineAnimation = Tween(
-    begin: 0.0,
-    end: 1.0,
-  ).animate(CurvedAnimation(
-    parent: animationController,
-    curve: SineCurve(count: _shakeCount),
-  ));
-
-  void changeToNormalState() {
-    _decorationColor = ColorsRes.green;
-    setState(() => {});
+  ShakeButtonState({this.duration = const Duration(milliseconds: 500)}) {
+    _animationController = _buildAnimationController();
+    _animation = _buildAnimation();
   }
 
-  void changeToErrorState() {
-    _decorationColor = Colors.red;
-    _shake();
-    setState(() => {});
+  AnimationController _buildAnimationController() {
+    return AnimationController(vsync: ProviderTicker(), duration: duration);
+  }
+
+  Animation<double> _buildAnimation() {
+    Tween<double> tween = Tween(begin: 0.0, end: 1.0);
+    Curve curve = ShakeCurve(count: _shakeCount);
+    CurvedAnimation curvedAnimation = CurvedAnimation(parent: _animationController!, curve: curve);
+    return tween.animate(curvedAnimation);
   }
 
   @override
   void initState() {
-    animationController.addStatusListener(_updateStatus);
+    _animationController?.addStatusListener(_animationListener);
     super.initState();
   }
 
   @override
   void dispose() {
-    animationController.removeStatusListener(_updateStatus);
+    _animationController?.removeStatusListener(_animationListener);
+    _animationController?.dispose();
     super.dispose();
   }
 
-  void _updateStatus(AnimationStatus status) {
+  void _animationListener(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
-      animationController.reset();
+      _animationController?.reset();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _sineAnimation,
+      animation: _animation!,
       child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: _buildButtonDecoration(),
@@ -71,7 +70,7 @@ class ShakeButtonState extends AnimationControllerState {
           child: _buildTextButton()),
       builder: (context, child) {
         return Transform.translate(
-          offset: Offset(_sineAnimation.value * 10, 0),
+          offset: Offset(_animation!.value * 10, 0),
           child: child,
         );
       },
@@ -96,32 +95,18 @@ class ShakeButtonState extends AnimationControllerState {
             style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)));
   }
 
+  void changeToNormalState() {
+    _decorationColor = ColorsRes.green;
+    setState(() => {});
+  }
+
+  void changeToErrorState() {
+    _decorationColor = Colors.red;
+    _shake();
+    setState(() => {});
+  }
+
   void _shake() async {
-    animationController.forward();
-  }
-}
-
-abstract class AnimationControllerState extends State<ShakeButton>
-    with SingleTickerProviderStateMixin {
-  AnimationControllerState(this.animationDuration);
-
-  final Duration animationDuration;
-  late final animationController = AnimationController(vsync: this, duration: animationDuration);
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-}
-
-class SineCurve extends Curve {
-  final double count;
-
-  const SineCurve({this.count = 3});
-
-  @override
-  double transformInternal(double t) {
-    return sin(count * 2 * pi * t);
+    _animationController?.forward();
   }
 }
