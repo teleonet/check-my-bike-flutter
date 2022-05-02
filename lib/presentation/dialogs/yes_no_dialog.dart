@@ -7,18 +7,14 @@ class YesNoDialog extends ButtonDialog {
   YesNoDialog(this._onPressed);
 
   @override
-  List<Widget> getWidgetsTemplateMethod(BuildContext context) {
-    List<Widget> widgets = [];
+  List<Widget> getWidgets(BuildContext context) {
+    return [_buildButton("YES", context), const SizedBox(width: 20), _buildButton("NO", context)];
+  }
 
-    widgets.add(buildButton("YES", onPressed: () {
+  Widget _buildButton(String title, BuildContext context) {
+    return buildButton(title, onPressed: () {
       Navigator.pop(context);
       _onPressed.call();
-    }));
-
-    widgets.add(const SizedBox(width: 20));
-
-    widgets.add(buildButton("NO", onPressed: () => Navigator.pop(context)));
-
-    return widgets;
+    });
   }
 }

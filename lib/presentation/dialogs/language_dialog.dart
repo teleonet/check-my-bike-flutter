@@ -12,22 +12,21 @@ class LanguageDialog extends ButtonDialog {
   LanguageDialog(this._languages, this._selectedLanguage, this._callback);
 
   @override
-  List<Widget> getWidgetsTemplateMethod(BuildContext context) {
-    List<Widget> widgets = [];
+  List<Widget> getWidgets(BuildContext context) {
+    return [_buildLanguageSliding(), _buildButton(context)];
+  }
 
-    widgets.add(Center(
-        child: LanguageSliding(_languages, _selectedLanguage, (language) {
-      _selectedLanguage = language;
-    })));
+  Widget _buildLanguageSliding() {
+    return Center(
+        child: LanguageSliding(
+            _languages, _selectedLanguage, (language) => _selectedLanguage = language));
+  }
 
-    widgets.add(const Padding(padding: EdgeInsets.only(top: 30)));
-
-    widgets.add(Center(
+  Widget _buildButton(BuildContext context) {
+    return Center(
         child: buildButton("Apply", onPressed: () {
       Navigator.pop(context);
       _callback.call(_selectedLanguage);
-    })));
-
-    return widgets;
+    }));
   }
 }

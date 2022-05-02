@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import '../../resources/colors_res.dart';
 
 abstract class BaseDialog {
-  List<Widget> getWidgetsTemplateMethod(BuildContext context);
+  List<Widget> getWidgets(BuildContext context);
 
   void show(BuildContext context, String title, {bool dismissTouchOutside = false}) {
-    List<Widget> widgets = getWidgetsTemplateMethod(context);
+    List<Widget> widgets = getWidgets(context);
 
     Widget dialog = _build(widgets, title);
 
-    showDialog(
-        barrierDismissible: dismissTouchOutside,
-        context: context,
-        builder: (_) {
-          return dialog;
-        });
+    showDialog(barrierDismissible: dismissTouchOutside, context: context, builder: (_) => dialog);
   }
 
   Widget _build(List<Widget> widgets, String title) {
@@ -33,14 +28,16 @@ abstract class BaseDialog {
   Widget _buildTitle(String title) {
     return Container(
         padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Text(title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                height: 1.4,
-                fontFamily: 'Roboto Thin',
-                color: ColorsRes.green,
-                fontSize: 20,
-                fontWeight: FontWeight.bold)));
+        child: Text(title, textAlign: TextAlign.center, style: _buildTextStyle()));
+  }
+
+  TextStyle _buildTextStyle() {
+    return TextStyle(
+        height: 1.4,
+        fontFamily: 'Roboto Thin',
+        color: ColorsRes.green,
+        fontSize: 20,
+        fontWeight: FontWeight.bold);
   }
 
   ShapeBorder _buildShapeBorder() {

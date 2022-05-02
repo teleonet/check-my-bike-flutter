@@ -1,7 +1,7 @@
+import 'dart:ui';
+
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/material.dart';
-
-import '../../resources/colors_res.dart';
 
 class OKDialog extends ButtonDialog {
   final String _text;
@@ -12,21 +12,19 @@ class OKDialog extends ButtonDialog {
   }
 
   @override
-  List<Widget> getWidgetsTemplateMethod(context) {
-    List<Widget> widgets = [];
+  List<Widget> getWidgets(context) {
+    return [_buildText(), _buildButton(context)];
+  }
 
-    widgets.add(Center(
-        child: Text(_text,
-            style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20))));
+  Widget _buildText() {
+    return Center(child: Text(_text, style: buildTextStyle(fontWeight: FontWeight.normal)));
+  }
 
-    widgets.add(const Padding(padding: EdgeInsets.only(top: 30)));
-
-    widgets.add(Center(
+  Widget _buildButton(BuildContext context) {
+    return Center(
         child: buildButton("ok", onPressed: () {
       Navigator.pop(context);
       _callback?.call();
-    })));
-
-    return widgets;
+    }));
   }
 }
