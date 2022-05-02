@@ -1,32 +1,27 @@
-import 'package:check_my_bike_flutter/presentation/dialogs/distance_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/models/bike.dart';
-import 'package:check_my_bike_flutter/presentation/models/location.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
-import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
-import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
 
-class LocationScreen extends StatefulWidget {
+import '../../../validator/validator.dart';
+import '../../../widgets/input_form/input_form.dart';
+
+class CustomScreen extends StatefulWidget {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const LocationScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const CustomScreen()));
   }
 
-  const LocationScreen({Key? key}) : super(key: key);
+  const CustomScreen({Key? key}) : super(key: key);
 
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  _CustomScreenState createState() => _CustomScreenState();
 }
 
-class _LocationScreenState extends BaseCheckState<LocationScreen> {
-  Location? _location;
+class _CustomScreenState extends BaseCheckState<CustomScreen> {
   List<Bike> _bikes = [];
 
-  final GlobalKey? _locationButtonKey = GlobalKey<ShakeButtonState>();
-
-  _LocationScreenState() : super("location") {
-    // _location = Location(39.73, -104.98);
+  _CustomScreenState() : super("custom") {
     _bikes = _buildBikes();
   }
 
@@ -65,37 +60,21 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
 
   @override
   List<Widget> getWidgets() {
-    return [
-      _buildLocationButton(),
-      const Padding(padding: EdgeInsets.only(top: 10)),
-      _buildSearchButton(),
-      _buildListView()
-    ];
+    return [_buildInputForm(), _buildListView()];
   }
 
-  Widget _buildLocationButton() {
-    return ShakeButton("choose location",
-        onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
-            .show(context, "Choose distance"),
-        key: _locationButtonKey);
-  }
-
-  Widget _buildSearchButton() {
-    return BorderedButton("search", onPressed: () {
-      ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
-      if (_location != null) {
-        buttonState?.changeToNormalState();
-      } else {
-        buttonState?.changeToErrorState();
-        //todo: add bloc request location
-      }
-    });
+  Widget _buildInputForm() {
+    return InputForm("custom parameter", (textToSearch) {
+      //todo: bloc
+    }, (textForValidator) {
+      return Validator.moreThenTwoSymbols(textForValidator);
+    }, "Please enter more then 2 symbols");
   }
 
   Widget _buildListView() {
     return Container(
         margin: const EdgeInsets.only(top: 10),
-        height: MediaQuery.of(context).size.height * 0.65,
+        height: MediaQuery.of(context).size.height * 0.7,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,

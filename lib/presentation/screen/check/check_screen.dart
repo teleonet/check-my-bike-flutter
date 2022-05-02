@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/screen/check/button_item/check_button_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/custom/custom_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/location/location_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/serial/serial_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,8 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
           ]),
           Row(children: [
             const Spacer(),
-            CheckButtonItem("custom", Icons.account_tree_outlined, () => {}),
+            CheckButtonItem(
+                "custom", Icons.account_tree_outlined, () => CustomScreen.show(context)),
             const DividerVertical(2, 100),
             CheckButtonItem("location", Icons.place_outlined, () => LocationScreen.show(context)),
             const Spacer()

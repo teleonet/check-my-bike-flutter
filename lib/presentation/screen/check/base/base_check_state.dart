@@ -18,7 +18,7 @@ abstract class BaseCheckState<T extends StatefulWidget> extends BaseScreenState<
         decoration: _buildGradientDecoration(),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           _buildAppBar(),
-          const Padding(padding: EdgeInsets.only(top: 5)),
+          const Padding(padding: EdgeInsets.only(top: 10)),
           Column(children: getWidgets()),
           const Spacer(),
           Container(height: 15, decoration: _buildBottomDecoration())
