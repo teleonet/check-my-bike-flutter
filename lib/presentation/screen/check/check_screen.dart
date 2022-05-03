@@ -24,7 +24,7 @@ class _CheckScreenState extends BaseScreenState<CheckScreen> {
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: Column(children: [
-          const Header("Check my bike"),
+          const Header("Check"),
           const Spacer(),
           Row(children: [
             const Spacer(),
