@@ -19,8 +19,8 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
 
   @override
   void initState() {
-    super.initState();
     _animationController = _buildAnimationController();
+    super.initState();
   }
 
   @override
