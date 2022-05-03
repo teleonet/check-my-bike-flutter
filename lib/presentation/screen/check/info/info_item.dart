@@ -36,11 +36,7 @@ class InfoItemState extends BaseScreenState<InfoItem> {
             onPressed: () => widget.onPressedInfo?.call(widget._bike),
             child: Column(children: [
               Stack(alignment: Alignment.topCenter, children: [
-                Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                        onPressed: () => widget.onPressedFavorite?.call(widget._bike),
-                        child: _buildFavoriteIcon(false))),
+                Align(alignment: Alignment.topRight, child: _buildTextButton()),
                 _buildBikeImage()
               ]),
               _buildRowContainer("Serial", "${widget._bike.serial}"),
@@ -54,16 +50,22 @@ class InfoItemState extends BaseScreenState<InfoItem> {
             ])));
   }
 
-  ButtonStyle _buildButtonStyle() {
-    return ButtonStyle(
-        padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(bottom: 15)));
-  }
-
   Decoration _buildContainerDecoration() {
     return BoxDecoration(
         color: Colors.transparent,
         border: Border.all(color: ColorsRes.green),
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
+  }
+
+  ButtonStyle _buildButtonStyle() {
+    return ButtonStyle(
+        padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(bottom: 15)));
+  }
+
+  Widget _buildTextButton() {
+    return TextButton(
+        onPressed: () => widget.onPressedFavorite?.call(widget._bike),
+        child: _buildFavoriteIcon(false));
   }
 
   Widget _buildBikeImage() {
