@@ -3,7 +3,7 @@ import 'package:check_my_bike_flutter/presentation/models/bike.dart';
 import 'package:check_my_bike_flutter/presentation/models/location.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
@@ -65,37 +65,36 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
 
   @override
   List<Widget> getWidgets() {
-    return [
-      _buildLocationButton(),
-      const Padding(padding: EdgeInsets.only(top: 10)),
-      _buildSearchButton(),
-      _buildListView()
-    ];
+    return [_buildLocationButton(), _buildSearchButton(), _buildListView()];
   }
 
   Widget _buildLocationButton() {
-    return ShakeButton("choose location",
-        onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
-            .show(context, "Choose distance"),
-        key: _locationButtonKey);
+    return Container(
+        padding: const EdgeInsets.only(top: 10),
+        child: ShakeButton("choose location",
+            onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
+                .show(context, "Choose distance"),
+            key: _locationButtonKey));
   }
 
   Widget _buildSearchButton() {
-    return BorderedButton("search", onPressed: () {
-      ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
-      if (_location != null) {
-        buttonState?.changeToNormalState();
-      } else {
-        buttonState?.changeToErrorState();
-        //todo: add bloc request location
-      }
-    });
+    return Container(
+        padding: const EdgeInsets.only(top: 70),
+        child: BorderedButton("search", onPressed: () {
+          ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
+          if (_location != null) {
+            buttonState?.changeToNormalState();
+          } else {
+            buttonState?.changeToErrorState();
+            //todo: add bloc request location
+          }
+        }));
   }
 
   Widget _buildListView() {
     return Container(
-        margin: const EdgeInsets.only(top: 10),
-        height: MediaQuery.of(context).size.height * 0.65,
+        padding: const EdgeInsets.only(top: 125),
+        height: MediaQuery.of(context).size.height - 105,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,

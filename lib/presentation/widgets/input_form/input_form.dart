@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import '../../../../resources/colors_res.dart';
 
 class InputForm extends StatefulWidget {
-  final Function(String?) _onSearchPressed;
-  final Function(String?) _onValidatorActivated;
+  final Function(String?) _onPressedSearch;
+  final Function(String?) _onActivatedValidator;
   final String _errorValidatorMessage;
   final String _title;
 
   const InputForm(
-      this._title, this._onSearchPressed, this._onValidatorActivated, this._errorValidatorMessage,
+      this._title, this._onPressedSearch, this._onActivatedValidator, this._errorValidatorMessage,
       {Key? key})
       : super(key: key);
 
@@ -87,11 +87,11 @@ class InputFormState extends BaseScreenState<InputForm> {
       FocusManager.instance.primaryFocus?.unfocus();
       String? text = _formKey.currentState?.value;
       _formKey.currentState?.save();
-      widget._onSearchPressed.call(text);
+      widget._onPressedSearch.call(text);
     }
   }
 
   bool _isValidInputtedText() {
-    return widget._onValidatorActivated.call(_formKey.currentState?.value);
+    return widget._onActivatedValidator.call(_formKey.currentState?.value);
   }
 }

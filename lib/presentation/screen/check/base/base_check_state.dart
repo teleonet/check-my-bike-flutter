@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -16,12 +17,10 @@ abstract class BaseCheckState<T extends StatefulWidget> extends BaseScreenState<
     return Container(
         height: MediaQuery.of(context).size.height,
         decoration: _buildGradientDecoration(),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
+        child: Column(children: [
           _buildAppBar(),
-          const Padding(padding: EdgeInsets.only(top: 10)),
-          Column(children: getWidgets()),
-          const Spacer(),
-          Container(height: 15, decoration: _buildBottomDecoration())
+          Stack(children: getWidgets()),
+          Container(height: 15, decoration: _buildBottomDecoration()),
         ]));
   }
 

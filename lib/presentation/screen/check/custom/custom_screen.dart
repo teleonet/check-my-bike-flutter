@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/models/bike.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/info/info.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
 import 'package:flutter/material.dart';
 
 import '../../../validator/validator.dart';
@@ -64,7 +64,7 @@ class _CustomScreenState extends BaseCheckState<CustomScreen> {
   }
 
   Widget _buildInputForm() {
-    return InputForm("custom parameter", (textToSearch) {
+    return InputForm("parameter", (textToSearch) {
       //todo: bloc
     }, (textForValidator) {
       return Validator.moreThenTwoSymbols(textForValidator);
@@ -73,8 +73,8 @@ class _CustomScreenState extends BaseCheckState<CustomScreen> {
 
   Widget _buildListView() {
     return Container(
-        margin: const EdgeInsets.only(top: 10),
-        height: MediaQuery.of(context).size.height * 0.7,
+        padding: const EdgeInsets.only(top: 75),
+        height: MediaQuery.of(context).size.height - 105,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,

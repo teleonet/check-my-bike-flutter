@@ -7,6 +7,9 @@ import '../../../widgets/autoscroll_text.dart';
 
 class InfoItem extends StatefulWidget {
   final Bike _bike;
+
+  Bike get bike => _bike;
+
   final Function(Bike)? onPressedInfo;
   final Function(Bike)? onPressedFavorite;
 
@@ -14,10 +17,15 @@ class InfoItem extends StatefulWidget {
       : super(key: key);
 
   @override
-  _InfoItemState createState() => _InfoItemState();
+  InfoItemState createState() => InfoItemState();
 }
 
-class _InfoItemState extends BaseScreenState<InfoItem> {
+class InfoItemState extends BaseScreenState<InfoItem> {
+  @protected
+  List<Widget> getWidgets() {
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +48,9 @@ class _InfoItemState extends BaseScreenState<InfoItem> {
               _buildRowContainer("Status", "${widget._bike.status}",
                   colorValue: widget._bike.stolen ? Colors.red : null),
               _buildRowContainer("Year", "${widget._bike.year}"),
-              _buildRowContainer("Location", "${widget._bike.stolenLocation}")
+              _buildRowContainer("Location", "${widget._bike.stolenLocation}"),
+              const Padding(padding: EdgeInsets.only(top: 10)),
+              Column(children: getWidgets())
             ])));
   }
 
