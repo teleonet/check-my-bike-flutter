@@ -8,4 +8,6 @@ abstract class AnimationFabric {
   Animation<Offset> createLeftRight(AnimationController controller);
 
   Animation<Offset> createBottomTop(AnimationController controller);
+
+  Animation<double> createShake(AnimationController controller, double shakeCount);
 }

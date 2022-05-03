@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/widgets/animation/shake_curve.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
@@ -6,38 +6,29 @@ import '../base/base_screen_state.dart';
 
 class ShakeButton extends StatefulWidget {
   final String _title;
+  final AnimationFabric _animationFabric;
   final Function? onPressed;
 
-  const ShakeButton(this._title, {this.onPressed, Key? key}) : super(key: key);
+  const ShakeButton(this._title, this._animationFabric, {this.onPressed, Key? key})
+      : super(key: key);
 
   @override
   ShakeButtonState createState() => ShakeButtonState();
 }
 
 class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerProviderStateMixin {
-  final double _shakeCount = 3;
-  final Duration duration = const Duration(milliseconds: 500);
   Color _decorationColor = ColorsRes.green;
   AnimationController? _animationController;
-  Animation<double>? _animation;
 
   @override
   void initState() {
     _animationController = _buildAnimationController();
-    _animation = _buildAnimation();
     _animationController?.addStatusListener(_animationListener);
     super.initState();
   }
 
   AnimationController _buildAnimationController() {
-    return AnimationController(vsync: this, duration: duration);
-  }
-
-  Animation<double> _buildAnimation() {
-    Tween<double> tween = Tween(begin: 0.0, end: 1.0);
-    Curve curve = ShakeCurve(count: _shakeCount);
-    CurvedAnimation curvedAnimation = CurvedAnimation(parent: _animationController!, curve: curve);
-    return tween.animate(curvedAnimation);
+    return AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
   }
 
   @override
@@ -56,18 +47,13 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _animation!,
+      animation: widget._animationFabric.createShake(_animationController!, 3),
       child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: _buildButtonDecoration(),
           margin: const EdgeInsets.only(left: 30, right: 30),
           child: _buildTextButton()),
-      builder: (context, child) {
-        return Transform.translate(
-          offset: Offset(_animation!.value * 10, 0),
-          child: child,
-        );
-      },
+      builder: (context, child) => _buildTransform(child),
     );
   }
 
@@ -87,6 +73,13 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
         child: Text(widget._title,
             textAlign: TextAlign.center,
             style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20)));
+  }
+
+  Transform _buildTransform(Widget? child) {
+    return Transform.translate(
+      offset: Offset(widget._animationFabric.createShake(_animationController!, 3).value * 10, 0),
+      child: child,
+    );
   }
 
   void changeToNormalState() {

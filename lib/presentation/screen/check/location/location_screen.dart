@@ -4,6 +4,7 @@ import 'package:check_my_bike_flutter/presentation/models/location.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric_impl.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +72,7 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
   Widget _buildLocationButton() {
     return Container(
         padding: const EdgeInsets.only(top: 10),
-        child: ShakeButton("choose location",
+        child: ShakeButton("choose location", AnimationFabricImpl(),
             onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
                 .show(context, "Choose distance"),
             key: _locationButtonKey));
