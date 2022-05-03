@@ -1,6 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/language_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/models/language.dart';
+import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_setting_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,8 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
           SettingsItem(Icons.volume_up, "sounds", _buildSwitch(),
               onPressed: () => setState(() => _active = !_active)),
           _buildPadding(),
-          SettingsItem(Icons.info, "info", _buildText("1.0.0"), onPressed: () {}),
+          SettingsItem(Icons.info, "info", _buildText("1.0.0"),
+              onPressed: () => InfoSettingScreen.show(context)),
           const Spacer(),
         ]));
   }
