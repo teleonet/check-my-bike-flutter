@@ -38,15 +38,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
                     _buildManufacturerImage(),
                   ])),
               const Spacer(),
-              TextButton(
-                  onPressed: () {
-                    if (widget._manufacturer.isFavorite) {
-                      _showDeleteFavoriteDialog(() => _changeIsFavoriteAndInvokeCallback(false));
-                    } else {
-                      _changeIsFavoriteAndInvokeCallback(true);
-                    }
-                  },
-                  child: _buildFavoriteIcon())
+              _buildTextButton()
             ])));
   }
 
@@ -72,6 +64,18 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
     return widget._manufacturer.imageUrl.isNotEmpty
         ? Icon(Icons.tab, color: ColorsRes.green, size: 125.0)
         : const SizedBox.shrink();
+  }
+
+  Widget _buildTextButton() {
+    return TextButton(
+        child: _buildFavoriteIcon(),
+        onPressed: () {
+          if (widget._manufacturer.isFavorite) {
+            _showDeleteFavoriteDialog(() => _changeIsFavoriteAndInvokeCallback(false));
+          } else {
+            _changeIsFavoriteAndInvokeCallback(true);
+          }
+        });
   }
 
   Icon _buildFavoriteIcon() {
