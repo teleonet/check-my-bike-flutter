@@ -100,9 +100,8 @@ class _SplashScreenState extends BaseScreenState<SplashScreen> with SingleTicker
     return TextStyle(
         fontFamily: 'Roboto Thin',
         color: ColorsRes.greenOpacity70,
-        fontSize: 85,
-        shadows: [Shadow(color: ColorsRes.greenOpacity70, blurRadius: 10)],
-        fontWeight: FontWeight.bold,
+        fontSize: 80,
+        shadows: [Shadow(color: ColorsRes.greenOpacity70, blurRadius: 15)],
         decoration: TextDecoration.none);
   }
 }
