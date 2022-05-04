@@ -21,13 +21,13 @@ class ManufacturersScreen extends StatefulWidget {
 }
 
 class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
+  List<Widget> _screens = [];
+  Widget? _currentScreen;
+
   @override
-  Widget build(BuildContext context) {
-    return Wrap(children: [
-      const Header("Manufacturers"),
-      const Padding(padding: EdgeInsets.only(top: 5)),
-      ManufacturersTabController(_buildScreens(), onClickedTab: () => widget.onClickedTab?.call())
-    ]);
+  void initState() {
+    _screens = _buildScreens();
+    super.initState();
   }
 
   List<Widget> _buildScreens() {
@@ -39,5 +39,18 @@ class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
       ManufacturersFavoritesScreen(
           onScrollTop: widget.onScrollTop, onScrollBottom: widget.onScrollBottom)
     ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(children: [
+      const Header("Manufacturers"),
+      const Padding(padding: EdgeInsets.only(top: 5)),
+      ManufacturersTabController((index) => setState(() {
+            widget.onClickedTab?.call();
+            _currentScreen = _screens[index];
+          })),
+      Container(child: _currentScreen ?? _screens[0])
+    ]);
   }
 }

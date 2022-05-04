@@ -48,17 +48,13 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _buildNavigationBottomBar(),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: _buildContainerDecoration(),
-        child: IndexedStack(
-          index: _currentIndex,
-          children: _screens,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: _buildContainerDecoration(),
+          child: IndexedStack(index: _currentIndex, children: _screens),
         ),
-      ),
-    );
+        bottomNavigationBar: _buildNavigationBottomBar());
   }
 
   BoxDecoration _buildContainerDecoration() {
@@ -70,8 +66,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
   }
 
   NavigationBottomBar _buildNavigationBottomBar() {
-    return NavigationBottomBar((indexOfSelectedTab) {
-      setState(() => _currentIndex = indexOfSelectedTab);
-    }, key: _navigationBottomBarKey);
+    return NavigationBottomBar((tabIndex) => setState(() => _currentIndex = tabIndex),
+        key: _navigationBottomBarKey);
   }
 }
