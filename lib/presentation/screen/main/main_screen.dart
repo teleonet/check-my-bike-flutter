@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/screen/main/bottom_navigation_bar/navigation_bottom_bar.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../base/base_screen_state.dart';
 import '../../router/slide_right_route.dart';
 import '../check/check_screen.dart';
+import 'navigation_bottom_bar/navigation_bottom_bar.dart';
 
 class MainScreen extends StatefulWidget {
   static show(BuildContext context) {

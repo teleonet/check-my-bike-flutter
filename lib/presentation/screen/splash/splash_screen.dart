@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:check_my_bike_flutter/presentation/screen/main/main_screen.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric_impl.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
@@ -9,19 +10,18 @@ import '../../base/base_screen_state.dart';
 import '../../widgets/animation/fabric/animation_fabric.dart';
 
 class SplashScreen extends StatefulWidget {
-  static show(BuildContext context, AnimationFabric animationFabric) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen(animationFabric)));
+  static show(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const SplashScreen()));
   }
 
-  final AnimationFabric _animationFabric;
-
-  const SplashScreen(this._animationFabric, {Key? key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends BaseScreenState<SplashScreen> with SingleTickerProviderStateMixin {
+  final AnimationFabric _animationFabric = AnimationFabricImpl();
   AnimationController? _animationController;
 
   @override
@@ -62,12 +62,12 @@ class _SplashScreenState extends BaseScreenState<SplashScreen> with SingleTicker
           Positioned.fill(
               bottom: 120,
               child: _buildAnimatedText(
-                  widget._animationFabric.createTopBottom(_animationController!), "Check")),
-          _buildAnimatedText(widget._animationFabric.createLeftRight(_animationController!), "my"),
+                  _animationFabric.createTopBottom(_animationController!), "Check")),
+          _buildAnimatedText(_animationFabric.createLeftRight(_animationController!), "my"),
           Positioned.fill(
               top: 150,
               child: _buildAnimatedText(
-                  widget._animationFabric.createBottomTop(_animationController!), "bike"))
+                  _animationFabric.createBottomTop(_animationController!), "bike"))
         ]));
   }
 

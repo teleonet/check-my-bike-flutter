@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 import '../../../base/base_screen_state.dart';
+import '../../../widgets/rotated_icon.dart';
 
 class NavigationBottomBar extends StatefulWidget {
   final Function(int) _onChangedTab;
@@ -15,12 +16,39 @@ class NavigationBottomBar extends StatefulWidget {
 class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
     with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
+  List<BottomNavigationBarItem> _items = [];
   int _currentIndex = 0;
+
+  NavigationBottomBarState() {
+    _items = _buildBottomNavigationBarItems();
+  }
+
+  List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
+    return [
+      BottomNavigationBarItem(
+          icon: RotatedIcon(Icons.search, key: GlobalKey<RotatedIconState>()),
+          label: 'check',
+          tooltip: ""),
+      BottomNavigationBarItem(
+          icon: RotatedIcon(Icons.summarize, key: GlobalKey<RotatedIconState>()),
+          label: 'manufacturers',
+          tooltip: ""),
+      BottomNavigationBarItem(
+          icon: RotatedIcon(Icons.settings_outlined, key: GlobalKey<RotatedIconState>()),
+          label: 'settings',
+          tooltip: ""),
+    ];
+  }
 
   @override
   void initState() {
     _animationController = _buildAnimationController();
     super.initState();
+  }
+
+  AnimationController _buildAnimationController() {
+    return AnimationController(
+        value: 100, vsync: this, duration: const Duration(milliseconds: 300));
   }
 
   @override
@@ -75,38 +103,29 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
 
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
-      currentIndex: _currentIndex,
-      elevation: 0.0,
-      backgroundColor: Colors.transparent,
-      unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
-      unselectedLabelStyle: _buildTextStyle(),
-      unselectedItemColor: Colors.white,
-      selectedItemColor: ColorsRes.green,
-      selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      selectedLabelStyle: _buildTextStyle(),
-      items: _buildBottomNavigationBarItems(),
-      onTap: (index) => setState(() {
-        _currentIndex = index;
-        widget._onChangedTab(index);
-      }),
-    );
+        currentIndex: _currentIndex,
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        selectedItemColor: ColorsRes.green,
+        selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
+        selectedLabelStyle: _buildTextStyle(),
+        unselectedItemColor: Colors.white,
+        unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
+        unselectedLabelStyle: _buildTextStyle(),
+        items: _items,
+        onTap: (index) => setState(() {
+              _rotateIcon(_items[index].icon as RotatedIcon);
+              _currentIndex = index;
+              widget._onChangedTab(index);
+            }));
+  }
+
+  void _rotateIcon(RotatedIcon icon) {
+    (icon.key as GlobalKey<RotatedIconState>).currentState?.rotate();
   }
 
   TextStyle _buildTextStyle() {
     return const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14);
-  }
-
-  AnimationController _buildAnimationController() {
-    return AnimationController(
-        value: 100, vsync: this, duration: const Duration(milliseconds: 300));
-  }
-
-  List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
-    return const [
-      BottomNavigationBarItem(icon: Icon(Icons.search), label: 'check', tooltip: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.summarize), label: 'manufacturers', tooltip: ""),
-      BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: 'settings', tooltip: ""),
-    ];
   }
 
   void show() {

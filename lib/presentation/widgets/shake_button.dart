@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric_impl.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
@@ -6,17 +7,16 @@ import '../base/base_screen_state.dart';
 
 class ShakeButton extends StatefulWidget {
   final String _title;
-  final AnimationFabric _animationFabric;
   final Function? onPressed;
 
-  const ShakeButton(this._title, this._animationFabric, {this.onPressed, Key? key})
-      : super(key: key);
+  const ShakeButton(this._title, {this.onPressed, Key? key}) : super(key: key);
 
   @override
   ShakeButtonState createState() => ShakeButtonState();
 }
 
 class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerProviderStateMixin {
+  final AnimationFabric _animationFabric = AnimationFabricImpl();
   Color _decorationColor = ColorsRes.green;
   AnimationController? _animationController;
 
@@ -47,7 +47,7 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: widget._animationFabric.createShake(_animationController!, 3),
+      animation: _animationFabric.createShake(_animationController!, 3),
       child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: _buildButtonDecoration(),
@@ -77,7 +77,7 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
 
   Transform _buildTransform(Widget? child) {
     return Transform.translate(
-      offset: Offset(widget._animationFabric.createShake(_animationController!, 3).value * 10, 0),
+      offset: Offset(_animationFabric.createShake(_animationController!, 3).value * 10, 0),
       child: child,
     );
   }

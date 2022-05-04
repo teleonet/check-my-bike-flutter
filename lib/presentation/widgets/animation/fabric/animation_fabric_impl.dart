@@ -7,13 +7,13 @@ import 'animation_fabric.dart';
 
 class AnimationFabricImpl extends AnimationFabric {
   @override
-  Animation<Offset> createBottomTop(Animation<double> controller) {
-    return Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero).animate(controller);
+  Animation<Offset> createTopBottom(Animation<double> controller) {
+    return Tween<Offset>(begin: const Offset(0.0, -1.0), end: Offset.zero).animate(controller);
   }
 
   @override
-  Animation<Offset> createTopBottom(Animation<double> controller) {
-    return Tween<Offset>(begin: const Offset(0.0, -1.0), end: Offset.zero).animate(controller);
+  Animation<Offset> createBottomTop(Animation<double> controller) {
+    return Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero).animate(controller);
   }
 
   @override

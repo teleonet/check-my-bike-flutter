@@ -1,5 +1,4 @@
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
-import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric_impl.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +19,7 @@ class App extends StatelessWidget {
         theme: _buildTheme(),
         debugShowCheckedModeBanner: false,
         title: 'Check My Bike',
-        home: SplashScreen(AnimationFabricImpl()));
+        home: const SplashScreen());
   }
 
   ThemeData _buildTheme() {
