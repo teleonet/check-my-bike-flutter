@@ -64,27 +64,24 @@ class _CustomScreenState extends BaseCheckState<CustomScreen> {
   }
 
   Widget _buildInputForm() {
-    return InputForm("parameter", (textToSearch) {
+    return SliverToBoxAdapter(
+        child: InputForm("parameter", (textToSearch) {
       //todo: bloc
     }, (textForValidator) {
       return Validator.moreThenTwoSymbols(textForValidator);
-    }, "Please enter more then 2 symbols");
+    }, "Please enter more then 2 symbols"));
   }
 
   Widget _buildListView() {
-    return Container(
-        padding: const EdgeInsets.only(top: 75),
-        height: MediaQuery.of(context).size.height - 105,
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: _bikes.length,
-          itemBuilder: (context, index) => _buildInfoItem(_bikes[index]),
-        ));
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      return _buildInfoItem(_bikes[index]);
+    }, childCount: _bikes.length));
   }
 
   Widget _buildInfoItem(Bike bike) {
     return InfoItem(bike,
-        onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
+        onPressedInfo: (bike) => DetailsScreen.show(context, bike),
+        onPressedFavorite: (bike) => print("pressed favorite: ${bike.manufacturerName}"));
   }
 }

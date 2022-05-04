@@ -69,38 +69,35 @@ class _LocationScreenState extends BaseCheckState<LocationScreen> {
   }
 
   Widget _buildLocationButton() {
-    return Container(
-        padding: const EdgeInsets.only(top: 10),
-        child: ShakeButton("choose location",
-            onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
-                .show(context, "Choose distance"),
-            key: _locationButtonKey));
+    return SliverToBoxAdapter(
+        child: Container(
+            padding: const EdgeInsets.only(top: 10),
+            child: ShakeButton("choose location",
+                onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
+                    .show(context, "Choose distance"),
+                key: _locationButtonKey)));
   }
 
   Widget _buildSearchButton() {
-    return Container(
-        padding: const EdgeInsets.only(top: 70),
-        child: BorderedButton("search", onPressed: () {
-          ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
-          if (_location != null) {
-            buttonState?.changeToNormalState();
-          } else {
-            buttonState?.changeToErrorState();
-            //todo: add bloc request location
-          }
-        }));
+    return SliverToBoxAdapter(
+        child: Container(
+            padding: const EdgeInsets.only(top: 10),
+            child: BorderedButton("search", onPressed: () {
+              ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
+              if (_location != null) {
+                buttonState?.changeToNormalState();
+              } else {
+                buttonState?.changeToErrorState();
+                //todo: add bloc request location
+              }
+            })));
   }
 
   Widget _buildListView() {
-    return Container(
-        padding: const EdgeInsets.only(top: 125),
-        height: MediaQuery.of(context).size.height - 105,
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: _bikes.length,
-          itemBuilder: (context, index) => _buildInfoItem(_bikes[index]),
-        ));
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      return _buildInfoItem(_bikes[index]);
+    }, childCount: _bikes.length));
   }
 
   Widget _buildInfoItem(Bike bike) {

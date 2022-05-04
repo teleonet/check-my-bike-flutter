@@ -63,23 +63,19 @@ class _SerialScreenState extends BaseCheckState<SerialScreen> {
   }
 
   Widget _buildInputForm() {
-    return InputForm("serial number", (textToSearch) {
+    return SliverToBoxAdapter(
+        child: InputForm("serial number", (textToSearch) {
       //todo: bloc
     }, (textForValidator) {
       return Validator.moreThenFourSymbols(textForValidator);
-    }, "Please enter more then 4 symbols");
+    }, "Please enter more then 4 symbols"));
   }
 
   Widget _buildListView() {
-    return Container(
-        padding: const EdgeInsets.only(top: 75),
-        height: MediaQuery.of(context).size.height - 105,
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: _bikes.length,
-          itemBuilder: (context, index) => _buildInfoItemWithStatus(_bikes[index]),
-        ));
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      return _buildInfoItemWithStatus(_bikes[index]);
+    }, childCount: _bikes.length));
   }
 
   Widget _buildInfoItemWithStatus(Bike bike) {

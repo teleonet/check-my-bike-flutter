@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -17,10 +16,11 @@ abstract class BaseCheckState<T extends StatefulWidget> extends BaseScreenState<
     return Container(
         height: MediaQuery.of(context).size.height,
         decoration: _buildGradientDecoration(),
-        child: Column(children: [
-          _buildAppBar(),
-          Stack(children: getWidgets()),
-          Container(height: 15, decoration: _buildBottomDecoration()),
+        child: Stack(children: [
+          Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              child: CustomScrollView(slivers: [_buildAppBar(), ...getWidgets()])),
+          _buildBottomContainer()
         ]));
   }
 
@@ -32,20 +32,20 @@ abstract class BaseCheckState<T extends StatefulWidget> extends BaseScreenState<
             colors: [ColorsRes.startGradient, ColorsRes.endGradient]));
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      toolbarHeight: 65,
-      backgroundColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      shape: _buildAppBarBorder(),
-      title: Text(_title),
-      centerTitle: true,
-      iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
-      leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
-          onPressed: () => Navigator.pop(context)),
-    );
+  SliverAppBar _buildAppBar() {
+    return SliverAppBar(
+        toolbarHeight: 65,
+        floating: true,
+        backgroundColor: ColorsRes.startGradient,
+        shadowColor: Colors.transparent,
+        shape: _buildAppBarBorder(),
+        title: Text(_title),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
+        titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
+            onPressed: () => Navigator.pop(context)));
   }
 
   OutlinedBorder _buildAppBarBorder() {
@@ -53,6 +53,12 @@ abstract class BaseCheckState<T extends StatefulWidget> extends BaseScreenState<
         side: BorderSide(width: 0.15, color: ColorsRes.green),
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+  }
+
+  Widget _buildBottomContainer() {
+    return Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Container(height: 15, decoration: _buildBottomDecoration()));
   }
 
   Decoration _buildBottomDecoration() {
