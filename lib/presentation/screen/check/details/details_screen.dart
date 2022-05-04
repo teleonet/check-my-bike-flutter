@@ -1,3 +1,4 @@
+import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -7,7 +8,7 @@ import '../../../widgets/autoscroll_text.dart';
 
 class DetailsScreen extends StatefulWidget {
   static void show(BuildContext context, Bike bike) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen(bike)));
+    Navigator.push(context, SlideRightRoute(DetailsScreen(bike)).createRoute());
   }
 
   final Bike _bike;

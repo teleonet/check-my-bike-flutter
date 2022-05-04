@@ -5,11 +5,17 @@ import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 
 import '../../base/base_screen_state.dart';
+import '../../router/slide_right_route.dart';
 import '../check/check_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const MainScreen()));
+    Navigator.push(context, SlideRightRoute(const MainScreen()).createRoute());
+  }
+
+  static showAndClearStack(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+        context, SlideRightRoute(const MainScreen()).createRoute(), (_) => false);
   }
 
   const MainScreen({Key? key}) : super(key: key);
