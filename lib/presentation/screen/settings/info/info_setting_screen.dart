@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +35,7 @@ class _InfoSettingScreenState extends BaseScreenState<InfoSettingScreen> {
                 _buildRowContainer("Build", "1.0.0"),
                 _buildRowContainer("Server connection", "ok"),
                 _buildRowContainer("Favorites", "27"),
+                _buildRowContainer("Distance type", "Kilometers"),
                 _buildRowContainer("Bikes in database", "110848")
               ]))
         ]));
