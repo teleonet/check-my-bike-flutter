@@ -25,8 +25,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends BaseScreenState<MainScreen> {
-  final GlobalKey<NavigationBottomBarState> _navigationBottomBarKey =
-      GlobalKey<NavigationBottomBarState>();
+  final GlobalKey<NavigationBottomBarState> _bottomBarKey = GlobalKey<NavigationBottomBarState>();
   List<Widget> _screens = [];
   int _currentIndex = 0;
 
@@ -38,9 +37,13 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
     return [
       const CheckScreen(),
       ManufacturersScreen(
-          onScrollTop: () => _navigationBottomBarKey.currentState?.show(),
-          onScrollBottom: () => _navigationBottomBarKey.currentState?.hide(),
-          onClickedTab: () => _navigationBottomBarKey.currentState?.show()),
+          onScrollTop: () {
+            _bottomBarKey.currentState?.show();
+            _bottomBarKey.currentState?.changeToOpacityColor();
+          },
+          onScrollBottom: () => _bottomBarKey.currentState?.hide(),
+          onScrolledTop: () => _bottomBarKey.currentState?.changeToGradientColor(),
+          onClickedTab: () => _bottomBarKey.currentState?.show()),
       const SettingsScreen()
     ];
   }
@@ -48,6 +51,7 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBody: true,
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
@@ -66,7 +70,13 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
   }
 
   NavigationBottomBar _buildNavigationBottomBar() {
-    return NavigationBottomBar((tabIndex) => setState(() => _currentIndex = tabIndex),
-        key: _navigationBottomBarKey);
+    return NavigationBottomBar((tabIndex) {
+      if (_screens[tabIndex] is ManufacturersScreen) {
+        _bottomBarKey.currentState?.changeToGradientColor();
+      } else {
+        _bottomBarKey.currentState?.changeToTransparentColor();
+      }
+      setState(() => _currentIndex = tabIndex);
+    }, key: _bottomBarKey);
   }
 }

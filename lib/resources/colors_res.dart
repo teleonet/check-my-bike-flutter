@@ -7,6 +7,7 @@ class ColorsRes {
 
   static Color startGradient = hexToColor("#0C0E10");
   static Color endGradient = hexToColor("#384048");
+  static Color endGradientOpacity70 = hexToColor("#384048", alphaChannel: "B3");
 
   static Color darkGreen = hexToColor("#5a8872");
   static Color green = hexToColor("#96E3BF");

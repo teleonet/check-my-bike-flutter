@@ -12,11 +12,19 @@ import 'all/manufacturers_all_screen.dart';
 import 'favorites/manufacturers_favorites_screen.dart';
 
 class ManufacturersScreen extends StatefulWidget {
-  final Function? onClickedTab;
   final Function? onScrollTop;
   final Function? onScrollBottom;
+  final Function? onScrolledTop;
+  final Function? onScrolledBottom;
+  final Function? onClickedTab;
 
-  const ManufacturersScreen({this.onScrollTop, this.onScrollBottom, this.onClickedTab, Key? key})
+  const ManufacturersScreen(
+      {this.onScrollTop,
+      this.onScrollBottom,
+      this.onScrolledTop,
+      this.onScrolledBottom,
+      this.onClickedTab,
+      Key? key})
       : super(key: key);
 
   @override
@@ -49,12 +57,17 @@ class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
   }
 
   void _initScrollController() {
-    _scrollController = ScrollControllerWithListener(() => widget.onScrollTop?.call(), () {
-      widget.onScrollBottom?.call();
-      _tabControllerKey.currentState?.changeToScrollColor();
-    }, () {
-      _tabControllerKey.currentState?.changeToDefaultColor();
-    });
+    _scrollController = ScrollControllerWithListener(
+        onScrollTop: () => widget.onScrollTop?.call(),
+        onScrollBottom: () {
+          widget.onScrollBottom?.call();
+          _tabControllerKey.currentState?.changeToScrollColor();
+        },
+        onScrolledTop: () {
+          widget.onScrolledTop?.call();
+          _tabControllerKey.currentState?.changeToDefaultColor();
+        },
+        onScrolledBottom: () => widget.onScrolledBottom?.call());
     _scrollController?.initListener();
   }
 

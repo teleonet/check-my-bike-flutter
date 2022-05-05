@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 
 class ScrollControllerWithListener extends ScrollController {
-  final Function() _onScrolledFullTop;
-  final Function() _onScrollTop;
-  final Function() _onScrollBottom;
+  final Function? onScrolledTop;
+  final Function? onScrolledBottom;
+  final Function? onScrollTop;
+  final Function? onScrollBottom;
 
   bool _isTopScroll = false;
   bool _isBottomScroll = false;
 
-  ScrollControllerWithListener(this._onScrollTop, this._onScrollBottom, this._onScrolledFullTop);
+  ScrollControllerWithListener(
+      {this.onScrollTop, this.onScrollBottom, this.onScrolledTop, this.onScrolledBottom});
 
   void initListener() {
     addListener(handleListener);
@@ -21,7 +23,11 @@ class ScrollControllerWithListener extends ScrollController {
 
   void handleListener() {
     if (position.pixels == position.minScrollExtent) {
-      _onScrolledFullTop.call();
+      onScrolledTop?.call();
+    }
+
+    if (position.pixels == position.maxScrollExtent) {
+      onScrolledBottom?.call();
     }
 
     switch (position.userScrollDirection) {
@@ -29,14 +35,14 @@ class ScrollControllerWithListener extends ScrollController {
         break;
       case ScrollDirection.forward:
         if (!_isTopScroll) {
-          _onScrollTop.call();
+          onScrollTop?.call();
           _isTopScroll = true;
           _isBottomScroll = false;
         }
         break;
       case ScrollDirection.reverse:
         if (!_isBottomScroll) {
-          _onScrollBottom.call();
+          onScrollBottom?.call();
           _isTopScroll = false;
           _isBottomScroll = true;
         }

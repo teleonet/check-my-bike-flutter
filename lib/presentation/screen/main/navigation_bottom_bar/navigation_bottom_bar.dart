@@ -19,6 +19,8 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
   List<BottomNavigationBarItem> _items = [];
   int _currentIndex = 0;
 
+  Color _navigationBarColor = Colors.transparent;
+
   NavigationBottomBarState() {
     _items = _buildBottomNavigationBarItems();
   }
@@ -56,17 +58,13 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
     return Theme(
         data: _buildTheme(),
         child: Container(
-            color: ColorsRes.endGradient,
+            color: Colors.transparent,
             width: MediaQuery.of(context).size.width,
             child: SizeTransition(
                 sizeFactor: _animationController!,
                 axisAlignment: -1.0,
-                child: Stack(children: [
-                  _buildActiveNavigationBarLine(),
-                  Container(
-                      margin: const EdgeInsets.only(left: 5, right: 5, bottom: 10),
-                      child: _buildBottomNavigationBar())
-                ]))));
+                child: Stack(
+                    children: [_buildActiveNavigationBarLine(), _buildBottomNavigationBar()]))));
   }
 
   ThemeData _buildTheme() {
@@ -80,7 +78,7 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
     return SizedBox(
         height: 1,
         child: Align(
-            alignment: _getBottomNavigationLineAlignment(_currentIndex),
+            alignment: _buildNavigationLineAlignment(_currentIndex),
             child: Container(
               margin: const EdgeInsets.only(left: 15, right: 15),
               width: MediaQuery.of(context).size.width / 3.7,
@@ -88,7 +86,7 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
             )));
   }
 
-  Alignment _getBottomNavigationLineAlignment(int index) {
+  Alignment _buildNavigationLineAlignment(int index) {
     Alignment alignment = Alignment.center;
     switch (index) {
       case 0:
@@ -104,8 +102,8 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
         currentIndex: _currentIndex,
-        elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        elevation: 0,
+        backgroundColor: _navigationBarColor,
         selectedItemColor: ColorsRes.green,
         selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         selectedLabelStyle: _buildTextStyle(),
@@ -134,5 +132,23 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
 
   void hide() {
     _animationController?.reverse();
+  }
+
+  void changeToOpacityColor() {
+    setState(() {
+      _navigationBarColor = ColorsRes.endGradientOpacity70;
+    });
+  }
+
+  void changeToGradientColor() {
+    setState(() {
+      _navigationBarColor = ColorsRes.endGradient;
+    });
+  }
+
+  void changeToTransparentColor() {
+    setState(() {
+      _navigationBarColor = Colors.transparent;
+    });
   }
 }
