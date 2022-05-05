@@ -5,8 +5,10 @@ import 'package:flutter/cupertino.dart';
 
 class RotatedIcon extends StatefulWidget {
   final IconData _icon;
+  double size;
+  int duration;
 
-  const RotatedIcon(this._icon, {Key? key}) : super(key: key);
+  RotatedIcon(this._icon, {this.size = 20, this.duration = 500, Key? key}) : super(key: key);
 
   @override
   RotatedIconState createState() => RotatedIconState();
@@ -22,7 +24,7 @@ class RotatedIconState extends BaseScreenState<RotatedIcon> with SingleTickerPro
   }
 
   AnimationController _buildAnimationController() {
-    return AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    return AnimationController(vsync: this, duration: Duration(milliseconds: widget.duration));
   }
 
   @override
@@ -35,7 +37,7 @@ class RotatedIconState extends BaseScreenState<RotatedIcon> with SingleTickerPro
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: _animationController!,
-        child: Icon(widget._icon),
+        child: Icon(widget._icon, size: widget.size),
         builder: (context, child) => _buildTransform(child));
   }
 
