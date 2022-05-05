@@ -6,11 +6,7 @@ import '../../../validator/validator.dart';
 import '../../../widgets/input_form/input_form.dart';
 
 class ManufacturersSearchScreen extends StatefulWidget {
-  final Function? onScrollTop;
-  final Function? onScrollBottom;
-
-  const ManufacturersSearchScreen({this.onScrollTop, this.onScrollBottom, Key? key})
-      : super(key: key);
+  const ManufacturersSearchScreen({Key? key}) : super(key: key);
 
   @override
   _ManufacturersSearchScreenState createState() => _ManufacturersSearchScreenState();
@@ -48,7 +44,8 @@ class _ManufacturersSearchScreenState extends ManufacturersBaseState<Manufacture
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
       Manufacturer("Kestrel", "kestrel.com", false),
       Manufacturer("Kinesis", "kinesis.com", false),
-      Manufacturer("Koga-Miyata", "koga-miyata.com", false)
+      Manufacturer("Koga-Miyata", "koga-miyata.com", false),
+      Manufacturer("Last item", "last item in list", true)
     ];
   }
 
@@ -68,15 +65,5 @@ class _ManufacturersSearchScreenState extends ManufacturersBaseState<Manufacture
     }, (textForValidator) {
       return Validator.moreThenOneSymbol(textForValidator);
     }, "Please enter more then 1 symbols");
-  }
-
-  @override
-  Function? getTopScrollHandler() {
-    return widget.onScrollTop?.call();
-  }
-
-  @override
-  Function? getBottomScrollHandler() {
-    return widget.onScrollBottom?.call();
   }
 }

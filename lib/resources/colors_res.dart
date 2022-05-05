@@ -11,7 +11,11 @@ class ColorsRes {
   static Color darkGreen = hexToColor("#5a8872");
   static Color green = hexToColor("#96E3BF");
   static Color greenOpacity70 = hexToColor("#96E3BF", alphaChannel: "B3");
+
+  static Color darkGreyOpacity75 = hexToColor("#131619", alphaChannel: "BF");
+
   static Color divider = hexToColor("#353C44");
+
   static Color darkGrey = hexToColor("#323940");
 
   static Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {

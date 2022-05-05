@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -9,11 +8,9 @@ import '../manufacturer_item.dart';
 
 abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScreenState<T> {
   List<Manufacturer> _manufacturers = [];
-  List<Widget> _topWidgets = [];
 
   ManufacturersBaseState() {
     _manufacturers = getManufacturers();
-    _topWidgets = getTopWidgets();
   }
 
   @protected
@@ -22,56 +19,30 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
   @protected
   List<Widget> getTopWidgets();
 
-  @protected
-  Function? getTopScrollHandler();
-
-  @protected
-  Function? getBottomScrollHandler();
-
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Column(children: getTopWidgets()),
-      NotificationListener<UserScrollNotification>(
-          onNotification: (notification) => _handleScrollAndCallHandler(notification),
-          child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              height: MediaQuery.of(context).size.height * _getHeightFactor(),
-              child: _buildListView()))
-    ]);
-  }
-
-  bool _handleScrollAndCallHandler(UserScrollNotification scroll) {
-    if (scroll.direction == ScrollDirection.forward) {
-      getTopScrollHandler()?.call();
-    }
-    if (scroll.direction == ScrollDirection.reverse) {
-      getBottomScrollHandler()?.call();
-    }
-    return false;
-  }
-
-  double _getHeightFactor() {
-    //todo: need to find a correct solution to calculate normal height of full visible screen
-    return _topWidgets.isNotEmpty ? 0.65 : 0.75;
+    return _buildListView();
   }
 
   Widget _buildListView() {
-    return ListView.builder(
-      physics: const BouncingScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      itemCount: _manufacturers.length,
-      itemBuilder: (context, index) => _buildManufacturerItem(index),
-    );
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      //todo: need to find more better solution
+      if (index == 0) {
+        for (Widget item in getTopWidgets()) {
+          return item;
+        }
+      }
+      return _buildManufacturerItem(_manufacturers[index]);
+    }, childCount: _manufacturers.length));
   }
 
-  Widget _buildManufacturerItem(int index) {
-    Manufacturer manufacturer = _manufacturers[index];
+  Widget _buildManufacturerItem(Manufacturer manufacturer) {
     String name = manufacturer.name;
     bool isFavorite = manufacturer.isFavorite;
 
     return ManufacturerItem(
-        _manufacturers[index],
+        manufacturer,
         (manufacturer) => print("Favorite pressed: $name status: $isFavorite"),
         (manufacturer) => onItemClicked(manufacturer));
   }
