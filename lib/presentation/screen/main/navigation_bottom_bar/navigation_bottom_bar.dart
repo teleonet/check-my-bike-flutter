@@ -29,15 +29,15 @@ class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
     return [
       BottomNavigationBarItem(
           icon: RotatedIcon(Icons.search, key: GlobalKey<RotatedIconState>()),
-          label: 'check',
+          label: 'Check',
           tooltip: ""),
       BottomNavigationBarItem(
           icon: RotatedIcon(Icons.summarize, key: GlobalKey<RotatedIconState>()),
-          label: 'manufacturers',
+          label: 'Manufacturers',
           tooltip: ""),
       BottomNavigationBarItem(
           icon: RotatedIcon(Icons.settings_outlined, key: GlobalKey<RotatedIconState>()),
-          label: 'settings',
+          label: 'Settings',
           tooltip: ""),
     ];
   }

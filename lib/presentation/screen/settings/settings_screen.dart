@@ -1,5 +1,7 @@
-import 'package:check_my_bike_flutter/presentation/dialogs/language_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_setting_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/language/language_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/models/distance.dart';
 import 'package:check_my_bike_flutter/presentation/models/language.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_setting_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
@@ -31,6 +33,15 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
     return languages;
   }
 
+  List<DistanceType> _buildDistanceTypes() {
+    List<DistanceType> distances = [];
+
+    distances.add(DistanceType("Miles", type.ml));
+    distances.add(DistanceType("Kilometers", type.km));
+
+    return distances;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -39,7 +50,7 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Header("Settings"),
           const Spacer(),
-          SettingsItem(Icons.language, "language", _buildText("eng"),
+          SettingsItem(Icons.language, "language", _buildText("Eng"),
               onPressed: () => _showLanguageDialog()),
           _buildPadding(),
           SettingsItem(Icons.star, "clear favorites", _buildText("18"),
@@ -50,6 +61,9 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
           _buildPadding(),
           SettingsItem(Icons.info, "info", _buildText("1.0.0"),
               onPressed: () => InfoSettingScreen.show(context)),
+          _buildPadding(),
+          SettingsItem(Icons.sync_alt, "Distance", _buildText("Miles"),
+              onPressed: () => _showDistanceTypeDialog()),
           const Spacer(),
         ]));
   }
@@ -81,5 +95,10 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
   void _showClearFavoritesDialog() {
     YesNoDialog(() => print("pressed: Clear favorites"))
         .show(context, "Do you want to clear all favorites ?");
+  }
+
+  void _showDistanceTypeDialog() {
+    DistanceSettingDialog(_buildDistanceTypes(), _buildDistanceTypes()[1],
+        (distanceType) => "selected distance ${distanceType.title}").show(context, "Distance");
   }
 }

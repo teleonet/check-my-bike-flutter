@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/distance_slider.dart';
+import '../../widgets/distance_slider.dart';
 
 class DistanceDialog extends ButtonDialog {
   final Function(int) _onChooseDistance;

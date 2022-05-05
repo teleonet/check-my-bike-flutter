@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/dialogs/distance_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/models/bike.dart';
 import 'package:check_my_bike_flutter/presentation/models/location.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';

@@ -1,8 +1,8 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../models/language.dart';
-import '../screen/settings/language_sliding.dart';
+import '../../models/language.dart';
+import 'language_sliding.dart';
 
 class LanguageDialog extends ButtonDialog {
   final Function(Language) _callback;
