@@ -7,7 +7,7 @@ void main() {
   RestManufacturerRepository _repository = RestManufacturerRepository();
 
   setUp(() async {
-    _repository = RestManufacturerRepository();
+    //empty
   });
 
   tearDown(() async {
