@@ -1,86 +1,27 @@
 class BikeDTO {
-  final int? _id;
+  int? id;
+  bool? isStockImg;
+  String? manufacturerName;
+  String? serial;
+  String? status;
+  String? title;
+  int? year;
+  bool? stolen;
+  String? frameModel;
+  String? largeImg;
+  String? locationFound;
+  int? externalId;
+  String? registryName;
+  String? registryUrl;
+  List<double?>? stolenCoordinates;
+  String? stolenLocation;
+  String? thumb;
+  String? url;
+  String? description;
+  List<String?>? colors;
 
-  int? get id => _id;
-
-  final bool? _isStockImg;
-
-  bool? get isStockImg => _isStockImg;
-
-  final String? _manufacturerName;
-
-  String? get manufacturerName => _manufacturerName;
-
-  final String? _serial;
-
-  String? get serial => _serial;
-
-  final String? _status;
-
-  String? get status => _status;
-
-  final String? _title;
-
-  String? get title => _title;
-
-  final int? _year;
-
-  int? get year => _year;
-
-  final bool? _stolen;
-
-  bool? get stolen => _stolen;
-
-  String? _frameModel;
-
-  String? get frameModel => _frameModel;
-
-  String? _largeImg;
-
-  String? get largeImg => _largeImg;
-
-  String? _locationFound;
-
-  String? get locationFound => _locationFound;
-
-  int? _externalId;
-
-  int? get externalId => _externalId;
-
-  String? _registryName;
-
-  String? get registryName => _registryName;
-
-  String? _registryUrl;
-
-  String? get registryUrl => _registryUrl;
-
-  List<double?>? _stolenCoordinates;
-
-  List<double?>? get stolenCoordinates => _stolenCoordinates;
-
-  String? _stolenLocation;
-
-  String? get stolenLocation => _stolenLocation;
-
-  String? _thumb;
-
-  String? get thumb => _thumb;
-
-  String? _url;
-
-  String? get url => _url;
-
-  String? _description;
-
-  String? get description => _description;
-
-  List<String?>? _colors;
-
-  List<String?>? get colors => _colors;
-
-  BikeDTO(this._id, this._isStockImg, this._manufacturerName, this._serial, this._status,
-      this._title, this._year, this._stolen,
+  BikeDTO(this.id, this.isStockImg, this.manufacturerName, this.serial, this.status, this.title,
+      this.year, this.stolen,
       {String? frameModel,
       String? largeImg,
       String? locationFound,
@@ -93,18 +34,18 @@ class BikeDTO {
       String? url,
       String? description,
       List<String?>? colors}) {
-    _frameModel = frameModel;
-    _largeImg = largeImg;
-    _locationFound = locationFound;
-    _externalId = externalId;
-    _registryName = registryName;
-    _registryUrl = registryName;
-    _stolenCoordinates = stolenCoordinates;
-    _stolenLocation = stolenLocation;
-    _thumb = thumb;
-    _url = url;
-    _description = description;
-    _colors = colors;
+    this.frameModel;
+    this.largeImg;
+    this.locationFound;
+    this.externalId;
+    this.registryName;
+    this.registryName;
+    this.stolenCoordinates;
+    this.stolenLocation;
+    this.thumb;
+    this.url;
+    this.description;
+    this.colors;
   }
 
   factory BikeDTO.fromJson(Map<String, dynamic> json) {
