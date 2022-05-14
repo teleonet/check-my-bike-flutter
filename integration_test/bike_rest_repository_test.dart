@@ -1,5 +1,5 @@
-import 'package:check_my_bike_flutter/repository/models/bike_rest.dart';
-import 'package:check_my_bike_flutter/repository/bike_rest_repository.dart';
+import 'package:check_my_bike_flutter/repository/rest/bike_rest_repository.dart';
+import 'package:check_my_bike_flutter/repository/rest/models/bike_rest.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

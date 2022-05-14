@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:check_my_bike_flutter/repository/base_rest_repository.dart';
-import 'package:check_my_bike_flutter/repository/models/manufacturer_rest.dart';
+import 'package:check_my_bike_flutter/repository/rest/base_rest_repository.dart';
+import 'package:check_my_bike_flutter/repository/rest/models/manufacturer_rest.dart';
 import 'package:http/http.dart' as http;
 
 class ManufacturerRestRepository extends BaseRestRepository {
