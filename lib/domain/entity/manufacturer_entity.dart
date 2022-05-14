@@ -1,4 +1,4 @@
-class Manufacturer {
+class ManufacturerEntity {
   final String _name;
 
   get name => _name;
@@ -17,6 +17,6 @@ class Manufacturer {
 
   set isFavorite(favorite) => _favorite = favorite;
 
-  Manufacturer(this._name, this._companyUrl, this._favorite, {String imageUrl = ""})
+  ManufacturerEntity(this._name, this._companyUrl, this._favorite, {String imageUrl = ""})
       : _imageUrl = imageUrl;
 }

@@ -1,4 +1,4 @@
-class Location {
+class LocationEntity {
   final double _longitude;
 
   get longitude => _longitude;
@@ -7,5 +7,5 @@ class Location {
 
   get latitude => _latitude;
 
-  Location(this._longitude, this._latitude);
+  LocationEntity(this._longitude, this._latitude);
 }

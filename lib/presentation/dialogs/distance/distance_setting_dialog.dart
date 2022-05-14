@@ -1,13 +1,13 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
-import 'package:check_my_bike_flutter/presentation/models/distance.dart';
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'distance_sliding.dart';
 
 class DistanceSettingDialog extends ButtonDialog {
-  final Function(DistanceType) _callback;
-  final List<DistanceType> _distances;
-  DistanceType _selectedDistanceType;
+  final Function(DistanceEntity) _callback;
+  final List<DistanceEntity> _distances;
+  DistanceEntity _selectedDistanceType;
 
   DistanceSettingDialog(this._distances, this._selectedDistanceType, this._callback);
 

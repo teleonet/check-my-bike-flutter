@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/manufacturers_base_state.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/manufacturer.dart';
+import '../../../../domain/entity/manufacturer_entity.dart';
 
 class ManufacturersFavoritesScreen extends StatefulWidget {
   const ManufacturersFavoritesScreen({Key? key}) : super(key: key);
@@ -13,12 +13,12 @@ class ManufacturersFavoritesScreen extends StatefulWidget {
 class _ManufacturersFavoritesScreenState
     extends ManufacturersBaseState<ManufacturersFavoritesScreen> {
   //todo: mock items, only for development
-  List<Manufacturer> _buildManufacturers() {
+  List<ManufacturerEntity> _buildManufacturers() {
     return [
-      Manufacturer("Scott", "scott.com", false),
-      Manufacturer("Comanche", "comanche.com", true,
+      ManufacturerEntity("Scott", "scott.com", false),
+      ManufacturerEntity("Comanche", "comanche.com", true,
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      Manufacturer(
+      ManufacturerEntity(
         "Dean",
         "dean.com",
         false,
@@ -27,7 +27,7 @@ class _ManufacturersFavoritesScreenState
   }
 
   @override
-  List<Manufacturer> getManufacturers() {
+  List<ManufacturerEntity> getManufacturers() {
     return _buildManufacturers();
   }
 

@@ -2,12 +2,12 @@ import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.d
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../../models/bike.dart';
+import '../../../../domain/entity/bike_enitiy.dart';
 import '../../../widgets/flashing_text.dart';
 
 class InfoItemWithStatus extends InfoItem {
-  const InfoItemWithStatus(Bike bike,
-      {Function(Bike)? onPressedInfo, Function(Bike)? onPressedFavorite, Key? key})
+  const InfoItemWithStatus(BikeEntity bike,
+      {Function(BikeEntity)? onPressedInfo, Function(BikeEntity)? onPressedFavorite, Key? key})
       : super(bike, onPressedFavorite: onPressedFavorite, onPressedInfo: onPressedInfo, key: key);
 
   @override
@@ -20,7 +20,7 @@ class _InfoItemWithStatusState extends InfoItemState {
     return [_buildStatusText(widget.bike)];
   }
 
-  Widget _buildStatusText(Bike bike) {
+  Widget _buildStatusText(BikeEntity bike) {
     return bike.stolen
         ? const FlashingText("Stolen", Colors.red)
         : Text("Not stolen", style: _buildTextStyle(70));

@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
-import '../../models/distance.dart';
+import '../../../domain/entity/distance_entity.dart';
 
 class DistanceSliding extends StatefulWidget {
-  final List<DistanceType> _types;
-  final DistanceType _selectedType;
-  final Function(DistanceType) _onChangedType;
+  final List<DistanceEntity> _types;
+  final DistanceEntity _selectedType;
+  final Function(DistanceEntity) _onChangedType;
   int _currentDistanceIndex = 0;
 
   DistanceSliding(this._types, this._selectedType, this._onChangedType, {Key? key})
@@ -31,7 +31,7 @@ class _DistanceSlidingState extends BaseScreenState<DistanceSliding> {
         onValueChanged: (currentLanguageIndex) {
           setState(() => widget._currentDistanceIndex = currentLanguageIndex as int);
 
-          DistanceType distanceType = widget._types[widget._currentDistanceIndex];
+          DistanceEntity distanceType = widget._types[widget._currentDistanceIndex];
           widget._onChangedType.call(distanceType);
         });
   }
@@ -40,14 +40,14 @@ class _DistanceSlidingState extends BaseScreenState<DistanceSliding> {
     Map<int, Widget> children = {};
 
     for (int index = 0; index < widget._types.length; index++) {
-      DistanceType distanceType = widget._types[index];
+      DistanceEntity distanceType = widget._types[index];
       children[index] = _buildWidget(index, distanceType);
     }
 
     return children;
   }
 
-  Widget _buildWidget(int index, DistanceType distanceItem) {
+  Widget _buildWidget(int index, DistanceEntity distanceItem) {
     return SizedBox(
         height: 50, child: Center(child: Text(distanceItem.title, style: _buildTextStyle())));
   }

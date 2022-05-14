@@ -3,18 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../base/base_screen_state.dart';
-import '../../../models/manufacturer.dart';
+import '../../../../domain/entity/manufacturer_entity.dart';
 import '../manufacturer_item.dart';
 
 abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScreenState<T> {
-  List<Manufacturer> _manufacturers = [];
+  List<ManufacturerEntity> _manufacturers = [];
 
   ManufacturersBaseState() {
     _manufacturers = getManufacturers();
   }
 
   @protected
-  List<Manufacturer> getManufacturers();
+  List<ManufacturerEntity> getManufacturers();
 
   @protected
   List<Widget> getTopWidgets();
@@ -37,7 +37,7 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
     }, childCount: _manufacturers.length));
   }
 
-  Widget _buildManufacturerItem(Manufacturer manufacturer) {
+  Widget _buildManufacturerItem(ManufacturerEntity manufacturer) {
     String name = manufacturer.name;
     bool isFavorite = manufacturer.isFavorite;
 
@@ -48,7 +48,7 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
   }
 
   @protected
-  void onItemClicked(Manufacturer manufacturer) {
+  void onItemClicked(ManufacturerEntity manufacturer) {
     _openURL(manufacturer.companyUrl);
   }
 

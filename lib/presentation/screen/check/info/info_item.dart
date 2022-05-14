@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 import '../../../base/base_screen_state.dart';
-import '../../../models/bike.dart';
+import '../../../../domain/entity/bike_enitiy.dart';
 import '../../../widgets/autoscroll_text.dart';
 
 class InfoItem extends StatefulWidget {
-  final Bike _bike;
+  final BikeEntity _bike;
 
-  Bike get bike => _bike;
+  BikeEntity get bike => _bike;
 
-  final Function(Bike)? onPressedInfo;
-  final Function(Bike)? onPressedFavorite;
+  final Function(BikeEntity)? onPressedInfo;
+  final Function(BikeEntity)? onPressedFavorite;
 
   const InfoItem(this._bike, {this.onPressedInfo, this.onPressedFavorite, Key? key})
       : super(key: key);

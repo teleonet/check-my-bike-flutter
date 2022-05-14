@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import '../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
 import '../../dialogs/yes_no_dialog.dart';
-import '../../models/manufacturer.dart';
+import '../../../domain/entity/manufacturer_entity.dart';
 
 class ManufacturerItem extends StatefulWidget {
-  final Manufacturer _manufacturer;
-  final Function(Manufacturer) _onFavoritePressed;
-  final Function(Manufacturer) _onItemPressed;
+  final ManufacturerEntity _manufacturer;
+  final Function(ManufacturerEntity) _onFavoritePressed;
+  final Function(ManufacturerEntity) _onItemPressed;
 
   const ManufacturerItem(this._manufacturer, this._onFavoritePressed, this._onItemPressed,
       {Key? key})

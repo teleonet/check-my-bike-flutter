@@ -1,8 +1,8 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_setting_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/language/language_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
-import 'package:check_my_bike_flutter/presentation/models/distance.dart';
-import 'package:check_my_bike_flutter/presentation/models/language.dart';
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/language_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_setting_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,21 +23,21 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
   bool _active = false;
 
   //todo: need move, only for development
-  List<Language> _buildLanguages() {
-    List<Language> languages = [];
+  List<LanguageEntity> _buildLanguages() {
+    List<LanguageEntity> languages = [];
 
-    languages.add(const Language("ENG", 'assets/icons/ic_flag_eng.png'));
-    languages.add(const Language("UA", 'assets/icons/ic_flag_ua.png'));
-    languages.add(const Language("PL", 'assets/icons/ic_flag_pl.png'));
+    languages.add(const LanguageEntity("ENG", 'assets/icons/ic_flag_eng.png'));
+    languages.add(const LanguageEntity("UA", 'assets/icons/ic_flag_ua.png'));
+    languages.add(const LanguageEntity("PL", 'assets/icons/ic_flag_pl.png'));
 
     return languages;
   }
 
-  List<DistanceType> _buildDistanceTypes() {
-    List<DistanceType> distances = [];
+  List<DistanceEntity> _buildDistanceTypes() {
+    List<DistanceEntity> distances = [];
 
-    distances.add(DistanceType("Miles", type.ml));
-    distances.add(DistanceType("Kilometers", type.km));
+    distances.add(DistanceEntity("Miles", type.ml));
+    distances.add(DistanceEntity("Kilometers", type.km));
 
     return distances;
   }

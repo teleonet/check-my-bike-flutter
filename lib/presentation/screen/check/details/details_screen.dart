@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 import '../../../base/base_screen_state.dart';
-import '../../../models/bike.dart';
+import '../../../../domain/entity/bike_enitiy.dart';
 import '../../../widgets/autoscroll_text.dart';
 
 class DetailsScreen extends StatefulWidget {
-  static void show(BuildContext context, Bike bike) {
+  static void show(BuildContext context, BikeEntity bike) {
     Navigator.push(context, SlideRightRoute(DetailsScreen(bike)).createRoute());
   }
 
-  final Bike _bike;
+  final BikeEntity _bike;
 
   const DetailsScreen(this._bike, {Key? key}) : super(key: key);
 

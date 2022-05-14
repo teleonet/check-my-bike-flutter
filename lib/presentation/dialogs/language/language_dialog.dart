@@ -1,13 +1,13 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../models/language.dart';
+import '../../../domain/entity/language_entity.dart';
 import 'language_sliding.dart';
 
 class LanguageDialog extends ButtonDialog {
-  final Function(Language) _callback;
-  final List<Language> _languages;
-  Language _selectedLanguage;
+  final Function(LanguageEntity) _callback;
+  final List<LanguageEntity> _languages;
+  LanguageEntity _selectedLanguage;
 
   LanguageDialog(this._languages, this._selectedLanguage, this._callback);
 

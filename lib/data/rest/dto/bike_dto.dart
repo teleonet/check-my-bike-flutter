@@ -1,4 +1,4 @@
-class BikeRest {
+class BikeDTO {
   final int? _id;
 
   int? get id => _id;
@@ -79,7 +79,7 @@ class BikeRest {
 
   List<String?>? get colors => _colors;
 
-  BikeRest(this._id, this._isStockImg, this._manufacturerName, this._serial, this._status,
+  BikeDTO(this._id, this._isStockImg, this._manufacturerName, this._serial, this._status,
       this._title, this._year, this._stolen,
       {String? frameModel,
       String? largeImg,
@@ -107,8 +107,8 @@ class BikeRest {
     _colors = colors;
   }
 
-  factory BikeRest.fromJson(Map<String, dynamic> json) {
-    return BikeRest(json['id'], json["is_stock_img"], json["manufacturer_name"], json["serial"],
+  factory BikeDTO.fromJson(Map<String, dynamic> json) {
+    return BikeDTO(json['id'], json["is_stock_img"], json["manufacturer_name"], json["serial"],
         json["status"], json["title"], json["year"], json["stolen"],
         frameModel: json["frame_model"],
         largeImg: json["large_img"],

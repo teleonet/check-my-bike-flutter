@@ -1,5 +1,5 @@
-class Language {
-  const Language(this._name, this._iconPath);
+class LanguageEntity {
+  const LanguageEntity(this._name, this._iconPath);
 
   final String _iconPath;
 

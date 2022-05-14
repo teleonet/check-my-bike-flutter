@@ -1,4 +1,4 @@
-class Bike {
+class BikeEntity {
   final int _id;
 
   get id => _id;
@@ -79,7 +79,7 @@ class Bike {
 
   get colors => _colors;
 
-  Bike(this._id, this._isStockImg, this._manufacturerName, this._serial, this._status, this._title,
+  BikeEntity(this._id, this._isStockImg, this._manufacturerName, this._serial, this._status, this._title,
       this._year, this._stolen,
       {String? frameModel,
       String? largeImg,

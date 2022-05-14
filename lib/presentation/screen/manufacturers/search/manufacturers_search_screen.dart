@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/presentation/models/manufacturer.dart';
+import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/manufacturers_base_state.dart';
 import 'package:flutter/material.dart';
 
@@ -14,43 +14,43 @@ class ManufacturersSearchScreen extends StatefulWidget {
 
 class _ManufacturersSearchScreenState extends ManufacturersBaseState<ManufacturersSearchScreen> {
   //todo: mock items, only for development
-  List<Manufacturer> _buildManufacturers() {
+  List<ManufacturerEntity> _buildManufacturers() {
     return [
-      Manufacturer("Scott", "scott.com", false),
-      Manufacturer("Comanche", "comanche.com", true,
+      ManufacturerEntity("Scott", "scott.com", false),
+      ManufacturerEntity("Comanche", "comanche.com", true,
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      Manufacturer(
+      ManufacturerEntity(
         "Dean",
         "dean.com",
         false,
       ),
-      Manufacturer("Nashbar", "nashbar.com", false),
-      Manufacturer("National", "national.com", true),
-      Manufacturer("Nakto", "nakto.com", false),
-      Manufacturer("NEMO", "nemo.com", false,
+      ManufacturerEntity("Nashbar", "nashbar.com", false),
+      ManufacturerEntity("National", "national.com", true),
+      ManufacturerEntity("Nakto", "nakto.com", false),
+      ManufacturerEntity("NEMO", "nemo.com", false,
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      Manufacturer("Harry Quinn", "harry-quinn.com", false),
-      Manufacturer("Hasa", "hasa.com", true),
-      Manufacturer("Head", "head.com", true),
-      Manufacturer("Heritage", "heritage.com", false,
+      ManufacturerEntity("Harry Quinn", "harry-quinn.com", false),
+      ManufacturerEntity("Hasa", "hasa.com", true),
+      ManufacturerEntity("Head", "head.com", true),
+      ManufacturerEntity("Heritage", "heritage.com", false,
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      Manufacturer("Hoffman", "hoffman.com", true,
+      ManufacturerEntity("Hoffman", "hoffman.com", true,
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      Manufacturer("Ideal Bikes", "ideal-bikes.com", false),
-      Manufacturer("Iron Horse Bikes", "iron-horse-bikes.com", false),
-      Manufacturer("Jetson", "jetson.com", true),
-      Manufacturer("K2", "k2.com", true),
-      Manufacturer("Kelly", "kelly.com", true,
+      ManufacturerEntity("Ideal Bikes", "ideal-bikes.com", false),
+      ManufacturerEntity("Iron Horse Bikes", "iron-horse-bikes.com", false),
+      ManufacturerEntity("Jetson", "jetson.com", true),
+      ManufacturerEntity("K2", "k2.com", true),
+      ManufacturerEntity("Kelly", "kelly.com", true,
           imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      Manufacturer("Kestrel", "kestrel.com", false),
-      Manufacturer("Kinesis", "kinesis.com", false),
-      Manufacturer("Koga-Miyata", "koga-miyata.com", false),
-      Manufacturer("Last item", "last item in list", true)
+      ManufacturerEntity("Kestrel", "kestrel.com", false),
+      ManufacturerEntity("Kinesis", "kinesis.com", false),
+      ManufacturerEntity("Koga-Miyata", "koga-miyata.com", false),
+      ManufacturerEntity("Last item", "last item in list", true)
     ];
   }
 
   @override
-  List<Manufacturer> getManufacturers() {
+  List<ManufacturerEntity> getManufacturers() {
     return _buildManufacturers();
   }
 

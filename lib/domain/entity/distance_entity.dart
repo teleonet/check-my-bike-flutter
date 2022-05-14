@@ -1,6 +1,6 @@
 enum type { km, ml }
 
-class DistanceType {
+class DistanceEntity {
   final String _title;
   final type _type;
 
@@ -8,5 +8,5 @@ class DistanceType {
 
   get title => _title;
 
-  DistanceType(this._title, this._type);
+  DistanceEntity(this._title, this._type);
 }
