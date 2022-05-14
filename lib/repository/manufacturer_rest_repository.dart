@@ -1,15 +1,14 @@
 import 'dart:convert';
 
-import 'package:check_my_bike_flutter/repository/base_repository.dart';
+import 'package:check_my_bike_flutter/repository/base_rest_repository.dart';
 import 'package:check_my_bike_flutter/repository/models/manufacturer_rest.dart';
 import 'package:http/http.dart' as http;
 
-class RestManufacturerRepository extends BaseRepository {
+class ManufacturerRestRepository extends BaseRestRepository {
   static const url = "https://bikeindex.org:443/api/v3/manufacturers";
-  static const ok = 200;
-  static const perPage = 25;
+  static const perPage25 = 25;
 
-  Future<List<ManufacturerRest>>? loadAll(int page, {int perPage = perPage}) async {
+  Future<List<ManufacturerRest>>? loadAll(int page, {int perPage = perPage25}) async {
     List<ManufacturerRest> manufacturers = [];
 
     http.Response response = await http.get(Uri.parse(url + "?page=$page&per_page=$perPage"));

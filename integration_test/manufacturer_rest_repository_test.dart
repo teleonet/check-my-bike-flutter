@@ -1,10 +1,10 @@
 import 'package:check_my_bike_flutter/repository/exception/repository_exception.dart';
 import 'package:check_my_bike_flutter/repository/models/manufacturer_rest.dart';
-import 'package:check_my_bike_flutter/repository/rest_manufacturer_repository.dart';
+import 'package:check_my_bike_flutter/repository/manufacturer_rest_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  RestManufacturerRepository _repository = RestManufacturerRepository();
+  ManufacturerRestRepository _repository = ManufacturerRestRepository();
 
   setUp(() async {
     //empty
