@@ -11,7 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'gateway_utils.dart';
+import 'utils.dart';
 
 void main() async {
   DatabaseGateway? _gateway;
@@ -41,7 +41,7 @@ void main() async {
   });
 
   test("save and load bikes", () async {
-    List<BikeDTO> savedBikes = GatewayUtils.buildBikes();
+    List<BikeDTO> savedBikes = Utils.buildBikes();
     await _gateway?.saveBikes(savedBikes);
 
     Iterable<BikeDTO>? loadedBikes = await _gateway?.loadBikes();
@@ -52,7 +52,7 @@ void main() async {
   });
 
   test("save and load manufacturers", () async {
-    List<ManufacturerDTO> savedManufacturers = GatewayUtils.buildManufacturers();
+    List<ManufacturerDTO> savedManufacturers = Utils.buildManufacturers();
     await _gateway?.saveManufacturers(savedManufacturers);
 
     Iterable<ManufacturerDTO>? loadedManufacturers = await _gateway?.loadManufacturers();

@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:check_my_bike_flutter/data/database/dto/bike_dto.dart';
 import 'package:check_my_bike_flutter/data/database/dto/manufacturer_dto.dart';
 
-class GatewayUtils {
-  GatewayUtils._();
+class Utils {
+  Utils._();
 
   static List<BikeDTO> buildBikes({count = 5}) {
     return List<BikeDTO>.generate(count, (index) => buildBike());
