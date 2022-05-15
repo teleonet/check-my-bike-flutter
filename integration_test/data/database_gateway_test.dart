@@ -44,7 +44,7 @@ void main() async {
     List<BikeDTO> savedBikes = Utils.buildBikes();
     await _gateway?.saveBikes(savedBikes);
 
-    Iterable<BikeDTO>? loadedBikes = await _gateway?.loadBikes();
+    List<BikeDTO>? loadedBikes = await _gateway?.loadBikes();
 
     expect(savedBikes.length == loadedBikes?.length, true);
 
@@ -55,10 +55,34 @@ void main() async {
     List<ManufacturerDTO> savedManufacturers = Utils.buildManufacturers();
     await _gateway?.saveManufacturers(savedManufacturers);
 
-    Iterable<ManufacturerDTO>? loadedManufacturers = await _gateway?.loadManufacturers();
+    List<ManufacturerDTO>? loadedManufacturers = await _gateway?.loadManufacturers();
 
     expect(savedManufacturers.length == loadedManufacturers?.length, true);
 
     await _gateway?.clearManufacturers();
+  });
+
+  test("save and load common", () async {
+    await _gateway?.saveCommon(Utils.buildCommon());
+
+    CommonDTO? common = await _gateway?.loadCommon();
+
+    expect(common?.isFirstStart, false);
+  });
+
+  test("save and load language", () async {
+    await _gateway?.saveLanguage(Utils.buildLanguage());
+
+    LanguageDTO? language = await _gateway?.loadLanguage();
+
+    expect(language?.name, "PL");
+  });
+
+  test("save and load distance", () async {
+    await _gateway?.saveDistance(Utils.buildDistance());
+
+    DistanceDTO? distance = await _gateway?.loadDistance();
+
+    expect(distance?.type, "ml");
   });
 }

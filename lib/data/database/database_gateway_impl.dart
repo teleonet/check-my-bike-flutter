@@ -15,22 +15,15 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<CommonDTO> loadCommon() async {
-    Box<CommonDTO> box = await Hive.openBox<CommonDTO>((CommonDTO).toString());
-    // return box.get((CommonDTO).toString());
-    return box.values.single;
+  Future<void> saveBikes(List<BikeDTO> bikes) async {
+    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
+    await box.put((BikeDTO).toString(), bikes);
   }
 
   @override
-  Future<DistanceDTO> loadDistance() async {
-    Box<DistanceDTO> box = await Hive.openBox<DistanceDTO>((DistanceDTO).toString());
-    return box.values.single;
-  }
-
-  @override
-  Future<LanguageDTO> loadLanguage() async {
-    Box<LanguageDTO> box = await Hive.openBox<LanguageDTO>((LanguageDTO).toString());
-    return box.values.single;
+  Future<void> clearBikes() async {
+    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
+    await box.clear();
   }
 
   @override
@@ -41,9 +34,24 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<void> saveBikes(List<BikeDTO> bikes) async {
-    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
-    await box.put((BikeDTO).toString(), bikes);
+  Future<void> saveManufacturers(List<ManufacturerDTO> manufacturers) async {
+    Box<List<ManufacturerDTO>> box =
+        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
+    await box.put((ManufacturerDTO).toString(), manufacturers);
+  }
+
+  @override
+  Future<void> clearManufacturers() async {
+    Box<List<ManufacturerDTO>> box =
+        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
+    await box.clear();
+  }
+
+  @override
+  Future<CommonDTO> loadCommon() async {
+    Box<CommonDTO> box = await Hive.openBox<CommonDTO>((CommonDTO).toString());
+    // return box.get((CommonDTO).toString());
+    return box.values.single;
   }
 
   @override
@@ -53,9 +61,9 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<void> saveDistance(DistanceDTO distance) async {
-    Box<DistanceDTO> box = await Hive.openBox<DistanceDTO>((DistanceDTO).toString());
-    await box.put((DistanceDTO).toString(), distance);
+  Future<LanguageDTO> loadLanguage() async {
+    Box<LanguageDTO> box = await Hive.openBox<LanguageDTO>((LanguageDTO).toString());
+    return box.values.single;
   }
 
   @override
@@ -65,22 +73,14 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<void> saveManufacturers(List<ManufacturerDTO> manufacturers) async {
-    Box<List<ManufacturerDTO>> box =
-        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
-    await box.put((ManufacturerDTO).toString(), manufacturers);
+  Future<DistanceDTO> loadDistance() async {
+    Box<DistanceDTO> box = await Hive.openBox<DistanceDTO>((DistanceDTO).toString());
+    return box.values.single;
   }
 
   @override
-  Future<void> clearBikes() async {
-    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
-    await box.clear();
-  }
-
-  @override
-  Future<void> clearManufacturers() async {
-    Box<List<ManufacturerDTO>> box =
-        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
-    await box.clear();
+  Future<void> saveDistance(DistanceDTO distance) async {
+    Box<DistanceDTO> box = await Hive.openBox<DistanceDTO>((DistanceDTO).toString());
+    await box.put((DistanceDTO).toString(), distance);
   }
 }

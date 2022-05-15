@@ -1,6 +1,9 @@
 import 'dart:math';
 
 import 'package:check_my_bike_flutter/data/database/dto/bike_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/common_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/distance_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/language_dto.dart';
 import 'package:check_my_bike_flutter/data/database/dto/manufacturer_dto.dart';
 
 class Utils {
@@ -42,5 +45,28 @@ class Utils {
     manufacturer.name = "name: ${DateTime.now()}";
 
     return manufacturer;
+  }
+
+  static CommonDTO buildCommon() {
+    CommonDTO common = CommonDTO();
+    common.isFirstStart = false;
+
+    return common;
+  }
+
+  static LanguageDTO buildLanguage() {
+    LanguageDTO language = LanguageDTO();
+    language.name = "PL";
+    language.iconPath = "//test_path";
+
+    return language;
+  }
+
+  static DistanceDTO buildDistance() {
+    DistanceDTO distance = DistanceDTO();
+    distance.title = "miles";
+    distance.type = "ml";
+
+    return distance;
   }
 }
