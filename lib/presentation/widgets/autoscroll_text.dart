@@ -22,7 +22,7 @@ class _AutoScrollTextState extends BaseScreenState<AutoScrollText> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) => _scroll());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scroll());
     super.initState();
   }
 
