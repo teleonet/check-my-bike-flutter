@@ -1,15 +1,16 @@
 import 'dart:io';
 
-import 'package:check_my_bike_flutter/data/database/dto/bike_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/common_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/distance_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/language_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/manufacturer_dto.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+
+import 'data/data_source/database/dto/bike_dto.dart';
+import 'data/data_source/database/dto/common_dto.dart';
+import 'data/data_source/database/dto/distance_dto.dart';
+import 'data/data_source/database/dto/language_dto.dart';
+import 'data/data_source/database/dto/manufacturer_dto.dart';
 
 void main() {
   _initDependencies();
