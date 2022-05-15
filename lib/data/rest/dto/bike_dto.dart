@@ -20,48 +20,31 @@ class BikeDTO {
   String? description;
   List<String?>? colors;
 
-  BikeDTO(this.id, this.isStockImg, this.manufacturerName, this.serial, this.status, this.title,
-      this.year, this.stolen,
-      {String? frameModel,
-      String? largeImg,
-      String? locationFound,
-      int? externalId,
-      String? registryName,
-      String? registryUrl,
-      List<double?>? stolenCoordinates,
-      String? stolenLocation,
-      String? thumb,
-      String? url,
-      String? description,
-      List<String?>? colors}) {
-    this.frameModel;
-    this.largeImg;
-    this.locationFound;
-    this.externalId;
-    this.registryName;
-    this.registryName;
-    this.stolenCoordinates;
-    this.stolenLocation;
-    this.thumb;
-    this.url;
-    this.description;
-    this.colors;
-  }
+  BikeDTO();
 
   factory BikeDTO.fromJson(Map<String, dynamic> json) {
-    return BikeDTO(json['id'], json["is_stock_img"], json["manufacturer_name"], json["serial"],
-        json["status"], json["title"], json["year"], json["stolen"],
-        frameModel: json["frame_model"],
-        largeImg: json["large_img"],
-        locationFound: json["location_found"],
-        externalId: json["external_id"],
-        registryName: json["registry_name"],
-        registryUrl: json["registry_url"],
-        stolenCoordinates: List<double?>.from(json["stolen_coordinates"] ?? []),
-        stolenLocation: json["stolen_location"],
-        thumb: json["thumb"],
-        url: json["url"],
-        description: json["description"],
-        colors: List<String?>.from(json["frame_colors"] ?? []));
+    BikeDTO bike = BikeDTO();
+    bike.id = json['id'];
+    bike.isStockImg = json["is_stock_img"];
+    bike.manufacturerName = json["manufacturer_name"];
+    bike.serial = json["serial"];
+    bike.status = json["status"];
+    bike.title = json["title"];
+    bike.year = json["year"];
+    bike.stolen = json["stolen"];
+    bike.frameModel = json["frame_model"];
+    bike.largeImg = json["large_img"];
+    bike.locationFound = json["location_found"];
+    bike.externalId = json["external_id"];
+    bike.registryName = json["registry_name"];
+    bike.registryUrl = json["registry_url"];
+    bike.stolenCoordinates = List<double?>.from(json["stolen_coordinates"] ?? []);
+    bike.stolenLocation = json["stolen_location"];
+    bike.thumb = json["thumb"];
+    bike.url = json["url"];
+    bike.description = json["description"];
+    bike.colors = List<String?>.from(json["frame_colors"] ?? []);
+
+    return bike;
   }
 }

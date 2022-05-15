@@ -1,13 +1,37 @@
+import 'dart:io';
+
+import 'package:check_my_bike_flutter/data/database/dto/bike_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/common_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/distance_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/language_dto.dart';
+import 'package:check_my_bike_flutter/data/database/dto/manufacturer_dto.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 
 void main() {
+  _initDependencies();
+
   runApp(const App());
 
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: ColorsRes.startGradient));
+}
+
+void _initDependencies() async {
+  _initHive();
+}
+
+void _initHive() {
+  Hive.init(Directory.current.path);
+
+  Hive.registerAdapter(BikeDTOAdapter());
+  Hive.registerAdapter(CommonDTOAdapter());
+  Hive.registerAdapter(DistanceDTOAdapter());
+  Hive.registerAdapter(LanguageDTOAdapter());
+  Hive.registerAdapter(ManufacturerDTOAdapter());
 }
 
 class App extends StatelessWidget {

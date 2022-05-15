@@ -1,11 +1,15 @@
 class ManufacturerDTO {
-  String name;
-  String companyUrl;
-  String imageUrl;
+  String? name;
+  String? companyUrl;
+  String? imageUrl;
 
-  ManufacturerDTO(this.name, this.companyUrl, {this.imageUrl = ""});
+  ManufacturerDTO();
 
   factory ManufacturerDTO.fromJson(Map<String, dynamic> json) {
-    return ManufacturerDTO(json['name'], json["company_url"]);
+    ManufacturerDTO manufacturer = ManufacturerDTO();
+    manufacturer.name = json['name'];
+    manufacturer.companyUrl = json["company_url"];
+
+    return manufacturer;
   }
 }

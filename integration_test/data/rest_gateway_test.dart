@@ -42,7 +42,7 @@ void main() {
   });
 
   test("load bikes by location with correct query", () async {
-    List<BikeDTO> bikes = await _gateway.loadBikesByLocation(52.228635, 21.006340, 1, 1);
+    List<BikeDTO> bikes = await _gateway.loadBikesByLocation(52.22, 21.00, 1, 1);
     expect(bikes[0].stolenLocation?.contains("PL"), true);
   });
 

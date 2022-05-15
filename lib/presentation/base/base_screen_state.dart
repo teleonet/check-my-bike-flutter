@@ -9,7 +9,7 @@ abstract class BaseScreenState<T extends StatefulWidget> extends State<T> {
 
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       // bloc?.onResume();
     });
   }
