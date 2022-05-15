@@ -1,8 +1,8 @@
-import 'package:check_my_bike_flutter/data/rest/dto/bike_dto.dart';
-import 'package:check_my_bike_flutter/data/rest/dto/manufacturer_dto.dart';
-import 'package:check_my_bike_flutter/data/rest/exception/rest_exception.dart';
-import 'package:check_my_bike_flutter/data/rest/rest_gateway.dart';
-import 'package:check_my_bike_flutter/data/rest/rest_gateway_impl.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/dto/bike_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/dto/manufacturer_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/exception/rest_exception.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

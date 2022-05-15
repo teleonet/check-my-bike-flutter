@@ -1,8 +1,8 @@
-import 'package:check_my_bike_flutter/data/database/dto/bike_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/common_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/distance_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/language_dto.dart';
-import 'package:check_my_bike_flutter/data/database/dto/manufacturer_dto.dart';
+import 'dto/bike_dto.dart';
+import 'dto/common_dto.dart';
+import 'dto/distance_dto.dart';
+import 'dto/language_dto.dart';
+import 'dto/manufacturer_dto.dart';
 
 abstract class DatabaseGateway {
   Future<List<BikeDTO>> loadBikes();

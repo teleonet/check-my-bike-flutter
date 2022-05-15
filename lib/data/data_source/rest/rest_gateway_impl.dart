@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:check_my_bike_flutter/data/rest/dto/bike_dto.dart';
-import 'package:check_my_bike_flutter/data/rest/dto/manufacturer_dto.dart';
-import 'package:check_my_bike_flutter/data/rest/exception/rest_exception.dart';
-import 'package:check_my_bike_flutter/data/rest/rest_gateway.dart';
 import 'package:http/http.dart' as http;
+
+import 'dto/bike_dto.dart';
+import 'dto/manufacturer_dto.dart';
+import 'exception/rest_exception.dart';
+import 'rest_gateway.dart';
 
 class RestGatewayImpl implements RestGateway {
   static const manufacturersUrl = "https://bikeindex.org:443/api/v3/manufacturers";
