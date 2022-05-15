@@ -9,6 +9,7 @@ class ManufacturerDTO {
     ManufacturerDTO manufacturer = ManufacturerDTO();
     manufacturer.name = json['name'];
     manufacturer.companyUrl = json["company_url"];
+    manufacturer.imageUrl = json["image"] ?? "";
 
     return manufacturer;
   }
