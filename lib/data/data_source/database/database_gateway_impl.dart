@@ -1,86 +1,86 @@
 import 'package:hive/hive.dart';
 
 import 'database_gateway.dart';
-import 'dto/bike_dto.dart';
-import 'dto/common_dto.dart';
-import 'dto/distance_dto.dart';
-import 'dto/language_dto.dart';
-import 'dto/manufacturer_dto.dart';
+import 'dto/bike_db_dto.dart';
+import 'dto/common_db_dto.dart';
+import 'dto/distance_db_dto.dart';
+import 'dto/language_db_dto.dart';
+import 'dto/manufacturer_db_dto.dart';
 
 class DatabaseGatewayImpl implements DatabaseGateway {
   @override
-  Future<List<BikeDTO>> loadBikes() async {
-    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
-    return box.get((BikeDTO).toString()) ?? [];
+  Future<List<BikeDbDTO>> loadBikes() async {
+    Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());
+    return box.get((BikeDbDTO).toString()) ?? [];
   }
 
   @override
-  Future<void> saveBikes(List<BikeDTO> bikes) async {
-    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
-    await box.put((BikeDTO).toString(), bikes);
+  Future<void> saveBikes(List<BikeDbDTO> bikes) async {
+    Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());
+    await box.put((BikeDbDTO).toString(), bikes);
   }
 
   @override
   Future<void> clearBikes() async {
-    Box<List<BikeDTO>> box = await Hive.openBox<List<BikeDTO>>((BikeDTO).toString());
+    Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());
     await box.clear();
   }
 
   @override
-  Future<List<ManufacturerDTO>> loadManufacturers() async {
-    Box<List<ManufacturerDTO>> box =
-        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
-    return box.get((ManufacturerDTO).toString()) ?? [];
+  Future<List<ManufacturerDbDTO>> loadManufacturers() async {
+    Box<List<ManufacturerDbDTO>> box =
+        await Hive.openBox<List<ManufacturerDbDTO>>((ManufacturerDbDTO).toString());
+    return box.get((ManufacturerDbDTO).toString()) ?? [];
   }
 
   @override
-  Future<void> saveManufacturers(List<ManufacturerDTO> manufacturers) async {
-    Box<List<ManufacturerDTO>> box =
-        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
-    await box.put((ManufacturerDTO).toString(), manufacturers);
+  Future<void> saveManufacturers(List<ManufacturerDbDTO> manufacturers) async {
+    Box<List<ManufacturerDbDTO>> box =
+        await Hive.openBox<List<ManufacturerDbDTO>>((ManufacturerDbDTO).toString());
+    await box.put((ManufacturerDbDTO).toString(), manufacturers);
   }
 
   @override
   Future<void> clearManufacturers() async {
-    Box<List<ManufacturerDTO>> box =
-        await Hive.openBox<List<ManufacturerDTO>>((ManufacturerDTO).toString());
+    Box<List<ManufacturerDbDTO>> box =
+        await Hive.openBox<List<ManufacturerDbDTO>>((ManufacturerDbDTO).toString());
     await box.clear();
   }
 
   @override
-  Future<CommonDTO> loadCommon() async {
-    Box<CommonDTO> box = await Hive.openBox<CommonDTO>((CommonDTO).toString());
+  Future<CommonDbDTO> loadCommon() async {
+    Box<CommonDbDTO> box = await Hive.openBox<CommonDbDTO>((CommonDbDTO).toString());
     // return box.get((CommonDTO).toString());
     return box.values.single;
   }
 
   @override
-  Future<void> saveCommon(CommonDTO common) async {
-    Box<CommonDTO> box = await Hive.openBox<CommonDTO>((CommonDTO).toString());
-    await box.put((CommonDTO).toString(), common);
+  Future<void> saveCommon(CommonDbDTO common) async {
+    Box<CommonDbDTO> box = await Hive.openBox<CommonDbDTO>((CommonDbDTO).toString());
+    await box.put((CommonDbDTO).toString(), common);
   }
 
   @override
-  Future<LanguageDTO> loadLanguage() async {
-    Box<LanguageDTO> box = await Hive.openBox<LanguageDTO>((LanguageDTO).toString());
+  Future<LanguageDbDTO> loadLanguage() async {
+    Box<LanguageDbDTO> box = await Hive.openBox<LanguageDbDTO>((LanguageDbDTO).toString());
     return box.values.single;
   }
 
   @override
-  Future<void> saveLanguage(LanguageDTO language) async {
-    Box<LanguageDTO> box = await Hive.openBox<LanguageDTO>((LanguageDTO).toString());
-    await box.put((LanguageDTO).toString(), language);
+  Future<void> saveLanguage(LanguageDbDTO language) async {
+    Box<LanguageDbDTO> box = await Hive.openBox<LanguageDbDTO>((LanguageDbDTO).toString());
+    await box.put((LanguageDbDTO).toString(), language);
   }
 
   @override
-  Future<DistanceDTO> loadDistance() async {
-    Box<DistanceDTO> box = await Hive.openBox<DistanceDTO>((DistanceDTO).toString());
+  Future<DistanceDbDTO> loadDistance() async {
+    Box<DistanceDbDTO> box = await Hive.openBox<DistanceDbDTO>((DistanceDbDTO).toString());
     return box.values.single;
   }
 
   @override
-  Future<void> saveDistance(DistanceDTO distance) async {
-    Box<DistanceDTO> box = await Hive.openBox<DistanceDTO>((DistanceDTO).toString());
-    await box.put((DistanceDTO).toString(), distance);
+  Future<void> saveDistance(DistanceDbDTO distance) async {
+    Box<DistanceDbDTO> box = await Hive.openBox<DistanceDbDTO>((DistanceDbDTO).toString());
+    await box.put((DistanceDbDTO).toString(), distance);
   }
 }

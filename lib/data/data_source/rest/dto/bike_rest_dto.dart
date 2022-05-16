@@ -1,4 +1,4 @@
-class BikeDTO {
+class BikeRestDTO {
   int? id;
   bool? isStockImg;
   String? manufacturerName;
@@ -20,10 +20,10 @@ class BikeDTO {
   String? description;
   List<String?>? colors;
 
-  BikeDTO();
+  BikeRestDTO();
 
-  factory BikeDTO.fromJson(Map<String, dynamic> json) {
-    BikeDTO bike = BikeDTO();
+  factory BikeRestDTO.fromJson(Map<String, dynamic> json) {
+    BikeRestDTO bike = BikeRestDTO();
     bike.id = json['id'];
     bike.isStockImg = json["is_stock_img"];
     bike.manufacturerName = json["manufacturer_name"];

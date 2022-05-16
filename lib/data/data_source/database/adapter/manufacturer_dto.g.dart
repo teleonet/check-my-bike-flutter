@@ -1,29 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../dto/manufacturer_dto.dart';
+part of '../dto/manufacturer_db_dto.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ManufacturerDTOAdapter extends TypeAdapter<ManufacturerDTO> {
+class ManufacturerDTOAdapter extends TypeAdapter<ManufacturerDbDTO> {
   @override
   final int typeId = 6;
 
   @override
-  ManufacturerDTO read(BinaryReader reader) {
+  ManufacturerDbDTO read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ManufacturerDTO()
+    return ManufacturerDbDTO()
       ..name = fields[0] as String?
       ..companyUrl = fields[1] as String?
       ..imageUrl = fields[2] as String?;
   }
 
   @override
-  void write(BinaryWriter writer, ManufacturerDTO obj) {
+  void write(BinaryWriter writer, ManufacturerDbDTO obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -40,7 +40,5 @@ class ManufacturerDTOAdapter extends TypeAdapter<ManufacturerDTO> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ManufacturerDTOAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is ManufacturerDTOAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

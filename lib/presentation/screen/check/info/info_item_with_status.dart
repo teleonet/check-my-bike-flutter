@@ -2,7 +2,7 @@ import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.d
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../../../domain/entity/bike_enitiy.dart';
+import '../../../../domain/entity/bike_entity.dart';
 import '../../../widgets/flashing_text.dart';
 
 class InfoItemWithStatus extends InfoItem {

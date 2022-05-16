@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import 'dto/bike_dto.dart';
-import 'dto/manufacturer_dto.dart';
+import 'dto/bike_rest_dto.dart';
+import 'dto/manufacturer_rest_dto.dart';
 import 'exception/rest_exception.dart';
 import 'rest_gateway.dart';
 
@@ -24,25 +24,25 @@ class RestGatewayImpl implements RestGateway {
     }
   }
 
-  List<ManufacturerDTO> _parseManufacturers(List items) {
+  List<ManufacturerRestDTO> _parseManufacturers(List items) {
     return items.map((item) => _parseManufacturer(item)).toList();
   }
 
-  ManufacturerDTO _parseManufacturer(Map<String, dynamic> json) {
-    return ManufacturerDTO.fromJson(json);
+  ManufacturerRestDTO _parseManufacturer(Map<String, dynamic> json) {
+    return ManufacturerRestDTO.fromJson(json);
   }
 
-  List<BikeDTO> _parseBikes(List items) {
+  List<BikeRestDTO> _parseBikes(List items) {
     return items.map((item) => _parseBike(item)).toList();
   }
 
-  BikeDTO _parseBike(Map<String, dynamic> json) {
-    return BikeDTO.fromJson(json);
+  BikeRestDTO _parseBike(Map<String, dynamic> json) {
+    return BikeRestDTO.fromJson(json);
   }
 
   @override
-  Future<List<ManufacturerDTO>> loadAllManufacturers(int page, {int perPage = perPage25}) async {
-    List<ManufacturerDTO> manufacturers = [];
+  Future<List<ManufacturerRestDTO>> loadAllManufacturers(int page, {int perPage = perPage25}) async {
+    List<ManufacturerRestDTO> manufacturers = [];
 
     http.Response response =
         await http.get(Uri.parse(manufacturersUrl + "?page=$page&per_page=$perPage"));
@@ -56,8 +56,8 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<ManufacturerDTO?> loadManufacturerByName(String name) async {
-    ManufacturerDTO? manufacturer;
+  Future<ManufacturerRestDTO?> loadManufacturerByName(String name) async {
+    ManufacturerRestDTO? manufacturer;
 
     http.Response response = await http.get(Uri.parse(manufacturersUrl + "/$name"));
 
@@ -71,9 +71,9 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeDTO>> loadBikesByCustomParameter(String customParameter, int page,
+  Future<List<BikeRestDTO>> loadBikesByCustomParameter(String customParameter, int page,
       {int perPage = perPage25}) async {
-    List<BikeDTO> bikes = [];
+    List<BikeRestDTO> bikes = [];
 
     http.Response response = await http.get(Uri.parse(
         bikeUrl + "?page=$page&perPage=$perPage&query=$customParameter&stolenness=stolen"));
@@ -87,10 +87,10 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeDTO>> loadBikesByLocation(
+  Future<List<BikeRestDTO>> loadBikesByLocation(
       double latitude, double longitude, int distance, int page,
       {int perPage = perPage25}) async {
-    List<BikeDTO>? bikes = [];
+    List<BikeRestDTO>? bikes = [];
 
     http.Response response = await http.get(Uri.parse(bikeUrl +
         "?page=$page&perPage=$perPage&location=$latitude$comma$longitude&distance=$distance&stolenness=proximity"));
@@ -104,9 +104,9 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeDTO>> loadBikesByManufacturer(String manufacturer, int page,
+  Future<List<BikeRestDTO>> loadBikesByManufacturer(String manufacturer, int page,
       {int perPage = perPage25}) async {
-    List<BikeDTO>? bikes = [];
+    List<BikeRestDTO>? bikes = [];
 
     http.Response response = await http.get(Uri.parse(
         bikeUrl + "?page=$page&perPage=$perPage&manufacturer=$manufacturer&stolenness=stolen"));
@@ -120,9 +120,9 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeDTO>> loadBikesBySerial(String serial, int page,
+  Future<List<BikeRestDTO>> loadBikesBySerial(String serial, int page,
       {int perPage = perPage25}) async {
-    List<BikeDTO>? bikes = [];
+    List<BikeRestDTO>? bikes = [];
 
     http.Response response = await http
         .get(Uri.parse(bikeUrl + "?page=$page&perPage=$perPage&serial=$serial&stolenness=stolen"));

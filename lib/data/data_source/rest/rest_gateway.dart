@@ -1,18 +1,19 @@
-import 'dto/bike_dto.dart';
-import 'dto/manufacturer_dto.dart';
+import 'dto/bike_rest_dto.dart';
+import 'dto/manufacturer_rest_dto.dart';
 
 abstract class RestGateway {
-  Future<List<ManufacturerDTO>> loadAllManufacturers(int page, {int perPage});
+  Future<List<ManufacturerRestDTO>> loadAllManufacturers(int page, {int perPage});
 
-  Future<ManufacturerDTO?> loadManufacturerByName(String name);
+  Future<ManufacturerRestDTO?> loadManufacturerByName(String name);
 
-  Future<List<BikeDTO>> loadBikesBySerial(String serial, int page, {int perPage});
+  Future<List<BikeRestDTO>> loadBikesBySerial(String serial, int page, {int perPage});
 
-  Future<List<BikeDTO>> loadBikesByManufacturer(String manufacturer, int page, {int perPage});
+  Future<List<BikeRestDTO>> loadBikesByManufacturer(String manufacturer, int page, {int perPage});
 
-  Future<List<BikeDTO>> loadBikesByCustomParameter(String customParameter, int page, {int perPage});
+  Future<List<BikeRestDTO>> loadBikesByCustomParameter(String customParameter, int page,
+      {int perPage});
 
-  Future<List<BikeDTO>> loadBikesByLocation(
+  Future<List<BikeRestDTO>> loadBikesByLocation(
       double latitude, double longitude, int distance, int page,
       {int perPage});
 }

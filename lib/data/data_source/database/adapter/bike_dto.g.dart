@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../dto/bike_dto.dart';
+part of '../dto/bike_db_dto.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BikeDTOAdapter extends TypeAdapter<BikeDTO> {
+class BikeDTOAdapter extends TypeAdapter<BikeDbDTO> {
   @override
   final int typeId = 0;
 
   @override
-  BikeDTO read(BinaryReader reader) {
+  BikeDbDTO read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return BikeDTO()
+    return BikeDbDTO()
       ..id = fields[0] as int?
       ..isStockImg = fields[1] as bool?
       ..manufacturerName = fields[2] as String?
@@ -40,7 +40,7 @@ class BikeDTOAdapter extends TypeAdapter<BikeDTO> {
   }
 
   @override
-  void write(BinaryWriter writer, BikeDTO obj) {
+  void write(BinaryWriter writer, BikeDbDTO obj) {
     writer
       ..writeByte(20)
       ..writeByte(0)
@@ -91,7 +91,5 @@ class BikeDTOAdapter extends TypeAdapter<BikeDTO> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BikeDTOAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      other is BikeDTOAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }

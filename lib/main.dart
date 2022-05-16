@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 
-import 'data/data_source/database/dto/bike_dto.dart';
-import 'data/data_source/database/dto/common_dto.dart';
-import 'data/data_source/database/dto/distance_dto.dart';
-import 'data/data_source/database/dto/language_dto.dart';
-import 'data/data_source/database/dto/manufacturer_dto.dart';
+import 'data/data_source/database/dto/bike_db_dto.dart';
+import 'data/data_source/database/dto/common_db_dto.dart';
+import 'data/data_source/database/dto/distance_db_dto.dart';
+import 'data/data_source/database/dto/language_db_dto.dart';
+import 'data/data_source/database/dto/manufacturer_db_dto.dart';
 
 void main() {
   _initDependencies();

@@ -1,12 +1,12 @@
-class ManufacturerDTO {
+class ManufacturerRestDTO {
   String? name;
   String? companyUrl;
   String? imageUrl;
 
-  ManufacturerDTO();
+  ManufacturerRestDTO();
 
-  factory ManufacturerDTO.fromJson(Map<String, dynamic> json) {
-    ManufacturerDTO manufacturer = ManufacturerDTO();
+  factory ManufacturerRestDTO.fromJson(Map<String, dynamic> json) {
+    ManufacturerRestDTO manufacturer = ManufacturerRestDTO();
     manufacturer.name = json['name'];
     manufacturer.companyUrl = json["company_url"];
     manufacturer.imageUrl = json["image"] ?? "";

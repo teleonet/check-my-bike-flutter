@@ -2,16 +2,16 @@ import 'dart:io';
 
 import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
 import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'utils.dart';
+import '../data_utils.dart';
 
 void main() async {
   DatabaseGateway? _gateway;
@@ -41,10 +41,10 @@ void main() async {
   });
 
   test("save and load bikes", () async {
-    List<BikeDTO> savedBikes = Utils.buildBikes();
+    List<BikeDbDTO> savedBikes = DataUtils.buildBikesDb();
     await _gateway?.saveBikes(savedBikes);
 
-    List<BikeDTO>? loadedBikes = await _gateway?.loadBikes();
+    List<BikeDbDTO>? loadedBikes = await _gateway?.loadBikes();
 
     expect(savedBikes.length == loadedBikes?.length, true);
 
@@ -52,10 +52,10 @@ void main() async {
   });
 
   test("save and load manufacturers", () async {
-    List<ManufacturerDTO> savedManufacturers = Utils.buildManufacturers();
+    List<ManufacturerDbDTO> savedManufacturers = DataUtils.buildManufacturersDb();
     await _gateway?.saveManufacturers(savedManufacturers);
 
-    List<ManufacturerDTO>? loadedManufacturers = await _gateway?.loadManufacturers();
+    List<ManufacturerDbDTO>? loadedManufacturers = await _gateway?.loadManufacturers();
 
     expect(savedManufacturers.length == loadedManufacturers?.length, true);
 
@@ -63,25 +63,25 @@ void main() async {
   });
 
   test("save and load common", () async {
-    await _gateway?.saveCommon(Utils.buildCommon());
+    await _gateway?.saveCommon(DataUtils.buildCommonDb());
 
-    CommonDTO? common = await _gateway?.loadCommon();
+    CommonDbDTO? common = await _gateway?.loadCommon();
 
     expect(common?.isFirstStart, false);
   });
 
   test("save and load language", () async {
-    await _gateway?.saveLanguage(Utils.buildLanguage());
+    await _gateway?.saveLanguage(DataUtils.buildLanguageDb());
 
-    LanguageDTO? language = await _gateway?.loadLanguage();
+    LanguageDbDTO? language = await _gateway?.loadLanguage();
 
     expect(language?.name, "PL");
   });
 
   test("save and load distance", () async {
-    await _gateway?.saveDistance(Utils.buildDistance());
+    await _gateway?.saveDistance(DataUtils.buildDistanceDb());
 
-    DistanceDTO? distance = await _gateway?.loadDistance();
+    DistanceDbDTO? distance = await _gateway?.loadDistance();
 
     expect(distance?.type, "ml");
   });

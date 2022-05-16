@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part '../adapter/bike_dto.g.dart';
 
 @HiveType(typeId: 0)
-class BikeDTO {
+class BikeDbDTO {
   @HiveField(0)
   int? id;
   @HiveField(1)
