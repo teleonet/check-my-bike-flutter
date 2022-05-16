@@ -68,6 +68,8 @@ void main() async {
     CommonDbDTO? common = await _gateway?.loadCommon();
 
     expect(common?.isFirstStart, false);
+
+    await _gateway?.clearCommon();
   });
 
   test("save and load language", () async {
@@ -76,6 +78,8 @@ void main() async {
     LanguageDbDTO? language = await _gateway?.loadLanguage();
 
     expect(language?.name, "PL");
+
+    await _gateway?.clearLanguage();
   });
 
   test("save and load distance", () async {
@@ -84,5 +88,7 @@ void main() async {
     DistanceDbDTO? distance = await _gateway?.loadDistance();
 
     expect(distance?.type, "ml");
+
+    await _gateway?.clearDistance();
   });
 }

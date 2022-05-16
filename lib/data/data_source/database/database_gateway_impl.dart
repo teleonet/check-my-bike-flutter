@@ -48,10 +48,9 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<CommonDbDTO> loadCommon() async {
+  Future<CommonDbDTO?> loadCommon() async {
     Box<CommonDbDTO> box = await Hive.openBox<CommonDbDTO>((CommonDbDTO).toString());
-    // return box.get((CommonDTO).toString());
-    return box.values.single;
+    return box.values.isNotEmpty ? box.values.single : null;
   }
 
   @override
@@ -61,9 +60,15 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<LanguageDbDTO> loadLanguage() async {
+  Future<void> clearCommon() async {
+    Box<CommonDbDTO> box = await Hive.openBox<CommonDbDTO>((CommonDbDTO).toString());
+    await box.clear();
+  }
+
+  @override
+  Future<LanguageDbDTO?> loadLanguage() async {
     Box<LanguageDbDTO> box = await Hive.openBox<LanguageDbDTO>((LanguageDbDTO).toString());
-    return box.values.single;
+    return box.values.isNotEmpty ? box.values.single : null;
   }
 
   @override
@@ -73,14 +78,26 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   }
 
   @override
-  Future<DistanceDbDTO> loadDistance() async {
+  Future<void> clearLanguage() async {
+    Box<LanguageDbDTO> box = await Hive.openBox<LanguageDbDTO>((LanguageDbDTO).toString());
+    box.clear();
+  }
+
+  @override
+  Future<DistanceDbDTO?> loadDistance() async {
     Box<DistanceDbDTO> box = await Hive.openBox<DistanceDbDTO>((DistanceDbDTO).toString());
-    return box.values.single;
+    return box.values.isNotEmpty ? box.values.single : null;
   }
 
   @override
   Future<void> saveDistance(DistanceDbDTO distance) async {
     Box<DistanceDbDTO> box = await Hive.openBox<DistanceDbDTO>((DistanceDbDTO).toString());
     await box.put((DistanceDbDTO).toString(), distance);
+  }
+
+  @override
+  Future<void> clearDistance() async {
+    Box<DistanceDbDTO> box = await Hive.openBox<DistanceDbDTO>((DistanceDbDTO).toString());
+    await box.clear();
   }
 }

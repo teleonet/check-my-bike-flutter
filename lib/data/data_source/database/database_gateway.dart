@@ -9,23 +9,29 @@ abstract class DatabaseGateway {
 
   Future<void> saveBikes(List<BikeDbDTO> bikes);
 
+  Future<void> clearBikes();
+
   Future<List<ManufacturerDbDTO>> loadManufacturers();
 
   Future<void> saveManufacturers(List<ManufacturerDbDTO> manufacturers);
 
-  Future<LanguageDbDTO> loadLanguage();
+  Future<void> clearManufacturers();
+
+  Future<LanguageDbDTO?> loadLanguage();
 
   Future<void> saveLanguage(LanguageDbDTO language);
 
-  Future<DistanceDbDTO> loadDistance();
+  Future<void> clearLanguage();
+
+  Future<DistanceDbDTO?> loadDistance();
 
   Future<void> saveDistance(DistanceDbDTO distance);
 
-  Future<CommonDbDTO> loadCommon();
+  Future<void> clearDistance();
+
+  Future<CommonDbDTO?> loadCommon();
 
   Future<void> saveCommon(CommonDbDTO common);
 
-  Future<void> clearManufacturers();
-
-  Future<void> clearBikes();
+  Future<void> clearCommon();
 }
