@@ -7,6 +7,7 @@ import 'package:check_my_bike_flutter/data/mapper/bike_mapper.dart';
 import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 
+import '../../../domain/entity/location_entity.dart';
 import '../../data_source/rest/dto/bike_rest_dto.dart';
 
 class BikeRepositoryImpl implements BikeRepository {
@@ -22,9 +23,9 @@ class BikeRepositoryImpl implements BikeRepository {
 
   @override
   Future<List<BikeEntity>> loadFromRestByLocation(
-      double latitude, double longitude, int distance, int page) async {
-    List<BikeRestDTO> restBikes =
-        await _restGateway.loadBikesByLocation(latitude, longitude, distance, page);
+      LocationEntity location, int distance, int page) async {
+    List<BikeRestDTO> restBikes = await _restGateway.loadBikesByLocation(
+        location.latitude, location.longitude, distance, page);
     return BikeMapper.restListToEntityList(restBikes);
   }
 

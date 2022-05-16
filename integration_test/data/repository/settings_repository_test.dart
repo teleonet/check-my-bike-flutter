@@ -31,15 +31,7 @@ void main() {
     _repository = SettingsRepositoryImpl();
   });
 
-  setUp(() async {
-    //empty
-  });
-
-  tearDown(() async {
-    //empty
-  });
-
-  test("save and load settings", () async {
+  test("save setting to db and load from db", () async {
     SettingsEntity savedEntity = SettingsEntity("miles", "ml", false, "language_icon_path", "ua");
     await _repository?.saveToDatabase(savedEntity);
 

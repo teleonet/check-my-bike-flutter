@@ -34,25 +34,17 @@ void main() {
     _repository = ManufacturerRepositoryImpl();
   });
 
-  setUp(() async {
-    //empty
-  });
-
-  tearDown(() async {
-    //empty
-  });
-
-  test("load manufacturers all with correct query from rest", () async {
+  test("load all manufacturers from rest with correct query", () async {
     List<ManufacturerEntity>? manufacturers = await _repository?.loadFromRestAll(1);
     expect(manufacturers?.isNotEmpty, true);
   });
 
-  test("load manufacturer by name with correct query from rest", () async {
+  test("load manufacturer from rest by name with correct query", () async {
     ManufacturerEntity? manufacturer = await _repository?.loadFromRestByName("Scott");
     expect(manufacturer != null, true);
   });
 
-  test("load manufacturer by name with wrong query from rest", () async {
+  test("load manufacturer from rest by name with wrong query", () async {
     try {
       await _repository?.loadFromRestByName("wrong_query");
       fail("expected exception, actual NOT exception");
@@ -61,13 +53,24 @@ void main() {
     }
   });
 
-  test("save and load manufacturers from db", () async {
+  test("save manufacturers to db and load manufacturers from db", () async {
     List<ManufacturerEntity> savedManufacturers = DataUtils.buildManufacturerEntityList();
     await _repository?.saveToDatabase(savedManufacturers);
 
     List<ManufacturerEntity>? loadedManufacturers = await _repository?.loadFromDatabase();
 
     expect(savedManufacturers.length == loadedManufacturers?.length, true);
+
+    await _repository?.clearInDatabase();
+  });
+
+  test("load manufacturers from rest and save to db", () async {
+    List<ManufacturerEntity>? savedManufacturers = await _repository?.loadFromRestAll(1);
+    await _repository?.saveToDatabase(savedManufacturers!);
+
+    List<ManufacturerEntity>? loadedManufacturers = await _repository?.loadFromDatabase();
+
+    expect(savedManufacturers?.length == loadedManufacturers?.length, true);
 
     await _repository?.clearInDatabase();
   });
