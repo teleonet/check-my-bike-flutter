@@ -1,3 +1,4 @@
+@Timeout(Duration(seconds: 60))
 import 'dart:io';
 
 import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';

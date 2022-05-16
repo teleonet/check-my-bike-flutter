@@ -1,3 +1,4 @@
+@Timeout(Duration(seconds: 60))
 import 'package:check_my_bike_flutter/data/data_source/rest/dto/bike_rest_dto.dart';
 import 'package:check_my_bike_flutter/data/data_source/rest/dto/manufacturer_rest_dto.dart';
 import 'package:check_my_bike_flutter/data/data_source/rest/exception/rest_exception.dart';
