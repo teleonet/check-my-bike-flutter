@@ -14,16 +14,7 @@ class _ManufacturersFavoritesScreenState
     extends ManufacturersBaseState<ManufacturersFavoritesScreen> {
   //todo: mock items, only for development
   List<ManufacturerEntity> _buildManufacturers() {
-    return [
-      ManufacturerEntity("Scott", "scott.com", false),
-      ManufacturerEntity("Comanche", "comanche.com", true,
-          imageUrl: "files.bikeindex.org/uploads/Ma/957/Nashbarcom.png"),
-      ManufacturerEntity(
-        "Dean",
-        "dean.com",
-        false,
-      )
-    ];
+    return [];
   }
 
   @override

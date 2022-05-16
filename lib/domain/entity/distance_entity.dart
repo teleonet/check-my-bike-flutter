@@ -1,12 +1,11 @@
-enum type { km, ml }
-
 class DistanceEntity {
-  final String _title;
-  final type _type;
-
-  get distanceType => _type;
+  final String? _title;
 
   get title => _title;
 
-  DistanceEntity(this._title, this._type);
+  final String? _distance;
+
+  get distance => _distance;
+
+  DistanceEntity(this._title, this._distance);
 }

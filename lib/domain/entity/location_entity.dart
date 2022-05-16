@@ -1,9 +1,9 @@
 class LocationEntity {
-  final double _longitude;
+  final double? _longitude;
 
   get longitude => _longitude;
 
-  final double _latitude;
+  final double? _latitude;
 
   get latitude => _latitude;
 

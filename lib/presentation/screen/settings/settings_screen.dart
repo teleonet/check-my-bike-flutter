@@ -1,8 +1,8 @@
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/language_entity.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_setting_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/language/language_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
-import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
-import 'package:check_my_bike_flutter/domain/entity/language_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_setting_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,8 +36,8 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
   List<DistanceEntity> _buildDistanceTypes() {
     List<DistanceEntity> distances = [];
 
-    distances.add(DistanceEntity("Miles", type.ml));
-    distances.add(DistanceEntity("Kilometers", type.km));
+    distances.add(DistanceEntity("Miles", "ml"));
+    distances.add(DistanceEntity("Kilometers", "km"));
 
     return distances;
   }
