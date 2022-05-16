@@ -36,7 +36,8 @@ class BikeMapper {
         dto.thumb,
         dto.url,
         dto.description,
-        dto.colors);
+        dto.colors,
+        false);
   }
 
   static List<BikeEntity> databaseListToEntityList(List<BikeDbDTO> dto) {
@@ -68,7 +69,8 @@ class BikeMapper {
         dto.thumb,
         dto.url,
         dto.description,
-        dto.colors);
+        dto.colors,
+        true);
   }
 
   static List<BikeRestDTO> entityListToRestList(List<BikeEntity> entity) {

@@ -17,5 +17,5 @@ class ManufacturerEntity {
 
   set isFavorite(favorite) => _favorite = favorite;
 
-  ManufacturerEntity(this._name, this._companyUrl, this._favorite, this._imageUrl);
+  ManufacturerEntity(this._name, this._companyUrl, this._imageUrl, this._favorite);
 }

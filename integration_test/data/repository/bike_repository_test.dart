@@ -86,4 +86,12 @@ void main() {
 
     await _repository?.clearInDatabase();
   });
+
+  test("load bikes from empty db", () async {
+    await _repository?.clearInDatabase();
+
+    List<BikeEntity>? loadedBikes = await _repository?.loadFromDatabase();
+
+    expect(loadedBikes?.isEmpty, true);
+  });
 }

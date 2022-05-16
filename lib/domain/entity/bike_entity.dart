@@ -79,6 +79,10 @@ class BikeEntity {
 
   get colors => _colors;
 
+  final bool? _favorite;
+
+  get favorite => _favorite;
+
   BikeEntity(
       this._id,
       this._isStockImg,
@@ -99,5 +103,6 @@ class BikeEntity {
       this._thumb,
       this._url,
       this._description,
-      this._colors);
+      this._colors,
+      this._favorite);
 }

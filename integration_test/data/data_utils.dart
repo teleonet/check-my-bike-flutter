@@ -6,9 +6,25 @@ import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_
 import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
 import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 
 class DataUtils {
   DataUtils._();
+
+  static List<ManufacturerEntity> buildManufacturerEntityList({count = 5}) {
+    return List<ManufacturerEntity>.generate(count, (index) => buildManufacturerEntity());
+  }
+
+  static ManufacturerEntity buildManufacturerEntity() {
+    ManufacturerEntity bike = ManufacturerEntity(
+      "name: ${DateTime.now()}",
+      "https://${DateTime.now()}.com",
+      "https://${DateTime.now()}.com",
+      true,
+    );
+
+    return bike;
+  }
 
   static List<BikeEntity> buildBikeEntityList({count = 5}) {
     return List<BikeEntity>.generate(count, (index) => buildBikeEntity());
@@ -35,7 +51,8 @@ class DataUtils {
         "thumb: ${DateTime.now()}",
         "https://${DateTime.now()}.com",
         "description: ${DateTime.now()}",
-        ["yellow", "blue"]);
+        ["yellow", "blue"],
+        true);
 
     return bike;
   }
