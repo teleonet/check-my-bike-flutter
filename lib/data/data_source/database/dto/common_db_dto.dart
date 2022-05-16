@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 part '../adapter/common_dto.g.dart';
 
 @HiveType(typeId: 1)
