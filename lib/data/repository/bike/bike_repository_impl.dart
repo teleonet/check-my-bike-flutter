@@ -1,12 +1,12 @@
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/bike_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
 import 'package:check_my_bike_flutter/data/mapper/bike_mapper.dart';
 import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 
 import '../../../domain/entity/location_entity.dart';
-import '../../data_source/rest/dto/bike_rest_dto.dart';
+import '../../source/rest/dto/bike_rest_dto.dart';
 
 class BikeRepositoryImpl implements BikeRepository {
   final DatabaseGateway _databaseGateway;

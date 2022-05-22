@@ -1,8 +1,8 @@
-import 'package:check_my_bike_flutter/data/data_source/rest/dto/bike_rest_dto.dart';
+import 'package:check_my_bike_flutter/data/source/rest/dto/bike_rest_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 
-import '../data_source/database/dto/bike_db_dto.dart';
-import '../data_source/rest/dto/bike_rest_dto.dart';
+import '../source/database/dto/bike_db_dto.dart';
+import '../source/rest/dto/bike_rest_dto.dart';
 
 class BikeMapper {
   BikeMapper._();

@@ -9,5 +9,7 @@ abstract class ManufacturerRepository {
 
   Future<void> saveToDatabase(List<ManufacturerEntity> bikes);
 
+  Future<void> deleteFromDatabase(List<ManufacturerEntity> bikes);
+
   Future<void> clearInDatabase();
 }

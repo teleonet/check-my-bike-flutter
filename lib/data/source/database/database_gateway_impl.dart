@@ -12,7 +12,7 @@ class DatabaseGatewayImpl implements DatabaseGateway {
     _initHive(directoryPath);
   }
 
-  void _initHive(String directoryPath) {
+  void _initHive(String directoryPath) async {
     Hive.init(directoryPath);
     Hive.registerAdapter(BikeDTOAdapter());
     Hive.registerAdapter(CommonDTOAdapter());
@@ -23,40 +23,57 @@ class DatabaseGatewayImpl implements DatabaseGateway {
 
   @override
   Future<List<BikeDbDTO>> loadBikes() async {
-    Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());
-    return box.get((BikeDbDTO).toString()) ?? [];
+    Box<BikeDbDTO> box = await Hive.openBox((BikeDbDTO).toString());
+    return box.values.toList().cast();
   }
 
   @override
   Future<void> saveBikes(List<BikeDbDTO> bikes) async {
-    Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());
-    await box.put((BikeDbDTO).toString(), bikes);
+    Box<BikeDbDTO> box = await Hive.openBox((BikeDbDTO).toString());
+    for (var element in bikes) {
+      await box.put(element.id, element);
+    }
+  }
+
+  @override
+  Future<void> deleteBikes(List<BikeDbDTO> bikes) async {
+    Box<BikeDbDTO> box = await Hive.openBox((BikeDbDTO).toString());
+    for (var element in bikes) {
+      await box.delete(element.id);
+    }
   }
 
   @override
   Future<void> clearBikes() async {
-    Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());
+    Box<BikeDbDTO> box = await Hive.openBox((BikeDbDTO).toString());
     await box.clear();
   }
 
   @override
   Future<List<ManufacturerDbDTO>> loadManufacturers() async {
-    Box<List<ManufacturerDbDTO>> box =
-        await Hive.openBox<List<ManufacturerDbDTO>>((ManufacturerDbDTO).toString());
-    return box.get((ManufacturerDbDTO).toString()) ?? [];
+    Box<ManufacturerDbDTO> box = await Hive.openBox((ManufacturerDbDTO).toString());
+    return box.values.toList().cast();
   }
 
   @override
   Future<void> saveManufacturers(List<ManufacturerDbDTO> manufacturers) async {
-    Box<List<ManufacturerDbDTO>> box =
-        await Hive.openBox<List<ManufacturerDbDTO>>((ManufacturerDbDTO).toString());
-    await box.put((ManufacturerDbDTO).toString(), manufacturers);
+    Box<ManufacturerDbDTO> box = await Hive.openBox((ManufacturerDbDTO).toString());
+    for (var element in manufacturers) {
+      await box.put(element.name, element);
+    }
+  }
+
+  @override
+  Future<void> deleteManufacturers(List<ManufacturerDbDTO> manufacturers) async {
+    Box<ManufacturerDbDTO> box = await Hive.openBox((ManufacturerDbDTO).toString());
+    for (var element in manufacturers) {
+      await box.delete(element.name);
+    }
   }
 
   @override
   Future<void> clearManufacturers() async {
-    Box<List<ManufacturerDbDTO>> box =
-        await Hive.openBox<List<ManufacturerDbDTO>>((ManufacturerDbDTO).toString());
+    Box<ManufacturerDbDTO> box = await Hive.openBox((ManufacturerDbDTO).toString());
     await box.clear();
   }
 

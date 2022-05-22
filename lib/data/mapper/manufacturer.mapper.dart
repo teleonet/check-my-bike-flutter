@@ -1,7 +1,7 @@
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/manufacturer_db_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 
-import '../data_source/rest/dto/manufacturer_rest_dto.dart';
+import '../source/rest/dto/manufacturer_rest_dto.dart';
 
 class ManufacturerMapper {
   ManufacturerMapper._();

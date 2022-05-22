@@ -1,11 +1,11 @@
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
 import 'package:check_my_bike_flutter/data/mapper/manufacturer.mapper.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/manufacturer_db_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 
-import '../../data_source/database/database_gateway.dart';
-import '../../data_source/rest/dto/manufacturer_rest_dto.dart';
-import '../../data_source/rest/rest_gateway.dart';
+import '../../source/database/database_gateway.dart';
+import '../../source/rest/dto/manufacturer_rest_dto.dart';
+import '../../source/rest/rest_gateway.dart';
 
 class ManufacturerRepositoryImpl implements ManufacturerRepository {
   final RestGateway _restGateway;
@@ -32,8 +32,15 @@ class ManufacturerRepositoryImpl implements ManufacturerRepository {
   }
 
   @override
-  Future<void> saveToDatabase(List<ManufacturerEntity> bikes) async {
-    await _databaseGateway.saveManufacturers(ManufacturerMapper.entityListToDatabaseList(bikes));
+  Future<void> saveToDatabase(List<ManufacturerEntity> entities) async {
+    List<ManufacturerDbDTO> dtoList = ManufacturerMapper.entityListToDatabaseList(entities);
+    await _databaseGateway.saveManufacturers(dtoList);
+  }
+
+  @override
+  Future<void> deleteFromDatabase(List<ManufacturerEntity> entities) async {
+    List<ManufacturerDbDTO> dtoList = ManufacturerMapper.entityListToDatabaseList(entities);
+    await _databaseGateway.deleteManufacturers(dtoList);
   }
 
   @override

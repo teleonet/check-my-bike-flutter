@@ -9,11 +9,15 @@ abstract class DatabaseGateway {
 
   Future<void> saveBikes(List<BikeDbDTO> bikes);
 
+  Future<void> deleteBikes(List<BikeDbDTO> bikes);
+
   Future<void> clearBikes();
 
   Future<List<ManufacturerDbDTO>> loadManufacturers();
 
   Future<void> saveManufacturers(List<ManufacturerDbDTO> manufacturers);
+
+  Future<void> deleteManufacturers(List<ManufacturerDbDTO> manufacturers);
 
   Future<void> clearManufacturers();
 

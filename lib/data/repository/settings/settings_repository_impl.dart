@@ -1,11 +1,11 @@
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
 import 'package:check_my_bike_flutter/data/mapper/settings_mapper.dart';
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/common_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/language_db_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
 
-import '../../data_source/database/database_gateway.dart';
-import '../../data_source/database/dto/distance_db_dto.dart';
+import '../../source/database/database_gateway.dart';
+import '../../source/database/dto/distance_db_dto.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
   final DatabaseGateway _databaseGateway;

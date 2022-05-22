@@ -1,6 +1,6 @@
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/common_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/distance_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/language_db_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
 
 class SettingsMapper {

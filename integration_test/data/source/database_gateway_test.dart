@@ -39,6 +39,40 @@ void main() async {
     await _gateway?.clearBikes();
   });
 
+  test("save and load bikes 2 times", () async {
+    List<BikeDbDTO> savedBikes = DataUtils.buildBikesDb();
+    await _gateway?.saveBikes(savedBikes);
+
+    List<BikeDbDTO>? loadedBikesFirst = await _gateway?.loadBikes();
+
+    expect(savedBikes.length == loadedBikesFirst?.length, true);
+
+    await _gateway?.saveBikes([DataUtils.buildBikeDB()]);
+
+    List<BikeDbDTO>? loadedBikesSecond = await _gateway?.loadBikes();
+
+    expect(savedBikes.length + 1 == loadedBikesSecond?.length, true);
+
+    await _gateway?.clearBikes();
+  });
+
+  test("delete bikes", () async {
+    List<BikeDbDTO> savedBikes = DataUtils.buildBikesDb();
+    await _gateway?.saveBikes(savedBikes);
+
+    List<BikeDbDTO>? loadedBikesFirst = await _gateway?.loadBikes();
+
+    expect(savedBikes.length == loadedBikesFirst?.length, true);
+
+    await _gateway?.deleteBikes(savedBikes);
+
+    List<ManufacturerDbDTO>? loadedBikesSecond = await _gateway?.loadManufacturers();
+
+    expect(loadedBikesSecond?.isEmpty, true);
+
+    await _gateway?.clearManufacturers();
+  });
+
   test("save and load manufacturers", () async {
     List<ManufacturerDbDTO> savedManufacturers = DataUtils.buildManufacturersDb();
     await _gateway?.saveManufacturers(savedManufacturers);
@@ -46,6 +80,40 @@ void main() async {
     List<ManufacturerDbDTO>? loadedManufacturers = await _gateway?.loadManufacturers();
 
     expect(savedManufacturers.length == loadedManufacturers?.length, true);
+
+    await _gateway?.clearManufacturers();
+  });
+
+  test("save and load manufacturers 2 times", () async {
+    List<ManufacturerDbDTO> savedManufacturers = DataUtils.buildManufacturersDb();
+    await _gateway?.saveManufacturers(savedManufacturers);
+
+    List<ManufacturerDbDTO>? loadedManufacturersFirst = await _gateway?.loadManufacturers();
+
+    expect(savedManufacturers.length == loadedManufacturersFirst?.length, true);
+
+    await _gateway?.saveManufacturers([DataUtils.buildManufacturerDb()]);
+
+    List<ManufacturerDbDTO>? loadedManufacturersSecond = await _gateway?.loadManufacturers();
+
+    expect(savedManufacturers.length + 1 == loadedManufacturersSecond?.length, true);
+
+    await _gateway?.clearManufacturers();
+  });
+
+  test("delete manufacturer", () async {
+    List<ManufacturerDbDTO> savedManufacturers = DataUtils.buildManufacturersDb();
+    await _gateway?.saveManufacturers(savedManufacturers);
+
+    List<ManufacturerDbDTO>? loadedManufacturersFirst = await _gateway?.loadManufacturers();
+
+    expect(savedManufacturers.length == loadedManufacturersFirst?.length, true);
+
+    await _gateway?.deleteManufacturers(savedManufacturers);
+
+    List<ManufacturerDbDTO>? loadedManufacturersSecond = await _gateway?.loadManufacturers();
+
+    expect(loadedManufacturersSecond?.isEmpty, true);
 
     await _gateway?.clearManufacturers();
   });
