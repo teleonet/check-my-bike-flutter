@@ -1,13 +1,13 @@
 @Timeout(Duration(seconds: 60))
 import 'dart:io';
 
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
-import 'package:check_my_bike_flutter/data/data_source/rest/exception/rest_exception.dart';
-import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository_impl.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
+import 'package:check_my_bike_flutter/data/source/rest/exception/rest_exception.dart';
+import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/rest/rest_gateway_impl.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider/path_provider.dart';

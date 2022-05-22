@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository_impl.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider/path_provider.dart';

@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/bike_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/common_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/distance_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/language_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/manufacturer_db_dto.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 

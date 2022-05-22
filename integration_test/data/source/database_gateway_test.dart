@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/bike_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/common_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/distance_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/language_db_dto.dart';
+import 'package:check_my_bike_flutter/data/source/database/dto/manufacturer_db_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider/path_provider.dart';
 
