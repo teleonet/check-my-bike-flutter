@@ -1,34 +1,20 @@
 import 'dart:io';
 
-import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository_impl.dart';
 import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
   SettingsRepository? _repository;
 
-  Future<void> _initHive() async {
-    Directory tempDir = await getTemporaryDirectory();
-    Hive.init(tempDir.path + "/integration_test_db");
-
-    Hive.registerAdapter(BikeDTOAdapter());
-    Hive.registerAdapter(CommonDTOAdapter());
-    Hive.registerAdapter(DistanceDTOAdapter());
-    Hive.registerAdapter(LanguageDTOAdapter());
-    Hive.registerAdapter(ManufacturerDTOAdapter());
-  }
-
   setUpAll(() async {
-    await _initHive();
-    _repository = SettingsRepositoryImpl();
+    Directory tempDir = await getTemporaryDirectory();
+    DatabaseGateway databaseGateway = DatabaseGatewayImpl(tempDir.path + "/integration_test_db");
+    _repository = SettingsRepositoryImpl(databaseGateway);
   });
 
   test("save setting to db and load from db", () async {

@@ -8,7 +8,6 @@ import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_
 import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
 import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../data_utils.dart';
@@ -16,20 +15,9 @@ import '../data_utils.dart';
 void main() async {
   DatabaseGateway? _gateway;
 
-  Future<void> _initHive() async {
-    Directory tempDir = await getTemporaryDirectory();
-    Hive.init(tempDir.path + "/integration_test_db");
-
-    Hive.registerAdapter(BikeDTOAdapter());
-    Hive.registerAdapter(CommonDTOAdapter());
-    Hive.registerAdapter(DistanceDTOAdapter());
-    Hive.registerAdapter(LanguageDTOAdapter());
-    Hive.registerAdapter(ManufacturerDTOAdapter());
-  }
-
   setUpAll(() async {
-    await _initHive();
-    _gateway = DatabaseGatewayImpl();
+    Directory tempDir = await getTemporaryDirectory();
+    _gateway = DatabaseGatewayImpl(tempDir.path + "/integration_test_db");
   });
 
   setUp(() async {

@@ -1,17 +1,15 @@
 @Timeout(Duration(seconds: 60))
 import 'dart:io';
 
-import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/common_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/distance_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/language_db_dto.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/dto/manufacturer_db_dto.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/data_source/rest/exception/rest_exception.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway.dart';
+import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository_impl.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../data_utils.dart';
@@ -19,20 +17,11 @@ import '../data_utils.dart';
 void main() {
   ManufacturerRepository? _repository;
 
-  Future<void> _initHive() async {
-    Directory tempDir = await getTemporaryDirectory();
-    Hive.init(tempDir.path + "/integration_test_db");
-
-    Hive.registerAdapter(BikeDTOAdapter());
-    Hive.registerAdapter(CommonDTOAdapter());
-    Hive.registerAdapter(DistanceDTOAdapter());
-    Hive.registerAdapter(LanguageDTOAdapter());
-    Hive.registerAdapter(ManufacturerDTOAdapter());
-  }
-
   setUpAll(() async {
-    await _initHive();
-    _repository = ManufacturerRepositoryImpl();
+    Directory tempDir = await getTemporaryDirectory();
+    DatabaseGateway databaseGateway = DatabaseGatewayImpl(tempDir.path + "/integration_test_db");
+    RestGateway restGateway = RestGatewayImpl();
+    _repository = ManufacturerRepositoryImpl(restGateway, databaseGateway);
   });
 
   test("load all manufacturers from rest with correct query", () async {
