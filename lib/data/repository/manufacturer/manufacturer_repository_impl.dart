@@ -4,14 +4,14 @@ import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 
 import '../../data_source/database/database_gateway.dart';
-import '../../data_source/database/database_gateway_impl.dart';
 import '../../data_source/rest/dto/manufacturer_rest_dto.dart';
 import '../../data_source/rest/rest_gateway.dart';
-import '../../data_source/rest/rest_gateway_impl.dart';
 
 class ManufacturerRepositoryImpl implements ManufacturerRepository {
-  final RestGateway _restGateway = RestGatewayImpl();
-  final DatabaseGateway _databaseGateway = DatabaseGatewayImpl();
+  final RestGateway _restGateway;
+  final DatabaseGateway _databaseGateway;
+
+  ManufacturerRepositoryImpl(this._restGateway, this._databaseGateway);
 
   @override
   Future<List<ManufacturerEntity>> loadFromDatabase() async {

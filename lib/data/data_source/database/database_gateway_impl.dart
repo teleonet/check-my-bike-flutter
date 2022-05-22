@@ -8,6 +8,19 @@ import 'dto/language_db_dto.dart';
 import 'dto/manufacturer_db_dto.dart';
 
 class DatabaseGatewayImpl implements DatabaseGateway {
+  DatabaseGatewayImpl(String directoryPath) {
+    _initHive(directoryPath);
+  }
+
+  void _initHive(String directoryPath) {
+    Hive.init(directoryPath);
+    Hive.registerAdapter(BikeDTOAdapter());
+    Hive.registerAdapter(CommonDTOAdapter());
+    Hive.registerAdapter(DistanceDTOAdapter());
+    Hive.registerAdapter(LanguageDTOAdapter());
+    Hive.registerAdapter(ManufacturerDTOAdapter());
+  }
+
   @override
   Future<List<BikeDbDTO>> loadBikes() async {
     Box<List<BikeDbDTO>> box = await Hive.openBox<List<BikeDbDTO>>((BikeDbDTO).toString());

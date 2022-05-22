@@ -1,8 +1,6 @@
 import 'package:check_my_bike_flutter/data/data_source/database/database_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/data_source/database/dto/bike_db_dto.dart';
 import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway.dart';
-import 'package:check_my_bike_flutter/data/data_source/rest/rest_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/mapper/bike_mapper.dart';
 import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
@@ -11,8 +9,10 @@ import '../../../domain/entity/location_entity.dart';
 import '../../data_source/rest/dto/bike_rest_dto.dart';
 
 class BikeRepositoryImpl implements BikeRepository {
-  final DatabaseGateway _databaseGateway = DatabaseGatewayImpl();
-  final RestGateway _restGateway = RestGatewayImpl();
+  final DatabaseGateway _databaseGateway;
+  final RestGateway _restGateway;
+
+  BikeRepositoryImpl(this._restGateway, this._databaseGateway);
 
   @override
   Future<List<BikeEntity>> loadFromRestByCustomParameter(String customParameter, int page) async {

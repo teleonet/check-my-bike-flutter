@@ -5,11 +5,12 @@ import 'package:check_my_bike_flutter/data/repository/settings/settings_reposito
 import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
 
 import '../../data_source/database/database_gateway.dart';
-import '../../data_source/database/database_gateway_impl.dart';
 import '../../data_source/database/dto/distance_db_dto.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
-  final DatabaseGateway _databaseGateway = DatabaseGatewayImpl();
+  final DatabaseGateway _databaseGateway;
+
+  SettingsRepositoryImpl(this._databaseGateway);
 
   @override
   Future<SettingsEntity> loadFromDatabase() async {
