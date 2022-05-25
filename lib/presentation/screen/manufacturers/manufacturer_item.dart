@@ -1,9 +1,10 @@
+import 'package:check_my_bike_flutter/presentation/widgets/autoscroll_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../../domain/entity/manufacturer_entity.dart';
 import '../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
 import '../../dialogs/yes_no_dialog.dart';
-import '../../../domain/entity/manufacturer_entity.dart';
 
 class ManufacturerItem extends StatefulWidget {
   final ManufacturerEntity _manufacturer;
@@ -33,7 +34,9 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text(widget._manufacturer.name, style: _buildTextStyle(ColorsRes.green, 16)),
                     const Padding(padding: EdgeInsets.only(top: 10)),
-                    Text(widget._manufacturer.companyUrl, style: _buildTextStyle(Colors.white, 20)),
+                    AutoScrollText(
+                        widget._manufacturer.companyUrl, MediaQuery.of(context).size.width * 0.65,
+                        textStyle: _buildTextStyle(Colors.white, 20)),
                     const Padding(padding: EdgeInsets.only(top: 10)),
                     _buildManufacturerImage(),
                   ])),
@@ -85,9 +88,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
   }
 
   void _showDeleteFavoriteDialog(Function deletePressed) {
-    YesNoDialog(() {
-      deletePressed.call();
-    }).show(
+    YesNoDialog(() => deletePressed.call(), () => {}).show(
         context, "Are you approve to delete \n\"${widget._manufacturer.name}\"\n from favorites ?");
   }
 

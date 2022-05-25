@@ -9,8 +9,10 @@ class AutoScrollText extends StatefulWidget {
   final double _width;
   final double? fontSize;
   final Color? textColor;
+  final TextStyle? textStyle;
 
-  const AutoScrollText(this._text, this._width, {this.fontSize, this.textColor, Key? key})
+  const AutoScrollText(this._text, this._width,
+      {this.fontSize, this.textColor, this.textStyle, Key? key})
       : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class _AutoScrollTextState extends BaseScreenState<AutoScrollText> {
     return SizedBox(
         width: widget._width,
         child: SingleChildScrollView(
-          child: Text(widget._text, style: _buildTextStyle()),
+          child: Text(widget._text, style: widget.textStyle ?? _buildTextStyle()),
           scrollDirection: Axis.horizontal,
           controller: scrollController,
         ));

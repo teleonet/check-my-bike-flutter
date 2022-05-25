@@ -38,12 +38,12 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
       const CheckScreen(),
       ManufacturersScreen(
           onScrollTop: () {
-            _bottomBarKey.currentState?.show();
-            _bottomBarKey.currentState?.changeToOpacityColor();
+            // _bottomBarKey.currentState?.show();
+            // _bottomBarKey.currentState?.changeToOpacityColor();
           },
-          onScrollBottom: () => _bottomBarKey.currentState?.hide(),
-          onScrolledTop: () => _bottomBarKey.currentState?.changeToGradientColor(),
-          onClickedTab: () => _bottomBarKey.currentState?.show()),
+          onScrollBottom: () => {}/*_bottomBarKey.currentState?.hide()*/,
+          onScrolledTop: () => {}/*_bottomBarKey.currentState?.changeToGradientColor()*/,
+          onClickedTab: () => {}/*_bottomBarKey.currentState?.show()*/),
       const SettingsScreen()
     ];
   }
@@ -72,9 +72,9 @@ class _MainScreenState extends BaseScreenState<MainScreen> {
   NavigationBottomBar _buildNavigationBottomBar() {
     return NavigationBottomBar((tabIndex) {
       if (_screens[tabIndex] is ManufacturersScreen) {
-        _bottomBarKey.currentState?.changeToGradientColor();
+        // _bottomBarKey.currentState?.changeToGradientColor();
       } else {
-        _bottomBarKey.currentState?.changeToTransparentColor();
+        // _bottomBarKey.currentState?.changeToTransparentColor();
       }
       setState(() => _currentIndex = tabIndex);
     }, key: _bottomBarKey);

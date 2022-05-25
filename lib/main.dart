@@ -1,19 +1,25 @@
 import 'dart:io';
 
+import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository_impl.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
+import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
+import 'package:check_my_bike_flutter/data/source/rest/rest_gateway_impl.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
+import 'package:isolate_bloc/isolate_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
-import 'data/data_source/database/dto/bike_db_dto.dart';
-import 'data/data_source/database/dto/common_db_dto.dart';
-import 'data/data_source/database/dto/distance_db_dto.dart';
-import 'data/data_source/database/dto/language_db_dto.dart';
-import 'data/data_source/database/dto/manufacturer_db_dto.dart';
+import 'data/repository/manufacturer/manufacturer_repository.dart';
+import 'domain/bloc/manufacturer/manufacturer_bloc.dart';
+import 'domain/bloc/manufacturer/state/manufacturer_state.dart';
 
-void main() {
-  _initDependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await _initDependencies();
 
   runApp(const App());
 
@@ -21,18 +27,26 @@ void main() {
       SystemUiOverlayStyle(statusBarColor: ColorsRes.startGradient));
 }
 
-void _initDependencies() async {
-  _initHive();
+Future<void> _initDependencies() async {
+  Directory dir = await getApplicationDocumentsDirectory();
+  await _initBlocs(dir.path);
 }
 
-void _initHive() {
-  Hive.init(Directory.current.path);
+Future<void> _initBlocs(String directoryPath) async {
+  await initialize(() async {
+    RestGateway restGateway = RestGatewayImpl();
+    DatabaseGateway databaseGateway = DatabaseGatewayImpl(directoryPath);
 
-  Hive.registerAdapter(BikeDTOAdapter());
-  Hive.registerAdapter(CommonDTOAdapter());
-  Hive.registerAdapter(DistanceDTOAdapter());
-  Hive.registerAdapter(LanguageDTOAdapter());
-  Hive.registerAdapter(ManufacturerDTOAdapter());
+    ManufacturerRepository manufacturerRepository =
+        ManufacturerRepositoryImpl(restGateway, databaseGateway);
+
+    _registerManufacturerBloc(manufacturerRepository);
+  });
+}
+
+void _registerManufacturerBloc(ManufacturerRepository manufacturerRepository) {
+  register<ManufacturerBloc, ManufacturerState>(
+      create: () => ManufacturerBloc(manufacturerRepository));
 }
 
 class App extends StatelessWidget {

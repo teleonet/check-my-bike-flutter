@@ -93,7 +93,7 @@ class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
   }
 
   void _showClearFavoritesDialog() {
-    YesNoDialog(() => print("pressed: Clear favorites"))
+    YesNoDialog(() => print("pressed: Clear favorites"), () {})
         .show(context, "Do you want to clear all favorites ?");
   }
 

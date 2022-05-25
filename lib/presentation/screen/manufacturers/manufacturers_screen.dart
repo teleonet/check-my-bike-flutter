@@ -1,9 +1,11 @@
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/search/manufacturers_search_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/tab/sliver_manufacturers_tab_controller.dart';
 import 'package:check_my_bike_flutter/presentation/scroll/scroll_controller_with_listener.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
@@ -80,14 +82,15 @@ class _ManufacturersScreenState extends BaseScreenState<ManufacturersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: _buildGradientDecoration(),
-        child: CustomScrollView(controller: _scrollController, slivers: [
-          const SliverToBoxAdapter(child: Header("Manufacturers")),
-          _buildTabController(),
-          _currentScreen
-        ]));
+    return IsolateBlocProvider<ManufacturerBloc, ManufacturerState>(
+        child: Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: _buildGradientDecoration(),
+            child: CustomScrollView(controller: _scrollController, slivers: [
+              const SliverToBoxAdapter(child: Header("Manufacturers")),
+              _buildTabController(),
+              _currentScreen
+            ])));
   }
 
   BoxDecoration _buildGradientDecoration() {

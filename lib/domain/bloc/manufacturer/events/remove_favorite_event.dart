@@ -1,3 +1,11 @@
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/manufacturer_event.dart';
 
-class AddFavoriteEvent extends ManufacturerEvent {}
+import '../../../entity/manufacturer_entity.dart';
+
+class RemoveFavoriteEvent extends ManufacturerEvent {
+  final ManufacturerEntity _entity;
+
+  get entity => _entity;
+
+  RemoveFavoriteEvent(this._entity);
+}
