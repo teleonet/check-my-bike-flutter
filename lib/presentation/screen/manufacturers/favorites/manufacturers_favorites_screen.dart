@@ -1,11 +1,11 @@
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/load_favorites_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load_favorites_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/manufacturers_base_state.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
-import '../../../../domain/bloc/manufacturer/events/add_favorite_event.dart';
-import '../../../../domain/bloc/manufacturer/events/remove_favorite_event.dart';
+import '../../../../domain/bloc/manufacturer/event/add_favorite_event.dart';
+import '../../../../domain/bloc/manufacturer/event/remove_favorite_event.dart';
 import '../../../../domain/bloc/manufacturer/manufacturer_bloc.dart';
 import '../../../../domain/bloc/manufacturer/state/manufacturer_state.dart';
 

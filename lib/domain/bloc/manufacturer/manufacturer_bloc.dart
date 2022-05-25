@@ -1,16 +1,16 @@
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/add_favorite_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/load_all_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/load_by_name_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/remove_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/add_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load_all_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load_by_name_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
-import 'events/load_favorites_event.dart';
-import 'events/manufacturer_event.dart';
+import 'event/load_favorites_event.dart';
+import 'event/manufacturer_event.dart';
 
 class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState> {
   final ManufacturerRepository _repository;

@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/manufacturer_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 
 class LoadAllEvent extends ManufacturerEvent {

@@ -1,5 +1,5 @@
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/add_favorite_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/events/remove_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/add_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
