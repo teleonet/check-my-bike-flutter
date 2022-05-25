@@ -20,7 +20,7 @@ class _ManufacturersFavoritesScreenState
     extends ManufacturersBaseState<ManufacturersFavoritesScreen> {
   @override
   void loadManufacturers() {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context).add(LoadFavoritesEvent());
+    // IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context).add(LoadFavoritesEvent());
   }
 
   @override
@@ -30,15 +30,15 @@ class _ManufacturersFavoritesScreenState
 
   @override
   void addFavorite(ManufacturerEntity entity) {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
         .add(AddFavoriteEvent(entity));
-    loadManufacturers();
+    loadManufacturers();*/
   }
 
   @override
   void removeFavorite(ManufacturerEntity entity) {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
-        .add(RemoveFavoriteEvent(entity));
-    loadManufacturers();
+    // IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+    //     .add(RemoveFavoriteEvent(entity));
+    // loadManufacturers();
   }
 }

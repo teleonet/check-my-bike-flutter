@@ -26,14 +26,14 @@ class _ManufacturersAllScreenState extends ManufacturersBaseState<ManufacturersA
 
   @override
   void loadManufacturers() {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
-        .add(LoadAllEvent(_pagination));
+    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+        .add(LoadAllEvent(_pagination));*/
   }
 
   @override
   void addFavorite(ManufacturerEntity entity) {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
-        .add(AddFavoriteEvent(entity));
+    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+        .add(AddFavoriteEvent(entity));*/
   }
 
   @override

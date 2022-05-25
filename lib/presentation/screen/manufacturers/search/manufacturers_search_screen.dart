@@ -28,8 +28,8 @@ class _ManufacturersSearchScreenState extends ManufacturersBaseState<Manufacture
 
   @override
   void loadManufacturers() {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
-        .add(LoadByNameEvent(_query));
+    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+        .add(LoadByNameEvent(_query));*/
   }
 
   Widget _buildInputForm() {
@@ -43,15 +43,15 @@ class _ManufacturersSearchScreenState extends ManufacturersBaseState<Manufacture
 
   @override
   void addFavorite(ManufacturerEntity entity) {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
         .add(AddFavoriteEvent(entity));
-    loadManufacturers();
+    loadManufacturers();*/
   }
 
   @override
   void removeFavorite(ManufacturerEntity entity) {
-    IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
+    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
         .add(RemoveFavoriteEvent(entity));
-    loadManufacturers();
+    loadManufacturers();*/
   }
 }
