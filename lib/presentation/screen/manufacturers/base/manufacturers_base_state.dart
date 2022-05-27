@@ -1,5 +1,3 @@
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/add_favorite_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
@@ -33,13 +31,7 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
 
   @override
   Widget build(BuildContext context) {
-    return _buildListView();
-  }
-
-  Widget _buildListView() {
-    return IsolateBlocListener<ManufacturerBloc, ManufacturerState>(listener: (context, state) {
-      print("New bloc state: $state");
-    }, child: IsolateBlocBuilder<ManufacturerBloc, ManufacturerState>(builder: (context, state) {
+    return IsolateBlocBuilder<ManufacturerBloc, ManufacturerState>(builder: (context, state) {
       List<ManufacturerEntity> entities = (state as LoadedState).entities;
       List<Widget> widgets = getTopWidgets();
       return SliverList(
@@ -52,7 +44,7 @@ abstract class ManufacturersBaseState<T extends StatefulWidget> extends BaseScre
         }
         return _buildManufacturerItem(entities[index - widgets.length]);
       }, childCount: widgets.length + entities.length));
-    }));
+    });
   }
 
   Widget _buildManufacturerItem(ManufacturerEntity manufacturer) {

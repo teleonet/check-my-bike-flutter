@@ -15,6 +15,11 @@ import 'event/manufacturer_event.dart';
 class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState> {
   final ManufacturerRepository _repository;
 
+  static init(ManufacturerRepository manufacturerRepository) {
+    register<ManufacturerBloc, ManufacturerState>(
+        create: () => ManufacturerBloc(manufacturerRepository));
+  }
+
   ManufacturerBloc(this._repository) : super(LoadedState([]));
 
   @override

@@ -1,154 +1,125 @@
+import 'package:check_my_bike_flutter/domain/bloc/navigation/event/show_screen_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/navigation/state/scroll_screen_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/navigation/state/show_screen_state.dart';
+import 'package:check_my_bike_flutter/presentation/base/ticker_provider_impl.dart';
 import 'package:flutter/material.dart';
+import 'package:isolate_bloc/isolate_bloc.dart';
 
+import '../../../../domain/bloc/navigation/navigation_bloc.dart';
+import '../../../../domain/bloc/navigation/state/navigation_state.dart';
 import '../../../../resources/colors_res.dart';
-import '../../../base/base_screen_state.dart';
 import '../../../widgets/rotated_icon.dart';
 
-class NavigationBottomBar extends StatefulWidget {
-  final Function(int) _onChangedTab;
-
-  const NavigationBottomBar(this._onChangedTab, {Key? key}) : super(key: key);
-
-  @override
-  NavigationBottomBarState createState() => NavigationBottomBarState();
-}
-
-class NavigationBottomBarState extends BaseScreenState<NavigationBottomBar>
-    with SingleTickerProviderStateMixin {
-  AnimationController? _animationController;
-  List<BottomNavigationBarItem> _items = [];
-  int _currentIndex = 0;
-
-  Color _navigationBarColor = Colors.transparent;
-
-  NavigationBottomBarState() {
-    _items = _buildBottomNavigationBarItems();
-  }
-
-  List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
-    return [
-      BottomNavigationBarItem(
-          icon: RotatedIcon(Icons.search, key: GlobalKey<RotatedIconState>()),
-          label: 'Check',
-          tooltip: ""),
-      BottomNavigationBarItem(
-          icon: RotatedIcon(Icons.summarize, key: GlobalKey<RotatedIconState>()),
-          label: 'Manufacturers',
-          tooltip: ""),
-      BottomNavigationBarItem(
-          icon: RotatedIcon(Icons.settings_outlined, key: GlobalKey<RotatedIconState>()),
-          label: 'Settings',
-          tooltip: ""),
-    ];
-  }
-
-  @override
-  void initState() {
-    _animationController = _buildAnimationController();
-    super.initState();
-  }
+class NavigationBottomBar extends StatelessWidget {
+  NavigationBottomBar({Key? key}) : super(key: key);
 
   AnimationController _buildAnimationController() {
     return AnimationController(
-        value: 100, vsync: this, duration: const Duration(milliseconds: 300));
+        value: 100, vsync: TickerProviderImpl(), duration: const Duration(milliseconds: 300));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: _buildTheme(),
-        child: Container(
-            color: Colors.transparent,
-            width: MediaQuery.of(context).size.width,
-            child: SizeTransition(
-                sizeFactor: _animationController!,
-                axisAlignment: -1.0,
-                child: Stack(
-                    children: [_buildActiveNavigationBarLine(), _buildBottomNavigationBar()]))));
+    List<BottomNavigationBarItem> barItems = _buildBottomNavigationBarItems();
+    int _index = 0;
+    return IsolateBlocBuilder<NavigationBloc, NavigationState>(builder: (context, state) {
+      _index = state is ShowScreenState ? Screen.values.indexOf(state.screen) : _index;
+      return Theme(
+          data: _buildTheme(context),
+          child: AnimatedScale(
+              alignment: Alignment.bottomCenter,
+              duration: const Duration(milliseconds: 500),
+              scale: _getScale(state),
+              child: Stack(children: [
+                _buildNavigationBarLine(context, _index),
+                _buildBottomNavigationBar(_index, context, barItems)
+              ])));
+    });
   }
 
-  ThemeData _buildTheme() {
-    return Theme.of(context).copyWith(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        hoverColor: Colors.transparent);
+  List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
+    return [
+      _buildBarItem(Icons.search, 'Check'),
+      _buildBarItem(Icons.summarize, 'Manufacturers'),
+      _buildBarItem(Icons.settings_outlined, 'Settings')
+    ];
   }
 
-  Widget _buildActiveNavigationBarLine() {
+  BottomNavigationBarItem _buildBarItem(IconData icon, String label) {
+    return BottomNavigationBarItem(icon: _buildRotatedIcon(icon), label: label, tooltip: "");
+  }
+
+  RotatedIcon _buildRotatedIcon(IconData icon) {
+    return RotatedIcon(icon, key: GlobalKey<RotatedIconState>());
+  }
+
+  ThemeData _buildTheme(BuildContext context) {
+    Color color = Colors.transparent;
+    return Theme.of(context).copyWith(splashColor: color, highlightColor: color, hoverColor: color);
+  }
+
+  double _getScale(NavigationState state) {
+    double visible = 1;
+    double invisible = 0;
+    if (state is ScrollScreenState && state.direction == Direction.top) {
+      return invisible;
+    }
+    return visible;
+  }
+
+  Widget _buildNavigationBarLine(BuildContext context, index) {
     return SizedBox(
         height: 1,
         child: Align(
-            alignment: _buildNavigationLineAlignment(_currentIndex),
+            alignment: _buildLineAlignment(index),
             child: Container(
-              margin: const EdgeInsets.only(left: 15, right: 15),
-              width: MediaQuery.of(context).size.width / 3.7,
-              color: ColorsRes.green,
-            )));
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                width: MediaQuery.of(context).size.width / 3.7,
+                color: ColorsRes.green)));
   }
 
-  Alignment _buildNavigationLineAlignment(int index) {
-    Alignment alignment = Alignment.center;
-    switch (index) {
-      case 0:
-        alignment = Alignment.centerLeft;
-        break;
-      case 2:
-        alignment = Alignment.centerRight;
-        break;
+  Alignment _buildLineAlignment(int index) {
+    const center = 0;
+    const right = 2;
+
+    if (index == center) {
+      return Alignment.centerLeft;
+    } else if (index == right) {
+      return Alignment.centerRight;
     }
-    return alignment;
+    return Alignment.center;
   }
 
-  Widget _buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar(
+      int index, BuildContext context, List<BottomNavigationBarItem> barItems) {
     return BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: index,
         elevation: 0,
-        backgroundColor: _navigationBarColor,
+        backgroundColor: Colors.transparent,
         selectedItemColor: ColorsRes.green,
         selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         selectedLabelStyle: _buildTextStyle(),
         unselectedItemColor: Colors.white,
         unselectedIconTheme: const IconThemeData(color: Colors.white, size: 30),
         unselectedLabelStyle: _buildTextStyle(),
-        items: _items,
-        onTap: (index) => setState(() {
-              _rotateIcon(_items[index].icon as RotatedIcon);
-              _currentIndex = index;
-              widget._onChangedTab(index);
-            }));
-  }
-
-  void _rotateIcon(RotatedIcon icon) {
-    (icon.key as GlobalKey<RotatedIconState>).currentState?.rotate();
+        items: barItems,
+        onTap: (index) {
+          _rotateIcon(barItems[index].icon as RotatedIcon);
+          _showScreenWithDelay(Screen.values[index], context);
+        });
   }
 
   TextStyle _buildTextStyle() {
     return const TextStyle(fontFamily: 'Roboto Thin', fontSize: 14);
   }
 
-  void show() {
-    _animationController?.forward();
+  void _rotateIcon(RotatedIcon icon) {
+    (icon.key as GlobalKey<RotatedIconState>).currentState?.rotate();
   }
 
-  void hide() {
-    _animationController?.reverse();
-  }
-
-  void changeToOpacityColor() {
-    setState(() {
-      _navigationBarColor = ColorsRes.endGradientOpacity70;
-    });
-  }
-
-  void changeToGradientColor() {
-    setState(() {
-      _navigationBarColor = ColorsRes.endGradient;
-    });
-  }
-
-  void changeToTransparentColor() {
-    setState(() {
-      _navigationBarColor = Colors.transparent;
+  void _showScreenWithDelay(Screen screen, BuildContext context) {
+    Future.delayed(const Duration(milliseconds: 520), () {
+      context.isolateBloc<NavigationBloc, NavigationState>().add(ShowScreenEvent(screen));
     });
   }
 }

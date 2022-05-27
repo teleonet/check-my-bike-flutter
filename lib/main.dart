@@ -5,6 +5,7 @@ import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart
 import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway_impl.dart';
+import 'package:check_my_bike_flutter/presentation/screen/main/main_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'data/repository/manufacturer/manufacturer_repository.dart';
 import 'domain/bloc/manufacturer/manufacturer_bloc.dart';
-import 'domain/bloc/manufacturer/state/manufacturer_state.dart';
+import 'domain/bloc/navigation/navigation_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,13 +41,9 @@ Future<void> _initBlocs(String directoryPath) async {
     ManufacturerRepository manufacturerRepository =
         ManufacturerRepositoryImpl(restGateway, databaseGateway);
 
-    _registerManufacturerBloc(manufacturerRepository);
+    ManufacturerBloc.init(manufacturerRepository);
+    NavigationBloc.init();
   });
-}
-
-void _registerManufacturerBloc(ManufacturerRepository manufacturerRepository) {
-  register<ManufacturerBloc, ManufacturerState>(
-      create: () => ManufacturerBloc(manufacturerRepository));
 }
 
 class App extends StatelessWidget {
