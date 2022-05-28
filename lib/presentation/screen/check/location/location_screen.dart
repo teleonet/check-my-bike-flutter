@@ -78,7 +78,6 @@ class LocationScreen extends BaseCheckScreen {
   }
 
   Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
-    return InfoItem(bike,
-        onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
+    return InfoItem(bike, (bike) => DetailsScreen.show(context, bike), (bike) {});
   }
 }

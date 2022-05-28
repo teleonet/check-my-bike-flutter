@@ -2,25 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../../../../domain/entity/bike_entity.dart';
 import '../../../../resources/colors_res.dart';
-import '../../../base/base_screen_state.dart';
 import '../../../widgets/autoscroll_text.dart';
 
-class InfoItem extends StatefulWidget {
+class InfoItem extends StatelessWidget {
+  final Function(BikeEntity)? _onPressedInfo;
+  final Function(BikeEntity)? _onPressedFavorite;
   final BikeEntity _bike;
 
-  BikeEntity get bike => _bike;
-
-  final Function(BikeEntity)? onPressedInfo;
-  final Function(BikeEntity)? onPressedFavorite;
-
-  const InfoItem(this._bike, {this.onPressedInfo, this.onPressedFavorite, Key? key})
+  const InfoItem(this._bike, this._onPressedInfo, this._onPressedFavorite, {Key? key})
       : super(key: key);
 
-  @override
-  InfoItemState createState() => InfoItemState();
-}
-
-class InfoItemState extends BaseScreenState<InfoItem> {
   @protected
   List<Widget> getWidgets() {
     return [];
@@ -33,34 +24,27 @@ class InfoItemState extends BaseScreenState<InfoItem> {
         margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
         child: TextButton(
             style: _buildButtonStyle(),
-            onPressed: () => widget.onPressedInfo?.call(widget._bike),
+            onPressed: () => _onPressedInfo?.call(_bike),
             child: Stack(children: [
               Column(children: [
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                _buildPhoto(),
-                _buildRowContainer("Serial", "${widget._bike.serial}"),
-                _buildRowContainer("Manufacturer", "${widget._bike.manufacturerName}",
+                const Padding(padding: EdgeInsets.only(top: 15)),
+                _buildPhoto(_bike.largeImg),
+                _buildRowContainer(context, "Serial", "${_bike.serial}"),
+                _buildRowContainer(context, "Manufacturer", "${_bike.manufacturerName}",
                     widthFactor: 0.37),
-                _buildRowContainer("Status", "${widget._bike.status}",
-                    colorValue: widget._bike.stolen ? Colors.red : null),
-                _buildRowContainer("Year", "${widget._bike.year}"),
-                _buildRowContainer("Location", "${widget._bike.stolenLocation}"),
+                _buildRowContainer(context, "Status", "${_bike.status}",
+                    colorValue: _bike.stolen ? Colors.red : null),
+                _buildRowContainer(context, "Year", "${_bike.year}"),
+                _buildRowContainer(context, "Location", "${_bike.stolenLocation}"),
                 const Padding(padding: EdgeInsets.only(top: 10)),
-                Column(children: getWidgets()),
+                Column(children: getWidgets())
               ]),
               Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                      padding: const EdgeInsets.only(right: 10, top: 5),
+                      padding: const EdgeInsets.only(right: 10, top: 10),
                       child: _buildFavoriteButton()))
             ])));
-  }
-
-  Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
-    return BoxDecoration(
-        color: Colors.transparent,
-        border: Border.all(color: borderColor ?? ColorsRes.green, width: thinness ?? 1),
-        borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
   ButtonStyle _buildButtonStyle() {
@@ -70,8 +54,7 @@ class InfoItemState extends BaseScreenState<InfoItem> {
 
   Widget _buildFavoriteButton() {
     return TextButton(
-        onPressed: () => widget.onPressedFavorite?.call(widget._bike),
-        child: _buildFavoriteIcon(false));
+        onPressed: () => _onPressedFavorite?.call(_bike), child: _buildFavoriteIcon(false));
   }
 
   Icon _buildFavoriteIcon(bool isFavorite) {
@@ -80,9 +63,9 @@ class InfoItemState extends BaseScreenState<InfoItem> {
         : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
 
-  Widget _buildPhoto() {
-    if (widget._bike.largeImg?.isNotEmpty == true) {
-      return Image.network(widget.bike.largeImg, loadingBuilder: (context, image, progress) {
+  Widget _buildPhoto(String? imgUrl) {
+    if (imgUrl?.isNotEmpty == true) {
+      return Image.network(imgUrl!, loadingBuilder: (context, image, progress) {
         if (progress != null) {
           return _buildProgressIndicator(progress);
         }
@@ -101,18 +84,24 @@ class InfoItemState extends BaseScreenState<InfoItem> {
 
   Widget _buildImageContainer(Widget image) {
     return Container(
-        decoration: _buildContainerDecoration(thinness: 0.4),
+        decoration: _buildContainerDecoration(borderColor: Colors.transparent, thinness: 0.4),
         margin: const EdgeInsets.only(left: 20, right: 20),
         child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
   }
 
-  Container _buildRowContainer(String title, String value,
+  Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
+    return BoxDecoration(
+        border: Border.all(color: borderColor ?? ColorsRes.green, width: thinness ?? 1),
+        borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
+  }
+
+  Container _buildRowContainer(BuildContext context, String title, String value,
       {Color? colorValue, double? widthFactor}) {
     return Container(
         padding: const EdgeInsets.only(top: 10, left: 20),
         child: Row(children: [
           _buildTitleText(title),
-          _buildValueText(value, color: colorValue, widthFactor: widthFactor)
+          _buildValueText(context, value, color: colorValue, widthFactor: widthFactor)
         ]));
   }
 
@@ -120,7 +109,7 @@ class InfoItemState extends BaseScreenState<InfoItem> {
     return Text("$title: ", style: _buildTextStyle(color: ColorsRes.green));
   }
 
-  Widget _buildValueText(String value, {Color? color, double? widthFactor}) {
+  Widget _buildValueText(BuildContext context, String value, {Color? color, double? widthFactor}) {
     Widget widget = Text(value, style: _buildTextStyle(color: color));
     if (value.length > 20) {
       widget = AutoScrollText(value, MediaQuery.of(context).size.width * (widthFactor ?? 0.5));

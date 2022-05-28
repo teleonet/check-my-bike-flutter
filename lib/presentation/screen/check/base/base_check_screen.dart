@@ -34,7 +34,9 @@ abstract class BaseCheckScreen extends StatelessWidget {
                   (state is LoadedState)
                       ? _buildListOrPlaceholder(context, state.bikes)
                       : _buildEmptyWidget(),
-                  (state is ProgressState) ? _buildProgressIndicator(context) : _buildEmptyWidget(),
+                  (state is ProgressState)
+                      ? _buildProgressIndicator(context)
+                      : _buildEmptyWidget()
                 ])),
             _buildBottomContainer()
           ]));

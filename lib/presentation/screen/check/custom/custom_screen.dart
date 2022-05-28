@@ -49,8 +49,7 @@ class CustomScreen extends BaseCheckScreen {
   }
 
   Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
-    return InfoItem(bike,
-        onPressedInfo: (bike) => DetailsScreen.show(context, bike),
-        onPressedFavorite: (bike) => print("pressed favorite: ${bike.manufacturerName}"));
+    return InfoItem(bike, (bike) => DetailsScreen.show(context, bike),
+        (bike) => print("pressed favorite: ${bike.manufacturerName}"));
   }
 }

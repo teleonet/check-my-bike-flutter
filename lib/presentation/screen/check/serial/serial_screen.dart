@@ -51,7 +51,6 @@ class SerialScreen extends BaseCheckScreen {
   }
 
   Widget _buildItem(BuildContext context, BikeEntity bike) {
-    return InfoItemWithStatus(bike,
-        onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
+    return InfoItemWithStatus(bike, (bike) => DetailsScreen.show(context, bike), (bike) {});
   }
 }
