@@ -6,6 +6,7 @@ import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_location_event
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/progress_state.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
@@ -23,7 +24,7 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
     register<BikeBloc, BikeState>(create: () => BikeBloc(bikeRepository));
   }
 
-  BikeBloc(this._repository) : super(LoadedState([]));
+  BikeBloc(this._repository) : super(InitialState());
 
   @override
   Stream<BikeState> mapEventToState(BikeEvent event) async* {

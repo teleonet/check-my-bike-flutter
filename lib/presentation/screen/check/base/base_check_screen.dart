@@ -31,11 +31,12 @@ abstract class BaseCheckScreen extends StatelessWidget {
                 child: CustomScrollView(slivers: [
                   _buildAppBar(context),
                   ...getWidgets(context),
-                  state is LoadedState
-                      ? getListView(context, state.bikes)
-                      : _buildProgressIndicator(context),
+                  (state is LoadedState)
+                      ? _buildListOrPlaceholder(context, state.bikes)
+                      : _buildEmptyWidget(),
+                  (state is ProgressState) ? _buildProgressIndicator(context) : _buildEmptyWidget(),
                 ])),
-            _buildContainer()
+            _buildBottomContainer()
           ]));
     }, buildWhen: (prev, next) {
       return next is LoadedState || next is ProgressState;
@@ -60,7 +61,7 @@ abstract class BaseCheckScreen extends StatelessWidget {
         title: Text(_title),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-        titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
+        titleTextStyle: _buildTextStyle(),
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
             onPressed: () => Navigator.pop(context)));
@@ -83,13 +84,37 @@ abstract class BaseCheckScreen extends StatelessWidget {
                 child: const Center(child: CircularProgressIndicator(strokeWidth: 0.4)))));
   }
 
-  Widget _buildContainer() {
-    return Align(
-        alignment: FractionalOffset.bottomCenter,
-        child: Container(height: 15, decoration: _buildDecoration()));
+  Widget _buildListOrPlaceholder(BuildContext context, List<BikeEntity> bikes) {
+    return bikes.isNotEmpty ? getListView(context, bikes) : _buildPlaceholder(context);
   }
 
-  Decoration _buildDecoration() {
+  Widget _buildPlaceholder(BuildContext context) {
+    return SliverToBoxAdapter(
+        child: SizedBox(
+            height: MediaQuery.of(context).size.height / 1.5,
+            width: MediaQuery.of(context).size.width,
+            child: Center(child: Text("Did not find results", style: _buildTextStyle(size: 25)))));
+  }
+
+  Widget _buildEmptyWidget() {
+    return const SliverToBoxAdapter(child: SizedBox.shrink());
+  }
+
+  TextStyle _buildTextStyle({double? size}) {
+    return TextStyle(
+        fontFamily: 'Roboto Thin',
+        decoration: TextDecoration.none,
+        color: ColorsRes.green,
+        fontSize: size ?? 35);
+  }
+
+  Widget _buildBottomContainer() {
+    return Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Container(height: 15, decoration: _buildContainerDecoration()));
+  }
+
+  Decoration _buildContainerDecoration() {
     return BoxDecoration(
         border: Border.all(width: 0.4, color: ColorsRes.green),
         borderRadius:
