@@ -169,8 +169,8 @@ class DetailsScreen extends StatelessWidget {
         textColor: textColor);
   }
 
-  Widget _buildDescriptionOrEmpty(String description) {
-    if (description.isNotEmpty) {
+  Widget _buildDescriptionOrEmpty(String? description) {
+    if (description != null && description.isNotEmpty) {
       return Column(children: [
         _buildTitle("Description"),
         const Padding(padding: EdgeInsets.only(top: 15)),
