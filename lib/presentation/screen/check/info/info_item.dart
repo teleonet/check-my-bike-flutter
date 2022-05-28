@@ -29,13 +29,13 @@ class InfoItem extends StatelessWidget {
               Column(children: [
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 _buildPhoto(_bike.largeImg),
-                _buildRowContainer(context, "Serial", "${_bike.serial}"),
-                _buildRowContainer(context, "Manufacturer", "${_bike.manufacturerName}",
+                _buildRowOrEmpty(context, "Serial", "${_bike.serial}"),
+                _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}",
                     widthFactor: 0.37),
-                _buildRowContainer(context, "Status", "${_bike.status}",
+                _buildRowOrEmpty(context, "Status", "${_bike.status}",
                     colorValue: _bike.stolen ? Colors.red : null),
-                _buildRowContainer(context, "Year", "${_bike.year}"),
-                _buildRowContainer(context, "Location", "${_bike.stolenLocation}"),
+                _buildRowOrEmpty(context, "Year", "${_bike.year}"),
+                _buildRowOrEmpty(context, "Location", "${_bike.stolenLocation}"),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 Column(children: getWidgets())
               ]),
@@ -95,14 +95,18 @@ class InfoItem extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
-  Container _buildRowContainer(BuildContext context, String title, String value,
+  Widget _buildRowOrEmpty(BuildContext context, String title, String? value,
       {Color? colorValue, double? widthFactor}) {
-    return Container(
-        padding: const EdgeInsets.only(top: 10, left: 20),
-        child: Row(children: [
-          _buildTitleText(title),
-          _buildValueText(context, value, color: colorValue, widthFactor: widthFactor)
-        ]));
+    if (value != null && value.isNotEmpty && value != "null") {
+      return Container(
+          padding: const EdgeInsets.only(top: 10, left: 20),
+          child: Row(children: [
+            _buildTitleText(title),
+            _buildValueText(context, value, color: colorValue, widthFactor: widthFactor)
+          ]));
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   Text _buildTitleText(String title) {

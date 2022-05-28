@@ -13,10 +13,12 @@ import '../../../widgets/input_form/input_form.dart';
 
 class ManufacturerScreen extends BaseCheckScreen {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ManufacturerScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return IsolateBlocProvider<BikeBloc, BikeState>(child: ManufacturerScreen());
+    }));
   }
 
-  const ManufacturerScreen() : super("manufacturer");
+  const ManufacturerScreen({Key? key}) : super("manufacturer", key: key);
 
   @override
   List<Widget> getWidgets(BuildContext context) {
@@ -28,8 +30,8 @@ class ManufacturerScreen extends BaseCheckScreen {
         child: InputForm("manufacturer", (textToSearch) {
       _loadBikes(textToSearch ?? "", context);
     }, (textForValidator) {
-      return Validator.moreThenFourSymbols(textForValidator);
-    }, "Please enter more then 4 symbols"));
+      return Validator.moreThenTwoSymbols(textForValidator);
+    }, "Please enter more then 2 symbols"));
   }
 
   void _loadBikes(String query, BuildContext context) {

@@ -36,15 +36,15 @@ class DetailsScreen extends StatelessWidget {
                         child: Column(children: [
                           _buildPhoto(_bike.largeImg),
                           const Padding(padding: EdgeInsets.only(top: 10)),
-                          _buildRowContainer(context, "Serial", "${_bike.serial}"),
-                          _buildRowContainer(context, "Manufacturer", "${_bike.manufacturerName}"),
-                          _buildRowContainer(context, "Status", "${_bike.status}",
+                          _buildRowOrEmpty(context, "Serial", "${_bike.serial}"),
+                          _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}"),
+                          _buildRowOrEmpty(context, "Status", "${_bike.status}",
                               valueColor: _bike.stolen ? Colors.red : Colors.white),
-                          _buildRowContainer(context, "Year", "${_bike.year}"),
-                          _buildRowContainer(context, "Location", "${_bike.stolenLocation}",
+                          _buildRowOrEmpty(context, "Year", "${_bike.year}"),
+                          _buildRowOrEmpty(context, "Location", "${_bike.stolenLocation}",
                               widthFactor: 0.55),
-                          _buildRowContainer(context, "Title", "${_bike.title}"),
-                          _buildRowContainer(context, "Colors",
+                          _buildRowOrEmpty(context, "Title", "${_bike.title}"),
+                          _buildRowOrEmpty(context, "Colors",
                               _bike.colors.toString().replaceAll("[", "").replaceAll("]", "")),
                           const Padding(padding: EdgeInsets.only(top: 20)),
                           _buildDescriptionOrEmpty(_bike.description)
@@ -136,14 +136,18 @@ class DetailsScreen extends StatelessWidget {
         child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
   }
 
-  Container _buildRowContainer(BuildContext context, String title, String value,
+  Widget _buildRowOrEmpty(BuildContext context, String title, String? value,
       {Color? valueColor, double? widthFactor}) {
-    return Container(
-        padding: const EdgeInsets.only(top: 10),
-        child: Row(children: [
-          _buildTitle(title),
-          _buildValue(context, value, textColor: valueColor, widthFactor: widthFactor)
-        ]));
+    if (value != null && value.isNotEmpty && value != "null") {
+      return Container(
+          padding: const EdgeInsets.only(top: 10),
+          child: Row(children: [
+            _buildTitle(title),
+            _buildValue(context, value, textColor: valueColor, widthFactor: widthFactor)
+          ]));
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 
   Text _buildTitle(String title) {
@@ -170,11 +174,11 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _buildDescriptionOrEmpty(String? description) {
-    if (description != null && description.isNotEmpty) {
+    if (description != null && description.isNotEmpty && description != "null") {
       return Column(children: [
         _buildTitle("Description"),
         const Padding(padding: EdgeInsets.only(top: 15)),
-        Text("${_bike.description}", style: _buildTextStyle(Colors.white))
+        Text(description, style: _buildTextStyle(Colors.white))
       ]);
     } else {
       return const SizedBox.shrink();
