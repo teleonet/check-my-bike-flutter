@@ -1,7 +1,6 @@
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/show_screen_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/scroll_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/show_screen_state.dart';
-import 'package:check_my_bike_flutter/presentation/base/ticker_provider_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -13,10 +12,10 @@ import '../../../widgets/rotated_icon.dart';
 class NavigationBottomBar extends StatelessWidget {
   NavigationBottomBar({Key? key}) : super(key: key);
 
-  AnimationController _buildAnimationController() {
+  /*nimationController _buildAnimationController() {
     return AnimationController(
         value: 100, vsync: TickerProviderImpl(), duration: const Duration(milliseconds: 300));
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

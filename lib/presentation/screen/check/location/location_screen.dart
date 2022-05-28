@@ -1,78 +1,83 @@
-import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_dialog.dart';
+import 'dart:async';
+
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_location_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_dialog.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
+import 'package:isolate_bloc/isolate_bloc.dart';
 
-class LocationScreen extends StatefulWidget {
+import '../../../../domain/bloc/bike/bike_bloc.dart';
+import '../../../../domain/bloc/bike/state/bike_state.dart';
+
+class LocationScreen extends BaseCheckScreen {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const LocationScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LocationScreen()));
   }
 
-  const LocationScreen({Key? key}) : super(key: key);
-
-  @override
-  _LocationScreenState createState() => _LocationScreenState();
-}
-
-class _LocationScreenState extends BaseCheckState<LocationScreen> {
   LocationEntity? _location;
-  List<BikeEntity> _bikes = [];
-
+  int? _distance;
   final GlobalKey? _locationButtonKey = GlobalKey<ShakeButtonState>();
 
-  _LocationScreenState() : super("location") {
-    // _location = Location(39.73, -104.98);
-    _bikes = _buildBikes();
-  }
-
-  //todo: only for development
-  List<BikeEntity> _buildBikes() {
-    return [];
-  }
+  LocationScreen() : super("location");
 
   @override
-  List<Widget> getWidgets() {
-    return [_buildLocationButton(), _buildSearchButton(), _buildListView()];
+  List<Widget> getWidgets(BuildContext context) {
+    return [_buildLocationButton(context), _buildSearchButton(context)];
   }
 
-  Widget _buildLocationButton() {
+  Widget _buildLocationButton(BuildContext context) {
     return SliverToBoxAdapter(
         child: Container(
             padding: const EdgeInsets.only(top: 10),
-            child: ShakeButton("choose location",
-                onPressed: () => DistanceDialog((value) => print("Choose distance $value"))
-                    .show(context, "Choose distance"),
-                key: _locationButtonKey)));
+            child: ShakeButton("choose location", onPressed: () async {
+              _location = await Future.delayed(const Duration(seconds: 1), () {
+                return LocationEntity(39.73, -104.98);
+              });
+              if (_location != null) {
+                DistanceDialog((value) => _distance = value).show(context, "Choose distance");
+              }
+            }),
+            key: _locationButtonKey));
   }
 
-  Widget _buildSearchButton() {
+  Widget _buildSearchButton(BuildContext context) {
     return SliverToBoxAdapter(
         child: Container(
             padding: const EdgeInsets.only(top: 10),
             child: BorderedButton("search", onPressed: () {
               ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
-              if (_location != null) {
-                buttonState?.changeToNormalState();
+              if (_location != null && _distance != null) {
+                buttonState?.setNormalState();
               } else {
-                buttonState?.changeToErrorState();
-                //todo: add bloc request location
+                buttonState?.setErrorState();
+                _loadBikes(_location!, _distance!, context);
               }
             })));
   }
 
-  Widget _buildListView() {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return _buildInfoItem(_bikes[index]);
-    }, childCount: _bikes.length));
+  void _loadBikes(LocationEntity location, int distance, BuildContext context) {
+    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(LoadLocationEvent(location, distance));
   }
 
-  Widget _buildInfoItem(BikeEntity bike) {
+  @override
+  Widget getListView(BuildContext context, List<BikeEntity> bikes) {
+    return _buildListView(context, bikes);
+  }
+
+  Widget _buildListView(BuildContext context, List<BikeEntity> bikes) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      return _buildInfoItem(context, bikes[index]);
+    }, childCount: bikes.length));
+  }
+
+  Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
     return InfoItem(bike,
         onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
   }

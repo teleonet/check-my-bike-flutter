@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
+import 'package:check_my_bike_flutter/data/repository/bike/bike_repository_impl.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository_impl.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway_impl.dart';
-import 'package:check_my_bike_flutter/presentation/screen/main/main_screen.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/bike_bloc.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
@@ -34,15 +36,18 @@ Future<void> _initDependencies() async {
 }
 
 Future<void> _initBlocs(String directoryPath) async {
+  // TODO: need move to package like DI
   await initialize(() async {
     RestGateway restGateway = RestGatewayImpl();
     DatabaseGateway databaseGateway = DatabaseGatewayImpl(directoryPath);
 
     ManufacturerRepository manufacturerRepository =
         ManufacturerRepositoryImpl(restGateway, databaseGateway);
+    BikeRepository bikeRepository = BikeRepositoryImpl(restGateway, databaseGateway);
 
     ManufacturerBloc.init(manufacturerRepository);
     NavigationBloc.init();
+    BikeBloc.init(bikeRepository);
   });
 }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../domain/entity/bike_entity.dart';
 import '../../../../resources/colors_res.dart';
 import '../../../base/base_screen_state.dart';
-import '../../../../domain/entity/bike_entity.dart';
 import '../../../widgets/autoscroll_text.dart';
 
 class InfoItem extends StatefulWidget {
@@ -34,26 +34,32 @@ class InfoItemState extends BaseScreenState<InfoItem> {
         child: TextButton(
             style: _buildButtonStyle(),
             onPressed: () => widget.onPressedInfo?.call(widget._bike),
-            child: Column(children: [
-              Stack(alignment: Alignment.topCenter, children: [
-                Align(alignment: Alignment.topRight, child: _buildTextButton()),
-                _buildBikeImage()
+            child: Stack(children: [
+              Column(children: [
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                _buildPhoto(),
+                _buildRowContainer("Serial", "${widget._bike.serial}"),
+                _buildRowContainer("Manufacturer", "${widget._bike.manufacturerName}",
+                    widthFactor: 0.37),
+                _buildRowContainer("Status", "${widget._bike.status}",
+                    colorValue: widget._bike.stolen ? Colors.red : null),
+                _buildRowContainer("Year", "${widget._bike.year}"),
+                _buildRowContainer("Location", "${widget._bike.stolenLocation}"),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                Column(children: getWidgets()),
               ]),
-              _buildRowContainer("Serial", "${widget._bike.serial}"),
-              _buildRowContainer("Manufacturer", "${widget._bike.manufacturerName}"),
-              _buildRowContainer("Status", "${widget._bike.status}",
-                  colorValue: widget._bike.stolen ? Colors.red : null),
-              _buildRowContainer("Year", "${widget._bike.year}"),
-              _buildRowContainer("Location", "${widget._bike.stolenLocation}"),
-              const Padding(padding: EdgeInsets.only(top: 10)),
-              Column(children: getWidgets())
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                      padding: const EdgeInsets.only(right: 10, top: 5),
+                      child: _buildFavoriteButton()))
             ])));
   }
 
-  Decoration _buildContainerDecoration() {
+  Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
     return BoxDecoration(
         color: Colors.transparent,
-        border: Border.all(color: ColorsRes.green),
+        border: Border.all(color: borderColor ?? ColorsRes.green, width: thinness ?? 1),
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
@@ -62,16 +68,10 @@ class InfoItemState extends BaseScreenState<InfoItem> {
         padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.only(bottom: 15)));
   }
 
-  Widget _buildTextButton() {
+  Widget _buildFavoriteButton() {
     return TextButton(
         onPressed: () => widget.onPressedFavorite?.call(widget._bike),
         child: _buildFavoriteIcon(false));
-  }
-
-  Widget _buildBikeImage() {
-    return widget._bike.largeImg?.isNotEmpty
-        ? Icon(Icons.insert_photo_outlined, color: ColorsRes.green, size: 125)
-        : const SizedBox.shrink();
   }
 
   Icon _buildFavoriteIcon(bool isFavorite) {
@@ -80,20 +80,50 @@ class InfoItemState extends BaseScreenState<InfoItem> {
         : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
 
-  Container _buildRowContainer(String title, String value, {Color? colorValue}) {
+  Widget _buildPhoto() {
+    if (widget._bike.largeImg?.isNotEmpty == true) {
+      return Image.network(widget.bike.largeImg, loadingBuilder: (context, image, progress) {
+        if (progress != null) {
+          return _buildProgressIndicator(progress);
+        }
+        return _buildImageContainer(image);
+      });
+    }
+    return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
+  }
+
+  Widget _buildProgressIndicator(ImageChunkEvent progress) {
+    double? value = progress.cumulativeBytesLoaded / (progress.expectedTotalBytes ?? 1);
+    return Padding(
+        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        child: CircularProgressIndicator(value: value, strokeWidth: 0.4));
+  }
+
+  Widget _buildImageContainer(Widget image) {
+    return Container(
+        decoration: _buildContainerDecoration(thinness: 0.4),
+        margin: const EdgeInsets.only(left: 20, right: 20),
+        child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
+  }
+
+  Container _buildRowContainer(String title, String value,
+      {Color? colorValue, double? widthFactor}) {
     return Container(
         padding: const EdgeInsets.only(top: 10, left: 20),
-        child: Row(children: [_buildTitleText(title), _buildValueText(value, color: colorValue)]));
+        child: Row(children: [
+          _buildTitleText(title),
+          _buildValueText(value, color: colorValue, widthFactor: widthFactor)
+        ]));
   }
 
   Text _buildTitleText(String title) {
     return Text("$title: ", style: _buildTextStyle(color: ColorsRes.green));
   }
 
-  Widget _buildValueText(String value, {Color? color}) {
+  Widget _buildValueText(String value, {Color? color, double? widthFactor}) {
     Widget widget = Text(value, style: _buildTextStyle(color: color));
     if (value.length > 20) {
-      widget = AutoScrollText(value, MediaQuery.of(context).size.width * 0.5);
+      widget = AutoScrollText(value, MediaQuery.of(context).size.width * (widthFactor ?? 0.5));
     }
     return widget;
   }

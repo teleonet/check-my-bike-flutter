@@ -1,57 +1,54 @@
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_state.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
 import 'package:flutter/material.dart';
+import 'package:isolate_bloc/isolate_bloc.dart';
 
+import '../../../../domain/bloc/bike/bike_bloc.dart';
+import '../../../../domain/bloc/bike/state/bike_state.dart';
 import '../../../validator/validator.dart';
 import '../../../widgets/input_form/input_form.dart';
 
-class ManufacturerScreen extends StatefulWidget {
+class ManufacturerScreen extends BaseCheckScreen {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const ManufacturerScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ManufacturerScreen()));
   }
 
-  const ManufacturerScreen({Key? key}) : super(key: key);
+  const ManufacturerScreen() : super("manufacturer");
 
   @override
-  _ManufacturerScreenState createState() => _ManufacturerScreenState();
-}
-
-class _ManufacturerScreenState extends BaseCheckState<ManufacturerScreen> {
-  List<BikeEntity> _bikes = [];
-
-  _ManufacturerScreenState() : super("manufacturer") {
-    _bikes = _buildBikes();
+  List<Widget> getWidgets(BuildContext context) {
+    return [_buildInputForm(context)];
   }
 
-  //todo: only for development
-  List<BikeEntity> _buildBikes() {
-    return [];
-  }
-
-  @override
-  List<Widget> getWidgets() {
-    return [_buildInputForm(), _buildListView()];
-  }
-
-  Widget _buildInputForm() {
+  Widget _buildInputForm(BuildContext context) {
     return SliverToBoxAdapter(
         child: InputForm("manufacturer", (textToSearch) {
-      //todo: bloc
+      _loadBikes(textToSearch ?? "", context);
     }, (textForValidator) {
       return Validator.moreThenFourSymbols(textForValidator);
     }, "Please enter more then 4 symbols"));
   }
 
-  Widget _buildListView() {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return _buildInfoItem(_bikes[index]);
-    }, childCount: _bikes.length));
+  void _loadBikes(String query, BuildContext context) {
+    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(LoadManufacturerEvent(query));
   }
 
-  Widget _buildInfoItem(BikeEntity bike) {
+  @override
+  Widget getListView(BuildContext context, List<BikeEntity> bikes) {
+    return _buildListView(context, bikes);
+  }
+
+  Widget _buildListView(BuildContext context, List<BikeEntity> bikes) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      return _buildInfoItem(context, bikes[index]);
+    }, childCount: bikes.length));
+  }
+
+  Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
     return InfoItem(bike,
         onPressedInfo: (bike) => DetailsScreen.show(context, bike), onPressedFavorite: (bike) {});
   }

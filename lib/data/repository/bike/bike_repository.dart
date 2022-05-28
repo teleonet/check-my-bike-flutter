@@ -12,6 +12,8 @@ abstract class BikeRepository {
 
   Future<void> saveToDatabase(List<BikeEntity> bikes);
 
+  Future<void> deleteFromDatabase(List<BikeEntity> bikes);
+
   Future<List<BikeEntity>> loadFromDatabase();
 
   Future<void> clearInDatabase();

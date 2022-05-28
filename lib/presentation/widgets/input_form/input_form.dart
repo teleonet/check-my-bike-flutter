@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
+import 'package:check_my_bike_flutter/presentation/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -84,7 +85,7 @@ class InputFormState extends BaseScreenState<InputForm> {
     _formKey.currentState?.validate();
 
     if (_isValidInputtedText()) {
-      FocusManager.instance.primaryFocus?.unfocus();
+      ScreenUtils.hideKeyboard();
       String? text = _formKey.currentState?.value;
       _formKey.currentState?.save();
       widget._onPressedSearch.call(text);

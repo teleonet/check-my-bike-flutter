@@ -67,7 +67,7 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
   TextButton _buildTextButton() {
     return TextButton(
         onPressed: () {
-          changeToNormalState();
+          setNormalState();
           widget.onPressed?.call();
         },
         child: Text(widget._title,
@@ -82,12 +82,12 @@ class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerPro
     );
   }
 
-  void changeToNormalState() {
+  void setNormalState() {
     _decorationColor = ColorsRes.green;
     setState(() => {});
   }
 
-  void changeToErrorState() {
+  void setErrorState() {
     _decorationColor = Colors.red;
     _shake();
     setState(() => {});

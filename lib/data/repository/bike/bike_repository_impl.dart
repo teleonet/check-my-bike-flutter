@@ -1,8 +1,8 @@
+import 'package:check_my_bike_flutter/data/mapper/bike_mapper.dart';
+import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/database/dto/bike_db_dto.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
-import 'package:check_my_bike_flutter/data/mapper/bike_mapper.dart';
-import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 
 import '../../../domain/entity/location_entity.dart';
@@ -44,6 +44,11 @@ class BikeRepositoryImpl implements BikeRepository {
   @override
   Future<void> saveToDatabase(List<BikeEntity> bikes) async {
     await _databaseGateway.saveBikes(BikeMapper.entityListToDatabaseList(bikes));
+  }
+
+  @override
+  Future<void> deleteFromDatabase(List<BikeEntity> bikes) async {
+    await _databaseGateway.deleteBikes(BikeMapper.entityListToDatabaseList(bikes));
   }
 
   @override
