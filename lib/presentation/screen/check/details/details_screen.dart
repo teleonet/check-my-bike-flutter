@@ -45,7 +45,8 @@ class DetailsScreen extends StatelessWidget {
                               widthFactor: 0.55),
                           _buildRowOrEmpty(context, "Title", "${_bike.title}"),
                           _buildRowOrEmpty(context, "Colors",
-                              _bike.colors.toString().replaceAll("[", "").replaceAll("]", "")),
+                              _bike.colors.toString().replaceAll("[", "").replaceAll("]", ""),
+                              widthFactor: 0.6),
                           const Padding(padding: EdgeInsets.only(top: 20)),
                           _buildDescriptionOrEmpty(_bike.description)
                         ])),
@@ -53,7 +54,7 @@ class DetailsScreen extends StatelessWidget {
                         alignment: Alignment.topRight,
                         child: Padding(
                             padding: const EdgeInsets.only(right: 25, top: 25),
-                            child: _buildFavoriteButton(_bike.favorite)))
+                            lchild: _buildFavoriteButton(_bike.favorite)))
                   ]))),
         ]));
   }

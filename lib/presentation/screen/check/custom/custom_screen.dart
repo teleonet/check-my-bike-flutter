@@ -13,7 +13,9 @@ import '../../../widgets/input_form/input_form.dart';
 
 class CustomScreen extends BaseCheckScreen {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CustomScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return IsolateBlocProvider<BikeBloc, BikeState>(child: const CustomScreen());
+    }));
   }
 
   const CustomScreen({Key? key}) : super("custom", key: key);
