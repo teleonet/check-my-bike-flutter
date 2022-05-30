@@ -21,7 +21,7 @@ class InfoItemWithStatus extends InfoItem {
   Widget _buildStatusText(BikeEntity bike) {
     return bike.stolen
         ? const FlashingText("Stolen", Colors.red)
-        : Text("Not stolen", style: _buildTextStyle(70));
+        : Text("Not stolen", style: _buildTextStyle(60));
   }
 
   TextStyle _buildTextStyle(double fontSize) {

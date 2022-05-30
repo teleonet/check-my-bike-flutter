@@ -7,7 +7,7 @@ import 'package:check_my_bike_flutter/domain/bloc/bike/state/initial_state.dart'
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item_with_status.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -108,7 +108,7 @@ class FavoritesScreen extends StatelessWidget {
   }
 
   Widget buildListItem(BuildContext context, BikeEntity bike) {
-    return InfoItemWithStatus(bike, (bike) => DetailsScreen.show(context, bike), (bike) {
+    return InfoItem(bike, (bike) => DetailsScreen.show(context, bike), (bike) {
       bike.favorite ? _removeFavorite(bike, context) : _addFavorite(bike, context);
     });
   }

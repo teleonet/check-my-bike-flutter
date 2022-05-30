@@ -7,15 +7,12 @@ import '../../../widgets/autoscroll_text.dart';
 
 class DetailsScreen extends StatelessWidget {
   final BikeEntity _bike;
-  final Function(BikeEntity)? onPressedFavorite;
 
-  static void show(BuildContext context, BikeEntity bike,
-      {Function(BikeEntity)? onPressedFavorite}) {
-    Navigator.push(context,
-        SlideRightRoute(DetailsScreen(bike, onPressedFavorite: onPressedFavorite)).createRoute());
+  static void show(BuildContext context, BikeEntity bike) {
+    Navigator.push(context, SlideRightRoute(DetailsScreen(bike)).createRoute());
   }
 
-  const DetailsScreen(this._bike, {this.onPressedFavorite, Key? key}) : super(key: key);
+  const DetailsScreen(this._bike, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +46,7 @@ class DetailsScreen extends StatelessWidget {
                               widthFactor: 0.6),
                           const Padding(padding: EdgeInsets.only(top: 20)),
                           _buildDescriptionOrEmpty(_bike.description)
-                        ])),
-                    Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                            padding: const EdgeInsets.only(right: 25, top: 25),
-                            child: _buildFavoriteButton(_bike.favorite)))
+                        ]))
                   ]))),
         ]));
   }
@@ -77,7 +69,7 @@ class DetailsScreen extends StatelessWidget {
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
       titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
-      leading: _buildIconButton(context),
+      leading: _buildBackButton(context),
     );
   }
 
@@ -88,7 +80,7 @@ class DetailsScreen extends StatelessWidget {
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
   }
 
-  Widget _buildIconButton(BuildContext context) {
+  Widget _buildBackButton(BuildContext context) {
     return IconButton(
         icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
         onPressed: () => Navigator.pop(context));
@@ -99,17 +91,6 @@ class DetailsScreen extends StatelessWidget {
         color: Colors.transparent,
         border: Border.all(color: borderColor ?? ColorsRes.green, width: thinness ?? 1),
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
-  }
-
-  Widget _buildFavoriteButton(bool isFavorite) {
-    return TextButton(
-        onPressed: () => onPressedFavorite?.call(_bike), child: _buildFavoriteIcon(isFavorite));
-  }
-
-  Icon _buildFavoriteIcon(bool isFavorite) {
-    return isFavorite
-        ? Icon(Icons.star, size: 35, color: ColorsRes.green)
-        : const Icon(Icons.star_outline_sharp, size: 35, color: Colors.white);
   }
 
   Widget _buildPhoto(String? imgUrl) {
@@ -133,7 +114,7 @@ class DetailsScreen extends StatelessWidget {
 
   Widget _buildImageContainer(Widget image) {
     return Container(
-        decoration: _buildContainerDecoration(thinness: 0.4),
+        decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
         child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
   }
 
