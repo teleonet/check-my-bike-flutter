@@ -5,6 +5,7 @@ import 'package:check_my_bike_flutter/domain/bloc/bike/event/favorite/add_favori
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/favorite/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_custom_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_favorites.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/initial_state.dart';
@@ -17,7 +18,6 @@ import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../data/repository/bike/bike_repository.dart';
 import '../../entity/location_entity.dart';
-import '../manufacturer/event/load_favorites_event.dart';
 import 'event/favorite/favorite_event.dart';
 import 'event/load/load_location_event.dart';
 import 'event/load/load_serial_event.dart';
@@ -76,16 +76,17 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
   }
 
   Future<void> _mapFavoriteEvent(FavoriteEvent event) async {
-    BikeEntity bike = event.bike;
+    BikeEntity favoriteBike = event.bike;
+    BikeEntity fromCacheBike = _cache.firstWhere((element) => element.id == favoriteBike.id);
+
     if (event is AddFavoriteEvent) {
-      await _addFavorite(bike);
-      bike.set(true);
+      await _addFavorite(favoriteBike);
+      fromCacheBike.set(true);
     } else if (event is RemoveFavoriteEvent) {
-      await _removeFavorite(bike);
-      bike.set(false);
+      await _removeFavorite(favoriteBike);
+      event.deleteFromResult ? _cache.remove(fromCacheBike) : fromCacheBike.set(false);
     }
-    BikeEntity entityFromCache = _cache.firstWhere((element) => element.id == bike.id);
-    entityFromCache.set(bike.favorite);
+
     emit(LoadedState(_cache, _pagination));
   }
 

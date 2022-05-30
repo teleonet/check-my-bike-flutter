@@ -1,67 +1,49 @@
 import 'package:check_my_bike_flutter/domain/bloc/bike/bike_bloc.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/favorite/add_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/favorite/remove_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_favorites.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/state/initial_state.dart';
+import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
-import 'package:check_my_bike_flutter/presentation/screen/check/favorites/favorites_screen.dart';
-import 'package:check_my_bike_flutter/presentation/scroll/scroll_controller_with_listener.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item_with_status.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../../domain/bloc/bike/state/loaded_state.dart';
 import '../../../../domain/bloc/bike/state/progress/global_progress_state.dart';
-import '../../../../domain/bloc/bike/state/progress/list_progress_state.dart';
 import '../../../../domain/bloc/bike/state/progress/progress_state.dart';
-import '../../../../domain/entity/bike_entity.dart';
 import '../../../../resources/colors_res.dart';
 
-abstract class BaseCheckScreen extends StatelessWidget {
-  final ScrollControllerWithListener scrollController = ScrollControllerWithListener();
-  final String _title;
+class FavoritesScreen extends StatelessWidget {
+  static show(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return IsolateBlocProvider<BikeBloc, BikeState>(child: const FavoritesScreen());
+    }));
+  }
 
-  BaseCheckScreen(this._title, {Key? key}) : super(key: key);
-
-  @protected
-  List<Widget> buildInheritorWidgets(BuildContext context);
-
-  @protected
-  Widget buildListItem(BuildContext context, BikeEntity bike);
-
-  @protected
-  void loadNextPage(BuildContext context, PaginationEntity pagination);
+  const FavoritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IsolateBlocBuilder<BikeBloc, BikeState>(builder: (context, state) {
-      Future(() {
-        scrollController.scrollToLastVisiblePosition();
-      });
+      state is InitialState ? _loadBikes(context, PaginationEntity()) : null;
       return Container(
           height: MediaQuery.of(context).size.height,
           decoration: _buildGradientDecoration(),
           child: Stack(children: [
             Container(
                 margin: const EdgeInsets.only(bottom: 15),
-                child: CustomScrollView(
-                    controller: scrollController
-                      ..addScrolledBottomListener(() {
-                        if (state is LoadedState && state.pagination.hasNextPage) {
-                          state.pagination.nextPage();
-                          loadNextPage(context, state.pagination);
-                        }
-                      }),
-                    slivers: [
-                      _buildAppBar(context),
-                      ...buildInheritorWidgets(context),
-                      (state is LoadedState)
-                          ? _buildListOrPlaceholder(
-                              context, state.bikes, state.pagination.hasNextPage)
-                          : _buildEmptyWidget(),
-                      (state is GlobalProgressState)
-                          ? _buildGlobalProgressIndicator(context)
-                          : _buildEmptyWidget(),
-                      (state is ListProgressState)
-                          ? _buildListView(context, state.bikes, true)
-                          : _buildEmptyWidget()
-                    ])),
+                child: CustomScrollView(slivers: [
+                  _buildAppBar(context),
+                  (state is GlobalProgressState)
+                      ? _buildGlobalProgressIndicator(context)
+                      : _buildEmptyWidget(),
+                  (state is LoadedState)
+                      ? _buildListOrPlaceholder(context, state.bikes)
+                      : _buildEmptyWidget(),
+                ])),
             _buildBottomContainer()
           ]));
     }, buildWhen: (prev, next) {
@@ -84,20 +66,13 @@ abstract class BaseCheckScreen extends StatelessWidget {
         backgroundColor: ColorsRes.startGradient,
         shadowColor: Colors.transparent,
         shape: _buildAppBarBorder(),
-        title: Text(_title),
+        title: const Text("favorites"),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         titleTextStyle: _buildTextStyle(),
-        actions: [_buildFavoritesButton(context)],
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
             onPressed: () => Navigator.pop(context)));
-  }
-
-  Widget _buildFavoritesButton(BuildContext context) {
-    return TextButton(
-        onPressed: () => FavoritesScreen.show(context),
-        child: const Icon(Icons.star_outline_sharp, size: 30));
   }
 
   OutlinedBorder _buildAppBarBorder() {
@@ -110,7 +85,7 @@ abstract class BaseCheckScreen extends StatelessWidget {
   Widget _buildGlobalProgressIndicator(BuildContext context) {
     return SliverToBoxAdapter(
         child: SizedBox(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 1.2,
             width: MediaQuery.of(context).size.width,
             child: Transform.scale(
                 scale: 2,
@@ -121,34 +96,30 @@ abstract class BaseCheckScreen extends StatelessWidget {
     return const SliverToBoxAdapter(child: SizedBox.shrink());
   }
 
-  Widget _buildListOrPlaceholder(BuildContext context, List<BikeEntity> loaded, bool addProgress) {
-    return loaded.isNotEmpty
-        ? _buildListView(context, loaded, addProgress)
-        : _buildPlaceholder(context);
+  Widget _buildListOrPlaceholder(BuildContext context, List<BikeEntity> loaded) {
+    return loaded.isNotEmpty ? _buildListView(context, loaded) : _buildPlaceholder(context);
   }
 
-  SliverList _buildListView(BuildContext context, List<BikeEntity> bikes, bool addProgress) {
+  SliverList _buildListView(BuildContext context, List<BikeEntity> bikes) {
     return SliverList(
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      if (index == bikes.length && addProgress) {
-        return _buildListProgressItem();
-      }
       return buildListItem(context, bikes[index]);
-    }, childCount: bikes.length + (addProgress ? 1 : 0)));
+    }, childCount: bikes.length));
   }
 
-  Widget _buildListProgressItem() {
-    return const Padding(
-        padding: EdgeInsets.only(top: 15, bottom: 15),
-        child: Center(child: CircularProgressIndicator(strokeWidth: 1.5)));
+  Widget buildListItem(BuildContext context, BikeEntity bike) {
+    return InfoItemWithStatus(bike, (bike) => DetailsScreen.show(context, bike), (bike) {
+      bike.favorite ? _removeFavorite(bike, context) : _addFavorite(bike, context);
+    });
   }
 
   Widget _buildPlaceholder(BuildContext context) {
     return SliverToBoxAdapter(
         child: SizedBox(
-            height: MediaQuery.of(context).size.height / 1.5,
+            height: MediaQuery.of(context).size.height / 1.2,
             width: MediaQuery.of(context).size.width,
-            child: Center(child: Text("Did not find results", style: _buildTextStyle(size: 25)))));
+            child:
+                Center(child: Text("Did not find favorites", style: _buildTextStyle(size: 25)))));
   }
 
   TextStyle _buildTextStyle({double? size}) {
@@ -170,5 +141,19 @@ abstract class BaseCheckScreen extends StatelessWidget {
         border: Border.all(width: 0.4, color: ColorsRes.green),
         borderRadius:
             const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)));
+  }
+
+  void _loadBikes(BuildContext context, PaginationEntity pagination) {
+    context.isolateBloc<BikeBloc, BikeState>().add(LoadFavoritesEvent(pagination));
+  }
+
+  void _addFavorite(BikeEntity bike, BuildContext context) {
+    context.isolateBloc<BikeBloc, BikeState>().add(AddFavoriteEvent(bike));
+  }
+
+  void _removeFavorite(BikeEntity bike, BuildContext context) {
+    context
+        .isolateBloc<BikeBloc, BikeState>()
+        .add(RemoveFavoriteEvent(bike, deleteFromResult: true));
   }
 }

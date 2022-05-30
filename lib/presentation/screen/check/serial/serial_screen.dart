@@ -52,11 +52,11 @@ class SerialScreen extends BaseCheckScreen {
   }
 
   void _addFavorite(BikeEntity bike, BuildContext context) {
-    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(AddFavoriteEvent(bike));
+    context.isolateBloc<BikeBloc, BikeState>().add(AddFavoriteEvent(bike));
   }
 
   void _removeFavorite(BikeEntity bike, BuildContext context) {
-    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(RemoveFavoriteEvent(bike));
+    context.isolateBloc<BikeBloc, BikeState>().add(RemoveFavoriteEvent(bike));
   }
 
   @override
