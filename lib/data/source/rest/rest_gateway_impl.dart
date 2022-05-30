@@ -14,8 +14,6 @@ class RestGatewayImpl implements RestGateway {
 
   static const _response_200_ok = 200;
 
-  static const _perPage25 = 25;
-
   void _validateResponse(http.Response response, Function onSuccess) {
     if (response.statusCode == _response_200_ok) {
       onSuccess.call();
@@ -41,8 +39,7 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<ManufacturerRestDTO>> loadAllManufacturers(int page,
-      {int perPage = _perPage25}) async {
+  Future<List<ManufacturerRestDTO>> loadAllManufacturers(int page, int perPage) async {
     List<ManufacturerRestDTO> manufacturers = [];
 
     http.Response response =
@@ -72,12 +69,12 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeRestDTO>> loadBikesByCustomParameter(String customParameter, int page,
-      {int perPage = _perPage25}) async {
+  Future<List<BikeRestDTO>> loadBikesByCustomParameter(
+      String customParameter, int page, int perPage) async {
     List<BikeRestDTO> bikes = [];
 
     http.Response response = await http.get(Uri.parse(
-        _bikeUrl + "?page=$page&perPage=$perPage&query=$customParameter&stolenness=stolen"));
+        _bikeUrl + "?page=$page&per_page=$perPage&query=$customParameter&stolenness=stolen"));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;
@@ -89,12 +86,11 @@ class RestGatewayImpl implements RestGateway {
 
   @override
   Future<List<BikeRestDTO>> loadBikesByLocation(
-      double latitude, double longitude, int distance, int page,
-      {int perPage = _perPage25}) async {
+      double latitude, double longitude, int distance, int page, int perPage) async {
     List<BikeRestDTO>? bikes = [];
 
     http.Response response = await http.get(Uri.parse(_bikeUrl +
-        "?page=$page&perPage=$perPage&location=$latitude$_comma$longitude&distance=$distance&stolenness=proximity"));
+        "?page=$page&per_page=$perPage&location=$latitude$_comma$longitude&distance=$distance&stolenness=proximity"));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;
@@ -105,12 +101,12 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeRestDTO>> loadBikesByManufacturer(String manufacturer, int page,
-      {int perPage = _perPage25}) async {
+  Future<List<BikeRestDTO>> loadBikesByManufacturer(
+      String manufacturer, int page, int perPage) async {
     List<BikeRestDTO>? bikes = [];
 
     http.Response response = await http.get(Uri.parse(
-        _bikeUrl + "?page=$page&perPage=$perPage&manufacturer=$manufacturer&stolenness=stolen"));
+        _bikeUrl + "?page=$page&per_page=$perPage&manufacturer=$manufacturer&stolenness=stolen"));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;
@@ -121,12 +117,11 @@ class RestGatewayImpl implements RestGateway {
   }
 
   @override
-  Future<List<BikeRestDTO>> loadBikesBySerial(String serial, int page,
-      {int perPage = _perPage25}) async {
+  Future<List<BikeRestDTO>> loadBikesBySerial(String serial, int page, int perPage) async {
     List<BikeRestDTO>? bikes = [];
 
-    http.Response response = await http
-        .get(Uri.parse(_bikeUrl + "?page=$page&perPage=$perPage&serial=$serial&stolenness=stolen"));
+    http.Response response = await http.get(
+        Uri.parse(_bikeUrl + "?page=$page&per_page=$perPage&serial=$serial&stolenness=stolen"));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;

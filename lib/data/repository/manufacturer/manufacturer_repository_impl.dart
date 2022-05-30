@@ -20,8 +20,9 @@ class ManufacturerRepositoryImpl implements ManufacturerRepository {
   }
 
   @override
-  Future<List<ManufacturerEntity>> loadFromRestAll(int page) async {
-    List<ManufacturerRestDTO> restManufacturers = await _restGateway.loadAllManufacturers(page);
+  Future<List<ManufacturerEntity>> loadFromRestAll(int page, int perPage) async {
+    List<ManufacturerRestDTO> restManufacturers =
+        await _restGateway.loadAllManufacturers(page, perPage);
     return ManufacturerMapper.restListToEntityList(restManufacturers);
   }
 

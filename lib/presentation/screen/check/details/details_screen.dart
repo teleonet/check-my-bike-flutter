@@ -54,7 +54,7 @@ class DetailsScreen extends StatelessWidget {
                         alignment: Alignment.topRight,
                         child: Padding(
                             padding: const EdgeInsets.only(right: 25, top: 25),
-                            lchild: _buildFavoriteButton(_bike.favorite)))
+                            child: _buildFavoriteButton(_bike.favorite)))
                   ]))),
         ]));
   }

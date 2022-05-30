@@ -15,29 +15,32 @@ class BikeRepositoryImpl implements BikeRepository {
   BikeRepositoryImpl(this._restGateway, this._databaseGateway);
 
   @override
-  Future<List<BikeEntity>> loadFromRestByCustomParameter(String customParameter, int page) async {
+  Future<List<BikeEntity>> loadFromRestByCustomParameter(
+      String customParameter, int page, int perPage) async {
     List<BikeRestDTO> restBikes =
-        await _restGateway.loadBikesByCustomParameter(customParameter, page);
+        await _restGateway.loadBikesByCustomParameter(customParameter, page, perPage);
     return BikeMapper.restListToEntityList(restBikes);
   }
 
   @override
   Future<List<BikeEntity>> loadFromRestByLocation(
-      LocationEntity location, int distance, int page) async {
+      LocationEntity location, int distance, int page, int perPage) async {
     List<BikeRestDTO> restBikes = await _restGateway.loadBikesByLocation(
-        location.latitude, location.longitude, distance, page);
+        location.latitude, location.longitude, distance, page, perPage);
     return BikeMapper.restListToEntityList(restBikes);
   }
 
   @override
-  Future<List<BikeEntity>> loadFromRestByManufacturer(String manufacturer, int page) async {
-    List<BikeRestDTO> restBikes = await _restGateway.loadBikesByManufacturer(manufacturer, page);
+  Future<List<BikeEntity>> loadFromRestByManufacturer(
+      String manufacturer, int page, int perPage) async {
+    List<BikeRestDTO> restBikes =
+        await _restGateway.loadBikesByManufacturer(manufacturer, page, perPage);
     return BikeMapper.restListToEntityList(restBikes);
   }
 
   @override
-  Future<List<BikeEntity>> loadFromRestBySerial(String serial, int page) async {
-    List<BikeRestDTO> restBikes = await _restGateway.loadBikesBySerial(serial, page);
+  Future<List<BikeEntity>> loadFromRestBySerial(String serial, int page, int perPage) async {
+    List<BikeRestDTO> restBikes = await _restGateway.loadBikesBySerial(serial, page, perPage);
     return BikeMapper.restListToEntityList(restBikes);
   }
 

@@ -1,8 +1,12 @@
-import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_manufacturer_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/favorite/add_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/favorite/remove_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -18,39 +22,46 @@ class ManufacturerScreen extends BaseCheckScreen {
     }));
   }
 
-  const ManufacturerScreen({Key? key}) : super("manufacturer", key: key);
+  String _query = "";
+
+  ManufacturerScreen({Key? key}) : super("manufacturer", key: key);
 
   @override
-  List<Widget> getWidgets(BuildContext context) {
+  List<Widget> buildInheritorWidgets(BuildContext context) {
     return [_buildInputForm(context)];
   }
 
   Widget _buildInputForm(BuildContext context) {
     return SliverToBoxAdapter(
         child: InputForm("manufacturer", (textToSearch) {
-      _loadBikes(textToSearch ?? "", context);
+      _query = textToSearch ?? "";
+      _loadBikes(context, PaginationEntity());
     }, (textForValidator) {
       return Validator.moreThenTwoSymbols(textForValidator);
     }, "Please enter more then 2 symbols"));
   }
 
-  void _loadBikes(String query, BuildContext context) {
-    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(LoadManufacturerEvent(query));
+  void _loadBikes(BuildContext context, PaginationEntity pagination) {
+    context.isolateBloc<BikeBloc, BikeState>().add(LoadManufacturerEvent(_query, pagination));
   }
 
   @override
-  Widget getListView(BuildContext context, List<BikeEntity> bikes) {
-    return _buildListView(context, bikes);
+  Widget buildListItem(BuildContext context, BikeEntity bike) {
+    return InfoItem(bike, (bike) => DetailsScreen.show(context, bike), (bike) {
+      bike.favorite ? _removeFavorite(context, bike) : _addFavorite(context, bike);
+    });
   }
 
-  Widget _buildListView(BuildContext context, List<BikeEntity> bikes) {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return _buildInfoItem(context, bikes[index]);
-    }, childCount: bikes.length));
+  void _addFavorite(BuildContext context, BikeEntity bike) {
+    context.isolateBloc<BikeBloc, BikeState>().add(AddFavoriteEvent(bike));
   }
 
-  Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
-    return InfoItem(bike, (bike) => DetailsScreen.show(context, bike), (bike) {});
+  void _removeFavorite(BuildContext context, BikeEntity bike) {
+    context.isolateBloc<BikeBloc, BikeState>().add(RemoveFavoriteEvent(bike));
+  }
+
+  @override
+  void loadNextPage(BuildContext context, PaginationEntity pagination) {
+    _loadBikes(context, pagination);
   }
 }

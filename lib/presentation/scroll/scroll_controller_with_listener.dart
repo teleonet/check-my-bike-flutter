@@ -2,16 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 
 class ScrollControllerWithListener extends ScrollController {
-  final Function? onScrolledTop;
-  final Function? onScrolledBottom;
-  final Function? onScrollTop;
-  final Function? onScrollBottom;
+  Function? onScrolledTop;
+  Function? onScrolledBottom;
+  Function? onScrollTop;
+  Function? onScrollBottom;
 
   bool _isTopScroll = false;
   bool _isBottomScroll = false;
 
+  double _lastVisiblePosition = 0.0;
+
   ScrollControllerWithListener(
-      {this.onScrollTop, this.onScrollBottom, this.onScrolledTop, this.onScrolledBottom});
+      {this.onScrollTop, this.onScrollBottom, this.onScrolledTop, this.onScrolledBottom}) {
+    initListener();
+  }
+
+  void addScrolledBottomListener(Function? onScrolledBottom) {
+    this.onScrolledBottom = onScrolledBottom;
+  }
 
   void initListener() {
     addListener(handleListener);
@@ -21,7 +29,14 @@ class ScrollControllerWithListener extends ScrollController {
     removeListener(handleListener);
   }
 
+  @override
+  void dispose() {
+    disposeListener();
+    super.dispose();
+  }
+
   void handleListener() {
+    _lastVisiblePosition = position.pixels;
     if (position.pixels == position.minScrollExtent) {
       onScrolledTop?.call();
     }
@@ -48,5 +63,9 @@ class ScrollControllerWithListener extends ScrollController {
         }
         break;
     }
+  }
+
+  void scrollToLastVisiblePosition() {
+    jumpTo(_lastVisiblePosition);
   }
 }

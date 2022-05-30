@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 
 abstract class ManufacturerRepository {
-  Future<List<ManufacturerEntity>> loadFromRestAll(int page);
+  Future<List<ManufacturerEntity>> loadFromRestAll(int page, int perPage);
 
   Future<ManufacturerEntity?> loadFromRestByName(String name);
 

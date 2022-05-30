@@ -1,4 +1,6 @@
 class PaginationEntity {
+  static const int perPage = 10;
+
   int _currentPage = 1;
 
   get currentPage => _currentPage;
@@ -12,4 +14,8 @@ class PaginationEntity {
   void firstPage() => _currentPage = 1;
 
   void setEndPage() => _hasNextPage = false;
+
+  PaginationEntity({int currentPage = 1}) {
+    _currentPage = currentPage;
+  }
 }

@@ -1,5 +1,6 @@
-import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_custom_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_custom_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
@@ -14,44 +15,41 @@ import '../../../widgets/input_form/input_form.dart';
 class CustomScreen extends BaseCheckScreen {
   static show(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return IsolateBlocProvider<BikeBloc, BikeState>(child: const CustomScreen());
+      return IsolateBlocProvider<BikeBloc, BikeState>(child: CustomScreen());
     }));
   }
 
-  const CustomScreen({Key? key}) : super("custom", key: key);
+  String _query = "";
+
+  CustomScreen({Key? key}) : super("custom", key: key);
 
   @override
-  List<Widget> getWidgets(BuildContext context) {
+  List<Widget> buildInheritorWidgets(BuildContext context) {
     return [_buildInputForm(context)];
   }
 
   Widget _buildInputForm(BuildContext context) {
     return SliverToBoxAdapter(
         child: InputForm("parameter", (textToSearch) {
-      _loadBikes(textToSearch ?? "", context);
+      _query = textToSearch ?? "";
+      _loadBikes(context, PaginationEntity());
     }, (textForValidator) {
       return Validator.moreThenTwoSymbols(textForValidator);
     }, "Please enter more then 2 symbols"));
   }
 
-  void _loadBikes(String query, BuildContext context) {
-    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(LoadCustomEvent(query));
+  void _loadBikes(BuildContext context, PaginationEntity pagination) {
+    context.isolateBloc<BikeBloc, BikeState>().add(LoadCustomEvent(_query, pagination));
   }
 
   @override
-  Widget getListView(BuildContext context, List<BikeEntity> bikes) {
-    return _buildListView(context, bikes);
-  }
-
-  Widget _buildListView(BuildContext context, List<BikeEntity> bikes) {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return _buildInfoItem(context, bikes[index]);
-    }, childCount: bikes.length));
-  }
-
-  Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
+  Widget buildListItem(BuildContext context, BikeEntity bike) {
     return InfoItem(bike, (bike) => DetailsScreen.show(context, bike),
         (bike) => print("pressed favorite: ${bike.manufacturerName}"));
+  }
+
+  @override
+  void loadNextPage(BuildContext context, PaginationEntity pagination) {
+    _loadBikes(context, pagination);
   }
 }

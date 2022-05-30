@@ -35,7 +35,7 @@ class InfoItem extends StatelessWidget {
                 _buildRowOrEmpty(context, "Status", "${_bike.status}",
                     colorValue: _bike.stolen ? Colors.red : null),
                 _buildRowOrEmpty(context, "Year", "${_bike.year}"),
-                _buildRowOrEmpty(context, "Location", "${_bike.stolenLocation}"),
+                _buildRowOrEmpty(context, "Location", "${_bike.stolenLocation}", widthFactor: 0.45),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 Column(children: getWidgets())
               ]),
@@ -54,7 +54,8 @@ class InfoItem extends StatelessWidget {
 
   Widget _buildFavoriteButton() {
     return TextButton(
-        onPressed: () => _onPressedFavorite?.call(_bike), child: _buildFavoriteIcon(false));
+        onPressed: () => _onPressedFavorite?.call(_bike),
+        child: _buildFavoriteIcon(_bike.favorite));
   }
 
   Icon _buildFavoriteIcon(bool isFavorite) {
@@ -64,14 +65,14 @@ class InfoItem extends StatelessWidget {
   }
 
   Widget _buildPhoto(String? imgUrl) {
-    if (imgUrl?.isNotEmpty == true) {
+    /*if (imgUrl?.isNotEmpty == true) {
       return Image.network(imgUrl!, loadingBuilder: (context, image, progress) {
         if (progress != null) {
           return _buildProgressIndicator(progress);
         }
         return _buildImageContainer(image);
       });
-    }
+    }*/
     return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
   }
 
@@ -115,7 +116,7 @@ class InfoItem extends StatelessWidget {
 
   Widget _buildValueText(BuildContext context, String value, {Color? color, double? widthFactor}) {
     Widget widget = Text(value, style: _buildTextStyle(color: color));
-    if (value.length > 20) {
+    if (value.length > 18) {
       widget = AutoScrollText(value, MediaQuery.of(context).size.width * (widthFactor ?? 0.5));
     }
     return widget;

@@ -1,10 +1,10 @@
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/bike_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 
-class AddFavoriteEvent extends BikeEvent {
-  final BikeEntity _bikeEntity;
+class FavoriteEvent extends BikeEvent {
+  final BikeEntity _bike;
 
-  get bike => _bikeEntity;
+  get bike => _bike;
 
-  AddFavoriteEvent(this._bikeEntity);
+  FavoriteEvent(this._bike);
 }

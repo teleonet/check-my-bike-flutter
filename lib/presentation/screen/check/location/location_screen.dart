@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:check_my_bike_flutter/domain/bloc/bike/event/load_location_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../../domain/bloc/bike/bike_bloc.dart';
+import '../../../../domain/bloc/bike/event/load/load_location_event.dart';
 import '../../../../domain/bloc/bike/state/bike_state.dart';
 
 class LocationScreen extends BaseCheckScreen {
@@ -27,7 +28,7 @@ class LocationScreen extends BaseCheckScreen {
   LocationScreen() : super("location");
 
   @override
-  List<Widget> getWidgets(BuildContext context) {
+  List<Widget> buildInheritorWidgets(BuildContext context) {
     return [_buildLocationButton(context), _buildSearchButton(context)];
   }
 
@@ -54,30 +55,26 @@ class LocationScreen extends BaseCheckScreen {
               ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
               if (_location != null && _distance != null) {
                 buttonState?.setNormalState();
+                _loadBikes(context, PaginationEntity());
               } else {
                 buttonState?.setErrorState();
-                _loadBikes(_location!, _distance!, context);
               }
             })));
   }
 
-  void _loadBikes(LocationEntity location, int distance, BuildContext context) {
-    IsolateBlocProvider.of<BikeBloc, BikeState>(context).add(LoadLocationEvent(location, distance));
+  void _loadBikes(BuildContext context, PaginationEntity pagination) {
+    context
+        .isolateBloc<BikeBloc, BikeState>()
+        .add(LoadLocationEvent(_location!, _distance!, pagination));
   }
 
   @override
-  Widget getListView(BuildContext context, List<BikeEntity> bikes) {
-    return _buildListView(context, bikes);
-  }
-
-  Widget _buildListView(BuildContext context, List<BikeEntity> bikes) {
-    return SliverList(
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-      return _buildInfoItem(context, bikes[index]);
-    }, childCount: bikes.length));
-  }
-
-  Widget _buildInfoItem(BuildContext context, BikeEntity bike) {
+  Widget buildListItem(BuildContext context, BikeEntity bike) {
     return InfoItem(bike, (bike) => DetailsScreen.show(context, bike), (bike) {});
+  }
+
+  @override
+  void loadNextPage(BuildContext context, PaginationEntity pagination) {
+    _loadBikes(context, pagination);
   }
 }

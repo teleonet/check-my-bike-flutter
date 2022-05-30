@@ -13,6 +13,7 @@ import 'event/load_favorites_event.dart';
 import 'event/manufacturer_event.dart';
 
 class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState> {
+  static const int _perPage = 25;
   final ManufacturerRepository _repository;
 
   static init(ManufacturerRepository manufacturerRepository) {
@@ -42,7 +43,7 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
 
   Future<List<ManufacturerEntity>> _loadAll(PaginationEntity pagination) async {
     List<ManufacturerEntity> loadedEntities =
-        await _repository.loadFromRestAll(pagination.currentPage);
+        await _repository.loadFromRestAll(pagination.currentPage, _perPage);
 
     List<ManufacturerEntity> filteredEntities =
         loadedEntities.where((element) => element.companyUrl.toString().isNotEmpty).toList();

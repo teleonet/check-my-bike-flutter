@@ -1,5 +1,6 @@
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
 
+import '../../../../entity/pagination_entity.dart';
 import 'load_event.dart';
 
 class LoadLocationEvent extends LoadEvent {
@@ -11,5 +12,6 @@ class LoadLocationEvent extends LoadEvent {
 
   get distance => _distance;
 
-  LoadLocationEvent(this._location, this._distance);
+  LoadLocationEvent(this._location, this._distance, PaginationEntity? pagination)
+      : super(pagination);
 }
