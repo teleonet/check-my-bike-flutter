@@ -113,7 +113,7 @@ class DetailsScreen extends StatelessWidget {
         child: CircularProgressIndicator(value: value, strokeWidth: 0.4));
   }
 
-  Widget _buildImageContainer(Widget image, clickedImage) {
+  Widget _buildImageContainer(Widget image, Function clickedImage) {
     return TextButton(
         onPressed: () => clickedImage.call(),
         child: Container(
