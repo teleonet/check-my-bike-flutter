@@ -7,6 +7,7 @@ import 'package:check_my_bike_flutter/data/source/rest/rest_gateway_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  const int _perPage = 10;
   RestGateway _gateway = RestGatewayImpl();
 
   setUp(() async {
@@ -18,42 +19,42 @@ void main() {
   });
 
   test("load bikes by serial with correct query", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesBySerial("11981L5n20", 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesBySerial("11981L5n20", 1, _perPage);
     expect(bikes.isNotEmpty, true);
   });
 
   test("load bikes by serial with wrong query", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesBySerial("wrong_serial", 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesBySerial("wrong_serial", 1, _perPage);
     expect(bikes.isEmpty, true);
   });
 
   test("load bikes by serial with empty query", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesBySerial("", 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesBySerial("", 1, _perPage);
     expect(bikes.isNotEmpty, true);
   });
 
   test("load bikes by custom parameter", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesByCustomParameter("Scott", 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesByCustomParameter("Scott", 1, _perPage);
     expect(bikes.isNotEmpty, true);
   });
 
   test("load bikes by custom parameter with empty query", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesByCustomParameter("", 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesByCustomParameter("", 1, _perPage);
     expect(bikes.isNotEmpty, true);
   });
 
   test("load bikes by location with correct query", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesByLocation(52.22, 21.00, 1, 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesByLocation(52.22, 21.00, 1, 1, _perPage);
     expect(bikes[0].stolenLocation?.contains("PL"), true);
   });
 
   test("load bikes by location with wrong query", () async {
-    List<BikeRestDTO> bikes = await _gateway.loadBikesByLocation(50, 50, 1, 1);
+    List<BikeRestDTO> bikes = await _gateway.loadBikesByLocation(50, 50, 1, 1, _perPage);
     expect(bikes.isEmpty, true);
   });
 
   test("load all manufacturers", () async {
-    List<ManufacturerRestDTO> manufacturers = await _gateway.loadAllManufacturers(1);
+    List<ManufacturerRestDTO> manufacturers = await _gateway.loadAllManufacturers(1, _perPage);
     expect(manufacturers.isNotEmpty, true);
   });
 

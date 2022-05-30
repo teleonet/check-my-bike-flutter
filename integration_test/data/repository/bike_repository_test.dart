@@ -15,6 +15,7 @@ import 'package:path_provider/path_provider.dart';
 import '../data_utils.dart';
 
 void main() {
+  const int _perPage = 10;
   BikeRepository? _repository;
 
   setUpAll(() async {
@@ -25,39 +26,40 @@ void main() {
   });
 
   test("load bikes from rest by serial with correct query", () async {
-    List<BikeEntity>? bikes = await _repository?.loadFromRestBySerial("11981L5n20", 1);
+    List<BikeEntity>? bikes = await _repository?.loadFromRestBySerial("11981L5n20", 1, _perPage);
     expect(bikes?.isNotEmpty, true);
   });
 
   test("load bikes from rest by serial with wrong query", () async {
-    List<BikeEntity>? bikes = await _repository?.loadFromRestBySerial("wrong_serial", 1);
+    List<BikeEntity>? bikes = await _repository?.loadFromRestBySerial("wrong_serial", 1, _perPage);
     expect(bikes?.isEmpty, true);
   });
 
   test("load bikes from rest by serial with empty query", () async {
-    List<BikeEntity>? bikes = await _repository?.loadFromRestBySerial("", 1);
+    List<BikeEntity>? bikes = await _repository?.loadFromRestBySerial("", 1, _perPage);
     expect(bikes?.isNotEmpty, true);
   });
 
   test("load bikes from rest by custom parameter", () async {
-    List<BikeEntity>? bikes = await _repository?.loadFromRestByCustomParameter("Scott", 1);
+    List<BikeEntity>? bikes =
+        await _repository?.loadFromRestByCustomParameter("Scott", 1, _perPage);
     expect(bikes?.isNotEmpty, true);
   });
 
   test("load bikes from rest by custom parameter with empty query", () async {
-    List<BikeEntity>? bikes = await _repository?.loadFromRestByCustomParameter("", 1);
+    List<BikeEntity>? bikes = await _repository?.loadFromRestByCustomParameter("", 1, _perPage);
     expect(bikes?.isNotEmpty, true);
   });
 
   test("load bikes from rest by location with correct location", () async {
     List<BikeEntity>? bikes =
-        await _repository?.loadFromRestByLocation(LocationEntity(52.22, 21.00), 1, 1);
+        await _repository?.loadFromRestByLocation(LocationEntity(52.22, 21.00), 1, 1, _perPage);
     expect(bikes?[0].stolenLocation?.contains("PL"), true);
   });
 
   test("load bikes from rest by location with wrong location", () async {
     List<BikeEntity>? bikes =
-        await _repository?.loadFromRestByLocation(LocationEntity(50, 50), 1, 1);
+        await _repository?.loadFromRestByLocation(LocationEntity(50, 50), 1, 1, _perPage);
     expect(bikes?.isEmpty, true);
   });
 
@@ -73,7 +75,8 @@ void main() {
   });
 
   test("load bikes from rest and save to db", () async {
-    List<BikeEntity>? savedBikes = await _repository?.loadFromRestByManufacturer("scott", 1);
+    List<BikeEntity>? savedBikes =
+        await _repository?.loadFromRestByManufacturer("scott", 1, _perPage);
     await _repository?.saveToDatabase(savedBikes!);
 
     List<BikeEntity>? loadedBikes = await _repository?.loadFromDatabase();

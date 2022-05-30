@@ -15,6 +15,7 @@ import 'package:path_provider/path_provider.dart';
 import '../data_utils.dart';
 
 void main() {
+  const int _perPage = 10;
   ManufacturerRepository? _repository;
 
   setUpAll(() async {
@@ -25,7 +26,7 @@ void main() {
   });
 
   test("load all manufacturers from rest with correct query", () async {
-    List<ManufacturerEntity>? manufacturers = await _repository?.loadFromRestAll(1);
+    List<ManufacturerEntity>? manufacturers = await _repository?.loadFromRestAll(1, _perPage);
     expect(manufacturers?.isNotEmpty, true);
   });
 
@@ -55,7 +56,7 @@ void main() {
   });
 
   test("load manufacturers from rest and save to db", () async {
-    List<ManufacturerEntity>? savedManufacturers = await _repository?.loadFromRestAll(1);
+    List<ManufacturerEntity>? savedManufacturers = await _repository?.loadFromRestAll(1, _perPage);
     await _repository?.saveToDatabase(savedManufacturers!);
 
     List<ManufacturerEntity>? loadedManufacturers = await _repository?.loadFromDatabase();
