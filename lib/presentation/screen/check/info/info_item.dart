@@ -28,7 +28,7 @@ class InfoItem extends StatelessWidget {
             child: Stack(children: [
               Column(children: [
                 const Padding(padding: EdgeInsets.only(top: 15)),
-                _buildPhoto(_bike.largeImg),
+                _buildPhoto(_bike.largeImg, context),
                 _buildRowOrEmpty(context, "Serial", "${_bike.serial}"),
                 _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}",
                     widthFactor: 0.37),
@@ -64,27 +64,27 @@ class InfoItem extends StatelessWidget {
         : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
 
-  Widget _buildPhoto(String? imgUrl) {
+  Widget _buildPhoto(String? imgUrl, BuildContext context) {
     if (imgUrl?.isNotEmpty == true) {
       return Image.network(imgUrl!, loadingBuilder: (context, image, progress) {
         if (progress != null) {
-          return _buildProgressIndicator(progress);
+          return _buildPhotoContainer(_buildProgressIndicator(progress), context);
         }
-        return _buildImageContainer(image);
+        return _buildPhotoContainer(image, context);
       });
     }
-    return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
+    return _buildPhotoContainer(const Icon(Icons.no_photography_outlined, size: 100), context);
   }
 
   Widget _buildProgressIndicator(ImageChunkEvent progress) {
     double? value = progress.cumulativeBytesLoaded / (progress.expectedTotalBytes ?? 1);
-    return Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
-        child: CircularProgressIndicator(value: value, strokeWidth: 0.4));
+    return Center(child: CircularProgressIndicator(value: value, strokeWidth: 1));
   }
 
-  Widget _buildImageContainer(Widget image) {
+  Widget _buildPhotoContainer(Widget image, BuildContext context) {
     return Container(
+        height: 200,
+        width: MediaQuery.of(context).size.width,
         decoration: _buildContainerDecoration(borderColor: Colors.transparent, thinness: 0.4),
         margin: const EdgeInsets.only(left: 20, right: 20),
         child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
