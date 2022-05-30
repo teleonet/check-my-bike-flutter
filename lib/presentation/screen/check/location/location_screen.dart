@@ -18,14 +18,16 @@ import '../../../../domain/bloc/bike/state/bike_state.dart';
 
 class LocationScreen extends BaseCheckScreen {
   static show(BuildContext context) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LocationScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return IsolateBlocProvider<BikeBloc, BikeState>(child: LocationScreen());
+    }));
   }
 
   LocationEntity? _location;
   int? _distance;
   final GlobalKey? _locationButtonKey = GlobalKey<ShakeButtonState>();
 
-  LocationScreen() : super("location");
+  LocationScreen({Key? key}) : super("location", key: key);
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {

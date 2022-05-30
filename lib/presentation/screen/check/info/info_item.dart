@@ -65,14 +65,14 @@ class InfoItem extends StatelessWidget {
   }
 
   Widget _buildPhoto(String? imgUrl) {
-    /*if (imgUrl?.isNotEmpty == true) {
+    if (imgUrl?.isNotEmpty == true) {
       return Image.network(imgUrl!, loadingBuilder: (context, image, progress) {
         if (progress != null) {
           return _buildProgressIndicator(progress);
         }
         return _buildImageContainer(image);
       });
-    }*/
+    }
     return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
   }
 
