@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/zoom/zoom_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entity/bike_entity.dart';
@@ -93,13 +94,13 @@ class DetailsScreen extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
-  Widget _buildPhoto(String? imgUrl) {
-    if (imgUrl?.isNotEmpty == true) {
-      return Image.network(imgUrl!, loadingBuilder: (context, image, progress) {
+  Widget _buildPhoto(String? imageUrl) {
+    if (imageUrl?.isNotEmpty == true) {
+      return Image.network(imageUrl!, loadingBuilder: (context, image, progress) {
         if (progress != null) {
           return _buildProgressIndicator(progress);
         }
-        return _buildImageContainer(image);
+        return _buildImageContainer(image, () => ZoomScreen.show(context, imageUrl));
       });
     }
     return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
@@ -112,10 +113,12 @@ class DetailsScreen extends StatelessWidget {
         child: CircularProgressIndicator(value: value, strokeWidth: 0.4));
   }
 
-  Widget _buildImageContainer(Widget image) {
-    return Container(
-        decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
-        child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
+  Widget _buildImageContainer(Widget image, clickedImage) {
+    return TextButton(
+        onPressed: () => clickedImage.call(),
+        child: Container(
+            decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
+            child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))));
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,
