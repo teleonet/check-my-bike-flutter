@@ -118,8 +118,7 @@ class FavoritesScreen extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 1.2,
             width: MediaQuery.of(context).size.width,
-            child:
-                Center(child: Text("Did not find favorites", style: _buildTextStyle(size: 25)))));
+            child: Center(child: Text("Favorites is empty", style: _buildTextStyle(size: 25)))));
   }
 
   TextStyle _buildTextStyle({double? size}) {

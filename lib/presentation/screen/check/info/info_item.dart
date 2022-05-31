@@ -81,13 +81,13 @@ class InfoItem extends StatelessWidget {
     return Center(child: CircularProgressIndicator(value: value, strokeWidth: 1));
   }
 
-  Widget _buildPhotoContainer(Widget image, BuildContext context) {
+  Widget _buildPhotoContainer(Widget widget, BuildContext context) {
     return Container(
         height: 200,
         width: MediaQuery.of(context).size.width,
         decoration: _buildContainerDecoration(borderColor: Colors.transparent, thinness: 0.4),
         margin: const EdgeInsets.only(left: 20, right: 20),
-        child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10)));
+        child: ClipRRect(child: widget, borderRadius: BorderRadius.circular(10)));
   }
 
   Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
