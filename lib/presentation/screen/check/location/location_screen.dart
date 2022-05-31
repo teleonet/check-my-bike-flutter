@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
-import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/map/map_screen.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -41,8 +39,10 @@ class LocationScreen extends BaseCheckScreen {
     return SliverToBoxAdapter(
         child: Container(
             padding: const EdgeInsets.only(top: 10),
+            //TODO: need to change to simple button instead of ShakeButton
             child: ShakeButton("choose location", onPressed: () async {
-              _location = await Future.delayed(const Duration(seconds: 1), () {
+              MapScreen.show(context);
+              /*_location = await Future.delayed(const Duration(seconds: 1), () {
                 return LocationEntity(39.73, -104.98);
               });
               if (_location != null) {
@@ -50,7 +50,7 @@ class LocationScreen extends BaseCheckScreen {
                   _distance = value;
                   _loadBikes(context, PaginationEntity());
                 }).show(context, "Choose distance");
-              }
+              }*/
             }),
             key: _locationButtonKey));
   }

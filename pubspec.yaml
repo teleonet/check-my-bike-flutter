@@ -34,9 +34,7 @@ dependencies:
   http: ^0.13.4
   hive: ^2.1.0
   isolate_bloc: ^2.1.1
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  google_maps_flutter: ^2.1.6
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
