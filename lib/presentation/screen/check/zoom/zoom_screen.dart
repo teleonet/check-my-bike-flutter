@@ -41,6 +41,11 @@ class ZoomScreen extends StatelessWidget {
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
       title: const Text("zoom"),
+      actions: [
+        Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Icon(Icons.pinch, color: ColorsRes.green, size: 23))
+      ],
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
       titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
