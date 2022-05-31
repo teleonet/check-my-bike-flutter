@@ -120,16 +120,16 @@ class DetailsScreen extends StatelessWidget {
           Container(
               decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
               child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))),
-          _buildFullScreenButton(context, pressedFullScreen)
+          _buildZoomButton(context, pressedFullScreen)
         ]));
   }
 
-  Widget _buildFullScreenButton(BuildContext context, Function pressedFullScreen) {
+  Widget _buildZoomButton(BuildContext context, Function pressedFullScreen) {
     return Align(
         alignment: Alignment.topRight,
         child: TextButton(
             onPressed: () => pressedFullScreen.call(),
-            child: Icon(Icons.zoom_in, color: ColorsRes.green, size: 30)));
+            child: Icon(Icons.zoom_in, color: ColorsRes.green, size: 45)));
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,
