@@ -47,7 +47,12 @@ class DetailsScreen extends StatelessWidget {
                               widthFactor: 0.6),
                           const Padding(padding: EdgeInsets.only(top: 20)),
                           _buildDescriptionOrEmpty(_bike.description)
-                        ]))
+                        ])),
+                    Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                            padding: const EdgeInsets.only(right: 35, top: 40),
+                            child: _buildFavoriteButton()))
                   ]))),
         ]));
   }
@@ -100,7 +105,7 @@ class DetailsScreen extends StatelessWidget {
         if (progress != null) {
           return _buildProgressIndicator(progress);
         }
-        return _buildImageContainer(image, () => ZoomScreen.show(context, imageUrl));
+        return _buildImageContainer(image, () => ZoomScreen.show(context, imageUrl), context);
       });
     }
     return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
@@ -113,12 +118,22 @@ class DetailsScreen extends StatelessWidget {
         child: CircularProgressIndicator(value: value, strokeWidth: 0.4));
   }
 
-  Widget _buildImageContainer(Widget image, Function clickedImage) {
-    return TextButton(
-        onPressed: () => clickedImage.call(),
-        child: Container(
-            decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
-            child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))));
+  Widget _buildImageContainer(Widget image, Function clickedImage, BuildContext context) {
+    return Stack(children: [
+      Container(
+          decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
+          child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))),
+      Container(
+        width: 75,
+          height: 75,
+          child: TextButton(
+              onPressed: () => clickedImage.call(),
+              child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      child: Icon(Icons.fullscreen_outlined, color: ColorsRes.green, size: 30)))))
+    ]);
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,
@@ -168,5 +183,17 @@ class DetailsScreen extends StatelessWidget {
     } else {
       return const SizedBox.shrink();
     }
+  }
+
+  Widget _buildFavoriteButton() {
+    return TextButton(
+        onPressed: () => /*_onPressedFavorite?.call(_bike)*/ {},
+        child: _buildFavoriteIcon(_bike.favorite));
+  }
+
+  Icon _buildFavoriteIcon(bool isFavorite) {
+    return isFavorite
+        ? Icon(Icons.star, size: 30, color: ColorsRes.green)
+        : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
 }
