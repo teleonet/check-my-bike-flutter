@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../../domain/bloc/bike/bike_bloc.dart';
+import '../../../../domain/bloc/bike/event/favorite/add_favorite_event.dart';
+import '../../../../domain/bloc/bike/event/favorite/remove_favorite_event.dart';
 import '../../../../domain/bloc/bike/state/bike_state.dart';
 import '../../../validator/validator.dart';
 import '../../../widgets/input_form/input_form.dart';
@@ -45,11 +47,19 @@ class CustomScreen extends BaseCheckScreen {
   @override
   Widget buildListItem(BuildContext context, BikeEntity bike) {
     return InfoItem(bike, (bike) => DetailsScreen.show(context, bike),
-        (bike) => print("pressed favorite: ${bike.manufacturerName}"));
+        (bike) => bike.favorite ? _removeFavorite(bike, context) : _addFavorite(bike, context));
   }
 
   @override
   void loadNextPage(BuildContext context, PaginationEntity pagination) {
     _loadBikes(context, pagination);
+  }
+
+  void _addFavorite(BikeEntity bike, BuildContext context) {
+    context.isolateBloc<BikeBloc, BikeState>().add(AddFavoriteEvent(bike));
+  }
+
+  void _removeFavorite(BikeEntity bike, BuildContext context) {
+    context.isolateBloc<BikeBloc, BikeState>().add(RemoveFavoriteEvent(bike));
   }
 }
