@@ -7,7 +7,6 @@ import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_dia
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
-import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -33,7 +32,9 @@ class LocationScreen extends BaseCheckScreen {
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
-    return [_buildLocationButton(context), _buildSearchButton(context)];
+    return [
+      _buildLocationButton(context) /*, _buildSearchButton(context)*/
+    ];
   }
 
   Widget _buildLocationButton(BuildContext context) {
@@ -45,25 +46,13 @@ class LocationScreen extends BaseCheckScreen {
                 return LocationEntity(39.73, -104.98);
               });
               if (_location != null) {
-                DistanceDialog((value) => _distance = value).show(context, "Choose distance");
+                DistanceDialog((value) {
+                  _distance = value;
+                  _loadBikes(context, PaginationEntity());
+                }).show(context, "Choose distance");
               }
             }),
             key: _locationButtonKey));
-  }
-
-  Widget _buildSearchButton(BuildContext context) {
-    return SliverToBoxAdapter(
-        child: Container(
-            padding: const EdgeInsets.only(top: 10),
-            child: BorderedButton("search", onPressed: () {
-              ShakeButtonState? buttonState = _locationButtonKey?.currentState as ShakeButtonState?;
-              if (_location != null && _distance != null) {
-                buttonState?.setNormalState();
-                _loadBikes(context, PaginationEntity());
-              } else {
-                buttonState?.setErrorState();
-              }
-            })));
   }
 
   void _loadBikes(BuildContext context, PaginationEntity pagination) {
