@@ -85,21 +85,28 @@ class MapScreen extends StatelessWidget {
         onPressed: () => Navigator.pop(context));
   }
 
-  GoogleMap _buildGoogleMap(BuildContext context, Marker marker) {
-    return GoogleMap(
-        mapType: MapType.normal,
-        onTap: (location) => _mapMode == MapMode.modify
-            ? _addTappedEvent(context, LocationEntity(location.latitude, location.longitude))
-            : null,
-        markers: {marker},
-        zoomControlsEnabled: false,
-        initialCameraPosition: CameraPosition(target: marker.position, zoom: _zoom));
-  }
-
   Marker _buildMarker(LocationEntity location) {
     return Marker(
         markerId: MarkerId(location.toString()),
         position: LatLng(location.latitude, location.longitude));
+  }
+
+  GoogleMap _buildGoogleMap(BuildContext context, Marker marker) {
+    return GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: CameraPosition(target: marker.position, zoom: _zoom),
+        markers: {marker},
+        zoomControlsEnabled: false,
+        trafficEnabled: false,
+        onTap: (location) => _onMapPressed(context, location),
+        onLongPress: (location) => _onMapPressed(context, location));
+  }
+
+  void _onMapPressed(BuildContext context, LatLng latLng) {
+    if (_mapMode == MapMode.modify) {
+      LocationEntity location = LocationEntity(latLng.latitude, latLng.longitude);
+      context.isolateBloc<NavigationBloc, NavigationState>().add(TappedMapScreenEvent(location));
+    }
   }
 
   Widget _buildApplyButton(BuildContext context) {
@@ -125,9 +132,5 @@ class MapScreen extends StatelessWidget {
   Widget _buildText(String title) {
     return Text(title,
         style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20));
-  }
-
-  void _addTappedEvent(BuildContext context, LocationEntity location) {
-    context.isolateBloc<NavigationBloc, NavigationState>().add(TappedMapScreenEvent(location));
   }
 }
