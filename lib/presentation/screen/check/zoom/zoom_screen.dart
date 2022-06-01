@@ -17,12 +17,12 @@ class ZoomScreen extends StatelessWidget {
     return Container(
         decoration: _buildGradientDecoration(),
         child: Stack(children: [
-          SizedBox(height: 85, child: _buildAppBar(context)),
           Container(
-              padding: const EdgeInsets.only(top: 85),
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: InteractiveViewer(maxScale: 50, child: _buildPhoto(_imageUrl)))
+              child: InteractiveViewer(maxScale: 50, child: _buildPhoto(_imageUrl))),
+          Column(children: [_buildAppBar(context), const Spacer()])
+          // SizedBox(height: 85, child: _buildAppBar(context)),
         ]));
   }
 
@@ -37,7 +37,7 @@ class ZoomScreen extends StatelessWidget {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       toolbarHeight: 65,
-      backgroundColor: Colors.transparent,
+      backgroundColor: ColorsRes.darkGreyOpacity75,
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
       title: const Text("zoom"),

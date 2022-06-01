@@ -114,22 +114,19 @@ class DetailsScreen extends StatelessWidget {
   }
 
   Widget _buildImageContainer(Widget image, Function pressedFullScreen, BuildContext context) {
-    return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Stack(children: [
-          Container(
-              decoration: _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
-              child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))),
-          _buildZoomButton(context, pressedFullScreen)
-        ]));
-  }
-
-  Widget _buildZoomButton(BuildContext context, Function pressedFullScreen) {
-    return Align(
-        alignment: Alignment.topRight,
-        child: TextButton(
-            onPressed: () => pressedFullScreen.call(),
-            child: Icon(Icons.zoom_in, color: ColorsRes.green, size: 45)));
+    return TextButton(
+        onPressed: () => pressedFullScreen.call(),
+        child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Stack(children: [
+              Container(
+                  decoration:
+                      _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
+                  child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Icon(Icons.zoom_in, color: ColorsRes.green, size: 45))
+            ])));
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,

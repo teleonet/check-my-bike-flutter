@@ -26,8 +26,6 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -45,6 +43,7 @@ android {
         applicationId "com.apptuns.check_my_bike"
         minSdkVersion 21
         targetSdkVersion 31
+        compileSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -69,7 +68,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file(localProperties.getProperty("key.location"))
+            storeFile file(localProperties.getProperty("key.path"))
             storePassword "${localProperties.getProperty("key.password")}"
             keyAlias "${localProperties.getProperty("key.alias")}"
             keyPassword "${localProperties.getProperty("key.password")}"

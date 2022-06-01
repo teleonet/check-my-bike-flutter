@@ -14,6 +14,7 @@ import '../../../../domain/bloc/bike/event/favorite/add_favorite_event.dart';
 import '../../../../domain/bloc/bike/event/favorite/remove_favorite_event.dart';
 import '../../../../domain/bloc/bike/event/load/load_location_event.dart';
 import '../../../../domain/bloc/bike/state/bike_state.dart';
+import '../../../dialogs/distance/distance_dialog.dart';
 
 class LocationScreen extends BaseCheckScreen {
   static show(BuildContext context) {
@@ -22,7 +23,7 @@ class LocationScreen extends BaseCheckScreen {
     }));
   }
 
-  LocationEntity? _location;
+  LocationEntity? _location = LocationEntity(39.73, -104.98);
   int? _distance;
   final GlobalKey? _locationButtonKey = GlobalKey<ShakeButtonState>();
 
@@ -30,9 +31,7 @@ class LocationScreen extends BaseCheckScreen {
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
-    return [
-      _buildLocationButton(context) /*, _buildSearchButton(context)*/
-    ];
+    return [_buildLocationButton(context)];
   }
 
   Widget _buildLocationButton(BuildContext context) {
@@ -41,18 +40,20 @@ class LocationScreen extends BaseCheckScreen {
             padding: const EdgeInsets.only(top: 10),
             //TODO: need to change to simple button instead of ShakeButton
             child: ShakeButton("choose location", onPressed: () async {
-              MapScreen.show(context);
-              /*_location = await Future.delayed(const Duration(seconds: 1), () {
-                return LocationEntity(39.73, -104.98);
-              });
-              if (_location != null) {
-                DistanceDialog((value) {
-                  _distance = value;
-                  _loadBikes(context, PaginationEntity());
-                }).show(context, "Choose distance");
-              }*/
+              //TODO: need to get current location
+              MapScreen.show(context, _location!, (location) {
+                _location = location;
+                _showDistanceDialog(context);
+              }, MapMode.modify, zoom: 7);
             }),
             key: _locationButtonKey));
+  }
+
+  void _showDistanceDialog(BuildContext context) {
+    DistanceDialog((value) {
+      _distance = value;
+      _loadBikes(context, PaginationEntity());
+    }).show(context, "Choose distance");
   }
 
   void _loadBikes(BuildContext context, PaginationEntity pagination) {
