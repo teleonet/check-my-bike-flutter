@@ -106,6 +106,8 @@ class DetailsScreen extends StatelessWidget {
           return _buildProgressIndicator(progress);
         }
         return _buildImageContainer(image, () => ZoomScreen.show(context, imageUrl), context);
+      }, errorBuilder: (context, exception, stacktrace) {
+        return _buildErrorPhotoWidget(context);
       });
     }
     return Icon(Icons.no_photography_outlined, color: ColorsRes.green, size: 100);
@@ -132,6 +134,14 @@ class DetailsScreen extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: Icon(Icons.zoom_in, color: ColorsRes.green, size: 45))
             ])));
+  }
+
+  Widget _buildErrorPhotoWidget(BuildContext context) {
+    return Container(
+        decoration: _buildContainerDecoration(borderColor: ColorsRes.green, thinness: 0.1),
+        padding: const EdgeInsets.only(top: 75, bottom: 75),
+        width: MediaQuery.of(context).size.width,
+        child: Center(child: Text("Error load image", style: _buildTextStyle(Colors.red))));
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,

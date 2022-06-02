@@ -71,6 +71,8 @@ class InfoItem extends StatelessWidget {
           return _buildPhotoContainer(_buildProgressIndicator(progress), context);
         }
         return _buildPhotoContainer(image, context);
+      }, errorBuilder: (context, exception, stacktrace) {
+        return _buildPhotoContainer(_buildErrorPhotoWidget(), context);
       });
     }
     return _buildPhotoContainer(const Icon(Icons.no_photography_outlined, size: 100), context);
@@ -88,6 +90,10 @@ class InfoItem extends StatelessWidget {
         decoration: _buildContainerDecoration(borderColor: Colors.transparent, thinness: 0.4),
         margin: const EdgeInsets.only(left: 20, right: 20),
         child: ClipRRect(child: widget, borderRadius: BorderRadius.circular(10)));
+  }
+
+  Widget _buildErrorPhotoWidget() {
+    return Center(child: Text("Error load image", style: _buildTextStyle(color: Colors.red)));
   }
 
   Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
