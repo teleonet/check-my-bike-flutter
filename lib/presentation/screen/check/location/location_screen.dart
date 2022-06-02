@@ -1,6 +1,7 @@
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
+import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
@@ -41,27 +42,37 @@ class LocationScreen extends BaseCheckScreen {
         child: Container(
             padding: const EdgeInsets.only(top: 10),
             child: ShakeButton("choose location", onPressed: () async {
-              if (await _checkPermissions()) {
+              bool isPermissionGranted = await _checkPermission();
+              if (isPermissionGranted) {
                 _buttonKey.currentState?.setNormalState();
                 _location = await _getLocation();
                 _showMapScreen(context);
               } else {
-                _buttonKey.currentState?.setErrorState();
+                _showErrorDialog(context, () => _buttonKey.currentState?.setErrorState());
               }
             }, key: _buttonKey)));
   }
 
-  Future<bool> _checkPermissions() async {
-    PermissionStatus status = await Permission.locationWhenInUse.status;
-
+  Future<bool> _checkPermission() async {
     bool isGranted = true;
-
+    PermissionStatus status = await Permission.locationWhenInUse.status;
     if (!status.isGranted) {
-      Map<Permission, PermissionStatus> status = await [Permission.locationWhenInUse].request();
-      status.forEach((key, value) => value == PermissionStatus.denied ? isGranted = false : null);
+      Map<Permission, PermissionStatus> statuses = await [Permission.locationWhenInUse].request();
+      statuses.forEach((key, value) {
+        if (value == PermissionStatus.denied || value == PermissionStatus.permanentlyDenied) {
+          isGranted = false;
+        }
+      });
     }
-
     return isGranted;
+  }
+
+  void _showErrorDialog(BuildContext context, Function() pressedNo) {
+    YesNoDialog(() => openAppSettings(), () => pressedNo.call()).show(
+        context,
+        "Permission error."
+        "\nThe map functionality requires location permission."
+        "\n\nDo you want to open settings screen to approve permissions?");
   }
 
   Future<LocationEntity> _getLocation() async {
