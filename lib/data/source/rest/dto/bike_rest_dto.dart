@@ -13,7 +13,7 @@ class BikeRestDTO {
   int? externalId;
   String? registryName;
   String? registryUrl;
-  List<double?>? stolenCoordinates;
+  List<double>? stolenCoordinates;
   String? stolenLocation;
   String? thumb;
   String? url;
@@ -38,7 +38,7 @@ class BikeRestDTO {
     bike.externalId = json["external_id"];
     bike.registryName = json["registry_name"];
     bike.registryUrl = json["registry_url"];
-    bike.stolenCoordinates = List<double?>.from(json["stolen_coordinates"] ?? []);
+    bike.stolenCoordinates = List<double>.from(json["stolen_coordinates"] ?? []);
     bike.stolenLocation = json["stolen_location"];
     bike.thumb = json["thumb"];
     bike.url = json["url"];

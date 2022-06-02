@@ -31,7 +31,7 @@ class BikeDTOAdapter extends TypeAdapter<BikeDbDTO> {
       ..externalId = fields[11] as int?
       ..registryName = fields[12] as String?
       ..registryUrl = fields[13] as String?
-      ..stolenCoordinates = (fields[14] as List?)?.cast<double?>()
+      ..stolenCoordinates = (fields[14] as List?)?.cast<double>()
       ..stolenLocation = fields[15] as String?
       ..thumb = fields[16] as String?
       ..url = fields[17] as String?

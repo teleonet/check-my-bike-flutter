@@ -33,7 +33,7 @@ class BikeDbDTO {
   @HiveField(13)
   String? registryUrl;
   @HiveField(14)
-  List<double?>? stolenCoordinates;
+  List<double>? stolenCoordinates;
   @HiveField(15)
   String? stolenLocation;
   @HiveField(16)

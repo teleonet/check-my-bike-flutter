@@ -1,5 +1,8 @@
+import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
 import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart';
+import 'package:check_my_bike_flutter/presentation/screen/check/map/map_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/zoom/zoom_screen.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entity/bike_entity.dart';
@@ -35,7 +38,8 @@ class DetailsScreen extends StatelessWidget {
                           _buildPhoto(_bike.largeImg),
                           const Padding(padding: EdgeInsets.only(top: 10)),
                           _buildRowOrEmpty(context, "Serial", "${_bike.serial}"),
-                          _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}"),
+                          _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}",
+                              widthFactor: 0.45),
                           _buildRowOrEmpty(context, "Status", "${_bike.status}",
                               valueColor: _bike.stolen ? Colors.red : Colors.white),
                           _buildRowOrEmpty(context, "Year", "${_bike.year}"),
@@ -45,8 +49,9 @@ class DetailsScreen extends StatelessWidget {
                           _buildRowOrEmpty(context, "Colors",
                               _bike.colors.toString().replaceAll("[", "").replaceAll("]", ""),
                               widthFactor: 0.6),
-                          const Padding(padding: EdgeInsets.only(top: 20)),
-                          _buildDescriptionOrEmpty(_bike.description)
+                          _buildMapButtonOrEmpty(context, _bike.stolenCoordinates),
+                          _buildDescriptionOrEmpty(_bike.description),
+                          const Padding(padding: EdgeInsets.only(top: 10)),
                         ])),
                   ]))),
         ]));
@@ -166,9 +171,22 @@ class DetailsScreen extends StatelessWidget {
         textColor: textColor);
   }
 
+  Widget _buildMapButtonOrEmpty(BuildContext context, List<double>? coordinates) {
+    if (coordinates == null || coordinates.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    LocationEntity location = LocationEntity(coordinates[0], coordinates[1]);
+    return Container(
+        padding: const EdgeInsets.only(top: 20),
+        child: BorderedButton("coordinates on map", onPressed: () {
+          MapScreen.show(context, location, (LocationEntity location) {}, MapMode.static, zoom: 15);
+        }));
+  }
+
   Widget _buildDescriptionOrEmpty(String? description) {
     if (description != null && description.isNotEmpty && description != "null") {
       return Column(children: [
+        const Padding(padding: EdgeInsets.only(top: 15)),
         _buildTitle("Description"),
         const Padding(padding: EdgeInsets.only(top: 15)),
         Text(description, style: _buildTextStyle(Colors.white))

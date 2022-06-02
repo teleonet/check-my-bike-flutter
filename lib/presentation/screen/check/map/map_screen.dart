@@ -97,6 +97,10 @@ class MapScreen extends StatelessWidget {
         initialCameraPosition: CameraPosition(target: marker.position, zoom: _zoom),
         markers: {marker},
         zoomControlsEnabled: false,
+        mapToolbarEnabled: false,
+        buildingsEnabled: false,
+        myLocationButtonEnabled: false,
+        myLocationEnabled: false,
         trafficEnabled: false,
         onTap: (location) => _onMapPressed(context, location),
         onLongPress: (location) => _onMapPressed(context, location));

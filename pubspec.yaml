@@ -35,6 +35,8 @@ dependencies:
   hive: ^2.1.0
   isolate_bloc: ^2.1.1
   google_maps_flutter: ^2.1.6
+  geolocator: ^8.2.1
+  permission_handler: ^9.2.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

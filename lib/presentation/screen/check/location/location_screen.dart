@@ -7,7 +7,9 @@ import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.d
 import 'package:check_my_bike_flutter/presentation/screen/check/map/map_screen.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../domain/bloc/bike/bike_bloc.dart';
 import '../../../../domain/bloc/bike/event/favorite/add_favorite_event.dart';
@@ -23,9 +25,8 @@ class LocationScreen extends BaseCheckScreen {
     }));
   }
 
-  LocationEntity? _location = LocationEntity(39.73, -104.98);
+  LocationEntity? _location;
   int? _distance;
-  final GlobalKey? _locationButtonKey = GlobalKey<ShakeButtonState>();
 
   LocationScreen({Key? key}) : super("location", key: key);
 
@@ -35,18 +36,44 @@ class LocationScreen extends BaseCheckScreen {
   }
 
   Widget _buildLocationButton(BuildContext context) {
+    GlobalKey<ShakeButtonState> _buttonKey = GlobalKey<ShakeButtonState>();
     return SliverToBoxAdapter(
         child: Container(
             padding: const EdgeInsets.only(top: 10),
-            //TODO: need to change to simple button instead of ShakeButton
             child: ShakeButton("choose location", onPressed: () async {
-              //TODO: need to get current location
-              MapScreen.show(context, _location!, (location) {
-                _location = location;
-                _showDistanceDialog(context);
-              }, MapMode.modify, zoom: 7);
-            }),
-            key: _locationButtonKey));
+              if (await _checkPermissions()) {
+                _buttonKey.currentState?.setNormalState();
+                _location = await _getLocation();
+                _showMapScreen(context);
+              } else {
+                _buttonKey.currentState?.setErrorState();
+              }
+            }, key: _buttonKey)));
+  }
+
+  Future<bool> _checkPermissions() async {
+    PermissionStatus status = await Permission.locationWhenInUse.status;
+
+    bool isGranted = true;
+
+    if (!status.isGranted) {
+      Map<Permission, PermissionStatus> status = await [Permission.locationWhenInUse].request();
+      status.forEach((key, value) => value == PermissionStatus.denied ? isGranted = false : null);
+    }
+
+    return isGranted;
+  }
+
+  Future<LocationEntity> _getLocation() async {
+    Position position = await Geolocator.getCurrentPosition();
+    return LocationEntity(position.latitude, position.longitude);
+  }
+
+  void _showMapScreen(BuildContext context) {
+    MapScreen.show(context, _location!, (location) {
+      _location = location;
+      _showDistanceDialog(context);
+    }, MapMode.modify, zoom: 7);
   }
 
   void _showDistanceDialog(BuildContext context) {

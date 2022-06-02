@@ -17,7 +17,7 @@ class ZoomScreen extends StatelessWidget {
     return Container(
         decoration: _buildGradientDecoration(),
         child: Stack(children: [
-          Container(
+          SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: InteractiveViewer(maxScale: 50, child: _buildPhoto(_imageUrl))),

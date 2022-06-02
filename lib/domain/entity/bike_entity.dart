@@ -55,9 +55,9 @@ class BikeEntity {
 
   get registryUrl => _registryUrl;
 
-  final List<double?>? _stolenCoordinates;
+  final List<double>? _stolenCoordinates;
 
-  get stolenCoordinates => _stolenCoordinates;
+  List<double>? get stolenCoordinates => _stolenCoordinates;
 
   final String? _stolenLocation;
 
