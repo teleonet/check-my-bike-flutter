@@ -15,7 +15,8 @@ import '../../../../domain/entity/pagination_entity.dart';
 import '../manufacturer_item.dart';
 
 abstract class BaseManufacturersScreen extends StatelessWidget {
-  final PaginationEntity _pagination = PaginationEntity();
+  PaginationEntity _pagination = PaginationEntity();
+  final bool _cleanStart = true;
 
   @protected
   List<Widget> buildInheritorWidgets(BuildContext context);
@@ -44,7 +45,11 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
       List<Widget> widgets = buildInheritorWidgets(context);
       state is GlobalProgressState ? widgets.add(_buildGlobalProgressIndicator(context)) : null;
 
-      List<ManufacturerEntity> entities = state is LoadedState ? state.entities : [];
+      List<ManufacturerEntity> entities = [];
+      if (state is LoadedState) {
+        _pagination = state.pagination;
+        entities = state.entities;
+      }
 
       bool showListProgress = state is ListProgressState;
       showListProgress ? entities = state.manufacturers : null;

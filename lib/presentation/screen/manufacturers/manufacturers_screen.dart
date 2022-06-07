@@ -87,7 +87,7 @@ class ManufacturersScreen extends StatelessWidget {
     } else if (state.screen == ManufacturerScreenType.favorites) {
       _currentScreen = ManufacturersFavoritesScreen();
     }
-    return _currentScreen!;
+    return _currentScreen;
   }
 
   void _sendScrollEvent(BuildContext context, ScrollDirectionType scrollType) {

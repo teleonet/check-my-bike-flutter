@@ -93,11 +93,7 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
   Future<List<ManufacturerEntity>> _loadAll(int currentPage, int perPage) async {
     List<ManufacturerEntity> loadedEntities =
         await _repository.loadFromRestAll(currentPage, perPage);
-
-    List<ManufacturerEntity> filteredEntities =
-        loadedEntities.where((element) => element.companyUrl.toString().isNotEmpty).toList();
-
-    return await _checkFavoriteAndReturn(filteredEntities);
+    return await _checkFavoriteAndReturn(loadedEntities);
   }
 
   Future<List<ManufacturerEntity>> _loadByName(String query, int currentPage, int perPage) async {

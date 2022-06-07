@@ -1,5 +1,5 @@
 class PaginationEntity {
-  static const int perPage = 10;
+  static const int perPage = 20;
 
   int _currentPage = 1;
 
