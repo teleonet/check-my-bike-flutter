@@ -1,10 +1,10 @@
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 
-class LoadAllEvent extends ManufacturerEvent {
-  final PaginationEntity _pagination;
+class LoadEvent extends ManufacturerEvent {
+  final PaginationEntity? _pagination;
 
   get pagination => _pagination;
 
-  LoadAllEvent(this._pagination);
+  LoadEvent(this._pagination);
 }

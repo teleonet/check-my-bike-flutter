@@ -81,10 +81,10 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
 
     if (event is AddFavoriteEvent) {
       await _addFavorite(favoriteBike);
-      fromCacheBike.set(true);
+      fromCacheBike.favorite = true;
     } else if (event is RemoveFavoriteEvent) {
       await _removeFavorite(favoriteBike);
-      event.deleteFromResult ? _cache.remove(fromCacheBike) : fromCacheBike.set(false);
+      event.deleteFromResult ? _cache.remove(fromCacheBike) : fromCacheBike.favorite = false;
     }
 
     emit(LoadedState(_cache, _pagination));
@@ -138,7 +138,7 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
 
     for (var element in loadedEntities) {
       bool favorite = await _isFavorite(favorites, element);
-      element.set(favorite);
+      element.favorite = favorite;
     }
 
     return loadedEntities;

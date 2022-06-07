@@ -10,19 +10,15 @@ import '../../../../resources/colors_res.dart';
 import '../../../widgets/rotated_icon.dart';
 
 class NavigationBottomBar extends StatelessWidget {
-  NavigationBottomBar({Key? key}) : super(key: key);
-
-  /*nimationController _buildAnimationController() {
-    return AnimationController(
-        value: 100, vsync: TickerProviderImpl(), duration: const Duration(milliseconds: 300));
-  }*/
+  const NavigationBottomBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<BottomNavigationBarItem> barItems = _buildBottomNavigationBarItems();
     int _index = 0;
     return IsolateBlocBuilder<NavigationBloc, NavigationState>(builder: (context, state) {
-      _index = state is ShowScreenState ? Screen.values.indexOf(state.screen) : _index;
+      _index = state is ShowScreenState ? MainScreenType.values.indexOf(state.screen) : _index;
+      Color color = _index == 1 ? ColorsRes.endGradient : Colors.transparent;
       return Theme(
           data: _buildTheme(context),
           child: AnimatedScale(
@@ -31,7 +27,7 @@ class NavigationBottomBar extends StatelessWidget {
               scale: _getScale(state),
               child: Stack(children: [
                 _buildNavigationBarLine(context, _index),
-                _buildBottomNavigationBar(_index, context, barItems)
+                _buildBottomNavigationBar(_index, context, barItems, color)
               ])));
     });
   }
@@ -60,7 +56,7 @@ class NavigationBottomBar extends StatelessWidget {
   double _getScale(NavigationState state) {
     double visible = 1;
     double invisible = 0;
-    if (state is ScrollScreenState && state.direction == Direction.top) {
+    if (state is ScrollScreenState && state.direction == ScrollDirectionType.bottom) {
       return invisible;
     }
     return visible;
@@ -90,11 +86,11 @@ class NavigationBottomBar extends StatelessWidget {
   }
 
   Widget _buildBottomNavigationBar(
-      int index, BuildContext context, List<BottomNavigationBarItem> barItems) {
+      int index, BuildContext context, List<BottomNavigationBarItem> barItems, Color color) {
     return BottomNavigationBar(
         currentIndex: index,
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: color,
         selectedItemColor: ColorsRes.green,
         selectedIconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         selectedLabelStyle: _buildTextStyle(),
@@ -104,7 +100,7 @@ class NavigationBottomBar extends StatelessWidget {
         items: barItems,
         onTap: (index) {
           _rotateIcon(barItems[index].icon as RotatedIcon);
-          _showScreenWithDelay(Screen.values[index], context);
+          _showScreenWithDelay(MainScreenType.values[index], context);
         });
   }
 
@@ -116,7 +112,7 @@ class NavigationBottomBar extends StatelessWidget {
     (icon.key as GlobalKey<RotatedIconState>).currentState?.rotate();
   }
 
-  void _showScreenWithDelay(Screen screen, BuildContext context) {
+  void _showScreenWithDelay(MainScreenType screen, BuildContext context) {
     Future.delayed(const Duration(milliseconds: 520), () {
       context.isolateBloc<NavigationBloc, NavigationState>().add(ShowScreenEvent(screen));
     });

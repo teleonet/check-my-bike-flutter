@@ -14,10 +14,9 @@ import '../../../../domain/entity/bike_entity.dart';
 import '../../../../resources/colors_res.dart';
 
 abstract class BaseCheckScreen extends StatelessWidget {
-  final ScrollControllerWithListener scrollController = ScrollControllerWithListener();
   final String _title;
 
-  BaseCheckScreen(this._title, {Key? key}) : super(key: key);
+  const BaseCheckScreen(this._title, {Key? key}) : super(key: key);
 
   @protected
   List<Widget> buildInheritorWidgets(BuildContext context);
@@ -31,9 +30,6 @@ abstract class BaseCheckScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IsolateBlocBuilder<BikeBloc, BikeState>(builder: (context, state) {
-      Future(() {
-        scrollController.scrollToLastVisiblePosition();
-      });
       return Container(
           height: MediaQuery.of(context).size.height,
           decoration: _buildGradientDecoration(),
@@ -41,7 +37,7 @@ abstract class BaseCheckScreen extends StatelessWidget {
             Container(
                 margin: const EdgeInsets.only(bottom: 15),
                 child: CustomScrollView(
-                    controller: scrollController
+                    controller: ScrollControllerWithListener()
                       ..addScrolledBottomListener(() {
                         if (state is LoadedState && state.pagination.hasNextPage) {
                           state.pagination.nextPage();

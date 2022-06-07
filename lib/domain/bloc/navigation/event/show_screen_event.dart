@@ -3,7 +3,7 @@ import 'package:check_my_bike_flutter/domain/bloc/navigation/event/navigation_ev
 import '../navigation_bloc.dart';
 
 class ShowScreenEvent extends NavigationEvent {
-  final Screen _screen;
+  final MainScreenType _screen;
 
   get screen => _screen;
 

@@ -44,25 +44,14 @@ class MainScreen extends StatelessWidget {
             colors: [ColorsRes.startGradient, ColorsRes.endGradient]));
   }
 
-  Widget _buildScreen(Screen screen) {
+  Widget _buildScreen(MainScreenType screen) {
     switch (screen) {
-      case Screen.check:
+      case MainScreenType.check:
         return const CheckScreen();
-      case Screen.manufacturer:
-        return _buildManufacturerScreen();
-      case Screen.settings:
+      case MainScreenType.manufacturer:
+        return ManufacturersScreen();
+      case MainScreenType.settings:
         return const SettingsScreen();
     }
-  }
-
-  Widget _buildManufacturerScreen() {
-    return ManufacturersScreen(
-        onScrollTop: () {
-          // _bottomBarKey.currentState?.show();
-          // _bottomBarKey.currentState?.changeToOpacityColor();
-        },
-        onScrollBottom: () => {} /*_bottomBarKey.currentState?.hide()*/,
-        onScrolledTop: () => {} /*_bottomBarKey.currentState?.changeToGradientColor()*/,
-        onClickedTab: () => {} /*_bottomBarKey.currentState?.show()*/);
   }
 }

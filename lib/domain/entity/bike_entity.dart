@@ -79,11 +79,7 @@ class BikeEntity {
 
   get colors => _colors;
 
-  bool? _favorite;
-
-  get favorite => _favorite;
-
-  set(bool favorite) => _favorite = favorite;
+  bool favorite;
 
   BikeEntity(
       this._id,
@@ -106,5 +102,5 @@ class BikeEntity {
       this._url,
       this._description,
       this._colors,
-      this._favorite);
+      this.favorite);
 }

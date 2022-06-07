@@ -11,11 +11,7 @@ class ManufacturerEntity {
 
   get imageUrl => _imageUrl;
 
-  bool? _favorite;
+  bool favorite;
 
-  get isFavorite => _favorite;
-
-  set isFavorite(favorite) => _favorite = favorite;
-
-  ManufacturerEntity(this._name, this._companyUrl, this._imageUrl, this._favorite);
+  ManufacturerEntity(this._name, this._companyUrl, this._imageUrl, this.favorite);
 }

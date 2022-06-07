@@ -73,7 +73,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
     return TextButton(
         child: _buildFavoriteIcon(),
         onPressed: () {
-          if (widget._manufacturer.isFavorite) {
+          if (widget._manufacturer.favorite) {
             _showDeleteFavoriteDialog(() => _changeIsFavoriteAndInvokeCallback(false));
           } else {
             _changeIsFavoriteAndInvokeCallback(true);
@@ -82,7 +82,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
   }
 
   Icon _buildFavoriteIcon() {
-    return widget._manufacturer.isFavorite
+    return widget._manufacturer.favorite
         ? Icon(Icons.star, size: 30, color: ColorsRes.green)
         : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
@@ -93,7 +93,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
   }
 
   void _changeIsFavoriteAndInvokeCallback(bool isFavorite) {
-    widget._manufacturer.isFavorite = isFavorite;
+    widget._manufacturer.favorite = isFavorite;
     widget._onFavoritePressed.call(widget._manufacturer);
     setState(() => {});
   }

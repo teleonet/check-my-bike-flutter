@@ -21,6 +21,18 @@ class ScrollControllerWithListener extends ScrollController {
     this.onScrolledBottom = onScrolledBottom;
   }
 
+  void addScrolledTopListener(Function? onScrolledTop) {
+    this.onScrolledTop = onScrolledTop;
+  }
+
+  void addScrollTopListener(Function? onScrollTop) {
+    this.onScrollTop = onScrollTop;
+  }
+
+  void addScrollBottomListener(Function? onScrollBottom) {
+    this.onScrollBottom = onScrollBottom;
+  }
+
   void initListener() {
     addListener(handleListener);
   }
