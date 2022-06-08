@@ -81,10 +81,13 @@ class ManufacturersScreen extends StatelessWidget {
 
   BaseManufacturersScreen _buildCurrentScreen(BuildContext context, ManufacturerScreenState state) {
     if (state.screen == ManufacturerScreenType.all) {
+      _currentScreen.initialize(context);
       _currentScreen = ManufacturersAllScreen();
     } else if (state.screen == ManufacturerScreenType.search) {
+      _currentScreen.cleanCache(context);
       _currentScreen = ManufacturersSearchScreen();
     } else if (state.screen == ManufacturerScreenType.favorites) {
+      _currentScreen.cleanCache(context);
       _currentScreen = ManufacturersFavoritesScreen();
     }
     return _currentScreen;

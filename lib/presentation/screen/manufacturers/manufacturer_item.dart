@@ -95,6 +95,5 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
   void _changeIsFavoriteAndInvokeCallback(bool isFavorite) {
     widget._manufacturer.favorite = isFavorite;
     widget._onFavoritePressed.call(widget._manufacturer);
-    setState(() => {});
   }
 }

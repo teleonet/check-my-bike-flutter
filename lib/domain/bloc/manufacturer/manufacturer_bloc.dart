@@ -1,9 +1,11 @@
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/add_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_all_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_by_name_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
@@ -41,6 +43,12 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
       await _mapLoadEvent(event);
     } else if (event is FavoriteEvent) {
       await _mapFavoriteEvent(event);
+    } else if (event is CleanCacheEvent) {
+      _cache.clear();
+      _pagination = PaginationEntity();
+      emit(LoadedState(_cache, _pagination));
+    } else if (event is InitialEvent) {
+      emit(InitialState());
     }
   }
 

@@ -27,7 +27,9 @@ class NavigationBottomBar extends StatelessWidget {
               scale: _getScale(state),
               child: Stack(children: [
                 _buildNavigationBarLine(context, _index),
-                _buildBottomNavigationBar(_index, context, barItems, color)
+                Container(
+                    margin: const EdgeInsets.only(top: 1),
+                    child: _buildBottomNavigationBar(_index, context, barItems, color))
               ])));
     });
   }

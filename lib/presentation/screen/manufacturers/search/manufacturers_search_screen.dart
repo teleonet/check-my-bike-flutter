@@ -11,11 +11,6 @@ import '../../../validator/validator.dart';
 import '../../../widgets/input_form/input_form.dart';
 
 class ManufacturersSearchScreen extends BaseManufacturersScreen {
-  static IsolateBlocProvider<ManufacturerBloc, ManufacturerState> getInstance() {
-    return IsolateBlocProvider<ManufacturerBloc, ManufacturerState>(
-        child: ManufacturersSearchScreen());
-  }
-
   String _query = "";
 
   @override

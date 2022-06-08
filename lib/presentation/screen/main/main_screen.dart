@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
     return IsolateBlocProvider<NavigationBloc, NavigationState>(
         child: Scaffold(
             extendBody: true,
-            bottomNavigationBar: NavigationBottomBar(),
+            bottomNavigationBar: const NavigationBottomBar(),
             body: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: _buildContainerDecoration(),

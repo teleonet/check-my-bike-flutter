@@ -9,11 +9,6 @@ import '../../../../domain/bloc/manufacturer/state/manufacturer_state.dart';
 import '../base/base_manufacturers_screen.dart';
 
 class ManufacturersAllScreen extends BaseManufacturersScreen {
-  static IsolateBlocProvider<ManufacturerBloc, ManufacturerState> getInstance() {
-    return IsolateBlocProvider<ManufacturerBloc, ManufacturerState>(
-        child: ManufacturersAllScreen());
-  }
-
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
     return [];

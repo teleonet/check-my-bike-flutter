@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../../base/base_screen_state.dart';
 
-class ManufacturersTabController extends StatefulWidget {
-  final Function(int) onClickedTab;
-
-  const ManufacturersTabController(this.onClickedTab, {Key? key}) : super(key: key);
-
-  @override
-  ManufacturersTabControllerState createState() => ManufacturersTabControllerState();
-}
-
-class ManufacturersTabControllerState extends BaseScreenState<ManufacturersTabController> {
+class ManufacturersTabController extends StatelessWidget {
+  final Function(int) _onClickedTab;
   List<Widget> _tabs = [];
 
-  @override
-  void initState() {
+  ManufacturersTabController(this._onClickedTab, {Key? key}) : super(key: key) {
     _tabs = _buildTabs();
-    super.initState();
   }
 
   List<Widget> _buildTabs() {
@@ -51,7 +40,7 @@ class ManufacturersTabControllerState extends BaseScreenState<ManufacturersTabCo
         labelStyle: _buildTextStyle(FontWeight.bold),
         unselectedLabelStyle: _buildTextStyle(FontWeight.normal),
         tabs: _tabs,
-        onTap: (index) => widget.onClickedTab.call(index));
+        onTap: (index) => _onClickedTab.call(index));
   }
 
   TextStyle _buildTextStyle(FontWeight fontWeight) {

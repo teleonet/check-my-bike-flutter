@@ -1,3 +1,5 @@
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
@@ -16,7 +18,6 @@ import '../manufacturer_item.dart';
 
 abstract class BaseManufacturersScreen extends StatelessWidget {
   PaginationEntity _pagination = PaginationEntity();
-  final bool _cleanStart = true;
 
   @protected
   List<Widget> buildInheritorWidgets(BuildContext context);
@@ -68,7 +69,7 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
         return _buildManufacturerItem(entities[index - widgets.length]);
       }, childCount: widgets.length + entities.length));
     }, buildWhen: (prev, next) {
-      return next is ProgressState || next is LoadedState;
+      return next is ProgressState || next is LoadedState || next is InitialState;
     });
   }
 
@@ -103,5 +104,13 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
     } on MissingPluginException catch (e) {
       print("ERROR: $e");
     }
+  }
+
+  void cleanCache(BuildContext context) {
+    context.isolateBloc<ManufacturerBloc, ManufacturerState>().add(CleanCacheEvent());
+  }
+
+  void initialize(BuildContext context) {
+    context.isolateBloc<ManufacturerBloc, ManufacturerState>().add(InitialEvent());
   }
 }
