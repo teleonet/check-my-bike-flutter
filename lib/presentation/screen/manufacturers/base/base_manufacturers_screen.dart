@@ -66,7 +66,9 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
         if (index == entities.length - 1 && showListProgress) {
           return _buildListProgressItem();
         }
-        return _buildManufacturerItem(entities[index - widgets.length]);
+        return entities.isNotEmpty
+            ? _buildManufacturerItem(entities[index - widgets.length])
+            : const SizedBox.shrink();
       }, childCount: widgets.length + entities.length));
     }, buildWhen: (prev, next) {
       return next is ProgressState || next is LoadedState || next is InitialState;
