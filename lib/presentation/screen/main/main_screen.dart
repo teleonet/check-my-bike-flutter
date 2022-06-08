@@ -14,10 +14,13 @@ import 'navigation_bottom_bar/navigation_bottom_bar.dart';
 class MainScreen extends StatelessWidget {
   static showAndClearStack(BuildContext context) {
     Navigator.pushAndRemoveUntil(
-        context, SlideRightRoute(const MainScreen()).createRoute(), (_) => false);
+        context, SlideRightRoute(MainScreen()).createRoute(), (_) => false);
   }
 
-  const MainScreen({Key? key}) : super(key: key);
+  Widget _currentScreen = const CheckScreen();
+  MainScreenType _currentScreenType = MainScreenType.check;
+
+  MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +48,20 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget _buildScreen(MainScreenType screen) {
-    switch (screen) {
-      case MainScreenType.check:
-        return const CheckScreen();
-      case MainScreenType.manufacturer:
-        return ManufacturersScreen();
-      case MainScreenType.settings:
-        return const SettingsScreen();
+    if (_currentScreenType != screen) {
+      _currentScreenType = screen;
+      switch (screen) {
+        case MainScreenType.check:
+          _currentScreen = const CheckScreen();
+          break;
+        case MainScreenType.manufacturer:
+          _currentScreen = ManufacturersScreen();
+          break;
+        case MainScreenType.settings:
+          _currentScreen = const SettingsScreen();
+          break;
+      }
     }
+    return _currentScreen;
   }
 }

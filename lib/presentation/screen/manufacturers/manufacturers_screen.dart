@@ -20,6 +20,7 @@ import 'favorites/manufacturers_favorites_screen.dart';
 
 class ManufacturersScreen extends StatelessWidget {
   BaseManufacturersScreen _currentScreen = ManufacturersAllScreen();
+  ManufacturerScreenType _currentScreenType = ManufacturerScreenType.all;
 
   ManufacturersScreen({Key? key}) : super(key: key);
 
@@ -44,7 +45,7 @@ class ManufacturersScreen extends StatelessWidget {
                 const SliverToBoxAdapter(child: Header("Manufacturers")),
                 _buildTabController(context),
                 IsolateBlocProvider<ManufacturerBloc, ManufacturerState>(
-                    child: state is ManufacturerScreenState
+                    child: state is ManufacturerScreenState && _currentScreenType != state.screen
                         ? _buildCurrentScreen(context, state)
                         : _currentScreen)
               ]));
@@ -79,6 +80,7 @@ class ManufacturersScreen extends StatelessWidget {
   }
 
   BaseManufacturersScreen _buildCurrentScreen(BuildContext context, ManufacturerScreenState state) {
+    _currentScreenType = state.screen;
     if (state.screen == ManufacturerScreenType.all) {
       _currentScreen.initialize(context);
       _currentScreen = ManufacturersAllScreen();

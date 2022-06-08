@@ -5,6 +5,7 @@ import '../../../domain/entity/manufacturer_entity.dart';
 import '../../../resources/colors_res.dart';
 import '../../base/base_screen_state.dart';
 import '../../dialogs/yes_no_dialog.dart';
+import '../check/zoom/zoom_screen.dart';
 
 class ManufacturerItem extends StatefulWidget {
   final ManufacturerEntity _manufacturer;
@@ -38,7 +39,7 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
                         widget._manufacturer.companyUrl, MediaQuery.of(context).size.width * 0.65,
                         textStyle: _buildTextStyle(Colors.white, 20)),
                     const Padding(padding: EdgeInsets.only(top: 10)),
-                    _buildManufacturerImage(),
+                    _buildPhoto(widget._manufacturer.imageUrl)
                   ])),
               const Spacer(),
               _buildTextButton()
@@ -63,10 +64,56 @@ class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
     return TextStyle(fontFamily: 'Roboto Thin', color: color, fontSize: fontSize);
   }
 
-  Widget _buildManufacturerImage() {
-    return widget._manufacturer.imageUrl.isNotEmpty
-        ? Icon(Icons.tab, color: ColorsRes.green, size: 125.0)
-        : const SizedBox.shrink();
+  Widget _buildPhoto(String? imageUrl) {
+    if (imageUrl?.isNotEmpty == true) {
+      return Image.network(imageUrl!, loadingBuilder: (context, image, progress) {
+        if (progress != null) {
+          return _buildProgressIndicator(progress);
+        }
+        return _buildImageContainer(image, () => ZoomScreen.show(context, imageUrl), context);
+      }, errorBuilder: (context, exception, stacktrace) {
+        return _buildErrorPhotoWidget(context);
+      });
+    }
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildProgressIndicator(ImageChunkEvent progress) {
+    double? value = progress.cumulativeBytesLoaded / (progress.expectedTotalBytes ?? 1);
+    return Padding(
+        padding: const EdgeInsets.only(top: 10, bottom: 10),
+        child: CircularProgressIndicator(value: value, strokeWidth: 0.4));
+  }
+
+  Widget _buildImageContainer(Widget image, Function pressedFullScreen, BuildContext context) {
+    return TextButton(
+        onPressed: () => pressedFullScreen.call(),
+        child: Container(
+            width: MediaQuery.of(context).size.width * 0.6,
+            child: Stack(children: [
+              Container(
+                  decoration:
+                      _buildContainerDecoration(thinness: 0.4, borderColor: Colors.transparent),
+                  child: ClipRRect(child: image, borderRadius: BorderRadius.circular(10))),
+              Align(
+                  alignment: Alignment.topRight,
+                  child: Icon(Icons.zoom_in, color: ColorsRes.green, size: 45))
+            ])));
+  }
+
+  Widget _buildErrorPhotoWidget(BuildContext context) {
+    return Container(
+        decoration: _buildContainerDecoration(borderColor: ColorsRes.green, thinness: 0.1),
+        padding: const EdgeInsets.only(top: 75, bottom: 75),
+        width: MediaQuery.of(context).size.width,
+        child: Center(child: Text("Error load image", style: _buildTextStyle(Colors.red, 14))));
+  }
+
+  Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
+    return BoxDecoration(
+        color: Colors.transparent,
+        border: Border.all(color: borderColor ?? ColorsRes.green, width: thinness ?? 1),
+        borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
   Widget _buildTextButton() {

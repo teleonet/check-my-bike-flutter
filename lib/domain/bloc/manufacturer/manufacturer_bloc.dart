@@ -35,6 +35,7 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
   @override
   Stream<ManufacturerState> mapEventToState(ManufacturerEvent event) async* {
     if (event is LoadEvent) {
+      _pagination = event.pagination;
       if (event.pagination.currentPage == 1) {
         _cache.clear();
         emit(GlobalProgressState());
