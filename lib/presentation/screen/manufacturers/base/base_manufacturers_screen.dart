@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/global_progress_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/list_progress_state.dart';
@@ -26,10 +26,10 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
   void loadNextPage(BuildContext context, PaginationEntity pagination);
 
   @protected
-  void addFavorite(ManufacturerEntity entity);
+  void addFavorite(BuildContext context, ManufacturerEntity entity);
 
   @protected
-  void removeFavorite(ManufacturerEntity entity);
+  void removeFavorite(BuildContext context, ManufacturerEntity entity);
 
   void scrolledBottom(BuildContext context) {
     if (_pagination.hasNextPage) {
@@ -44,7 +44,11 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
       state is InitialState ? loadNextPage(context, _pagination) : null;
 
       List<Widget> widgets = buildInheritorWidgets(context);
-      state is GlobalProgressState ? widgets.add(_buildGlobalProgressIndicator(context)) : null;
+
+      if (state is GlobalProgressState) {
+        double heightDivider = widgets.isNotEmpty ? widgets.length.toDouble() + 1 : 1.5;
+        widgets.add(_buildGlobalProgressIndicator(context, heightDivider));
+      }
 
       List<ManufacturerEntity> entities = [];
       if (state is LoadedState) {
@@ -58,16 +62,14 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
       return SliverList(
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         //todo: need to find more better solution
-        if (index == 0) {
-          for (Widget item in widgets) {
-            return item;
-          }
+        if (widgets.length > index) {
+          return widgets[index];
         }
         if (index == entities.length - 1 && showListProgress) {
           return _buildListProgressItem();
         }
         return entities.isNotEmpty
-            ? _buildManufacturerItem(entities[index - widgets.length])
+            ? _buildManufacturerItem(context, entities[index - widgets.length])
             : const SizedBox.shrink();
       }, childCount: widgets.length + entities.length));
     }, buildWhen: (prev, next) {
@@ -75,9 +77,9 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
     });
   }
 
-  Widget _buildGlobalProgressIndicator(BuildContext context) {
+  Widget _buildGlobalProgressIndicator(BuildContext context, double heightDivider) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height / 1.5,
+        height: MediaQuery.of(context).size.height / heightDivider,
         width: MediaQuery.of(context).size.width,
         child: Transform.scale(
             scale: 2, child: const Center(child: CircularProgressIndicator(strokeWidth: 0.4))));
@@ -89,13 +91,20 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
         child: Center(child: CircularProgressIndicator(strokeWidth: 1.5)));
   }
 
-  Widget _buildManufacturerItem(ManufacturerEntity manufacturer) {
+  /*Widget _buildListOrPlaceholder(BuildContext context, List<BikeEntity> loaded, bool addProgress) {
+    return loaded.isNotEmpty
+        ? _buildListView(context, loaded, addProgress)
+        : _buildPlaceholder(context);
+  }*/
+
+  Widget _buildManufacturerItem(BuildContext context, ManufacturerEntity manufacturer) {
     String companyUrl = manufacturer.companyUrl;
     bool isFavorite = manufacturer.favorite;
 
     return ManufacturerItem(
         manufacturer,
-        (manufacturer) => isFavorite ? removeFavorite(manufacturer) : addFavorite(manufacturer),
+        (manufacturer) =>
+            isFavorite ? removeFavorite(context, manufacturer) : addFavorite(context, manufacturer),
         (manufacturer) => _openURL(companyUrl));
   }
 

@@ -66,7 +66,6 @@ class ManufacturersScreen extends StatelessWidget {
       ManufacturerScreenType screen = _getScreenByIndex(index);
       context.isolateBloc<NavigationBloc, NavigationState>().add(ManufacturerScreenEvent(screen));
     });
-    // key: _tabControllerKey);
   }
 
   ManufacturerScreenType _getScreenByIndex(int index) {
@@ -87,7 +86,7 @@ class ManufacturersScreen extends StatelessWidget {
       _currentScreen.cleanCache(context);
       _currentScreen = ManufacturersSearchScreen();
     } else if (state.screen == ManufacturerScreenType.favorites) {
-      _currentScreen.cleanCache(context);
+      _currentScreen.initialize(context);
       _currentScreen = ManufacturersFavoritesScreen();
     }
     return _currentScreen;

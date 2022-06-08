@@ -1,3 +1,5 @@
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/add_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +22,12 @@ class ManufacturersAllScreen extends BaseManufacturersScreen {
   }
 
   @override
-  void addFavorite(ManufacturerEntity entity) {
-    /*IsolateBlocProvider.of<ManufacturerBloc, ManufacturerState>(context)
-        .add(AddFavoriteEvent(entity));*/
+  void addFavorite(BuildContext context, ManufacturerEntity entity) {
+    context.isolateBloc<ManufacturerBloc, ManufacturerState>().add(AddFavoriteEvent(entity));
   }
 
   @override
-  void removeFavorite(ManufacturerEntity entity) {
-    // TODO: implement removeFavorite
+  void removeFavorite(BuildContext context, ManufacturerEntity entity) {
+    context.isolateBloc<ManufacturerBloc, ManufacturerState>().add(RemoveFavoriteEvent(entity));
   }
 }

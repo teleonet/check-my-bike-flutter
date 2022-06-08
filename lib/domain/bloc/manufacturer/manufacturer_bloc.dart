@@ -7,7 +7,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_a
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_by_name_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/initial_state.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/loaded_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/global_progress_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/list_progress_state.dart';
@@ -15,6 +15,7 @@ import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
+import '../../../data/source/rest/exception/rest_exception.dart';
 import 'event/load/load_event.dart';
 import 'event/load/load_favorites_event.dart';
 import 'event/manufacturer_event.dart';
@@ -105,7 +106,12 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
   }
 
   Future<List<ManufacturerEntity>> _loadByName(String query, int currentPage, int perPage) async {
-    ManufacturerEntity? entity = await _repository.loadFromRestByName(query);
+    ManufacturerEntity? entity;
+    try {
+      entity = await _repository.loadFromRestByName(query);
+    } on RestException catch (e) {
+      //ignore
+    }
     return entity != null ? await _checkFavoriteAndReturn([entity]) : [];
   }
 

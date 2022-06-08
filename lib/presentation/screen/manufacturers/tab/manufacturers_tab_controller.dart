@@ -5,6 +5,7 @@ import '../../../../resources/colors_res.dart';
 class ManufacturersTabController extends StatelessWidget {
   final Function(int) _onClickedTab;
   List<Widget> _tabs = [];
+  int _currentIndex = -1;
 
   ManufacturersTabController(this._onClickedTab, {Key? key}) : super(key: key) {
     _tabs = _buildTabs();
@@ -40,7 +41,12 @@ class ManufacturersTabController extends StatelessWidget {
         labelStyle: _buildTextStyle(FontWeight.bold),
         unselectedLabelStyle: _buildTextStyle(FontWeight.normal),
         tabs: _tabs,
-        onTap: (index) => _onClickedTab.call(index));
+        onTap: (index) {
+          if (_currentIndex != index) {
+            _onClickedTab.call(index);
+            _currentIndex = index;
+          }
+        });
   }
 
   TextStyle _buildTextStyle(FontWeight fontWeight) {
