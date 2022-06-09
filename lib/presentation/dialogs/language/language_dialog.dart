@@ -13,7 +13,11 @@ class LanguageDialog extends ButtonDialog {
 
   @override
   List<Widget> getWidgets(BuildContext context) {
-    return [_buildLanguageSliding(), _buildButton(context)];
+    return [
+      _buildLanguageSliding(),
+      const Padding(padding: EdgeInsets.only(top: 25)),
+      _buildButton(context)
+    ];
   }
 
   Widget _buildLanguageSliding() {
