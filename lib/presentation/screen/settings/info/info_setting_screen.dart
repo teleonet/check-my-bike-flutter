@@ -2,7 +2,6 @@ import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../../widgets/autoscroll_text.dart';
 
 class InfoSettingScreen extends StatefulWidget {
   static void show(BuildContext context) {
@@ -29,14 +28,7 @@ class _InfoSettingScreenState extends State<InfoSettingScreen> {
               height: MediaQuery.of(context).size.height - 120,
               margin: const EdgeInsets.all(15),
               padding: const EdgeInsets.all(20),
-              child: Column(children: [
-                _buildRowContainer("Language", "PL"),
-                _buildRowContainer("Build", "1.0.0"),
-                _buildRowContainer("Server connection", "ok"),
-                _buildRowContainer("Favorites", "27"),
-                _buildRowContainer("Distance type", "Kilometers"),
-                _buildRowContainer("Bikes in database", "110848")
-              ]))
+              child: const Text("credentials"))
         ]));
   }
 
@@ -80,39 +72,5 @@ class _InfoSettingScreenState extends State<InfoSettingScreen> {
         color: Colors.transparent,
         border: Border.all(color: ColorsRes.green, width: 0.2),
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
-  }
-
-  Container _buildRowContainer(String title, String value, {Color? valueColor}) {
-    return Container(
-        padding: const EdgeInsets.only(top: 10),
-        child: Row(children: [_buildTitle(title), _buildValue(value, textColor: valueColor)]));
-  }
-
-  Text _buildTitle(String title) {
-    return Text("$title: ", style: _buildTextStyle(ColorsRes.green));
-  }
-
-  Widget _buildValue(String value, {Color? textColor}) {
-    Widget widget = _buildText(value, textColor: textColor);
-    if (value.length > 20) {
-      widget = _buildAutoScrollText(value, textColor: textColor);
-    }
-    return widget;
-  }
-
-  Widget _buildText(String value, {Color? textColor}) {
-    return Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: Text(value,
-            textAlign: TextAlign.right, style: _buildTextStyle(textColor ?? Colors.white)));
-  }
-
-  TextStyle _buildTextStyle(Color color) {
-    return TextStyle(
-        fontFamily: 'Roboto Thin', color: color, fontSize: 20, decoration: TextDecoration.none);
-  }
-
-  Widget _buildAutoScrollText(String value, {Color? textColor}) {
-    return AutoScrollText(value, MediaQuery.of(context).size.width * 0.65, textColor: textColor);
   }
 }
