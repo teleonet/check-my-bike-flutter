@@ -125,10 +125,10 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
 
   void _openURL(String url) async {
     try {
-      //todo: need add parameters for Android and IOS => https://pub.dev/packages/url_launcher
-      await launch(url);
+      Uri myUri = Uri.parse(url);
+      await launchUrl(myUri);
     } on MissingPluginException catch (e) {
-      print("ERROR: $e");
+      print("ERROR open manufacturer URL: $e");
     }
   }
 

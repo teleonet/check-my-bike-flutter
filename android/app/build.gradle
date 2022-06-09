@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.apptuns.check_my_bike"
+        applicationId "com.apptuns.checkmybike"
         minSdkVersion 21
         targetSdkVersion 31
         compileSdkVersion 31
