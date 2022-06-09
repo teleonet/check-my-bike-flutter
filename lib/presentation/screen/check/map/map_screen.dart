@@ -2,6 +2,7 @@ import 'package:check_my_bike_flutter/domain/bloc/navigation/event/tapped_map_sc
 import 'package:check_my_bike_flutter/domain/bloc/navigation/navigation_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/navigation_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/tapped_map_screen_state.dart';
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,7 +14,7 @@ enum MapMode { modify, static }
 
 class MapScreen extends StatelessWidget {
   static show(BuildContext context, LocationEntity location,
-      Function(LocationEntity) _onSelectedLocation, MapMode mapMode,
+      Function(LocationEntity, DistanceEntity?) _onSelectedLocation, MapMode mapMode,
       {double zoom = 10}) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return IsolateBlocProvider<NavigationBloc, NavigationState>(
@@ -22,7 +23,8 @@ class MapScreen extends StatelessWidget {
   }
 
   LocationEntity _location;
-  final Function(LocationEntity) _onSelectedLocation;
+  DistanceEntity? _distance;
+  final Function(LocationEntity, DistanceEntity?) _onSelectedLocation;
   final MapMode _mapMode;
   final double _zoom;
 
@@ -34,6 +36,7 @@ class MapScreen extends StatelessWidget {
     return IsolateBlocBuilder<NavigationBloc, NavigationState>(builder: (context, state) {
       if (state is TappedMapScreenState) {
         _location = state.location;
+        _distance = state.distance;
       }
       return Container(
           decoration: _buildGradientDecoration(),
@@ -122,7 +125,7 @@ class MapScreen extends StatelessWidget {
             child: _buildText("Apply selected location"),
             onPressed: () {
               Navigator.pop(context);
-              _onSelectedLocation.call(_location);
+              _onSelectedLocation.call(_location, _distance);
             }));
   }
 

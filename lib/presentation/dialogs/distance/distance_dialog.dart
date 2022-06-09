@@ -1,3 +1,4 @@
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -5,9 +6,10 @@ import '../../widgets/distance_slider.dart';
 
 class DistanceDialog extends ButtonDialog {
   final Function(int) _onChooseDistance;
-  int _distance = 1;
+  final DistanceEntity? _distance;
+  int _defaultDistance = 1;
 
-  DistanceDialog(this._onChooseDistance);
+  DistanceDialog(this._onChooseDistance, this._distance);
 
   @override
   List<Widget> getWidgets(context) {
@@ -19,14 +21,14 @@ class DistanceDialog extends ButtonDialog {
   }
 
   Widget _buildSlider() {
-    return DistanceSlider((value) => _distance = value);
+    return DistanceSlider((value) => _defaultDistance = value, _distance);
   }
 
   Widget _buildButton(BuildContext context) {
     return Center(
         child: buildButton("ok", onPressed: () {
       Navigator.pop(context);
-      _onChooseDistance.call(_distance);
+      _onChooseDistance.call(_defaultDistance);
     }));
   }
 }

@@ -189,7 +189,8 @@ class DetailsScreen extends StatelessWidget {
     return Container(
         padding: const EdgeInsets.only(top: 20),
         child: BorderedButton("coordinates on map", onPressed: () {
-          MapScreen.show(context, location, (LocationEntity location) {}, MapMode.static, zoom: 15);
+          MapScreen.show(context, location, (LocationEntity location, _) {}, MapMode.static,
+              zoom: 15);
         }));
   }
 

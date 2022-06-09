@@ -53,7 +53,7 @@ Future<void> _initBlocs(String directoryPath) async {
     DefaultRepository defaultRepository = DefaultRepositoryImpl();
 
     ManufacturerBloc.init(manufacturerRepository);
-    NavigationBloc.init();
+    NavigationBloc.init(settingsRepository);
     BikeBloc.init(bikeRepository);
     SettingsBloc.init(
         manufacturerRepository, bikeRepository, settingsRepository, defaultRepository);

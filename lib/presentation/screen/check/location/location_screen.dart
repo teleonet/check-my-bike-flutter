@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
@@ -81,17 +82,18 @@ class LocationScreen extends BaseCheckScreen {
   }
 
   void _showMapScreen(BuildContext context) {
-    MapScreen.show(context, _location!, (location) {
+    MapScreen.show(context, _location!, (location, distance) {
       _location = location;
-      _showDistanceDialog(context);
+      _showDistanceDialog(context, distance);
     }, MapMode.modify, zoom: 7);
   }
 
-  void _showDistanceDialog(BuildContext context) {
+  void _showDistanceDialog(BuildContext context, DistanceEntity? distance) {
     DistanceDialog((value) {
       _distance = value;
       _loadBikes(context, PaginationEntity());
-    }).show(context, "Choose distance");
+    }, distance)
+        .show(context, "Choose distance");
   }
 
   void _loadBikes(BuildContext context, PaginationEntity pagination) {

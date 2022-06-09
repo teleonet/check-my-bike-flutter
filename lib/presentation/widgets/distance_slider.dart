@@ -1,11 +1,13 @@
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/colors_res.dart';
 
 class DistanceSlider extends StatefulWidget {
   final Function(int) _onChanged;
+  final DistanceEntity? _distance;
 
-  const DistanceSlider(this._onChanged, {Key? key}) : super(key: key);
+  const DistanceSlider(this._onChanged, this._distance, {Key? key}) : super(key: key);
 
   @override
   _DistanceSliderState createState() => _DistanceSliderState();
@@ -24,7 +26,7 @@ class _DistanceSliderState extends State<DistanceSlider> {
             child: Column(children: [
               Text("Around you", style: _buildTextStyle(), textAlign: TextAlign.center),
               _buildSlider(),
-              Text("${_currentValue.toInt()} miles",
+              Text("${_currentValue.toInt()} " + widget._distance?.title,
                   style: _buildTextStyle(), textAlign: TextAlign.center)
             ])));
   }
@@ -51,7 +53,17 @@ class _DistanceSliderState extends State<DistanceSlider> {
         thumbColor: ColorsRes.green,
         max: 20,
         value: _currentValue,
-        onChangeEnd: (double value) => widget._onChanged.call(value.toInt()),
+        onChangeEnd: (double value) {
+          if (widget._distance?.type == "km") {
+            value = _convertKmToMiles(value);
+          }
+          widget._onChanged.call(value.toInt());
+        },
         onChanged: (double value) => setState(() => _currentValue = value));
+  }
+
+  double _convertKmToMiles(double miles) {
+    const kmInOneMile = 0.62;
+    return miles * kmInOneMile;
   }
 }
