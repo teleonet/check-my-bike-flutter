@@ -70,9 +70,7 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
     _pagination = _checkLastPageAndBuildPagination(loadedEntities, _pagination);
     _cache.addAll(loadedEntities);
 
-    await Future.delayed(const Duration(seconds: 1), () {
-      emit(LoadedState(_cache, _pagination));
-    });
+    emit(LoadedState(_cache, _pagination));
   }
 
   Future<void> _mapFavoriteEvent(FavoriteEvent event) async {

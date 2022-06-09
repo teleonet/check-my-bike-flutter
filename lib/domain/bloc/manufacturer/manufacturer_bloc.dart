@@ -8,6 +8,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_b
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search_loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/global_progress_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/list_progress_state.dart';
@@ -71,9 +72,11 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
     _pagination = _checkLastPageAndBuildPagination(loadedEntities, _pagination);
     _cache.addAll(loadedEntities);
 
-    await Future.delayed(const Duration(seconds: 1), () {
+    if (event is LoadByNameEvent) {
+      emit(SearchLoadedState(_cache, _pagination));
+    } else {
       emit(LoadedState(_cache, _pagination));
-    });
+    }
   }
 
   Future<void> _mapFavoriteEvent(FavoriteEvent event) async {

@@ -2,6 +2,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search_loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/global_progress_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/list_progress_state.dart';
@@ -14,6 +15,7 @@ import '../../../../domain/bloc/manufacturer/state/initial_state.dart';
 import '../../../../domain/bloc/manufacturer/state/progress/progress_state.dart';
 import '../../../../domain/entity/manufacturer_entity.dart';
 import '../../../../domain/entity/pagination_entity.dart';
+import '../../../../resources/colors_res.dart';
 import '../manufacturer_item.dart';
 
 abstract class BaseManufacturersScreen extends StatelessWidget {
@@ -56,6 +58,10 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
         entities = state.entities;
       }
 
+      if (state is SearchLoadedState && entities.isEmpty) {
+        widgets.add(_buildPlaceholder(context));
+      }
+
       bool showListProgress = state is ListProgressState;
       showListProgress ? entities = state.manufacturers : null;
 
@@ -91,11 +97,20 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
         child: Center(child: CircularProgressIndicator(strokeWidth: 1.5)));
   }
 
-  /*Widget _buildListOrPlaceholder(BuildContext context, List<BikeEntity> loaded, bool addProgress) {
-    return loaded.isNotEmpty
-        ? _buildListView(context, loaded, addProgress)
-        : _buildPlaceholder(context);
-  }*/
+  Widget _buildPlaceholder(BuildContext context) {
+    return SizedBox(
+        height: MediaQuery.of(context).size.height / 2,
+        width: MediaQuery.of(context).size.width,
+        child: Center(child: Text("Did not find results", style: _buildTextStyle(size: 25))));
+  }
+
+  TextStyle _buildTextStyle({double? size}) {
+    return TextStyle(
+        fontFamily: 'Roboto Thin',
+        decoration: TextDecoration.none,
+        color: ColorsRes.green,
+        fontSize: size ?? 35);
+  }
 
   Widget _buildManufacturerItem(BuildContext context, ManufacturerEntity manufacturer) {
     String companyUrl = manufacturer.companyUrl;
