@@ -1,9 +1,8 @@
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 import '../../../domain/entity/distance_entity.dart';
+import '../../../resources/colors_res.dart';
 
 class DistanceSliding extends StatefulWidget {
   final List<DistanceEntity> _types;
@@ -20,7 +19,7 @@ class DistanceSliding extends StatefulWidget {
   _DistanceSlidingState createState() => _DistanceSlidingState();
 }
 
-class _DistanceSlidingState extends BaseScreenState<DistanceSliding> {
+class _DistanceSlidingState extends State<DistanceSliding> {
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl(

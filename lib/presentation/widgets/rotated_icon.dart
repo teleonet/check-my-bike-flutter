@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/cupertino.dart';
 
 class RotatedIcon extends StatefulWidget {
@@ -14,7 +13,7 @@ class RotatedIcon extends StatefulWidget {
   RotatedIconState createState() => RotatedIconState();
 }
 
-class RotatedIconState extends BaseScreenState<RotatedIcon> with SingleTickerProviderStateMixin {
+class RotatedIconState extends State<RotatedIcon> with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
 
   @override

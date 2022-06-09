@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 
 class SettingsItem extends StatefulWidget {
   final IconData _icon;
@@ -16,7 +15,7 @@ class SettingsItem extends StatefulWidget {
   _SettingsItemState createState() => _SettingsItemState();
 }
 
-class _SettingsItemState extends BaseScreenState<SettingsItem> {
+class _SettingsItemState extends State<SettingsItem> {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -2,7 +2,6 @@ import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
-import '../../../base/base_screen_state.dart';
 import '../../../widgets/autoscroll_text.dart';
 
 class InfoSettingScreen extends StatefulWidget {
@@ -16,7 +15,7 @@ class InfoSettingScreen extends StatefulWidget {
   _InfoSettingScreenState createState() => _InfoSettingScreenState();
 }
 
-class _InfoSettingScreenState extends BaseScreenState<InfoSettingScreen> {
+class _InfoSettingScreenState extends State<InfoSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(

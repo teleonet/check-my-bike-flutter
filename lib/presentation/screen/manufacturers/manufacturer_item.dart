@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../domain/entity/manufacturer_entity.dart';
 import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 import '../../dialogs/yes_no_dialog.dart';
 import '../check/zoom/zoom_screen.dart';
 
@@ -20,7 +19,7 @@ class ManufacturerItem extends StatefulWidget {
   _ManufacturerItemState createState() => _ManufacturerItemState();
 }
 
-class _ManufacturerItemState extends BaseScreenState<ManufacturerItem> {
+class _ManufacturerItemState extends State<ManufacturerItem> {
   @override
   Widget build(BuildContext context) {
     return Container(

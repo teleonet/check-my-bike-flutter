@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
@@ -13,7 +12,7 @@ class BorderedButton extends StatefulWidget {
   BorderedButtonState createState() => BorderedButtonState();
 }
 
-class BorderedButtonState extends BaseScreenState<BorderedButton> {
+class BorderedButtonState extends State<BorderedButton> {
   Color _decorationColor = ColorsRes.green;
 
   @override

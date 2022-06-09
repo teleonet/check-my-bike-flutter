@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../resources/colors_res.dart';
@@ -12,7 +11,7 @@ class Header extends StatefulWidget {
   _HeaderState createState() => _HeaderState();
 }
 
-class _HeaderState extends BaseScreenState<Header> {
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return Padding(

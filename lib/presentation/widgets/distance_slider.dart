@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/colors_res.dart';
@@ -12,7 +11,7 @@ class DistanceSlider extends StatefulWidget {
   _DistanceSliderState createState() => _DistanceSliderState();
 }
 
-class _DistanceSliderState extends BaseScreenState<DistanceSlider> {
+class _DistanceSliderState extends State<DistanceSlider> {
   double _currentValue = 1;
 
   @override

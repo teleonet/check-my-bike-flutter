@@ -6,7 +6,6 @@ import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/anim
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 import '../../widgets/animation/fabric/animation_fabric.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +19,7 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends BaseScreenState<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   final AnimationFabric _animationFabric = AnimationFabricImpl();
   AnimationController? _animationController;
 

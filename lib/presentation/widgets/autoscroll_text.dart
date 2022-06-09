@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../base/base_screen_state.dart';
-
 class AutoScrollText extends StatefulWidget {
   final String _text;
   final double _width;
@@ -19,7 +17,7 @@ class AutoScrollText extends StatefulWidget {
   _AutoScrollTextState createState() => _AutoScrollTextState();
 }
 
-class _AutoScrollTextState extends BaseScreenState<AutoScrollText> {
+class _AutoScrollTextState extends State<AutoScrollText> {
   ScrollController scrollController = ScrollController();
 
   @override

@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 import '../../widgets/header.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -19,7 +18,7 @@ class SettingsScreen extends StatefulWidget {
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends BaseScreenState<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> {
   bool _active = false;
 
   //todo: need move, only for development

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 import '../../../domain/entity/language_entity.dart';
+import '../../../resources/colors_res.dart';
 
 class LanguageSliding extends StatefulWidget {
   final List<LanguageEntity> _languages;
@@ -19,7 +18,7 @@ class LanguageSliding extends StatefulWidget {
   _LanguageSlidingState createState() => _LanguageSlidingState();
 }
 
-class _LanguageSlidingState extends BaseScreenState<LanguageSliding> {
+class _LanguageSlidingState extends State<LanguageSliding> {
   @override
   Widget build(BuildContext context) {
     return CupertinoSlidingSegmentedControl(

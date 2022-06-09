@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../../base/base_screen_state.dart';
 
 abstract class BaseDivider extends StatefulWidget {
   //todo: need to refactor to more convenient pattern.
@@ -22,7 +21,7 @@ abstract class BaseDivider extends StatefulWidget {
   _BaseDividerState createState() => _BaseDividerState();
 }
 
-class _BaseDividerState extends BaseScreenState<BaseDivider> {
+class _BaseDividerState extends State<BaseDivider> {
   @override
   Widget build(BuildContext context) {
     return Container(

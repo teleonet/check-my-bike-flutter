@@ -1,4 +1,3 @@
-import 'package:check_my_bike_flutter/presentation/base/base_screen_state.dart';
 import 'package:check_my_bike_flutter/presentation/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +18,7 @@ class InputForm extends StatefulWidget {
   InputFormState createState() => InputFormState();
 }
 
-class InputFormState extends BaseScreenState<InputForm> {
+class InputFormState extends State<InputForm> {
   final GlobalKey<FormFieldState<String>> _formKey = GlobalKey<FormFieldState<String>>();
   bool _isClearValidation = false;
 

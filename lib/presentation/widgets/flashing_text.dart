@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../base/base_screen_state.dart';
-
 class FlashingText extends StatefulWidget {
   final String _text;
   final Color _color;
@@ -13,7 +11,7 @@ class FlashingText extends StatefulWidget {
   _FlashingTextState createState() => _FlashingTextState();
 }
 
-class _FlashingTextState extends BaseScreenState<FlashingText> with SingleTickerProviderStateMixin {
+class _FlashingTextState extends State<FlashingText> with SingleTickerProviderStateMixin {
   AnimationController? _animationController;
 
   @override

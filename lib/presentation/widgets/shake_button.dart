@@ -3,7 +3,6 @@ import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/anim
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
-import '../base/base_screen_state.dart';
 
 class ShakeButton extends StatefulWidget {
   final String _title;
@@ -15,7 +14,7 @@ class ShakeButton extends StatefulWidget {
   ShakeButtonState createState() => ShakeButtonState();
 }
 
-class ShakeButtonState extends BaseScreenState<ShakeButton> with SingleTickerProviderStateMixin {
+class ShakeButtonState extends State<ShakeButton> with SingleTickerProviderStateMixin {
   final AnimationFabric _animationFabric = AnimationFabricImpl();
   Color _decorationColor = ColorsRes.green;
   AnimationController? _animationController;
