@@ -23,10 +23,6 @@ class LoadedState extends SettingsState {
 
   get isFirstStart => _isFirstStart;
 
-  final bool _isAvailableServer;
-
-  get isAvailableServer => _isAvailableServer;
-
   final String _buildNumber;
 
   get buildNumber => _buildNumber;
@@ -36,5 +32,5 @@ class LoadedState extends SettingsState {
   get countOfFavorites => _countOfFavorites;
 
   LoadedState(this._languages, this._distances, this._currentLanguage, this._currentDistance,
-      this._isFirstStart, this._isAvailableServer, this._buildNumber, this._countOfFavorites);
+      this._isFirstStart, this._buildNumber, this._countOfFavorites);
 }

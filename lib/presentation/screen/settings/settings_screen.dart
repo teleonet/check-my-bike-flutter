@@ -1,4 +1,4 @@
-import 'package:check_my_bike_flutter/domain/bloc/settings/event/initial_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/event/load_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/settings_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/state/loaded_state.dart';
@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../domain/bloc/settings/event/save_settings_event.dart';
+import '../../../domain/bloc/settings/state/global_progress_state.dart';
 import '../../../resources/colors_res.dart';
 import '../../widgets/header.dart';
 
@@ -45,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Header("Settings"),
             const Spacer(),
-            state is InitialState
+            state is InitialState || state is GlobalProgressState
                 ? _buildGlobalProgressIndicator(context)
                 : Column(children: [
                     SettingsItem(
@@ -54,19 +55,20 @@ class SettingsScreen extends StatelessWidget {
                     _buildPadding(),
                     SettingsItem(
                         Icons.star, "clear favorites", _buildText(_favoritesCount.toString()),
-                        onPressed: () => _showClearFavoritesDialog(context)),
+                        onPressed: () =>
+                            _favoritesCount > 0 ? _showClearFavoritesDialog(context) : null),
                     _buildPadding(),
                     SettingsItem(Icons.info, "info", _buildText(_buildNumber ?? ""),
                         onPressed: () => InfoSettingScreen.show(context)),
                     _buildPadding(),
                     SettingsItem(
-                        Icons.sync_alt, "Distance", _buildText(_currentDistance?.title ?? ""),
+                        Icons.sync_alt, "Distance", _buildText(_currentDistance?.type ?? ""),
                         onPressed: () => _showDistanceTypeDialog(context))
                   ]),
             const Spacer()
           ]));
     }, buildWhen: (prev, next) {
-      return next is LoadedState;
+      return next is LoadedState || next is GlobalProgressState;
     }));
   }
 
@@ -92,13 +94,18 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _showClearFavoritesDialog(BuildContext context) {
-    YesNoDialog(() => _clearFavorites = true, () {})
+    YesNoDialog(() {
+      _clearFavorites = true;
+      _saveSettings(context);
+    }, () {})
         .show(context, "Do you want to clear all favorites ?");
   }
 
   void _showDistanceTypeDialog(BuildContext context) {
-    DistanceSettingDialog(_distances, _currentDistance!,
-        (distanceType) => "selected distance ${distanceType.title}").show(context, "Distance");
+    DistanceSettingDialog(_distances, _currentDistance!, (distance) {
+      _currentDistance = distance;
+      _saveSettings(context);
+    }).show(context, "Distance");
   }
 
   void _saveSettings(BuildContext context) {
@@ -108,6 +115,6 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void _loadSettings(BuildContext context) {
-    context.isolateBloc<SettingsBloc, SettingsState>().add(InitialEvent());
+    context.isolateBloc<SettingsBloc, SettingsState>().add(LoadEvent());
   }
 }

@@ -5,14 +5,19 @@ import '../../../domain/entity/distance_entity.dart';
 import '../../../resources/colors_res.dart';
 
 class DistanceSliding extends StatefulWidget {
-  final List<DistanceEntity> _types;
-  final DistanceEntity _selectedType;
+  final List<DistanceEntity> _distances;
+  final DistanceEntity _selectedDistance;
   final Function(DistanceEntity) _onChangedType;
   int _currentDistanceIndex = 0;
 
-  DistanceSliding(this._types, this._selectedType, this._onChangedType, {Key? key})
+  DistanceSliding(this._distances, this._selectedDistance, this._onChangedType, {Key? key})
       : super(key: key) {
-    _currentDistanceIndex = _types.indexWhere((item) => item.title == _selectedType.title);
+    for (int index = 0; index < _distances.length; index++) {
+      if (_distances[index].title == _selectedDistance.title) {
+        _currentDistanceIndex = index;
+        break;
+      }
+    }
   }
 
   @override
@@ -29,8 +34,7 @@ class _DistanceSlidingState extends State<DistanceSliding> {
         children: _buildWidgetsMap(),
         onValueChanged: (currentLanguageIndex) {
           setState(() => widget._currentDistanceIndex = currentLanguageIndex as int);
-
-          DistanceEntity distanceType = widget._types[widget._currentDistanceIndex];
+          DistanceEntity distanceType = widget._distances[widget._currentDistanceIndex];
           widget._onChangedType.call(distanceType);
         });
   }
@@ -38,8 +42,8 @@ class _DistanceSlidingState extends State<DistanceSliding> {
   Map<int, Widget> _buildWidgetsMap() {
     Map<int, Widget> children = {};
 
-    for (int index = 0; index < widget._types.length; index++) {
-      DistanceEntity distanceType = widget._types[index];
+    for (int index = 0; index < widget._distances.length; index++) {
+      DistanceEntity distanceType = widget._distances[index];
       children[index] = _buildWidget(index, distanceType);
     }
 

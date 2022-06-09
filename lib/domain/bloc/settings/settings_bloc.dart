@@ -1,8 +1,9 @@
 import 'package:check_my_bike_flutter/data/repository/default/default_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository.dart';
-import 'package:check_my_bike_flutter/domain/bloc/settings/event/initial_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/event/load_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/event/settings_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/state/global_progress_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/state/settings_state.dart';
@@ -37,9 +38,11 @@ class SettingsBloc extends IsolateBloc<SettingsEvent, SettingsState> {
   @override
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
     if (event is SaveSettingsEvent) {
+      emit(GlobalProgressState());
       await _saveSettings(
           event.distance, event.language, CommonEntity(false), event.clearFavorites);
-    } else if (event is InitialEvent) {
+      emit(await _buildLoadedState());
+    } else if (event is LoadEvent) {
       emit(await _buildLoadedState());
     }
   }
@@ -63,17 +66,11 @@ class SettingsBloc extends IsolateBloc<SettingsEvent, SettingsState> {
     LanguageEntity currentLanguage = await _settingsRepository.loadLanguageFromDatabase();
     DistanceEntity currentDistance = await _settingsRepository.loadDistanceFromDatabase();
     CommonEntity common = await _settingsRepository.loadCommonFromDatabase();
-    bool availableServer = await _isAvailableServer();
     String buildNumber = await _getBuildNumber();
     int countOfFavorites = await _getCountOfFavorites();
 
     return LoadedState(defaultLanguages, defaultDistances, currentLanguage, currentDistance,
-        common.isFirstStart, availableServer, buildNumber, countOfFavorites);
-  }
-
-  Future<bool> _isAvailableServer() async {
-    List<ManufacturerEntity> manufacturers = await _manufacturerRepository.loadFromRestAll(1, 1);
-    return manufacturers.isNotEmpty;
+        common.isFirstStart, buildNumber, countOfFavorites);
   }
 
   Future<String> _getBuildNumber() async {
