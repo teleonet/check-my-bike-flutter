@@ -1,3 +1,8 @@
+import 'package:check_my_bike_flutter/domain/bloc/settings/event/initial_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/settings_bloc.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/state/initial_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/state/loaded_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/state/settings_state.dart';
 import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/language_entity.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_setting_dialog.dart';
@@ -5,66 +10,69 @@ import 'package:check_my_bike_flutter/presentation/dialogs/language/language_dia
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_setting_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:isolate_bloc/isolate_bloc.dart';
 
+import '../../../domain/bloc/settings/event/save_settings_event.dart';
 import '../../../resources/colors_res.dart';
 import '../../widgets/header.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
-
-  @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool _active = false;
-
-  //todo: need move, only for development
-  List<LanguageEntity> _buildLanguages() {
-    List<LanguageEntity> languages = [];
-
-    languages.add(const LanguageEntity("ENG", 'assets/icons/ic_flag_eng.png'));
-    languages.add(const LanguageEntity("UA", 'assets/icons/ic_flag_ua.png'));
-    languages.add(const LanguageEntity("PL", 'assets/icons/ic_flag_pl.png'));
-
-    return languages;
-  }
-
-  List<DistanceEntity> _buildDistanceTypes() {
-    List<DistanceEntity> distances = [];
-
-    distances.add(DistanceEntity("Miles", "ml"));
-    distances.add(DistanceEntity("Kilometers", "km"));
-
-    return distances;
-  }
+class SettingsScreen extends StatelessWidget {
+  List<LanguageEntity> _languages = [];
+  List<DistanceEntity> _distances = [];
+  LanguageEntity? _currentLanguage;
+  DistanceEntity? _currentDistance;
+  int _favoritesCount = 0;
+  bool _clearFavorites = false;
+  String? _buildNumber = "";
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Header("Settings"),
-          const Spacer(),
-          SettingsItem(Icons.language, "language", _buildText("Eng"),
-              onPressed: () => _showLanguageDialog()),
-          _buildPadding(),
-          SettingsItem(Icons.star, "clear favorites", _buildText("18"),
-              onPressed: () => _showClearFavoritesDialog()),
-          _buildPadding(),
-          SettingsItem(Icons.volume_up, "sounds", _buildSwitch(),
-              onPressed: () => setState(() => _active = !_active)),
-          _buildPadding(),
-          SettingsItem(Icons.info, "info", _buildText("1.0.0"),
-              onPressed: () => InfoSettingScreen.show(context)),
-          _buildPadding(),
-          SettingsItem(Icons.sync_alt, "Distance", _buildText("Miles"),
-              onPressed: () => _showDistanceTypeDialog()),
-          const Spacer(),
-        ]));
+    return IsolateBlocProvider<SettingsBloc, SettingsState>(
+        child: IsolateBlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
+      state is InitialState ? _loadSettings(context) : null;
+      if (state is LoadedState) {
+        _languages = state.languages;
+        _distances = state.distances;
+        _currentLanguage = state.currentLanguage;
+        _currentDistance = state.currentDistance;
+        _favoritesCount = state.countOfFavorites;
+        _buildNumber = state.buildNumber;
+      }
+      return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Header("Settings"),
+            const Spacer(),
+            state is InitialState
+                ? _buildGlobalProgressIndicator(context)
+                : Column(children: [
+                    SettingsItem(
+                        Icons.language, "language", _buildText(_currentLanguage?.name ?? ""),
+                        onPressed: () => _showLanguageDialog(context)),
+                    _buildPadding(),
+                    SettingsItem(
+                        Icons.star, "clear favorites", _buildText(_favoritesCount.toString()),
+                        onPressed: () => _showClearFavoritesDialog(context)),
+                    _buildPadding(),
+                    SettingsItem(Icons.info, "info", _buildText(_buildNumber ?? ""),
+                        onPressed: () => InfoSettingScreen.show(context)),
+                    _buildPadding(),
+                    SettingsItem(
+                        Icons.sync_alt, "Distance", _buildText(_currentDistance?.title ?? ""),
+                        onPressed: () => _showDistanceTypeDialog(context))
+                  ]),
+            const Spacer()
+          ]));
+    }, buildWhen: (prev, next) {
+      return next is LoadedState;
+    }));
+  }
+
+  Widget _buildGlobalProgressIndicator(BuildContext context) {
+    return Transform.scale(
+        scale: 2, child: const Center(child: CircularProgressIndicator(strokeWidth: 0.4)));
   }
 
   Widget _buildPadding() {
@@ -76,28 +84,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
         style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20));
   }
 
-  CupertinoSwitch _buildSwitch() {
-    return CupertinoSwitch(
-        onChanged: (active) => setState(() => _active = !_active),
-        thumbColor: ColorsRes.divider,
-        trackColor: ColorsRes.darkGreen,
-        activeColor: ColorsRes.green,
-        value: _active);
+  void _showLanguageDialog(BuildContext context) {
+    LanguageDialog(_languages, _currentLanguage!, (language) {
+      _currentLanguage = language;
+      _saveSettings(context);
+    }).show(context, "Language", dismissTouchOutside: true);
   }
 
-  void _showLanguageDialog() {
-    LanguageDialog(_buildLanguages(), _buildLanguages()[1],
-            (language) => print("pressed: language ${language.name}"))
-        .show(context, "Language", dismissTouchOutside: true);
-  }
-
-  void _showClearFavoritesDialog() {
-    YesNoDialog(() => print("pressed: Clear favorites"), () {})
+  void _showClearFavoritesDialog(BuildContext context) {
+    YesNoDialog(() => _clearFavorites = true, () {})
         .show(context, "Do you want to clear all favorites ?");
   }
 
-  void _showDistanceTypeDialog() {
-    DistanceSettingDialog(_buildDistanceTypes(), _buildDistanceTypes()[1],
+  void _showDistanceTypeDialog(BuildContext context) {
+    DistanceSettingDialog(_distances, _currentDistance!,
         (distanceType) => "selected distance ${distanceType.title}").show(context, "Distance");
+  }
+
+  void _saveSettings(BuildContext context) {
+    context
+        .isolateBloc<SettingsBloc, SettingsState>()
+        .add(SaveSettingsEvent(_currentLanguage!, _currentDistance!, _clearFavorites));
+  }
+
+  void _loadSettings(BuildContext context) {
+    context.isolateBloc<SettingsBloc, SettingsState>().add(InitialEvent());
   }
 }

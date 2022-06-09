@@ -1,9 +1,19 @@
-import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/common_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
+import 'package:check_my_bike_flutter/domain/entity/language_entity.dart';
 
 abstract class SettingsRepository {
-  Future<SettingsEntity> loadFromDatabase();
+  Future<DistanceEntity> loadDistanceFromDatabase();
 
-  Future<void> saveToDatabase(SettingsEntity entity);
+  Future<void> saveDistanceToDatabase(DistanceEntity entity);
+
+  Future<LanguageEntity> loadLanguageFromDatabase();
+
+  Future<void> saveLanguageToDatabase(LanguageEntity entity);
+
+  Future<CommonEntity> loadCommonFromDatabase();
+
+  Future<void> saveCommonToDatabase(CommonEntity entity);
 
   Future<void> clearInDatabase();
 }

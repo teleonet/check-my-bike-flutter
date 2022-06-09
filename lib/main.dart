@@ -2,12 +2,17 @@ import 'dart:io';
 
 import 'package:check_my_bike_flutter/data/repository/bike/bike_repository.dart';
 import 'package:check_my_bike_flutter/data/repository/bike/bike_repository_impl.dart';
+import 'package:check_my_bike_flutter/data/repository/default/default_repository.dart';
+import 'package:check_my_bike_flutter/data/repository/default/default_repository_impl.dart';
 import 'package:check_my_bike_flutter/data/repository/manufacturer/manufacturer_repository_impl.dart';
+import 'package:check_my_bike_flutter/data/repository/settings/settings_repository.dart';
+import 'package:check_my_bike_flutter/data/repository/settings/settings_repository_impl.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/rest/rest_gateway_impl.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/bike_bloc.dart';
+import 'package:check_my_bike_flutter/domain/bloc/settings/settings_bloc.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
@@ -44,10 +49,14 @@ Future<void> _initBlocs(String directoryPath) async {
     ManufacturerRepository manufacturerRepository =
         ManufacturerRepositoryImpl(restGateway, databaseGateway);
     BikeRepository bikeRepository = BikeRepositoryImpl(restGateway, databaseGateway);
+    SettingsRepository settingsRepository = SettingsRepositoryImpl(databaseGateway);
+    DefaultRepository defaultRepository = DefaultRepositoryImpl();
 
     ManufacturerBloc.init(manufacturerRepository);
     NavigationBloc.init();
     BikeBloc.init(bikeRepository);
+    SettingsBloc.init(
+        manufacturerRepository, bikeRepository, settingsRepository, defaultRepository);
   });
 }
 

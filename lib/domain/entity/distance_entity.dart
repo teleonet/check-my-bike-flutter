@@ -3,9 +3,9 @@ class DistanceEntity {
 
   get title => _title;
 
-  final String? _distance;
+  final String? _type;
 
-  get distance => _distance;
+  get type => _type;
 
-  DistanceEntity(this._title, this._distance);
+  DistanceEntity(this._title, this._type);
 }

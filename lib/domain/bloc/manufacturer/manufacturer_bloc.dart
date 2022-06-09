@@ -5,7 +5,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/fa
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/remove_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_all_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_by_name_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/initial_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search_loaded_state.dart';

@@ -58,7 +58,7 @@ class MainScreen extends StatelessWidget {
           _currentScreen = ManufacturersScreen();
           break;
         case MainScreenType.settings:
-          _currentScreen = const SettingsScreen();
+          _currentScreen = SettingsScreen();
           break;
       }
     }

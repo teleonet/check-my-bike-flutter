@@ -4,7 +4,6 @@ import 'package:check_my_bike_flutter/data/repository/settings/settings_reposito
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository_impl.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway.dart';
 import 'package:check_my_bike_flutter/data/source/database/database_gateway_impl.dart';
-import 'package:check_my_bike_flutter/domain/entity/settings_entity.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,7 +16,7 @@ void main() {
     _repository = SettingsRepositoryImpl(databaseGateway);
   });
 
-  test("save setting to db and load from db", () async {
+  /*test("save setting to db and load from db", () async {
     SettingsEntity savedEntity = SettingsEntity("miles", "ml", false, "language_icon_path", "ua");
     await _repository?.saveToDatabase(savedEntity);
 
@@ -32,5 +31,5 @@ void main() {
 
     SettingsEntity? settings = await _repository?.loadFromDatabase();
     expect(settings?.isFirstStart, true);
-  });
+  });*/
 }
