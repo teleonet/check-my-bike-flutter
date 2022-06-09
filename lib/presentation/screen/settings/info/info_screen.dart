@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 
-class InfoSettingScreen extends StatefulWidget {
+class InfoScreen extends StatefulWidget {
   static void show(BuildContext context) {
-    Navigator.push(context, SlideRightRoute(const InfoSettingScreen()).createRoute());
+    Navigator.push(context, SlideRightRoute(const InfoScreen()).createRoute());
   }
 
-  const InfoSettingScreen({Key? key}) : super(key: key);
+  const InfoScreen({Key? key}) : super(key: key);
 
   @override
-  _InfoSettingScreenState createState() => _InfoSettingScreenState();
+  _InfoScreenState createState() => _InfoScreenState();
 }
 
-class _InfoSettingScreenState extends State<InfoSettingScreen> {
+class _InfoScreenState extends State<InfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(

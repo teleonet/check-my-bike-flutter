@@ -8,7 +8,7 @@ import 'package:check_my_bike_flutter/domain/entity/language_entity.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/distance/distance_setting_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/language/language_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
-import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_setting_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -59,7 +59,7 @@ class SettingsScreen extends StatelessWidget {
                             _favoritesCount > 0 ? _showClearFavoritesDialog(context) : null),
                     _buildPadding(),
                     SettingsItem(Icons.info, "info", _buildText(_buildNumber ?? ""),
-                        onPressed: () => InfoSettingScreen.show(context)),
+                        onPressed: () => InfoScreen.show(context)),
                     _buildPadding(),
                     SettingsItem(
                         Icons.sync_alt, "Distance", _buildText(_currentDistance?.type ?? ""),
