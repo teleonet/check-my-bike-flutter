@@ -2,6 +2,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/ad
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/base_manufacturers_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -21,12 +22,12 @@ class ManufacturersSearchScreen extends BaseManufacturersScreen {
   }
 
   Widget _buildInputForm(BuildContext context) {
-    return InputForm("Manufacturer's name", (textToSearch) {
+    return InputForm('manufacturer_screen.manufacturer_name'.tr(), (textToSearch) {
       _query = textToSearch ?? "";
       loadNextPage(context, PaginationEntity());
     }, (textForValidator) {
       return Validator.moreThenOneSymbol(textForValidator);
-    }, "Please enter more then 1 symbols");
+    }, 'common.more_then_x_symbol'.tr(args: ["1"]));
   }
 
   @override

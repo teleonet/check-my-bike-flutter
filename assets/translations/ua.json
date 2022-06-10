@@ -1,0 +1,9 @@
+{
+  "check_screen": {
+    "check": "перевірка байку",
+    "serial": "серійний номер",
+    "manufacturer": "виробник",
+    "custom": "свій вибір",
+    "location": "локація"
+  }
+}

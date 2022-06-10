@@ -3,6 +3,7 @@ import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/favorites/favorites_screen.dart';
 import 'package:check_my_bike_flutter/presentation/scroll/scroll_controller_with_listener.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -144,7 +145,8 @@ abstract class BaseCheckScreen extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 1.5,
             width: MediaQuery.of(context).size.width,
-            child: Center(child: Text("Did not find results", style: _buildTextStyle(size: 25)))));
+            child: Center(
+                child: Text('common.not_found_results'.tr(), style: _buildTextStyle(size: 25)))));
   }
 
   TextStyle _buildTextStyle({double? size}) {

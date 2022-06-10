@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/widgets/autoscroll_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entity/manufacturer_entity.dart';
@@ -105,7 +106,8 @@ class _ManufacturerItemState extends State<ManufacturerItem> {
         decoration: _buildContainerDecoration(borderColor: ColorsRes.green, thinness: 0.1),
         padding: const EdgeInsets.only(top: 75, bottom: 75),
         width: MediaQuery.of(context).size.width,
-        child: Center(child: Text("Error load image", style: _buildTextStyle(Colors.red, 14))));
+        child: Center(
+            child: Text('common.error_load_image'.tr(), style: _buildTextStyle(Colors.red, 14))));
   }
 
   Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
@@ -135,7 +137,7 @@ class _ManufacturerItemState extends State<ManufacturerItem> {
 
   void _showDeleteFavoriteDialog(Function deletePressed) {
     YesNoDialog(() => deletePressed.call(), () => {}).show(
-        context, "Are you approve to delete \n\"${widget._manufacturer.name}\"\n from favorites ?");
+        context, 'manufacturer_screen.ask_delete_item'.tr(args: ["${widget._manufacturer.name}"]));
   }
 
   void _changeIsFavoriteAndInvokeCallback(bool isFavorite) {

@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 class YesNoDialog extends ButtonDialog {
@@ -10,9 +11,9 @@ class YesNoDialog extends ButtonDialog {
   @override
   List<Widget> getWidgets(BuildContext context) {
     return [
-      _buildYesButton("YES", context),
+      _buildYesButton('common.yes'.tr(), context),
       const SizedBox(width: 20),
-      _buildNoButton("NO", context)
+      _buildNoButton('common.no'.tr(), context)
     ];
   }
 

@@ -8,6 +8,7 @@ import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -66,7 +67,7 @@ class FavoritesScreen extends StatelessWidget {
         backgroundColor: ColorsRes.startGradient,
         shadowColor: Colors.transparent,
         shape: _buildAppBarBorder(),
-        title: const Text("favorites"),
+        title: Text('common.favorites'.tr().toLowerCase()),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         titleTextStyle: _buildTextStyle(),
@@ -118,7 +119,8 @@ class FavoritesScreen extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 1.2,
             width: MediaQuery.of(context).size.width,
-            child: Center(child: Text("Favorites is empty", style: _buildTextStyle(size: 25)))));
+            child: Center(
+                child: Text('common.favorites_empty'.tr(), style: _buildTextStyle(size: 25)))));
   }
 
   TextStyle _buildTextStyle({double? size}) {

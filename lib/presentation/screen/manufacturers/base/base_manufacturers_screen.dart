@@ -6,6 +6,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/global_progress_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/progress/list_progress_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -101,7 +102,8 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
     return SizedBox(
         height: MediaQuery.of(context).size.height / 2,
         width: MediaQuery.of(context).size.width,
-        child: Center(child: Text("Did not find results", style: _buildTextStyle(size: 25))));
+        child:
+            Center(child: Text('common.not_found_results'.tr(), style: _buildTextStyle(size: 25))));
   }
 
   TextStyle _buildTextStyle({double? size}) {

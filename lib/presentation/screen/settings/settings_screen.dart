@@ -10,6 +10,7 @@ import 'package:check_my_bike_flutter/presentation/dialogs/language/language_dia
 import 'package:check_my_bike_flutter/presentation/dialogs/yes_no_dialog.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/info/info_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -44,25 +45,26 @@ class SettingsScreen extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Header("Settings"),
+            Header('settings_screen.settings'.tr()),
             const Spacer(),
             state is InitialState || state is GlobalProgressState
                 ? _buildGlobalProgressIndicator(context)
                 : Column(children: [
-                    SettingsItem(
-                        Icons.language, "language", _buildText(_currentLanguage?.name ?? ""),
+                    SettingsItem(Icons.language, 'settings_screen.language'.tr(),
+                        _buildText(_currentLanguage?.name ?? ""),
                         onPressed: () => _showLanguageDialog(context)),
                     _buildPadding(),
-                    SettingsItem(
-                        Icons.star, "clear favorites", _buildText(_favoritesCount.toString()),
+                    SettingsItem(Icons.star, 'settings_screen.clear_favorites'.tr(),
+                        _buildText(_favoritesCount.toString()),
                         onPressed: () =>
                             _favoritesCount > 0 ? _showClearFavoritesDialog(context) : null),
                     _buildPadding(),
-                    SettingsItem(Icons.info, "info", _buildText(_buildNumber ?? ""),
+                    SettingsItem(
+                        Icons.info, 'settings_screen.info'.tr(), _buildText(_buildNumber ?? ""),
                         onPressed: () => InfoScreen.show(context)),
                     _buildPadding(),
-                    SettingsItem(
-                        Icons.sync_alt, "Distance", _buildText(_currentDistance?.type ?? ""),
+                    SettingsItem(Icons.sync_alt, 'settings_screen.distance'.tr(),
+                        _buildText(_currentDistance?.type ?? ""),
                         onPressed: () => _showDistanceTypeDialog(context))
                   ]),
             const Spacer()
@@ -90,7 +92,7 @@ class SettingsScreen extends StatelessWidget {
     LanguageDialog(_languages, _currentLanguage!, (language) {
       _currentLanguage = language;
       _saveSettings(context);
-    }).show(context, "Language", dismissTouchOutside: true);
+    }).show(context, 'settings_screen.language'.tr(), dismissTouchOutside: true);
   }
 
   void _showClearFavoritesDialog(BuildContext context) {
@@ -105,7 +107,7 @@ class SettingsScreen extends StatelessWidget {
     DistanceSettingDialog(_distances, _currentDistance!, (distance) {
       _currentDistance = distance;
       _saveSettings(context);
-    }).show(context, "Distance");
+    }).show(context, 'settings_screen.distance'.tr());
   }
 
   void _saveSettings(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../resources/colors_res.dart';
 
 class ButtonItem extends StatelessWidget {
+  static const int _maxLineLength = 13;
   final String _text;
   final IconData _icon;
   final Function _onPressed;
@@ -20,13 +21,13 @@ class ButtonItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(_icon, color: ColorsRes.green, size: 48.0),
-                const Padding(padding: EdgeInsets.only(top: 15)),
-                Text(_text, style: _buildTextStyle())
+                Padding(padding: EdgeInsets.only(top: _text.length > _maxLineLength ? 0 : 15)),
+                Text(_text, style: _buildTextStyle(20), textAlign: TextAlign.center)
               ],
             )));
   }
 
-  TextStyle _buildTextStyle() {
-    return const TextStyle(fontFamily: 'Roboto Thin', color: Colors.white, fontSize: 20);
+  TextStyle _buildTextStyle(double fontSize) {
+    return TextStyle(fontFamily: 'Roboto Thin', color: Colors.white, fontSize: fontSize);
   }
 }

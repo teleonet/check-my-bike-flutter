@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/dialogs/button_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../domain/entity/language_entity.dart';
@@ -28,7 +29,7 @@ class LanguageDialog extends ButtonDialog {
 
   Widget _buildButton(BuildContext context) {
     return Center(
-        child: buildButton("Apply", onPressed: () {
+        child: buildButton('common.apply'.tr(), onPressed: () {
       Navigator.pop(context);
       _callback.call(_selectedLanguage);
     }));

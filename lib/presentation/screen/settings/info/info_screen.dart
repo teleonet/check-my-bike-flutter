@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -28,7 +29,7 @@ class _InfoScreenState extends State<InfoScreen> {
               height: MediaQuery.of(context).size.height - 120,
               margin: const EdgeInsets.all(15),
               padding: const EdgeInsets.all(20),
-              child: const Text("credentials"))
+              child: Text('settings_screen.credentials'.tr()))
         ]));
   }
 
@@ -46,7 +47,7 @@ class _InfoScreenState extends State<InfoScreen> {
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
-      title: const Text("info"),
+      title: Text('settings_screen.info'.tr()),
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
       titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),

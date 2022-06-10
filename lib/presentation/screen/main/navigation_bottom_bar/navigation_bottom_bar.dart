@@ -1,6 +1,7 @@
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/show_screen_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/scroll_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/show_screen_state.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -36,9 +37,9 @@ class NavigationBottomBar extends StatelessWidget {
 
   List<BottomNavigationBarItem> _buildBottomNavigationBarItems() {
     return [
-      _buildBarItem(Icons.search, 'Check'),
-      _buildBarItem(Icons.summarize, 'Manufacturers'),
-      _buildBarItem(Icons.settings_outlined, 'Settings')
+      _buildBarItem(Icons.search, 'bike_screen.check'.tr()),
+      _buildBarItem(Icons.summarize, 'manufacturer_screen.manufacturers'.tr().toLowerCase()),
+      _buildBarItem(Icons.settings_outlined, 'settings_screen.settings'.tr())
     ];
   }
 

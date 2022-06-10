@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -13,9 +14,9 @@ class ManufacturersTabController extends StatelessWidget {
 
   List<Widget> _buildTabs() {
     return [
-      _buildTabItem("All"),
-      _buildTabItem("Search"),
-      _buildTabItem("Favorites"),
+      _buildTabItem('manufacturer_screen.all'.tr()),
+      _buildTabItem('manufacturer_screen.search'.tr()),
+      _buildTabItem('common.favorites'.tr()),
     ];
   }
 

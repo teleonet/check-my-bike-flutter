@@ -1,0 +1,9 @@
+{
+  "check_screen": {
+    "check": "sprawdź rower",
+    "serial": "numer seryjny",
+    "manufacturer": "producent",
+    "custom": "do wyboru",
+    "location": "Lokalizacja"
+  }
+}

@@ -3,6 +3,7 @@ import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart
 import 'package:check_my_bike_flutter/presentation/screen/check/map/map_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/zoom/zoom_screen.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/bordered_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entity/bike_entity.dart';
@@ -37,16 +38,18 @@ class DetailsScreen extends StatelessWidget {
                         child: Column(children: [
                           _buildPhoto(_bike.largeImg),
                           const Padding(padding: EdgeInsets.only(top: 10)),
-                          _buildRowOrEmpty(context, "Serial", "${_bike.serial}"),
-                          _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}",
+                          _buildRowOrEmpty(context, 'bike_screen.serial'.tr(), "${_bike.serial}"),
+                          _buildRowOrEmpty(
+                              context, 'bike_screen.manufacturer'.tr(), "${_bike.manufacturerName}",
                               widthFactor: 0.45),
-                          _buildRowOrEmpty(context, "Status", "${_bike.status}",
+                          _buildRowOrEmpty(context, 'bike_screen.status'.tr(), "${_bike.status}",
                               valueColor: _bike.stolen ? Colors.red : Colors.white),
-                          _buildRowOrEmpty(context, "Year", "${_bike.year}"),
-                          _buildRowOrEmpty(context, "Location", "${_bike.stolenLocation}",
+                          _buildRowOrEmpty(context, 'bike_screen.year'.tr(), "${_bike.year}"),
+                          _buildRowOrEmpty(
+                              context, 'bike_screen.location'.tr(), "${_bike.stolenLocation}",
                               widthFactor: 0.55),
-                          _buildRowOrEmpty(context, "Title", "${_bike.title}"),
-                          _buildRowOrEmpty(context, "Colors",
+                          _buildRowOrEmpty(context, 'bike_screen.title'.tr(), "${_bike.title}"),
+                          _buildRowOrEmpty(context, 'bike_screen.colors'.tr(),
                               _bike.colors.toString().replaceAll("[", "").replaceAll("]", ""),
                               widthFactor: 0.6),
                           _buildMapButtonOrEmpty(context, _bike.stolenCoordinates),
@@ -71,7 +74,7 @@ class DetailsScreen extends StatelessWidget {
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
-      title: const Text("details"),
+      title: Text('bike_screen.details'.tr()),
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
       titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
@@ -141,7 +144,8 @@ class DetailsScreen extends StatelessWidget {
         decoration: _buildContainerDecoration(borderColor: ColorsRes.green, thinness: 0.1),
         padding: const EdgeInsets.only(top: 75, bottom: 75),
         width: MediaQuery.of(context).size.width,
-        child: Center(child: Text("Error load image", style: _buildTextStyle(Colors.red))));
+        child: Center(
+            child: Text('common.error_load_image'.tr(), style: _buildTextStyle(Colors.red))));
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,
@@ -188,7 +192,7 @@ class DetailsScreen extends StatelessWidget {
     LocationEntity location = LocationEntity(coordinates[0], coordinates[1]);
     return Container(
         padding: const EdgeInsets.only(top: 20),
-        child: BorderedButton("coordinates on map", onPressed: () {
+        child: BorderedButton('bike_screen.coordinates_on_map'.tr(), onPressed: () {
           MapScreen.show(context, location, (LocationEntity location, _) {}, MapMode.static,
               zoom: 15);
         }));
@@ -198,7 +202,7 @@ class DetailsScreen extends StatelessWidget {
     if (description != null && description.isNotEmpty && description != "null") {
       return Column(children: [
         const Padding(padding: EdgeInsets.only(top: 15)),
-        _buildTitle("Description"),
+        _buildTitle('bike_screen.description'.tr()),
         const Padding(padding: EdgeInsets.only(top: 15)),
         Text(description, style: _buildTextStyle(Colors.white))
       ]);

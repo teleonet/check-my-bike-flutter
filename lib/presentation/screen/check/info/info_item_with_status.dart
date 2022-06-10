@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entity/bike_entity.dart';
@@ -20,7 +21,7 @@ class InfoItemWithStatus extends InfoItem {
 
   Widget _buildStatusText(BikeEntity bike) {
     return bike.stolen
-        ? const FlashingText("Stolen", Colors.red)
+        ? FlashingText('bike_screen.stolen'.tr(), Colors.red)
         : Text("Not stolen", style: _buildTextStyle(60));
   }
 

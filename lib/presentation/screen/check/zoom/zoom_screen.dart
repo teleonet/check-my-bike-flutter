@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/presentation/router/slide_right_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
@@ -22,7 +23,6 @@ class ZoomScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: InteractiveViewer(maxScale: 50, child: _buildPhoto(_imageUrl))),
           Column(children: [_buildAppBar(context), const Spacer()])
-          // SizedBox(height: 85, child: _buildAppBar(context)),
         ]));
   }
 
@@ -40,7 +40,7 @@ class ZoomScreen extends StatelessWidget {
       backgroundColor: ColorsRes.darkGreyOpacity75,
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
-      title: const Text("zoom"),
+      title: Text('bike_screen.zoom'.tr()),
       actions: [
         Padding(
             padding: const EdgeInsets.only(right: 20),

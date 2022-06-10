@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/colors_res.dart';
@@ -24,7 +25,7 @@ class _DistanceSliderState extends State<DistanceSlider> {
         child: Material(
             color: Colors.transparent,
             child: Column(children: [
-              Text("Around you", style: _buildTextStyle(), textAlign: TextAlign.center),
+              Text('common.around_you'.tr(), style: _buildTextStyle(), textAlign: TextAlign.center),
               _buildSlider(),
               Text("${_currentValue.toInt()} " + widget._distance?.title,
                   style: _buildTextStyle(), textAlign: TextAlign.center)

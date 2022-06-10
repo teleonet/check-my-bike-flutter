@@ -15,6 +15,7 @@ import 'package:check_my_bike_flutter/domain/bloc/bike/bike_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/settings_bloc.dart';
 import 'package:check_my_bike_flutter/presentation/screen/splash/splash_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -26,10 +27,15 @@ import 'domain/bloc/navigation/navigation_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
   await _initDependencies();
 
-  runApp(const App());
+  runApp(EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('ua'), Locale('pl')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: const App()));
 
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: ColorsRes.startGradient));
@@ -65,7 +71,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.setLocale(Locale('en'));
     return MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         theme: _buildTheme(),
         debugShowCheckedModeBanner: false,
         title: 'Check My Bike',

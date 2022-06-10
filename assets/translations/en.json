@@ -1,0 +1,55 @@
+{
+  "bike_screen": {
+    "check": "Check",
+    "serial": "Serial",
+    "manufacturer": "Manufacturer",
+    "custom": "Custom",
+    "location": "Location",
+    "serial_number": "serial number",
+    "parameter": "parameter",
+    "details": "details",
+    "status": "Status",
+    "stolen": "Stolen",
+    "year": "Year",
+    "title": "Title",
+    "colors": "Colors",
+    "coordinates_on_map": "coordinates on map",
+    "zoom": "zoom",
+    "description": "Description",
+    "apply_selected_location": "Apply selected location",
+    "map": "Map",
+    "choose_distance": "Choose distance",
+    "choose_location": "choose location",
+    "around_you": "Around you",
+    "kilometers": "Kilometers",
+    "miles": "miles"
+  },
+  "manufacturer_screen": {
+    "manufacturers": "manufacturers",
+    "all": "All",
+    "search": "Search",
+    "manufacturer_name": "manufacturer's name",
+    "ask_delete_item": "Are you approve to delete {} \nfrom favorites?"
+  },
+  "settings_screen": {
+    "settings": "Settings",
+    "language": "language",
+    "clear_favorites": "clear favorites",
+    "ask_clear_favorites": "Do you want to clear all favorites?",
+    "info": "info",
+    "distance": "Distance",
+    "credentials": "Credentials"
+  },
+  "common": {
+    "favorites": "Favorites",
+    "favorites_empty": "Favorites is empty",
+    "more_then_x_symbol": "Please enter more then {} symbol",
+    "not_found_results": "Did not find results",
+    "yes": "YES",
+    "no": "NO",
+    "apply": "Apply",
+    "around_you": "Around you",
+    "error_load_image": "Error: load image",
+    "error_permissions": "Permission error. \nThe map functionality requires location permission.\n\nDo you want to open settings screen to approve permissions?"
+  }
+}

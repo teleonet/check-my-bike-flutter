@@ -6,7 +6,7 @@ import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/base/base_check_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -24,7 +24,7 @@ class ManufacturerScreen extends BaseCheckScreen {
 
   String _query = "";
 
-  ManufacturerScreen({Key? key}) : super("manufacturer", key: key);
+  ManufacturerScreen({Key? key}) : super('bike_screen.manufacturer'.tr(), key: key);
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
@@ -33,12 +33,12 @@ class ManufacturerScreen extends BaseCheckScreen {
 
   Widget _buildInputForm(BuildContext context) {
     return SliverToBoxAdapter(
-        child: InputForm("manufacturer", (textToSearch) {
+        child: InputForm('bike_screen.manufacturer'.tr().toLowerCase(), (textToSearch) {
       _query = textToSearch ?? "";
       _loadBikes(context, PaginationEntity());
     }, (textForValidator) {
       return Validator.moreThenTwoSymbols(textForValidator);
-    }, "Please enter more then 2 symbols"));
+    }, 'common.more_then_x_symbol'.tr(args: ["2"])));
   }
 
   void _loadBikes(BuildContext context, PaginationEntity pagination) {

@@ -8,6 +8,7 @@ import 'package:check_my_bike_flutter/presentation/screen/check/details/details_
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/map/map_screen.dart';
 import 'package:check_my_bike_flutter/presentation/widgets/shake_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -30,7 +31,7 @@ class LocationScreen extends BaseCheckScreen {
   LocationEntity? _location;
   int? _distance;
 
-  LocationScreen({Key? key}) : super("location", key: key);
+  LocationScreen({Key? key}) : super('bike_screen.location'.tr(), key: key);
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
@@ -42,7 +43,7 @@ class LocationScreen extends BaseCheckScreen {
     return SliverToBoxAdapter(
         child: Container(
             padding: const EdgeInsets.only(top: 10),
-            child: ShakeButton("choose location", onPressed: () async {
+            child: ShakeButton('bike_screen.choose_location'.tr(), onPressed: () async {
               bool isPermissionGranted = await _checkPermission();
               if (isPermissionGranted) {
                 _buttonKey.currentState?.setNormalState();
@@ -69,11 +70,8 @@ class LocationScreen extends BaseCheckScreen {
   }
 
   void _showErrorDialog(BuildContext context, Function() pressedNo) {
-    YesNoDialog(() => openAppSettings(), () => pressedNo.call()).show(
-        context,
-        "Permission error."
-        "\nThe map functionality requires location permission."
-        "\n\nDo you want to open settings screen to approve permissions?");
+    YesNoDialog(() => openAppSettings(), () => pressedNo.call())
+        .show(context, 'common.error_permissions'.tr());
   }
 
   Future<LocationEntity> _getLocation() async {
@@ -93,7 +91,7 @@ class LocationScreen extends BaseCheckScreen {
       _distance = value;
       _loadBikes(context, PaginationEntity());
     }, distance)
-        .show(context, "Choose distance");
+        .show(context, 'bike_screen.choose_distance'.tr());
   }
 
   void _loadBikes(BuildContext context, PaginationEntity pagination) {

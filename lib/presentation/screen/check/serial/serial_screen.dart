@@ -6,6 +6,7 @@ import 'package:check_my_bike_flutter/domain/entity/bike_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/details/details_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/info/info_item_with_status.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -23,7 +24,7 @@ class SerialScreen extends BaseCheckScreen {
 
   String _query = "";
 
-  SerialScreen({Key? key}) : super("serial", key: key);
+  SerialScreen({Key? key}) : super('bike_screen.serial'.tr(), key: key);
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
@@ -32,12 +33,12 @@ class SerialScreen extends BaseCheckScreen {
 
   Widget _buildInputForm(BuildContext context) {
     return SliverToBoxAdapter(
-        child: InputForm("serial number", (textToSearch) {
+        child: InputForm('bike_screen.serial_number'.tr(), (textToSearch) {
       _query = textToSearch ?? "";
       _loadBikes(context, PaginationEntity());
     }, (textForValidator) {
       return Validator.moreThenFourSymbols(textForValidator);
-    }, "Please enter more then 4 symbols"));
+    }, 'common.more_then_x_symbol'.tr(args: ["4"])));
   }
 
   void _loadBikes(BuildContext context, PaginationEntity pagination) {

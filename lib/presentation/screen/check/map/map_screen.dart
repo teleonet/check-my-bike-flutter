@@ -4,6 +4,7 @@ import 'package:check_my_bike_flutter/domain/bloc/navigation/state/navigation_st
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/tapped_map_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/entity/distance_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/location_entity.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -67,7 +68,7 @@ class MapScreen extends StatelessWidget {
       backgroundColor: ColorsRes.darkGreyOpacity75,
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
-      title: const Text("map"),
+      title: Text('bike_screen.map'.tr()),
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
       titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
@@ -122,7 +123,7 @@ class MapScreen extends StatelessWidget {
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
         decoration: _buildButtonDecoration(),
         child: TextButton(
-            child: _buildText("Apply selected location"),
+            child: _buildText('bike_screen.apply_selected_location'.tr()),
             onPressed: () {
               Navigator.pop(context);
               _onSelectedLocation.call(_location, _distance);

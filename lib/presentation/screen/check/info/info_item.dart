@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/entity/bike_entity.dart';
@@ -29,13 +30,15 @@ class InfoItem extends StatelessWidget {
               Column(children: [
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 _buildPhoto(_bike.largeImg, context),
-                _buildRowOrEmpty(context, "Serial", "${_bike.serial}"),
-                _buildRowOrEmpty(context, "Manufacturer", "${_bike.manufacturerName}",
+                _buildRowOrEmpty(context, 'bike_screen.serial'.tr(), "${_bike.serial}"),
+                _buildRowOrEmpty(
+                    context, 'bike_screen.manufacturer'.tr(), "${_bike.manufacturerName}",
                     widthFactor: 0.37),
-                _buildRowOrEmpty(context, "Status", "${_bike.status}",
+                _buildRowOrEmpty(context, 'bike_screen.status'.tr(), "${_bike.status}",
                     colorValue: _bike.stolen ? Colors.red : null),
-                _buildRowOrEmpty(context, "Year", "${_bike.year}"),
-                _buildRowOrEmpty(context, "Location", "${_bike.stolenLocation}", widthFactor: 0.45),
+                _buildRowOrEmpty(context, 'bike_screen.year'.tr(), "${_bike.year}"),
+                _buildRowOrEmpty(context, 'bike_screen.location'.tr(), "${_bike.stolenLocation}",
+                    widthFactor: 0.45),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 Column(children: getWidgets())
               ]),
@@ -93,7 +96,8 @@ class InfoItem extends StatelessWidget {
   }
 
   Widget _buildErrorPhotoWidget() {
-    return Center(child: Text("Error load image", style: _buildTextStyle(color: Colors.red)));
+    return Center(
+        child: Text('common.error_load_image'.tr(), style: _buildTextStyle(color: Colors.red)));
   }
 
   Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
