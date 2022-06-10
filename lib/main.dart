@@ -33,7 +33,7 @@ void main() async {
 
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ua'), Locale('pl')],
-      path: 'assets/translations',
+      path: 'assets/langs',
       fallbackLocale: const Locale('en'),
       child: const App()));
 
@@ -71,7 +71,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.setLocale(Locale('en'));
     return MaterialApp(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
