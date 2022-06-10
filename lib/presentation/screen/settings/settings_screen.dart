@@ -100,7 +100,7 @@ class SettingsScreen extends StatelessWidget {
       _clearFavorites = true;
       _saveSettings(context);
     }, () {})
-        .show(context, "Do you want to clear all favorites ?");
+        .show(context, 'settings_screen.ask_clear_favorites'.tr());
   }
 
   void _showDistanceTypeDialog(BuildContext context) {

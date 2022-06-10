@@ -6,6 +6,6 @@ part '../adapter/language_dto.g.dart';
 class LanguageDbDTO {
   @HiveField(0)
   String? iconPath;
-  @HiveField(1, defaultValue: "eng")
+  @HiveField(1)
   String? name;
 }

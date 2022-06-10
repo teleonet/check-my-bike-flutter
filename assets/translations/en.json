@@ -20,9 +20,7 @@
     "map": "Map",
     "choose_distance": "Choose distance",
     "choose_location": "choose location",
-    "around_you": "Around you",
-    "kilometers": "Kilometers",
-    "miles": "miles"
+    "around_you": "Around you"
   },
   "manufacturer_screen": {
     "manufacturers": "manufacturers",
@@ -50,6 +48,8 @@
     "apply": "Apply",
     "around_you": "Around you",
     "error_load_image": "Error: load image",
-    "error_permissions": "Permission error. \nThe map functionality requires location permission.\n\nDo you want to open settings screen to approve permissions?"
+    "error_permissions": "Permission error. \nThe map functionality requires location permission.\n\nDo you want to open settings screen to approve permissions?",
+    "kilometers": "kilometers",
+    "miles": "miles"
   }
 }
