@@ -13,6 +13,6 @@ class LanguageMapper {
   }
 
   static LanguageEntity dtoToEntity(LanguageDbDTO? dto) {
-    return LanguageEntity(dto?.name ?? "EN", dto?.iconPath ?? 'assets/icons/ic_flag_eng.png');
+    return LanguageEntity(dto?.name ?? "en", dto?.iconPath ?? 'assets/icons/ic_flag_eng.png');
   }
 }

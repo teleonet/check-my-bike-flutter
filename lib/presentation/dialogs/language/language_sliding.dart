@@ -7,11 +7,16 @@ class LanguageSliding extends StatefulWidget {
   final List<LanguageEntity> _languages;
   final LanguageEntity _selectedLanguage;
   final Function(LanguageEntity) _onChangedLanguage;
-  int _currentLanguageIndex = 0;
+  int _currentIndex = 0;
 
   LanguageSliding(this._languages, this._selectedLanguage, this._onChangedLanguage, {Key? key})
       : super(key: key) {
-    _currentLanguageIndex = _languages.indexWhere((item) => item.name == _selectedLanguage.name);
+    for (int index = 0; index < _languages.length; index++) {
+      if (_languages[index].name == _selectedLanguage.name) {
+        _currentIndex = index;
+        break;
+      }
+    }
   }
 
   @override
@@ -24,12 +29,12 @@ class _LanguageSlidingState extends State<LanguageSliding> {
     return CupertinoSlidingSegmentedControl(
         backgroundColor: ColorsRes.darkGrey,
         thumbColor: ColorsRes.endGradient,
-        groupValue: widget._currentLanguageIndex,
+        groupValue: widget._currentIndex,
         children: _buildWidgetsMap(),
         onValueChanged: (currentLanguageIndex) {
-          setState(() => widget._currentLanguageIndex = currentLanguageIndex as int);
+          setState(() => widget._currentIndex = currentLanguageIndex as int);
 
-          LanguageEntity language = widget._languages[widget._currentLanguageIndex];
+          LanguageEntity language = widget._languages[widget._currentIndex];
           widget._onChangedLanguage.call(language);
         });
   }
