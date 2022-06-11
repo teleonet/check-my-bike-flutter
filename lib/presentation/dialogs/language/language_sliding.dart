@@ -11,12 +11,18 @@ class LanguageSliding extends StatefulWidget {
 
   LanguageSliding(this._languages, this._selectedLanguage, this._onChangedLanguage, {Key? key})
       : super(key: key) {
+    _currentIndex = _getCurrentIndex();
+  }
+
+  int _getCurrentIndex() {
+    int currentIndex = 0;
     for (int index = 0; index < _languages.length; index++) {
       if (_languages[index].name == _selectedLanguage.name) {
-        _currentIndex = index;
+        currentIndex = index;
         break;
       }
     }
+    return currentIndex;
   }
 
   @override
