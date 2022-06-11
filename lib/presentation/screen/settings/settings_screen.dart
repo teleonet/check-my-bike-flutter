@@ -90,6 +90,9 @@ class SettingsScreen extends StatelessWidget {
 
   void _showLanguageDialog(BuildContext context) {
     LanguageDialog(_languages, _currentLanguage!, (language) {
+      if (_currentLanguage?.name != language.name) {
+        context.setLocale(Locale(language.name));
+      }
       _currentLanguage = language;
       _saveSettings(context);
     }).show(context, 'settings_screen.language'.tr(), dismissTouchOutside: true);

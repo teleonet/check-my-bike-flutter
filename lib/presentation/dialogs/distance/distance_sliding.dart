@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../domain/entity/distance_entity.dart';
@@ -51,8 +52,14 @@ class _DistanceSlidingState extends State<DistanceSliding> {
   }
 
   Widget _buildWidget(int index, DistanceEntity distanceItem) {
-    return SizedBox(
-        height: 50, child: Center(child: Text(distanceItem.title, style: _buildTextStyle())));
+    String title = '';
+    if (distanceItem.type == "km") {
+      title = 'common.kilometers'.tr();
+    }
+    if (distanceItem.type == "ml") {
+      title = 'common.miles'.tr();
+    }
+    return SizedBox(height: 50, child: Center(child: Text(title, style: _buildTextStyle())));
   }
 
   TextStyle _buildTextStyle() {
