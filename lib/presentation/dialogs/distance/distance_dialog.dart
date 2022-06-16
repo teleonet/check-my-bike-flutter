@@ -6,7 +6,7 @@ import '../../widgets/distance_slider.dart';
 
 class DistanceDialog extends ButtonDialog {
   final Function(int) _onChooseDistance;
-  final DistanceEntity? _distance;
+  final DistanceEntity _distance;
   int _defaultDistance = 1;
 
   DistanceDialog(this._onChooseDistance, this._distance);

@@ -6,7 +6,7 @@ import '../../resources/colors_res.dart';
 
 class DistanceSlider extends StatefulWidget {
   final Function(int) _onChanged;
-  final DistanceEntity? _distance;
+  final DistanceEntity _distance;
 
   const DistanceSlider(this._onChanged, this._distance, {Key? key}) : super(key: key);
 
@@ -27,7 +27,7 @@ class _DistanceSliderState extends State<DistanceSlider> {
             child: Column(children: [
               Text('common.around_you'.tr(), style: _buildTextStyle(), textAlign: TextAlign.center),
               _buildSlider(),
-              Text("${_currentValue.toInt()} " + widget._distance?.title,
+              Text("${_currentValue.toInt()} " + _buildTitle(widget._distance),
                   style: _buildTextStyle(), textAlign: TextAlign.center)
             ])));
   }
@@ -66,5 +66,16 @@ class _DistanceSliderState extends State<DistanceSlider> {
   double _convertKmToMiles(double miles) {
     const kmInOneMile = 0.62;
     return miles * kmInOneMile;
+  }
+
+  String _buildTitle(DistanceEntity distance) {
+    String title = "";
+    if (distance.type == "km") {
+      title = 'common.kilometers'.tr();
+    }
+    if (distance.type == "ml") {
+      title = 'common.miles'.tr();
+    }
+    return title;
   }
 }

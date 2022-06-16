@@ -90,7 +90,7 @@ class LocationScreen extends BaseCheckScreen {
     DistanceDialog((value) {
       _distance = value;
       _loadBikes(context, PaginationEntity());
-    }, distance)
+    }, distance!)
         .show(context, 'bike_screen.choose_distance'.tr());
   }
 
