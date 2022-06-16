@@ -1,0 +1,55 @@
+{
+  "bike_screen": {
+    "check": "Rewizja",
+    "serial": "Numer seryjny",
+    "manufacturer": "Producent",
+    "custom": "Twój parametr",
+    "location": "Lokalizacja",
+    "serial_number": "numer seryjny",
+    "parameter": "parametr",
+    "details": "bardziej szczegółowo",
+    "status": "Status",
+    "stolen": "Skradziony",
+    "year": "Rok",
+    "title": "Nazwa",
+    "colors": "Zabarwienie",
+    "coordinates_on_map": "współrzędne na mapie",
+    "zoom": "skalowanie",
+    "description": "Opis",
+    "apply_selected_location": "Zastosuj lokalizację",
+    "map": "Mapa",
+    "choose_distance": "Wybierz odległość",
+    "choose_location": "wybierz lokalizację",
+    "around_you": "Wokół ciebie"
+  },
+  "manufacturer_screen": {
+    "manufacturers": "Producent",
+    "all": "Wszystko",
+    "search": "Szukaj",
+    "manufacturer_name": "Nazwa producenta",
+    "ask_delete_item": "Zgadzasz się usunąć {}\nulubionych?"
+  },
+  "settings_screen": {
+    "settings": "Ustawienia",
+    "language": "język",
+    "clear_favorites": "usuń ulubione",
+    "ask_clear_favorites": "Czy chcesz usunąć wszystkie ulubione?",
+    "info": "Informacja",
+    "distance": "Dystans",
+    "credentials": "Kwalifikacje"
+  },
+  "common": {
+    "favorites": "Ulubione",
+    "favorites_empty": "Brak ulubionych",
+    "more_then_x_symbol": "Wpisz więcej niż {} znaków",
+    "not_found_results": "Nic nie znaleziono",
+    "yes": "TAK",
+    "no": "NIE",
+    "apply": "Stosować",
+    "around_you": "Wokół ciebie",
+    "error_load_image": "Błąd podczas ładowania obrazu",
+    "error_permissions": "Błąd uprawnień.\nAby mapa działała, wymagane jest pozwolenie na lokalizację.\n\nCzy chcesz otworzyć ekran ustawień, aby zatwierdzić rozdzielczość?",
+    "kilometers": "kilometrów",
+    "miles": "mile"
+  }
+}

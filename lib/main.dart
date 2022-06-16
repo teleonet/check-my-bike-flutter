@@ -32,8 +32,8 @@ void main() async {
   await _initDependencies();
 
   runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ua'), Locale('pl')],
-      path: 'assets/langs',
+      supportedLocales: const [Locale('en'), Locale('lo'), Locale('pl')],
+      path: 'assets/languages',
       fallbackLocale: const Locale('en'),
       child: const App()));
 

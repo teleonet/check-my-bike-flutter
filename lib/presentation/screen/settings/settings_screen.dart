@@ -90,8 +90,9 @@ class SettingsScreen extends StatelessWidget {
 
   void _showLanguageDialog(BuildContext context) {
     LanguageDialog(_languages, _currentLanguage!, (language) {
+      String languageName = language.name!.replaceAll('ua', 'lo');
       if (_currentLanguage?.name != language.name) {
-        context.setLocale(Locale(language.name));
+        context.setLocale(Locale(languageName));
       }
       _currentLanguage = language;
       _saveSettings(context);
