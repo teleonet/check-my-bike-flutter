@@ -27,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initState() {
     _animationController = _buildAnimationController();
     _animationController?.addStatusListener(_animationListener);
-    _animationController?.forward();
+
+    Timer(const Duration(milliseconds: 500), () => _animationController?.forward());
 
     super.initState();
   }
