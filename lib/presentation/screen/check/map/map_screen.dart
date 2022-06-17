@@ -34,6 +34,10 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_distance == null) {
+      LocationEntity location = LocationEntity(_location.latitude, _location.longitude);
+      context.isolateBloc<NavigationBloc, NavigationState>().add(TappedMapScreenEvent(location));
+    }
     return IsolateBlocBuilder<NavigationBloc, NavigationState>(builder: (context, state) {
       if (state is TappedMapScreenState) {
         _location = state.location;
