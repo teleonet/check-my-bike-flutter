@@ -55,7 +55,7 @@ class _DistanceSliderState extends State<DistanceSlider> {
         max: 20,
         value: _currentValue,
         onChangeEnd: (double value) {
-          if (widget._distance?.type == "km") {
+          if (widget._distance.type == "km") {
             value = _convertKmToMiles(value);
           }
           widget._onChanged.call(value.toInt());
