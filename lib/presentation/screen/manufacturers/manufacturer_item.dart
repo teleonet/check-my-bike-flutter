@@ -37,7 +37,7 @@ class _ManufacturerItemState extends State<ManufacturerItem> {
                     const Padding(padding: EdgeInsets.only(top: 10)),
                     AutoScrollText(
                         widget._manufacturer.companyUrl, MediaQuery.of(context).size.width * 0.65,
-                        textStyle: _buildTextStyle(Colors.white, 20)),
+                        textStyle: _buildTextStyle(Colors.white, 20), duration: 2000),
                     const Padding(padding: EdgeInsets.only(top: 10)),
                     _buildPhoto(widget._manufacturer.imageUrl)
                   ])),

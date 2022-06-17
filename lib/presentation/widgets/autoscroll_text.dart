@@ -8,9 +8,10 @@ class AutoScrollText extends StatefulWidget {
   final double? fontSize;
   final Color? textColor;
   final TextStyle? textStyle;
+  final int duration;
 
   const AutoScrollText(this._text, this._width,
-      {this.fontSize, this.textColor, this.textStyle, Key? key})
+      {this.fontSize, this.textColor, this.textStyle, this.duration = 1500, Key? key})
       : super(key: key);
 
   @override
@@ -67,7 +68,7 @@ class _AutoScrollTextState extends State<AutoScrollText> {
   }
 
   Future<void> _scrollTo(double offset) async {
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(Duration(milliseconds: widget.duration));
 
     if (scrollController.hasClients) {
       return scrollController.animateTo(offset,
