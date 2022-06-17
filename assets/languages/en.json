@@ -36,7 +36,7 @@
     "ask_clear_favorites": "Do you want to clear all favorites?",
     "info": "info",
     "distance": "Distance",
-    "credentials": "Credentials"
+    "credentials": "The application uses api from resource www.bikeindex.org \n\nYour questions you can write to email info@apptuns.com"
   },
   "common": {
     "favorites": "Favorites",

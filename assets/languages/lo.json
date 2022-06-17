@@ -36,7 +36,7 @@
     "ask_clear_favorites": "Ви хочете видалити всі вибрані?",
     "info": "інформація",
     "distance": "Відстань",
-    "credentials": "Облікові дані"
+    "credentials": "Додаток використовує api ресурсу www.bikeindex.org \n\nВаші питання надсилайте за адресою info@apptuns.com"
   },
   "common": {
     "favorites": "Вибране",

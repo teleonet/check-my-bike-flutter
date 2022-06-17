@@ -29,7 +29,7 @@ class _InfoScreenState extends State<InfoScreen> {
               height: MediaQuery.of(context).size.height - 120,
               margin: const EdgeInsets.all(15),
               padding: const EdgeInsets.all(20),
-              child: Text('settings_screen.credentials'.tr()))
+              child: Text('settings_screen.credentials'.tr(), style: _buildTextStyle()))
         ]));
   }
 
@@ -73,5 +73,14 @@ class _InfoScreenState extends State<InfoScreen> {
         color: Colors.transparent,
         border: Border.all(color: ColorsRes.green, width: 0.2),
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
+  }
+
+  TextStyle _buildTextStyle() {
+    return TextStyle(
+        decoration: TextDecoration.none,
+        fontWeight: FontWeight.bold,
+        color: ColorsRes.green,
+        fontFamily: 'Roboto Thin',
+        fontSize: 20);
   }
 }

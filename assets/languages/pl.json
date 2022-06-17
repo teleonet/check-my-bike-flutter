@@ -36,7 +36,7 @@
     "ask_clear_favorites": "Czy chcesz usunąć wszystkie ulubione?",
     "info": "Informacja",
     "distance": "Dystans",
-    "credentials": "Kwalifikacje"
+    "credentials": "Aplikacja korzysta z api zasobu www.bikeindex.org \n\nWyślij swoje pytania na adres info@apptuns.com"
   },
   "common": {
     "favorites": "Ulubione",
