@@ -1,3 +1,4 @@
+import 'package:check_my_bike_flutter/domain/bloc/navigation/event/localization_screen_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/event/load_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/settings_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/settings/state/initial_state.dart';
@@ -14,6 +15,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
+import '../../../domain/bloc/navigation/navigation_bloc.dart';
+import '../../../domain/bloc/navigation/state/navigation_state.dart';
 import '../../../domain/bloc/settings/event/save_settings_event.dart';
 import '../../../domain/bloc/settings/state/global_progress_state.dart';
 import '../../../resources/colors_res.dart';
@@ -96,6 +99,7 @@ class SettingsScreen extends StatelessWidget {
       }
       _currentLanguage = language;
       _saveSettings(context);
+      _sendChangeLocalizationEvent(context);
     }).show(context, 'settings_screen.language'.tr(), dismissTouchOutside: true);
   }
 
@@ -118,6 +122,10 @@ class SettingsScreen extends StatelessWidget {
     context
         .isolateBloc<SettingsBloc, SettingsState>()
         .add(SaveSettingsEvent(_currentLanguage!, _currentDistance!, _clearFavorites));
+  }
+
+  void _sendChangeLocalizationEvent(BuildContext context) {
+    context.isolateBloc<NavigationBloc, NavigationState>().add(LocalizationScreenEvent());
   }
 
   void _loadSettings(BuildContext context) {

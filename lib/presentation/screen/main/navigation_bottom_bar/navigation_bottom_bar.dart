@@ -1,4 +1,5 @@
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/show_screen_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/navigation/state/localization_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/scroll_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/show_screen_state.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,6 +20,7 @@ class NavigationBottomBar extends StatelessWidget {
     int _index = 0;
     return IsolateBlocBuilder<NavigationBloc, NavigationState>(builder: (context, state) {
       _index = state is ShowScreenState ? MainScreenType.values.indexOf(state.screen) : _index;
+      state is LocalizationScreenState ? barItems = _buildBottomNavigationBarItems() : null;
       Color color = _index == 1 ? ColorsRes.endGradient : Colors.transparent;
       return Theme(
           data: _buildTheme(context),
@@ -32,6 +34,8 @@ class NavigationBottomBar extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 1),
                     child: _buildBottomNavigationBar(_index, context, barItems, color))
               ])));
+    }, buildWhen: (prev, next) {
+      return next is ShowScreenState || next is LocalizationScreenState;
     });
   }
 

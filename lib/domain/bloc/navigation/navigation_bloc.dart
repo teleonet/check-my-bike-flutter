@@ -1,8 +1,10 @@
 import 'package:check_my_bike_flutter/data/repository/settings/settings_repository.dart';
+import 'package:check_my_bike_flutter/domain/bloc/navigation/event/localization_screen_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/navigation_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/scroll_screen_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/show_screen_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/event/tapped_map_screen_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/navigation/state/localization_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/manufacturer_screen_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/navigation_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/scroll_screen_state.dart';
@@ -41,6 +43,8 @@ class NavigationBloc extends IsolateBloc<NavigationEvent, NavigationState> {
       emit(TappedMapScreenState(location, distance));
     } else if (event is ManufacturerScreenEvent) {
       emit(ManufacturerScreenState(event.screen));
+    } else if (event is LocalizationScreenEvent) {
+      emit(LocalizationScreenState());
     }
   }
 }
