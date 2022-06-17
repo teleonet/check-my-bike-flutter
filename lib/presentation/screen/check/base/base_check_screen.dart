@@ -84,17 +84,11 @@ abstract class BaseCheckScreen extends StatelessWidget {
         title: Text(_title),
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-        titleTextStyle: _buildTextStyle(),
+        titleTextStyle: _buildTextStyle(size: _title.length > 10 ? 28 : 35),
         actions: [_buildFavoritesButton(context)],
         leading: IconButton(
             icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
             onPressed: () => Navigator.pop(context)));
-  }
-
-  Widget _buildFavoritesButton(BuildContext context) {
-    return TextButton(
-        onPressed: () => FavoritesScreen.show(context),
-        child: const Icon(Icons.star_outline_sharp, size: 30));
   }
 
   OutlinedBorder _buildAppBarBorder() {
@@ -102,6 +96,12 @@ abstract class BaseCheckScreen extends StatelessWidget {
         side: BorderSide(width: 0.15, color: ColorsRes.green),
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+  }
+
+  Widget _buildFavoritesButton(BuildContext context) {
+    return TextButton(
+        onPressed: () => FavoritesScreen.show(context),
+        child: const Icon(Icons.star_outline_sharp, size: 30));
   }
 
   Widget _buildGlobalProgressIndicator(BuildContext context) {

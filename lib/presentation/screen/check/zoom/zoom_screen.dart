@@ -48,7 +48,10 @@ class ZoomScreen extends StatelessWidget {
       ],
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
+      titleTextStyle: TextStyle(
+          fontFamily: 'Roboto Thin',
+          color: ColorsRes.green,
+          fontSize: 'bike_screen.zoom'.tr().length > 10 ? 30 : 35),
       leading: _buildBackButton(context),
     );
   }

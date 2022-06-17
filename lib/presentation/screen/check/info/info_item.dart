@@ -30,7 +30,8 @@ class InfoItem extends StatelessWidget {
               Column(children: [
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 _buildPhoto(_bike.largeImg, context),
-                _buildRowOrEmpty(context, 'bike_screen.serial'.tr(), "${_bike.serial}"),
+                _buildRowOrEmpty(context, 'bike_screen.serial'.tr(), "${_bike.serial}",
+                    widthFactor: 'bike_screen.serial'.tr().length > 10 ? 0.3 : 0.35),
                 _buildRowOrEmpty(
                     context, 'bike_screen.manufacturer'.tr(), "${_bike.manufacturerName}",
                     widthFactor: 0.37),
@@ -126,7 +127,7 @@ class InfoItem extends StatelessWidget {
 
   Widget _buildValueText(BuildContext context, String value, {Color? color, double? widthFactor}) {
     Widget widget = Text(value, style: _buildTextStyle(color: color));
-    if (value.length > 18) {
+    if (value.length > 10) {
       widget = AutoScrollText(value, MediaQuery.of(context).size.width * (widthFactor ?? 0.5));
     }
     return widget;

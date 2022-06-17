@@ -20,9 +20,10 @@ class InfoItemWithStatus extends InfoItem {
   }
 
   Widget _buildStatusText(BikeEntity bike) {
+    double fontSize = 'bike_screen.stolen'.tr().length > 10 ? 70 : 60;
     return bike.stolen
-        ? FlashingText('bike_screen.stolen'.tr(), Colors.red)
-        : Text("Not stolen", style: _buildTextStyle(60));
+        ? FlashingText('bike_screen.stolen'.tr(), Colors.red, fontSize: fontSize)
+        : Text("Not stolen", style: _buildTextStyle(50));
   }
 
   TextStyle _buildTextStyle(double fontSize) {

@@ -47,8 +47,9 @@ class DetailsScreen extends StatelessWidget {
                           _buildRowOrEmpty(context, 'bike_screen.year'.tr(), "${_bike.year}"),
                           _buildRowOrEmpty(
                               context, 'bike_screen.location'.tr(), "${_bike.stolenLocation}",
-                              widthFactor: 0.55),
-                          _buildRowOrEmpty(context, 'bike_screen.title'.tr(), "${_bike.title}"),
+                              widthFactor: _bike.stolenLocation.length > 10 ? 0.5 : 0.55),
+                          _buildRowOrEmpty(context, 'bike_screen.title'.tr(), "${_bike.title}",
+                              widthFactor: _bike.title.length > 10 ? 0.6 : 1),
                           _buildRowOrEmpty(context, 'bike_screen.colors'.tr(),
                               _bike.colors.toString().replaceAll("[", "").replaceAll("]", ""),
                               widthFactor: 0.6),
@@ -77,7 +78,10 @@ class DetailsScreen extends StatelessWidget {
       title: Text('bike_screen.details'.tr()),
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
+      titleTextStyle: TextStyle(
+          fontFamily: 'Roboto Thin',
+          color: ColorsRes.green,
+          fontSize: 'bike_screen.details'.tr().length > 10 ? 27 : 35),
       leading: _buildBackButton(context),
     );
   }
