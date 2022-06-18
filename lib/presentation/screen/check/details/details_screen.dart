@@ -38,7 +38,8 @@ class DetailsScreen extends StatelessWidget {
                         child: Column(children: [
                           _buildPhoto(_bike.largeImg),
                           const Padding(padding: EdgeInsets.only(top: 10)),
-                          _buildRowOrEmpty(context, 'bike_screen.serial'.tr(), "${_bike.serial}"),
+                          _buildRowOrEmpty(context, 'bike_screen.serial'.tr(), "${_bike.serial}",
+                              widthFactor: _bike.serial.length > 10 ? 0.38 : 0.65),
                           _buildRowOrEmpty(
                               context, 'bike_screen.manufacturer'.tr(), "${_bike.manufacturerName}",
                               widthFactor: 0.45),
@@ -172,7 +173,7 @@ class DetailsScreen extends StatelessWidget {
 
   Widget _buildValue(BuildContext context, String value, {Color? textColor, double? widthFactor}) {
     Widget widget = Text(value, style: _buildTextStyle(textColor ?? Colors.white));
-    if (value.length > 20) {
+    if (value.length > 15) {
       widget = _buildAutoScrollText(context, value, textColor: textColor, widthFactor: widthFactor);
     }
     return widget;
