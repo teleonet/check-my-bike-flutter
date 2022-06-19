@@ -53,7 +53,7 @@ class DetailsScreen extends StatelessWidget {
                               widthFactor: _bike.title.length > 10 ? 0.6 : 1),
                           _buildRowOrEmpty(context, 'bike_screen.colors'.tr(),
                               _bike.colors.toString().replaceAll("[", "").replaceAll("]", ""),
-                              widthFactor: 0.6),
+                              widthFactor: 0.5),
                           _buildMapButtonOrEmpty(context, _bike.stolenCoordinates),
                           _buildDescriptionOrEmpty(_bike.description),
                           const Padding(padding: EdgeInsets.only(top: 10)),
@@ -173,7 +173,7 @@ class DetailsScreen extends StatelessWidget {
 
   Widget _buildValue(BuildContext context, String value, {Color? textColor, double? widthFactor}) {
     Widget widget = Text(value, style: _buildTextStyle(textColor ?? Colors.white));
-    if (value.length > 15) {
+    if (value.length >= 12) {
       widget = _buildAutoScrollText(context, value, textColor: textColor, widthFactor: widthFactor);
     }
     return widget;

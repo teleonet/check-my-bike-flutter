@@ -8,9 +8,11 @@ import 'package:isolate_bloc/isolate_bloc.dart';
 import '../../../../domain/bloc/manufacturer/event/load/load_all_event.dart';
 import '../../../../domain/bloc/manufacturer/manufacturer_bloc.dart';
 import '../../../../domain/bloc/manufacturer/state/manufacturer_state.dart';
-import '../base/base_manufacturers_screen.dart';
+import '../base/base_manufacturer_screen.dart';
 
-class ManufacturersAllScreen extends BaseManufacturersScreen {
+class ManufacturerAllScreen extends BaseManufacturerScreen {
+  ManufacturerAllScreen({Key? key}) : super(key: key);
+
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
     return [];

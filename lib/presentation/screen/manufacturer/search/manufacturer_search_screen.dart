@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/add_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
-import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/base_manufacturers_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/manufacturer/base/base_manufacturer_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -13,8 +13,10 @@ import '../../../../domain/bloc/manufacturer/state/manufacturer_state.dart';
 import '../../../validator/validator.dart';
 import '../../../widgets/input_form/input_form.dart';
 
-class ManufacturersSearchScreen extends BaseManufacturersScreen {
+class ManufacturerSearchScreen extends BaseManufacturerScreen {
   String _query = "";
+
+  ManufacturerSearchScreen({Key? key}) : super(key: key);
 
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {

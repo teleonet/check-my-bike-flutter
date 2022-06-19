@@ -43,23 +43,22 @@ class _InfoScreenState extends State<InfoScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      toolbarHeight: 65,
-      backgroundColor: Colors.transparent,
-      shadowColor: Colors.transparent,
-      shape: _buildAppBarBorder(),
-      title: Text('settings_screen.info'.tr()),
-      centerTitle: true,
-      iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
-      leading: _buildIconButton(),
-    );
+        toolbarHeight: 65,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        shape: _buildAppBarBorder(),
+        title: Text('settings_screen.info'.tr()),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
+        titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
+        leading: _buildIconButton());
   }
 
   OutlinedBorder _buildAppBarBorder() {
+    Radius radius = const Radius.circular(30);
     return RoundedRectangleBorder(
         side: BorderSide(width: 0.15, color: ColorsRes.green),
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+        borderRadius: BorderRadius.only(bottomLeft: radius, bottomRight: radius));
   }
 
   Widget _buildIconButton() {

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../resources/colors_res.dart';
 
-class ManufacturersTabController extends StatelessWidget {
+class ManufacturerTabController extends StatelessWidget {
   final Function(int) _onClickedTab;
   List<Widget> _tabs = [];
   int _currentIndex = -1;
 
-  ManufacturersTabController(this._onClickedTab, {Key? key}) : super(key: key) {
+  ManufacturerTabController(this._onClickedTab, {Key? key}) : super(key: key) {
     _tabs = _buildTabs();
   }
 

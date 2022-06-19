@@ -139,7 +139,6 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         context.setLocale(Locale(languageName));
       }
       _currentLanguage = language;
-      // _saveSettings(context);
       _showMainScreen();
     }).show(context, 'settings_screen.language'.tr(), dismissTouchOutside: true);
   }

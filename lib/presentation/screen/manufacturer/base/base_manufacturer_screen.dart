@@ -19,8 +19,10 @@ import '../../../../domain/entity/pagination_entity.dart';
 import '../../../../resources/colors_res.dart';
 import '../manufacturer_item.dart';
 
-abstract class BaseManufacturersScreen extends StatelessWidget {
+abstract class BaseManufacturerScreen extends StatelessWidget {
   PaginationEntity _pagination = PaginationEntity();
+
+  BaseManufacturerScreen({Key? key}) : super(key: key);
 
   @protected
   List<Widget> buildInheritorWidgets(BuildContext context);
@@ -118,11 +120,9 @@ abstract class BaseManufacturersScreen extends StatelessWidget {
     String companyUrl = manufacturer.companyUrl;
     bool isFavorite = manufacturer.favorite;
 
-    return ManufacturerItem(
-        manufacturer,
-        (manufacturer) =>
-            isFavorite ? removeFavorite(context, manufacturer) : addFavorite(context, manufacturer),
-        (manufacturer) => _openURL(companyUrl));
+    return ManufacturerItem(manufacturer, (manufacturer) {
+      isFavorite ? removeFavorite(context, manufacturer) : addFavorite(context, manufacturer);
+    }, (manufacturer) => _openURL(companyUrl));
   }
 
   void _openURL(String url) async {

@@ -1,6 +1,5 @@
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/navigation_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/navigation/state/show_screen_state.dart';
-import 'package:check_my_bike_flutter/presentation/screen/manufacturers/manufacturers_screen.dart';
 import 'package:check_my_bike_flutter/presentation/screen/settings/settings_screen.dart';
 import 'package:check_my_bike_flutter/resources/colors_res.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:isolate_bloc/isolate_bloc.dart';
 import '../../../domain/bloc/navigation/navigation_bloc.dart';
 import '../../router/slide_right_route.dart';
 import '../check/check_screen.dart';
+import '../check/manufacturer/manufacturer_screen.dart';
 import 'navigation_bottom_bar/navigation_bottom_bar.dart';
 
 class MainScreen extends StatelessWidget {
@@ -55,7 +55,7 @@ class MainScreen extends StatelessWidget {
           _currentScreen = const CheckScreen();
           break;
         case MainScreenType.manufacturer:
-          _currentScreen = ManufacturersScreen();
+          _currentScreen = ManufacturerScreen();
           break;
         case MainScreenType.settings:
           _currentScreen = SettingsScreen();

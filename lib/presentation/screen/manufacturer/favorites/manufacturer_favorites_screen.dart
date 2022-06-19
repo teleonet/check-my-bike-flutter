@@ -1,7 +1,7 @@
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_favorites_event.dart';
 import 'package:check_my_bike_flutter/domain/entity/manufacturer_entity.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
-import 'package:check_my_bike_flutter/presentation/screen/manufacturers/base/base_manufacturers_screen.dart';
+import 'package:check_my_bike_flutter/presentation/screen/manufacturer/base/base_manufacturer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
@@ -10,7 +10,9 @@ import '../../../../domain/bloc/manufacturer/event/favorite/remove_favorite_even
 import '../../../../domain/bloc/manufacturer/manufacturer_bloc.dart';
 import '../../../../domain/bloc/manufacturer/state/manufacturer_state.dart';
 
-class ManufacturersFavoritesScreen extends BaseManufacturersScreen {
+class ManufacturerFavoritesScreen extends BaseManufacturerScreen {
+  ManufacturerFavoritesScreen({Key? key}) : super(key: key);
+
   @override
   List<Widget> buildInheritorWidgets(BuildContext context) {
     return [];

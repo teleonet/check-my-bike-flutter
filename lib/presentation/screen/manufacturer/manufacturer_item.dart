@@ -7,7 +7,7 @@ import '../../../resources/colors_res.dart';
 import '../../dialogs/yes_no_dialog.dart';
 import '../check/zoom/zoom_screen.dart';
 
-class ManufacturerItem extends StatefulWidget {
+class ManufacturerItem extends StatelessWidget {
   final ManufacturerEntity _manufacturer;
   final Function(ManufacturerEntity) _onFavoritePressed;
   final Function(ManufacturerEntity) _onItemPressed;
@@ -17,32 +17,27 @@ class ManufacturerItem extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ManufacturerItemState createState() => _ManufacturerItemState();
-}
-
-class _ManufacturerItemState extends State<ManufacturerItem> {
-  @override
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 5),
         decoration: _buildLeftLineDecoration(),
         child: TextButton(
             style: _buildButtonStyle(),
-            onPressed: () => widget._onItemPressed.call(widget._manufacturer),
+            onPressed: () => _onItemPressed.call(_manufacturer),
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
                   margin: const EdgeInsets.only(left: 20, top: 10),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(widget._manufacturer.name, style: _buildTextStyle(ColorsRes.green, 16)),
+                    Text(_manufacturer.name, style: _buildTextStyle(ColorsRes.green, 16)),
                     const Padding(padding: EdgeInsets.only(top: 10)),
                     AutoScrollText(
-                        widget._manufacturer.companyUrl, MediaQuery.of(context).size.width * 0.65,
+                        _manufacturer.companyUrl, MediaQuery.of(context).size.width * 0.65,
                         textStyle: _buildTextStyle(Colors.white, 20), duration: 2000),
                     const Padding(padding: EdgeInsets.only(top: 10)),
-                    _buildPhoto(widget._manufacturer.imageUrl)
+                    _buildPhoto(_manufacturer.imageUrl)
                   ])),
               const Spacer(),
-              _buildTextButton()
+              _buildTextButton(context)
             ])));
   }
 
@@ -88,7 +83,7 @@ class _ManufacturerItemState extends State<ManufacturerItem> {
   Widget _buildImageContainer(Widget image, Function pressedFullScreen, BuildContext context) {
     return TextButton(
         onPressed: () => pressedFullScreen.call(),
-        child: Container(
+        child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
             child: Stack(children: [
               Container(
@@ -117,12 +112,12 @@ class _ManufacturerItemState extends State<ManufacturerItem> {
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
-  Widget _buildTextButton() {
+  Widget _buildTextButton(BuildContext context) {
     return TextButton(
         child: _buildFavoriteIcon(),
         onPressed: () {
-          if (widget._manufacturer.favorite) {
-            _showDeleteFavoriteDialog(() => _changeIsFavoriteAndInvokeCallback(false));
+          if (_manufacturer.favorite) {
+            _showDeleteFavoriteDialog(context, () => _changeIsFavoriteAndInvokeCallback(false));
           } else {
             _changeIsFavoriteAndInvokeCallback(true);
           }
@@ -130,18 +125,18 @@ class _ManufacturerItemState extends State<ManufacturerItem> {
   }
 
   Icon _buildFavoriteIcon() {
-    return widget._manufacturer.favorite
+    return _manufacturer.favorite
         ? Icon(Icons.star, size: 30, color: ColorsRes.green)
         : const Icon(Icons.star_outline_sharp, size: 30, color: Colors.white);
   }
 
-  void _showDeleteFavoriteDialog(Function deletePressed) {
-    YesNoDialog(() => deletePressed.call(), () => {}).show(
-        context, 'manufacturer_screen.ask_delete_item'.tr(args: ["${widget._manufacturer.name}"]));
+  void _showDeleteFavoriteDialog(BuildContext context, Function deletePressed) {
+    YesNoDialog(() => deletePressed.call(), () => {})
+        .show(context, 'manufacturer_screen.ask_delete_item'.tr(args: ["${_manufacturer.name}"]));
   }
 
   void _changeIsFavoriteAndInvokeCallback(bool isFavorite) {
-    widget._manufacturer.favorite = isFavorite;
-    widget._onFavoritePressed.call(widget._manufacturer);
+    _manufacturer.favorite = isFavorite;
+    _onFavoritePressed.call(_manufacturer);
   }
 }
