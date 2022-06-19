@@ -36,10 +36,10 @@ class ManufacturersScreen extends StatelessWidget {
                 ..addScrolledBottomListener(() {
                   _currentScreen.scrolledBottom(context);
                 })
-                ..addScrollBottomListener(() {
+                ..addScrollingBottomListener(() {
                   _sendScrollEvent(context, ScrollDirectionType.bottom);
                 })
-                ..addScrollTopListener(() {
+                ..addScrollingTopListener(() {
                   _sendScrollEvent(context, ScrollDirectionType.top);
                 }),
               slivers: [

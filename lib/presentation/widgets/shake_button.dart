@@ -1,5 +1,5 @@
-import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric.dart';
-import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric_impl.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/factory/animation_factory.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/factory/animation_factory_impl.dart';
 import 'package:flutter/material.dart';
 
 import '../../../resources/colors_res.dart';
@@ -46,14 +46,13 @@ class ShakeButtonState extends State<ShakeButton> with SingleTickerProviderState
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _animationFabric.createShake(_animationController!, 3),
-      child: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: _buildButtonDecoration(),
-          margin: const EdgeInsets.only(left: 30, right: 30),
-          child: _buildTextButton()),
-      builder: (context, child) => _buildTransform(child),
-    );
+        animation: _animationFabric.createShake(_animationController!, 3),
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: _buildButtonDecoration(),
+            margin: const EdgeInsets.only(left: 30, right: 30),
+            child: _buildTextButton()),
+        builder: (context, child) => _buildTransform(child));
   }
 
   Decoration _buildButtonDecoration() {
@@ -75,10 +74,10 @@ class ShakeButtonState extends State<ShakeButton> with SingleTickerProviderState
   }
 
   Transform _buildTransform(Widget? child) {
-    return Transform.translate(
-      offset: Offset(_animationFabric.createShake(_animationController!, 3).value * 10, 0),
-      child: child,
-    );
+    double shakeCount = 3;
+    Animation shakeAnimation = _animationFabric.createShake(_animationController!, shakeCount);
+    Offset offset = Offset(shakeAnimation.value * 10, 0);
+    return Transform.translate(offset: offset, child: child);
   }
 
   void setNormalState() {

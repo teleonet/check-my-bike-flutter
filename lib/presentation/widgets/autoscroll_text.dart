@@ -38,13 +38,12 @@ class _AutoScrollTextState extends State<AutoScrollText> {
     return SizedBox(
         width: widget._width,
         child: SingleChildScrollView(
-          child: Text(widget._text, style: widget.textStyle ?? _buildTextStyle()),
-          scrollDirection: Axis.horizontal,
-          controller: scrollController,
-        ));
+            child: Text(widget._text, style: widget.textStyle ?? _buildDefaultTextStyle()),
+            scrollDirection: Axis.horizontal,
+            controller: scrollController));
   }
 
-  TextStyle _buildTextStyle() {
+  TextStyle _buildDefaultTextStyle() {
     return TextStyle(
         fontFamily: 'Roboto Thin',
         color: widget.textColor ?? Colors.white,

@@ -56,14 +56,14 @@ class _DistanceSliderState extends State<DistanceSlider> {
         value: _currentValue,
         onChangeEnd: (double value) {
           if (widget._distance.type == "km") {
-            value = _convertKmToMiles(value);
+            value = _convertMilesToKm(value);
           }
           widget._onChanged.call(value.toInt());
         },
         onChanged: (double value) => setState(() => _currentValue = value));
   }
 
-  double _convertKmToMiles(double miles) {
+  double _convertMilesToKm(double miles) {
     const kmInOneMile = 0.62;
     return miles * kmInOneMile;
   }

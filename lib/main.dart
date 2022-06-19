@@ -44,8 +44,8 @@ class App extends StatelessWidget {
   }
 
   ThemeData _buildTheme() {
+    Color color = ColorsRes.green;
     return ThemeData(
-        colorScheme: ColorScheme.fromSwatch()
-            .copyWith(primary: ColorsRes.green, secondary: ColorsRes.green));
+        colorScheme: ColorScheme.fromSwatch().copyWith(primary: color, secondary: color));
   }
 }

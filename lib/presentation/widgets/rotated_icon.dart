@@ -41,7 +41,8 @@ class RotatedIconState extends State<RotatedIcon> with SingleTickerProviderState
   }
 
   Widget _buildTransform(Widget? child) {
-    return Transform.rotate(angle: _animationController!.value * 2.0 * pi, child: child);
+    double angle = _animationController!.value * 2.0 * pi;
+    return Transform.rotate(angle: angle, child: child);
   }
 
   void rotate() async {

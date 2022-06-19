@@ -37,7 +37,7 @@ class ManufacturerScreen extends BaseCheckScreen {
       _query = textToSearch ?? "";
       _loadBikes(context, PaginationEntity());
     }, (textForValidator) {
-      return Validator.moreThenTwoSymbols(textForValidator);
+      return Validator.isMoreTwoSymbols(textForValidator);
     }, 'common.more_then_x_symbol'.tr(args: ["2"])));
   }
 

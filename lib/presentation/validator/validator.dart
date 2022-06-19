@@ -1,19 +1,23 @@
 class Validator {
   Validator._();
 
-  static bool moreThenOneSymbol(String? text) {
-    return text != null && text.isNotEmpty && text.length > 1;
+  static bool isMoreOneSymbol(String? text) {
+    return isMoreThen(1, text);
   }
 
-  static bool moreThenFourSymbols(String? text) {
-    return text != null && text.isNotEmpty && text.length > 4;
+  static bool isMoreTwoSymbols(String? text) {
+    return isMoreThen(2, text);
   }
 
-  static bool moreThenTwoSymbols(String? text) {
-    return text != null && text.isNotEmpty && text.length > 2;
+  static bool isMoreFourSymbols(String? text) {
+    return isMoreThen(4, text);
   }
 
-  static bool onlyDigitsOrEmpty(String? text) {
+  static bool isMoreThen(int symbols, String? text) {
+    return text != null && text.isNotEmpty && text.length > symbols;
+  }
+
+  static bool isOnlyDigitsOrEmpty(String? text) {
     return text != null && (text.isEmpty || double.tryParse(text) != null);
   }
 }

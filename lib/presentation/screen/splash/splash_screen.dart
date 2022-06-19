@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:check_my_bike_flutter/domain/bloc/settings/event/settings_event.dart';
 import 'package:check_my_bike_flutter/presentation/screen/main/main_screen.dart';
-import 'package:check_my_bike_flutter/presentation/widgets/animation/fabric/animation_fabric_impl.dart';
+import 'package:check_my_bike_flutter/presentation/widgets/animation/factory/animation_factory_impl.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
@@ -18,7 +18,7 @@ import '../../../domain/entity/distance_entity.dart';
 import '../../../domain/entity/language_entity.dart';
 import '../../../resources/colors_res.dart';
 import '../../dialogs/language/language_dialog.dart';
-import '../../widgets/animation/fabric/animation_fabric.dart';
+import '../../widgets/animation/factory/animation_factory.dart';
 
 class SplashScreen extends StatefulWidget {
   static show(BuildContext context) {

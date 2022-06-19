@@ -16,13 +16,10 @@ class _FlashingTextState extends State<FlashingText> with SingleTickerProviderSt
 
   @override
   void initState() {
-    _animationController = _buildAnimationController();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
     _animationController?.repeat(reverse: true);
     super.initState();
-  }
-
-  AnimationController _buildAnimationController() {
-    return AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
   }
 
   @override

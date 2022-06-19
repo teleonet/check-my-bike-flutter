@@ -37,7 +37,7 @@ class SerialScreen extends BaseCheckScreen {
       _query = textToSearch ?? "";
       _loadBikes(context, PaginationEntity());
     }, (textForValidator) {
-      return Validator.moreThenFourSymbols(textForValidator);
+      return Validator.isMoreFourSymbols(textForValidator);
     }, 'common.more_then_x_symbol'.tr(args: ["4"])));
   }
 

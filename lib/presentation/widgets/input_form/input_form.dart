@@ -34,23 +34,27 @@ class InputFormState extends State<InputForm> {
         color: Colors.transparent,
         child: Container(
             margin: const EdgeInsets.only(left: 30, right: 30, top: 15),
-            child: TextFormField(
-                focusNode: FocusNode(canRequestFocus: false),
-                key: _formKey,
-                maxLines: 1,
-                cursorColor: ColorsRes.green,
-                autofocus: false,
-                style: _buildTextStyle(),
-                decoration: _buildInputDecoration(),
-                onEditingComplete: () => _pressedSearch(),
-                onChanged: (text) => _clearValidation(),
-                validator: (text) {
-                  if (_isClearValidation) {
-                    _isClearValidation = false;
-                    return null;
-                  }
-                  return _isValidInputtedText() ? null : widget._errorValidatorMessage;
-                })));
+            child: _buildTextFormField()));
+  }
+
+  TextFormField _buildTextFormField() {
+    return TextFormField(
+        focusNode: FocusNode(canRequestFocus: false),
+        key: _formKey,
+        maxLines: 1,
+        cursorColor: ColorsRes.green,
+        autofocus: false,
+        style: _buildTextStyle(),
+        decoration: _buildInputDecoration(),
+        onEditingComplete: () => _pressedSearch(),
+        onChanged: (text) => _clearValidation(),
+        validator: (text) {
+          if (_isClearValidation) {
+            _isClearValidation = false;
+            return null;
+          }
+          return _isValidInputtedText() ? null : widget._errorValidatorMessage;
+        });
   }
 
   TextStyle _buildTextStyle() {
@@ -70,9 +74,8 @@ class InputFormState extends State<InputForm> {
 
   InputBorder _buildBorder({Color color = Colors.red}) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10.0),
-      borderSide: BorderSide(color: color, width: 0.5),
-    );
+        borderRadius: BorderRadius.circular(10.0),
+        borderSide: BorderSide(color: color, width: 0.5));
   }
 
   void _clearValidation() {

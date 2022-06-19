@@ -26,7 +26,7 @@ class ManufacturersSearchScreen extends BaseManufacturersScreen {
       _query = textToSearch ?? "";
       loadNextPage(context, PaginationEntity());
     }, (textForValidator) {
-      return Validator.moreThenOneSymbol(textForValidator);
+      return Validator.isMoreOneSymbol(textForValidator);
     }, 'common.more_then_x_symbol'.tr(args: ["1"]));
   }
 

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/animation.dart';
 
 import '../shake_curve.dart';
-import 'animation_fabric.dart';
+import 'animation_factory.dart';
 
 class AnimationFabricImpl extends AnimationFabric {
   @override
