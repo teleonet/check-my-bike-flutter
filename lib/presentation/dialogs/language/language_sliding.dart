@@ -36,7 +36,7 @@ class _LanguageSlidingState extends State<LanguageSliding> {
         backgroundColor: ColorsRes.darkGrey,
         thumbColor: ColorsRes.endGradient,
         groupValue: widget._currentIndex,
-        children: _buildWidgetsMap(),
+        children: _buildWidgets(),
         onValueChanged: (currentLanguageIndex) {
           setState(() => widget._currentIndex = currentLanguageIndex as int);
 
@@ -45,7 +45,7 @@ class _LanguageSlidingState extends State<LanguageSliding> {
         });
   }
 
-  Map<int, Widget> _buildWidgetsMap() {
+  Map<int, Widget> _buildWidgets() {
     Map<int, Widget> children = {};
 
     for (int index = 0; index < widget._languages.length; index++) {

@@ -19,8 +19,9 @@ class DistanceSettingDialog extends ButtonDialog {
 
   Widget _buildDistanceSliding() {
     return Center(
-        child: DistanceSliding(
-            _distances, _selectedDistance, (distanceType) => _selectedDistance = distanceType));
+        child: DistanceSliding(_distances, _selectedDistance, (distanceType) {
+      _selectedDistance = distanceType;
+    }));
   }
 
   Widget _buildButton(BuildContext context) {

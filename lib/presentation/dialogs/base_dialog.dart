@@ -15,14 +15,13 @@ abstract class BaseDialog {
 
   Widget _build(List<Widget> widgets, String title) {
     return AlertDialog(
-      title: _buildTitle(title),
-      titlePadding: const EdgeInsets.only(top: 30),
-      shape: _buildShapeBorder(),
-      backgroundColor: ColorsRes.endGradient,
-      actionsAlignment: MainAxisAlignment.center,
-      actionsPadding: const EdgeInsets.only(top: 20, bottom: 30),
-      actions: widgets,
-    );
+        title: _buildTitle(title),
+        titlePadding: const EdgeInsets.only(top: 30),
+        shape: _buildShapeBorder(),
+        backgroundColor: ColorsRes.endGradient,
+        actionsAlignment: MainAxisAlignment.center,
+        actionsPadding: const EdgeInsets.only(top: 20, bottom: 30),
+        actions: widgets);
   }
 
   Widget _buildTitle(String title) {

@@ -23,8 +23,9 @@ class LanguageDialog extends ButtonDialog {
 
   Widget _buildLanguageSliding() {
     return Center(
-        child: LanguageSliding(
-            _languages, _selectedLanguage, (language) => _selectedLanguage = language));
+        child: LanguageSliding(_languages, _selectedLanguage, (language) {
+      _selectedLanguage = language;
+    }));
   }
 
   Widget _buildButton(BuildContext context) {

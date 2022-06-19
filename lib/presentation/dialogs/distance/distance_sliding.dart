@@ -13,12 +13,18 @@ class DistanceSliding extends StatefulWidget {
 
   DistanceSliding(this._distances, this._selectedDistance, this._onChangedType, {Key? key})
       : super(key: key) {
+    _currentDistanceIndex = _getCurrentIndex();
+  }
+
+  int _getCurrentIndex() {
+    int currentIndex = 0;
     for (int index = 0; index < _distances.length; index++) {
       if (_distances[index].title == _selectedDistance.title) {
-        _currentDistanceIndex = index;
+        currentIndex = index;
         break;
       }
     }
+    return currentIndex;
   }
 
   @override
@@ -32,15 +38,16 @@ class _DistanceSlidingState extends State<DistanceSliding> {
         backgroundColor: ColorsRes.darkGrey,
         thumbColor: ColorsRes.endGradient,
         groupValue: widget._currentDistanceIndex,
-        children: _buildWidgetsMap(),
+        children: _buildWidgets(),
         onValueChanged: (currentLanguageIndex) {
           setState(() => widget._currentDistanceIndex = currentLanguageIndex as int);
+
           DistanceEntity distanceType = widget._distances[widget._currentDistanceIndex];
           widget._onChangedType.call(distanceType);
         });
   }
 
-  Map<int, Widget> _buildWidgetsMap() {
+  Map<int, Widget> _buildWidgets() {
     Map<int, Widget> children = {};
 
     for (int index = 0; index < widget._distances.length; index++) {
