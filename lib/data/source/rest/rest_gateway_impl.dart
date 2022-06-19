@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 import 'dto/bike_rest_dto.dart';
@@ -42,8 +43,15 @@ class RestGatewayImpl implements RestGateway {
   Future<List<ManufacturerRestDTO>> loadAllManufacturers(int page, int perPage) async {
     List<ManufacturerRestDTO> manufacturers = [];
 
-    http.Response response =
-        await http.get(Uri.parse(_manufacturersUrl + "?page=$page&per_page=$perPage"));
+    String url = _manufacturersUrl + "?page=$page&per_page=$perPage";
+
+    if (kDebugMode) {
+      print("===== HTTP Request =====>");
+      print(url);
+      print("=========================");
+    }
+
+    http.Response response = await http.get(Uri.parse(url));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["manufacturers"] as List?;
@@ -73,8 +81,16 @@ class RestGatewayImpl implements RestGateway {
       String customParameter, int page, int perPage) async {
     List<BikeRestDTO> bikes = [];
 
-    http.Response response = await http.get(Uri.parse(
-        _bikeUrl + "?page=$page&per_page=$perPage&query=$customParameter&stolenness=stolen"));
+    String url = _bikeUrl +
+        "?page=$page&per_page=$perPage&query=${customParameter.trim()}&stolenness=stolen";
+
+    if (kDebugMode) {
+      print("===== HTTP Request =====>");
+      print(url);
+      print("=========================");
+    }
+
+    http.Response response = await http.get(Uri.parse(url));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;
@@ -89,8 +105,16 @@ class RestGatewayImpl implements RestGateway {
       double latitude, double longitude, int distance, int page, int perPage) async {
     List<BikeRestDTO>? bikes = [];
 
-    http.Response response = await http.get(Uri.parse(_bikeUrl +
-        "?page=$page&per_page=$perPage&location=$latitude$_comma$longitude&distance=$distance&stolenness=proximity"));
+    String url = _bikeUrl +
+        "?page=$page&per_page=$perPage&location=$latitude$_comma$longitude&distance=$distance&stolenness=proximity";
+
+    if (kDebugMode) {
+      print("===== HTTP Request =====>");
+      print(url);
+      print("=========================");
+    }
+
+    http.Response response = await http.get(Uri.parse(url));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;
@@ -105,8 +129,16 @@ class RestGatewayImpl implements RestGateway {
       String manufacturer, int page, int perPage) async {
     List<BikeRestDTO>? bikes = [];
 
-    http.Response response = await http.get(Uri.parse(
-        _bikeUrl + "?page=$page&per_page=$perPage&manufacturer=$manufacturer&stolenness=stolen"));
+    String url = _bikeUrl +
+        "?page=$page&per_page=$perPage&manufacturer=${manufacturer.trim()}&stolenness=stolen";
+
+    if (kDebugMode) {
+      print("===== HTTP Request =====>");
+      print(url);
+      print("=========================");
+    }
+
+    http.Response response = await http.get(Uri.parse(url));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;
@@ -120,8 +152,16 @@ class RestGatewayImpl implements RestGateway {
   Future<List<BikeRestDTO>> loadBikesBySerial(String serial, int page, int perPage) async {
     List<BikeRestDTO>? bikes = [];
 
-    http.Response response = await http.get(
-        Uri.parse(_bikeUrl + "?page=$page&per_page=$perPage&serial=$serial&stolenness=stolen"));
+    String url =
+        _bikeUrl + "?page=$page&per_page=$perPage&serial=${serial.trim()}&stolenness=stolen";
+
+    if (kDebugMode) {
+      print("===== HTTP Request =====>");
+      print(url);
+      print("=========================");
+    }
+
+    http.Response response = await http.get(Uri.parse(url));
 
     _validateResponse(response, () {
       List? items = jsonDecode(response.body)["bikes"] as List?;

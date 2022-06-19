@@ -7,8 +7,9 @@ class DefaultRepositoryImpl implements DefaultRepository {
   @override
   Future<List<DistanceEntity>> loadDistances() async {
     List<DistanceEntity> distances = [];
-    distances.add(DistanceEntity("kilometers", "ml"));
-    distances.add(DistanceEntity("miles", "km"));
+
+    distances.add(DistanceEntity("kilometers", "km"));
+    distances.add(DistanceEntity("miles", "ml"));
 
     return distances;
   }
@@ -16,6 +17,7 @@ class DefaultRepositoryImpl implements DefaultRepository {
   @override
   Future<List<LanguageEntity>> loadLanguages() async {
     List<LanguageEntity> languages = [];
+
     languages.add(const LanguageEntity("en", 'assets/icons/ic_flag_eng.png'));
     languages.add(const LanguageEntity("ua", 'assets/icons/ic_flag_ua.png'));
     languages.add(const LanguageEntity("pl", 'assets/icons/ic_flag_pl.png'));

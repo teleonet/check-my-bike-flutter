@@ -3,9 +3,9 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/add_favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/favorite_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/remove_favorite_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_all_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_by_name_event.dart';
-import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search_loaded_state.dart';
@@ -26,9 +26,8 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
   final List<ManufacturerEntity> _cache = [];
   PaginationEntity _pagination = PaginationEntity();
 
-  static init(ManufacturerRepository manufacturerRepository) {
-    register<ManufacturerBloc, ManufacturerState>(
-        create: () => ManufacturerBloc(manufacturerRepository));
+  static init(ManufacturerRepository repository) {
+    register<ManufacturerBloc, ManufacturerState>(create: () => ManufacturerBloc(repository));
   }
 
   ManufacturerBloc(this._repository) : super(InitialState());

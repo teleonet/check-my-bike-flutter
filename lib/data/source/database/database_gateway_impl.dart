@@ -30,7 +30,7 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   @override
   Future<void> saveBikes(List<BikeDbDTO> bikes) async {
     Box<BikeDbDTO> box = await Hive.openBox((BikeDbDTO).toString());
-    for (var element in bikes) {
+    for (BikeDbDTO element in bikes) {
       await box.put(element.id, element);
     }
   }
@@ -38,7 +38,7 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   @override
   Future<void> deleteBikes(List<BikeDbDTO> bikes) async {
     Box<BikeDbDTO> box = await Hive.openBox((BikeDbDTO).toString());
-    for (var element in bikes) {
+    for (BikeDbDTO element in bikes) {
       await box.delete(element.id);
     }
   }
@@ -58,7 +58,7 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   @override
   Future<void> saveManufacturers(List<ManufacturerDbDTO> manufacturers) async {
     Box<ManufacturerDbDTO> box = await Hive.openBox((ManufacturerDbDTO).toString());
-    for (var element in manufacturers) {
+    for (ManufacturerDbDTO element in manufacturers) {
       await box.put(element.name, element);
     }
   }
@@ -66,7 +66,7 @@ class DatabaseGatewayImpl implements DatabaseGateway {
   @override
   Future<void> deleteManufacturers(List<ManufacturerDbDTO> manufacturers) async {
     Box<ManufacturerDbDTO> box = await Hive.openBox((ManufacturerDbDTO).toString());
-    for (var element in manufacturers) {
+    for (ManufacturerDbDTO element in manufacturers) {
       await box.delete(element.name);
     }
   }

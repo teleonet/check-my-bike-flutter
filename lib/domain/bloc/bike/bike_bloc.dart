@@ -27,8 +27,8 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
   final List<BikeEntity> _cache = [];
   PaginationEntity _pagination = PaginationEntity();
 
-  static init(BikeRepository bikeRepository) {
-    register<BikeBloc, BikeState>(create: () => BikeBloc(bikeRepository));
+  static init(BikeRepository repository) {
+    register<BikeBloc, BikeState>(create: () => BikeBloc(repository));
   }
 
   BikeBloc(this._repository) : super(InitialState());

@@ -39,8 +39,8 @@ class SettingsBloc extends IsolateBloc<SettingsEvent, SettingsState> {
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
     if (event is SaveSettingsEvent) {
       emit(GlobalProgressState());
-      await _saveSettings(
-          event.distance, event.language, CommonEntity(false), event.clearFavorites);
+      CommonEntity common = CommonEntity(false);
+      await _saveSettings(event.distance, event.language, common, event.clearFavorites);
       emit(await _buildLoadedState());
     } else if (event is LoadEvent) {
       emit(await _buildLoadedState());
@@ -66,6 +66,7 @@ class SettingsBloc extends IsolateBloc<SettingsEvent, SettingsState> {
     LanguageEntity currentLanguage = await _settingsRepository.loadLanguageFromDatabase();
     DistanceEntity currentDistance = await _settingsRepository.loadDistanceFromDatabase();
     CommonEntity common = await _settingsRepository.loadCommonFromDatabase();
+
     String buildNumber = await _getBuildNumber();
     int countOfFavorites = await _getCountOfFavorites();
 
