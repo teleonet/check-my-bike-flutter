@@ -17,14 +17,11 @@ class ButtonItem extends StatelessWidget {
         width: 150,
         child: TextButton(
             onPressed: () => _onPressed.call(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(_icon, color: ColorsRes.green, size: 48.0),
-                Padding(padding: EdgeInsets.only(top: _text.length > _maxLineLength ? 0 : 15)),
-                Text(_text, style: _buildTextStyle(20), textAlign: TextAlign.center)
-              ],
-            )));
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Icon(_icon, color: ColorsRes.green, size: 48.0),
+              Padding(padding: EdgeInsets.only(top: _text.length > _maxLineLength ? 0 : 15)),
+              Text(_text, style: _buildTextStyle(20), textAlign: TextAlign.center)
+            ])));
   }
 
   TextStyle _buildTextStyle(double fontSize) {

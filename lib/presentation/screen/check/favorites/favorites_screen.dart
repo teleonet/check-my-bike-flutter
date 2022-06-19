@@ -71,16 +71,14 @@ class FavoritesScreen extends StatelessWidget {
         centerTitle: true,
         iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         titleTextStyle: _buildTextStyle(),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
-            onPressed: () => Navigator.pop(context)));
+        leading: _buildToolbarBackButton(context));
   }
 
   OutlinedBorder _buildAppBarBorder() {
+    Radius radius = const Radius.circular(30);
     return RoundedRectangleBorder(
         side: BorderSide(width: 0.15, color: ColorsRes.green),
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+        borderRadius: BorderRadius.only(bottomLeft: radius, bottomRight: radius));
   }
 
   Widget _buildGlobalProgressIndicator(BuildContext context) {
@@ -88,9 +86,11 @@ class FavoritesScreen extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 1.2,
             width: MediaQuery.of(context).size.width,
-            child: Transform.scale(
-                scale: 2,
-                child: const Center(child: CircularProgressIndicator(strokeWidth: 0.4)))));
+            child: Transform.scale(scale: 2, child: _buildProgressIndicator())));
+  }
+
+  Widget _buildProgressIndicator() {
+    return const Center(child: CircularProgressIndicator(strokeWidth: 0.4));
   }
 
   Widget _buildEmptyWidget() {
@@ -129,6 +129,12 @@ class FavoritesScreen extends StatelessWidget {
         decoration: TextDecoration.none,
         color: ColorsRes.green,
         fontSize: size ?? 35);
+  }
+
+  Widget _buildToolbarBackButton(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
+        onPressed: () => Navigator.pop(context));
   }
 
   Widget _buildBottomContainer() {

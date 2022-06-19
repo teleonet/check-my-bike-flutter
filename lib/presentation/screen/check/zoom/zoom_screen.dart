@@ -41,17 +41,10 @@ class ZoomScreen extends StatelessWidget {
       shadowColor: Colors.transparent,
       shape: _buildAppBarBorder(),
       title: Text('bike_screen.zoom'.tr()),
-      actions: [
-        Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Icon(Icons.pinch, color: ColorsRes.green, size: 23))
-      ],
+      actions: [_buildToolbarFavoriteIcon()],
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      titleTextStyle: TextStyle(
-          fontFamily: 'Roboto Thin',
-          color: ColorsRes.green,
-          fontSize: 'bike_screen.zoom'.tr().length > 10 ? 30 : 35),
+      titleTextStyle: _buildTextStyle(),
       leading: _buildBackButton(context),
     );
   }
@@ -61,6 +54,19 @@ class ZoomScreen extends StatelessWidget {
         side: BorderSide(width: 0.15, color: ColorsRes.green),
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+  }
+
+  Widget _buildToolbarFavoriteIcon() {
+    return Padding(
+        padding: const EdgeInsets.only(right: 20),
+        child: Icon(Icons.pinch, color: ColorsRes.green, size: 23));
+  }
+
+  TextStyle _buildTextStyle() {
+    return TextStyle(
+        fontFamily: 'Roboto Thin',
+        color: ColorsRes.green,
+        fontSize: 'bike_screen.zoom'.tr().length > 10 ? 30 : 35);
   }
 
   Widget _buildBackButton(BuildContext context) {

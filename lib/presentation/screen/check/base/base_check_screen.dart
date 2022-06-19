@@ -86,16 +86,20 @@ abstract class BaseCheckScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
         titleTextStyle: _buildTextStyle(size: _title.length > 10 ? 28 : 35),
         actions: [_buildFavoritesButton(context)],
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
-            onPressed: () => Navigator.pop(context)));
+        leading: _buildToolbarBackButton(context));
+  }
+
+  Widget _buildToolbarBackButton(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
+        onPressed: () => Navigator.pop(context));
   }
 
   OutlinedBorder _buildAppBarBorder() {
+    Radius radius = const Radius.circular(30);
     return RoundedRectangleBorder(
         side: BorderSide(width: 0.15, color: ColorsRes.green),
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+        borderRadius: BorderRadius.only(bottomLeft: radius, bottomRight: radius));
   }
 
   Widget _buildFavoritesButton(BuildContext context) {
@@ -109,9 +113,11 @@ abstract class BaseCheckScreen extends StatelessWidget {
         child: SizedBox(
             height: MediaQuery.of(context).size.height / 1.5,
             width: MediaQuery.of(context).size.width,
-            child: Transform.scale(
-                scale: 2,
-                child: const Center(child: CircularProgressIndicator(strokeWidth: 0.4)))));
+            child: Transform.scale(scale: 2, child: _buildProgressIndicator())));
+  }
+
+  Widget _buildProgressIndicator() {
+    return const Center(child: CircularProgressIndicator(strokeWidth: 0.4));
   }
 
   Widget _buildEmptyWidget() {

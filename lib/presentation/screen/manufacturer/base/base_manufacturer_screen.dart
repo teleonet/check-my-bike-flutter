@@ -90,8 +90,11 @@ abstract class BaseManufacturerScreen extends StatelessWidget {
     return SizedBox(
         height: MediaQuery.of(context).size.height / heightDivider,
         width: MediaQuery.of(context).size.width,
-        child: Transform.scale(
-            scale: 2, child: const Center(child: CircularProgressIndicator(strokeWidth: 0.4))));
+        child: Transform.scale(scale: 2, child: _buildProgressIndicator()));
+  }
+
+  Widget _buildProgressIndicator() {
+    return const Center(child: CircularProgressIndicator(strokeWidth: 0.4));
   }
 
   Widget _buildListProgressItem() {

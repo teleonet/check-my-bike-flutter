@@ -11,11 +11,11 @@ import '../../../../resources/colors_res.dart';
 import '../../../widgets/autoscroll_text.dart';
 
 class DetailsScreen extends StatelessWidget {
-  final BikeEntity _bike;
-
   static void show(BuildContext context, BikeEntity bike) {
     Navigator.push(context, SlideRightRoute(DetailsScreen(bike)).createRoute());
   }
+
+  final BikeEntity _bike;
 
   const DetailsScreen(this._bike, {Key? key}) : super(key: key);
 
@@ -57,8 +57,8 @@ class DetailsScreen extends StatelessWidget {
                           _buildMapButtonOrEmpty(context, _bike.stolenCoordinates),
                           _buildDescriptionOrEmpty(_bike.description),
                           const Padding(padding: EdgeInsets.only(top: 10)),
-                        ])),
-                  ]))),
+                        ]))
+                  ])))
         ]));
   }
 
@@ -83,18 +83,18 @@ class DetailsScreen extends StatelessWidget {
           fontFamily: 'Roboto Thin',
           color: ColorsRes.green,
           fontSize: 'bike_screen.details'.tr().length > 10 ? 27 : 35),
-      leading: _buildBackButton(context),
+      leading: _buildToolbarBackButton(context),
     );
   }
 
   OutlinedBorder _buildAppBarBorder() {
+    Radius radius = const Radius.circular(30);
     return RoundedRectangleBorder(
         side: BorderSide(width: 0.15, color: ColorsRes.green),
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+        borderRadius: BorderRadius.only(bottomLeft: radius, bottomRight: radius));
   }
 
-  Widget _buildBackButton(BuildContext context) {
+  Widget _buildToolbarBackButton(BuildContext context) {
     return IconButton(
         icon: Icon(Icons.arrow_back_ios, color: ColorsRes.green, size: 25.0),
         onPressed: () => Navigator.pop(context));

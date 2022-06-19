@@ -68,23 +68,22 @@ class MapScreen extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      toolbarHeight: 65,
-      backgroundColor: ColorsRes.darkGreyOpacity75,
-      shadowColor: Colors.transparent,
-      shape: _buildAppBarBorder(),
-      title: Text('bike_screen.map'.tr()),
-      centerTitle: true,
-      iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
-      titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
-      leading: _buildBackButton(context),
-    );
+        toolbarHeight: 65,
+        backgroundColor: ColorsRes.darkGreyOpacity75,
+        shadowColor: Colors.transparent,
+        shape: _buildAppBarBorder(),
+        title: Text('bike_screen.map'.tr()),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: ColorsRes.green, size: 30),
+        titleTextStyle: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 35),
+        leading: _buildBackButton(context));
   }
 
   OutlinedBorder _buildAppBarBorder() {
+    Radius radius = const Radius.circular(30);
     return RoundedRectangleBorder(
         side: BorderSide(width: 1, color: ColorsRes.green),
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30)));
+        borderRadius: BorderRadius.only(bottomLeft: radius, bottomRight: radius));
   }
 
   Widget _buildBackButton(BuildContext context) {
@@ -127,7 +126,7 @@ class MapScreen extends StatelessWidget {
         margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
         decoration: _buildButtonDecoration(),
         child: TextButton(
-            child: _buildText('bike_screen.apply_selected_location'.tr()),
+            child: Text('bike_screen.apply_selected_location'.tr(), style: _buildTextStyle()),
             onPressed: () {
               Navigator.pop(context);
               _onSelectedLocation.call(_location, _distance);
@@ -141,8 +140,7 @@ class MapScreen extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.elliptical(10, 10)));
   }
 
-  Widget _buildText(String title) {
-    return Text(title,
-        style: TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20));
+  TextStyle _buildTextStyle() {
+    return TextStyle(fontFamily: 'Roboto Thin', color: ColorsRes.green, fontSize: 20);
   }
 }
