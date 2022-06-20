@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ErrorDialog extends ButtonDialog {
   static bool _isShowing = false;
 
-  static bool isShowing() => _isShowing;
+  static bool isNotShowing() => !_isShowing;
 
   final String _text;
   final Function? onPressedOk;

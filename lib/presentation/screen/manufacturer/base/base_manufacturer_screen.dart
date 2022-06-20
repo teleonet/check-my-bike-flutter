@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
@@ -154,18 +152,17 @@ abstract class BaseManufacturerScreen extends StatelessWidget {
   }
 
   void _showErrorDialog(BuildContext context, ErrorType errorType) {
-    Timer(const Duration(milliseconds: 500), () {
-      if (ErrorDialog.isShowing()) {
-        return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ErrorDialog.isNotShowing()) {
+        String errorMessage = "";
+        if (errorType == ErrorType.wrongServerResponse) {
+          errorMessage = 'error.wrong_response'.tr() + "\n";
+        } else if (errorType == ErrorType.noConnected) {
+          errorMessage = 'error.not_connected'.tr() + "\n";
+        }
+        String title = 'error.error'.tr();
+        ErrorDialog(errorMessage).show(context, title);
       }
-      String errorMessage = "";
-      if (errorType == ErrorType.wrongServerResponse) {
-        errorMessage = 'error.wrong_response'.tr() + "\n";
-      } else if (errorType == ErrorType.noConnected) {
-        errorMessage = 'error.not_connected'.tr() + "\n";
-      }
-      String title = 'error.error'.tr();
-      ErrorDialog(errorMessage).show(context, title);
     });
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:check_my_bike_flutter/domain/bloc/bike/bike_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/error_state.dart';
@@ -182,18 +180,17 @@ abstract class BaseCheckScreen extends StatelessWidget {
   }
 
   void _showErrorDialog(BuildContext context, ErrorType errorType) {
-    Timer(const Duration(milliseconds: 500), () {
-      if (ErrorDialog.isShowing()) {
-        return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ErrorDialog.isNotShowing()) {
+        String errorMessage = "";
+        if (errorType == ErrorType.wrongServerResponse) {
+          errorMessage = 'error.wrong_response'.tr() + "\n";
+        } else if (errorType == ErrorType.noConnected) {
+          errorMessage = 'error.not_connected'.tr() + "\n";
+        }
+        String title = 'error.error'.tr();
+        ErrorDialog(errorMessage).show(context, title);
       }
-      String errorMessage = "";
-      if (errorType == ErrorType.wrongServerResponse) {
-        errorMessage = 'error.wrong_response'.tr() + "\n";
-      } else if (errorType == ErrorType.noConnected) {
-        errorMessage = 'error.not_connected'.tr() + "\n";
-      }
-      String title = 'error.error'.tr();
-      ErrorDialog(errorMessage).show(context, title);
     });
   }
 }
