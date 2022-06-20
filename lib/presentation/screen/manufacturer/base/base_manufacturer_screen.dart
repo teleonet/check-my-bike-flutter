@@ -155,6 +155,9 @@ abstract class BaseManufacturerScreen extends StatelessWidget {
 
   void _showErrorDialog(BuildContext context, ErrorType errorType) {
     Timer(const Duration(milliseconds: 500), () {
+      if (ErrorDialog.isShowing()) {
+        return;
+      }
       String errorMessage = "";
       if (errorType == ErrorType.wrongServerResponse) {
         errorMessage = 'error.wrong_response'.tr() + "\n";
