@@ -30,7 +30,8 @@ abstract class BaseCheckScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IsolateBlocBuilder<BikeBloc, BikeState>(builder: (context, state) {
+    return IsolateBlocProvider<BikeBloc, BikeState>(
+        child: IsolateBlocBuilder<BikeBloc, BikeState>(builder: (context, state) {
       return Container(
           height: MediaQuery.of(context).size.height,
           decoration: _buildGradientDecoration(),
@@ -63,7 +64,7 @@ abstract class BaseCheckScreen extends StatelessWidget {
           ]));
     }, buildWhen: (prev, next) {
       return next is LoadedState || next is ProgressState;
-    });
+    }));
   }
 
   BoxDecoration _buildGradientDecoration() {
