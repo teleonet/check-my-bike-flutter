@@ -8,6 +8,7 @@ import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_event.dar
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_favorites.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/event/load/load_manufacturer_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/state/error_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/progress/global_progress_state.dart';
@@ -17,10 +18,13 @@ import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:isolate_bloc/isolate_bloc.dart';
 
 import '../../../data/repository/bike/bike_repository.dart';
+import '../../../data/source/rest/exception/rest_exception.dart';
 import '../../entity/location_entity.dart';
 import 'event/favorite/favorite_event.dart';
 import 'event/load/load_location_event.dart';
 import 'event/load/load_serial_event.dart';
+
+enum ErrorType { unexpected, noConnected, wrongServerResponse }
 
 class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
   final BikeRepository _repository;
@@ -55,16 +59,25 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
 
     List<BikeEntity> loadedEntities = [];
 
-    if (event is LoadSerialEvent) {
-      loadedEntities = await _loadBySerial(event.serial, currentPage, perPage);
-    } else if (event is LoadManufacturerEvent) {
-      loadedEntities = await _loadByManufacturer(event.manufacturer, currentPage, perPage);
-    } else if (event is LoadCustomEvent) {
-      loadedEntities = await _loadByCustom(event.custom, currentPage);
-    } else if (event is LoadLocationEvent) {
-      loadedEntities = await _loadByLocation(event.location, event.distance, currentPage, perPage);
-    } else if (event is LoadFavoritesEvent) {
-      loadedEntities = await _loadFavorites();
+    try {
+      if (event is LoadSerialEvent) {
+        loadedEntities = await _loadBySerial(event.serial, currentPage, perPage);
+      } else if (event is LoadManufacturerEvent) {
+        loadedEntities = await _loadByManufacturer(event.manufacturer, currentPage, perPage);
+      } else if (event is LoadCustomEvent) {
+        loadedEntities = await _loadByCustom(event.custom, currentPage);
+      } else if (event is LoadLocationEvent) {
+        loadedEntities =
+            await _loadByLocation(event.location, event.distance, currentPage, perPage);
+      } else if (event is LoadFavoritesEvent) {
+        loadedEntities = await _loadFavorites();
+      }
+    } on RestException catch (e) {
+      _pagination = PaginationEntity();
+      _cache.clear();
+
+      emit(ErrorState(_parseErrorTypeFromRest(e)));
+      return;
     }
 
     _pagination = _checkLastPageAndBuildPagination(loadedEntities, _pagination);
@@ -147,5 +160,18 @@ class BikeBloc extends IsolateBloc<BikeEvent, BikeState> {
       return element.id == entity.id;
     });
     return foundEntities.isNotEmpty;
+  }
+
+  ErrorType _parseErrorTypeFromRest(RestException exception) {
+    ErrorType errorType = ErrorType.unexpected;
+    switch (exception.type) {
+      case RestExceptionType.wrongResponse:
+        errorType = ErrorType.wrongServerResponse;
+        break;
+      case RestExceptionType.noConnection:
+        errorType = ErrorType.noConnected;
+        break;
+    }
+    return errorType;
   }
 }

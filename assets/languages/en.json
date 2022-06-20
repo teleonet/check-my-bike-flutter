@@ -52,5 +52,10 @@
     "error_permissions": "Permission error. \nThe map functionality requires location permission.\n\nDo you want to open settings screen to approve permissions?",
     "kilometers": "kilometers",
     "miles": "miles"
+  },
+  "error": {
+    "error": "error",
+    "not_connected": "Please check your internet connection",
+    "wrong_response": "Server returned wrong data"
   }
 }

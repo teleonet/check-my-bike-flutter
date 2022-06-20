@@ -52,5 +52,10 @@
     "error_permissions": "Błąd uprawnień.\nAby mapa działała, wymagane jest pozwolenie na lokalizację.\n\nCzy chcesz otworzyć ekran ustawień, aby zatwierdzić rozdzielczość?",
     "kilometers": "kilometrów",
     "miles": "mile"
+  },
+  "error": {
+    "error": "błąd",
+    "not_connected": "Proszę sprawdzić swoje połączenie z internetem",
+    "wrong_response": "Serwer zwrócił błędne dane"
   }
 }

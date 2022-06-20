@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:check_my_bike_flutter/domain/bloc/bike/bike_bloc.dart';
 import 'package:check_my_bike_flutter/domain/bloc/bike/state/bike_state.dart';
+import 'package:check_my_bike_flutter/domain/bloc/bike/state/error_state.dart';
 import 'package:check_my_bike_flutter/domain/entity/pagination_entity.dart';
 import 'package:check_my_bike_flutter/presentation/screen/check/favorites/favorites_screen.dart';
 import 'package:check_my_bike_flutter/presentation/scroll/scroll_controller_with_listener.dart';
@@ -13,6 +16,7 @@ import '../../../../domain/bloc/bike/state/progress/list_progress_state.dart';
 import '../../../../domain/bloc/bike/state/progress/progress_state.dart';
 import '../../../../domain/entity/bike_entity.dart';
 import '../../../../resources/colors_res.dart';
+import '../../../dialogs/error_dialog.dart';
 
 abstract class BaseCheckScreen extends StatelessWidget {
   final String _title;
@@ -58,12 +62,15 @@ abstract class BaseCheckScreen extends StatelessWidget {
                           : _buildEmptyWidget(),
                       (state is ListProgressState)
                           ? _buildListView(context, state.bikes, true)
+                          : _buildEmptyWidget(),
+                      (state is ErrorState)
+                          ? _buildPlaceHolderAndShowErrorDialog(context, state.errorType)
                           : _buildEmptyWidget()
                     ])),
             _buildBottomContainer()
           ]));
     }, buildWhen: (prev, next) {
-      return next is LoadedState || next is ProgressState;
+      return next is LoadedState || next is ProgressState || next is ErrorState;
     }));
   }
 
@@ -175,5 +182,19 @@ abstract class BaseCheckScreen extends StatelessWidget {
         border: Border.all(width: 0.4, color: ColorsRes.green),
         borderRadius:
             const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)));
+  }
+
+  Widget _buildPlaceHolderAndShowErrorDialog(BuildContext context, ErrorType errorType) {
+    Timer(const Duration(milliseconds: 500), () {
+      String errorMessage = "";
+      if (errorType == ErrorType.wrongServerResponse) {
+        errorMessage = 'error.wrong_response'.tr() + "\n";
+      } else if (errorType == ErrorType.noConnected) {
+        errorMessage = 'error.not_connected'.tr() + "\n";
+      }
+      String title = 'error.error'.tr();
+      ErrorDialog(errorMessage).show(context, title);
+    });
+    return _buildPlaceholder(context);
   }
 }

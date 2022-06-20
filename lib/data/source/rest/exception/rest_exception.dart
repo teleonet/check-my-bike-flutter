@@ -1,7 +1,9 @@
+enum RestExceptionType { wrongResponse, noConnection }
+
 class RestException implements Exception {
-  final String _cause;
+  final RestExceptionType _type;
 
-  get cause => _cause;
+  RestExceptionType get type => _type;
 
-  RestException(this._cause);
+  RestException(this._type);
 }
