@@ -34,8 +34,8 @@ abstract class BaseCheckScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IsolateBlocProvider<BikeBloc, BikeState>(
-        child: IsolateBlocBuilder<BikeBloc, BikeState>(builder: (context, state) {
+    return IsolateBlocBuilder<BikeBloc, BikeState>(builder: (context, state) {
+      (state is ErrorState) ? _showErrorDialog(context, state.errorType) : null;
       return Container(
           height: MediaQuery.of(context).size.height,
           decoration: _buildGradientDecoration(),
@@ -62,16 +62,13 @@ abstract class BaseCheckScreen extends StatelessWidget {
                           : _buildEmptyWidget(),
                       (state is ListProgressState)
                           ? _buildListView(context, state.bikes, true)
-                          : _buildEmptyWidget(),
-                      (state is ErrorState)
-                          ? _buildPlaceHolderAndShowErrorDialog(context, state.errorType)
                           : _buildEmptyWidget()
                     ])),
             _buildBottomContainer()
           ]));
     }, buildWhen: (prev, next) {
       return next is LoadedState || next is ProgressState || next is ErrorState;
-    }));
+    });
   }
 
   BoxDecoration _buildGradientDecoration() {
@@ -184,7 +181,7 @@ abstract class BaseCheckScreen extends StatelessWidget {
             const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)));
   }
 
-  Widget _buildPlaceHolderAndShowErrorDialog(BuildContext context, ErrorType errorType) {
+  void _showErrorDialog(BuildContext context, ErrorType errorType) {
     Timer(const Duration(milliseconds: 500), () {
       String errorMessage = "";
       if (errorType == ErrorType.wrongServerResponse) {
@@ -195,6 +192,5 @@ abstract class BaseCheckScreen extends StatelessWidget {
       String title = 'error.error'.tr();
       ErrorDialog(errorMessage).show(context, title);
     });
-    return _buildPlaceholder(context);
   }
 }

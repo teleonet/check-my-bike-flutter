@@ -6,6 +6,7 @@ import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/favorite/re
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_all_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/load/load_by_name_event.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/error_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/initial_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search_loaded_state.dart';
@@ -20,6 +21,8 @@ import '../../../data/source/rest/exception/rest_exception.dart';
 import 'event/load/load_event.dart';
 import 'event/load/load_favorites_event.dart';
 import 'event/manufacturer_event.dart';
+
+enum ErrorType { unexpected, noConnected, wrongServerResponse }
 
 class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState> {
   final ManufacturerRepository _repository;
@@ -60,12 +63,20 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
 
     List<ManufacturerEntity> loadedEntities = [];
 
-    if (event is LoadAllEvent) {
-      loadedEntities = await _loadAll(currentPage, perPage);
-    } else if (event is LoadByNameEvent) {
-      loadedEntities = await _loadByName(event.query, currentPage, perPage);
-    } else if (event is LoadFavoritesEvent) {
-      loadedEntities = await _loadFavorites();
+    try {
+      if (event is LoadAllEvent) {
+        loadedEntities = await _loadAll(currentPage, perPage);
+      } else if (event is LoadByNameEvent) {
+        loadedEntities = await _loadByName(event.query, currentPage, perPage);
+      } else if (event is LoadFavoritesEvent) {
+        loadedEntities = await _loadFavorites();
+      }
+    } on RestException catch (e) {
+      _pagination = PaginationEntity();
+      _cache.clear();
+
+      emit(ErrorState(_parseErrorTypeFromRest(e)));
+      return;
     }
 
     _pagination = _checkLastPageAndBuildPagination(loadedEntities, _pagination);
@@ -109,12 +120,7 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
   }
 
   Future<List<ManufacturerEntity>> _loadByName(String query, int currentPage, int perPage) async {
-    ManufacturerEntity? entity;
-    try {
-      entity = await _repository.loadFromRestByName(query);
-    } on RestException catch (e) {
-      //ignore
-    }
+    ManufacturerEntity? entity = await _repository.loadFromRestByName(query);
     return entity != null ? await _checkFavoriteAndReturn([entity]) : [];
   }
 
@@ -147,5 +153,18 @@ class ManufacturerBloc extends IsolateBloc<ManufacturerEvent, ManufacturerState>
       return element.name == entity.name;
     });
     return foundEntities.isNotEmpty;
+  }
+
+  ErrorType _parseErrorTypeFromRest(RestException exception) {
+    ErrorType errorType = ErrorType.unexpected;
+    switch (exception.type) {
+      case RestExceptionType.wrongResponse:
+        errorType = ErrorType.wrongServerResponse;
+        break;
+      case RestExceptionType.noConnection:
+        errorType = ErrorType.noConnected;
+        break;
+    }
+    return errorType;
   }
 }

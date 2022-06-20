@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/clean_cache_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/event/initial_event.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/manufacturer_bloc.dart';
+import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/error_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/load/search_loaded_state.dart';
 import 'package:check_my_bike_flutter/domain/bloc/manufacturer/state/manufacturer_state.dart';
@@ -17,6 +20,7 @@ import '../../../../domain/bloc/manufacturer/state/progress/progress_state.dart'
 import '../../../../domain/entity/manufacturer_entity.dart';
 import '../../../../domain/entity/pagination_entity.dart';
 import '../../../../resources/colors_res.dart';
+import '../../../dialogs/error_dialog.dart';
 import '../manufacturer_item.dart';
 
 abstract class BaseManufacturerScreen extends StatelessWidget {
@@ -47,6 +51,8 @@ abstract class BaseManufacturerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return IsolateBlocBuilder<ManufacturerBloc, ManufacturerState>(builder: (context, state) {
       state is InitialState ? loadNextPage(context, _pagination) : null;
+
+      state is ErrorState ? _showErrorDialog(context, state.errorType) : null;
 
       List<Widget> widgets = buildInheritorWidgets(context);
 
@@ -82,7 +88,10 @@ abstract class BaseManufacturerScreen extends StatelessWidget {
             : const SizedBox.shrink();
       }, childCount: widgets.length + entities.length));
     }, buildWhen: (prev, next) {
-      return next is ProgressState || next is LoadedState || next is InitialState;
+      return next is ProgressState ||
+          next is LoadedState ||
+          next is InitialState ||
+          next is ErrorState;
     });
   }
 
@@ -142,5 +151,18 @@ abstract class BaseManufacturerScreen extends StatelessWidget {
 
   void initialize(BuildContext context) {
     context.isolateBloc<ManufacturerBloc, ManufacturerState>().add(InitialEvent());
+  }
+
+  void _showErrorDialog(BuildContext context, ErrorType errorType) {
+    Timer(const Duration(milliseconds: 500), () {
+      String errorMessage = "";
+      if (errorType == ErrorType.wrongServerResponse) {
+        errorMessage = 'error.wrong_response'.tr() + "\n";
+      } else if (errorType == ErrorType.noConnected) {
+        errorMessage = 'error.not_connected'.tr() + "\n";
+      }
+      String title = 'error.error'.tr();
+      ErrorDialog(errorMessage).show(context, title);
+    });
   }
 }

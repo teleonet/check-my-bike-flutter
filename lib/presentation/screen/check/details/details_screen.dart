@@ -150,7 +150,8 @@ class DetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.only(top: 75, bottom: 75),
         width: MediaQuery.of(context).size.width,
         child: Center(
-            child: Text('common.error_load_image'.tr(), style: _buildTextStyle(Colors.red))));
+            child: Text('common.error_load_image'.tr(),
+                textAlign: TextAlign.center, style: _buildTextStyle(Colors.red))));
   }
 
   Widget _buildRowOrEmpty(BuildContext context, String title, String? value,

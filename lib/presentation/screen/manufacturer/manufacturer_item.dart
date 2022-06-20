@@ -100,9 +100,10 @@ class ManufacturerItem extends StatelessWidget {
     return Container(
         decoration: _buildContainerDecoration(borderColor: ColorsRes.green, thinness: 0.1),
         padding: const EdgeInsets.only(top: 75, bottom: 75),
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width * 0.6,
         child: Center(
-            child: Text('common.error_load_image'.tr(), style: _buildTextStyle(Colors.red, 14))));
+            child: Text('common.error_load_image'.tr(),
+                textAlign: TextAlign.center, style: _buildTextStyle(Colors.red, 14))));
   }
 
   Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {

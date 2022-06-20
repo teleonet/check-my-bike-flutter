@@ -98,7 +98,8 @@ class InfoItem extends StatelessWidget {
 
   Widget _buildErrorPhotoWidget() {
     return Center(
-        child: Text('common.error_load_image'.tr(), style: _buildTextStyle(color: Colors.red)));
+        child: Text('common.error_load_image'.tr(),
+            textAlign: TextAlign.center, style: _buildTextStyle(color: Colors.red)));
   }
 
   Decoration _buildContainerDecoration({Color? borderColor, double? thinness}) {
